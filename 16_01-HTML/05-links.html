@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔗 HTML - Links e Navegação</title>
+<!-- Demonstrando diferentes tipos de links e navegação -->
+    <style>
+        * { 
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #2E3A46;
+            color: #fff;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .navegacao {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .navegacao a {
+            color: #4A90E2;
+            text-decoration: none;
+            margin: 0 15px;
+        }
+
+        .navegacao a:hover {
+            color: #7ED321;
+        }
+
+        /* ============================================================= */
+        /* = ANATOMIA DE UM LINK                                      = */
+        /* ============================================================= */
+        /* Um link HTML é composto por:
+           
+           <a href="destino" target="_blank" rel="noopener">texto</a>
+           
+           - href: destino do link (obrigatório)
+           - target: onde abrir (_blank, _self, _parent, _top)
+           - rel: relacionamento (noopener, nofollow, noreferrer)
+           - title: tooltip explicativo
+           - download: força download do arquivo
+        */
+
+        .anatomia-link {
+            background-color: #3D4146;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #F5A623;
+            margin: 20px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 16px;
+        }
+
+        .link-part {
+            display: inline-block;
+            padding: 3px 8px;
+            margin: 2px;
+            border-radius: 3px;
+        }
+
+        .tag { background-color: #4A90E2; color: #fff; }
+        .href { background-color: #7ED321; color: #2E3A46; }
+        .target { background-color: #F5A623; color: #2E3A46; }
+        .texto { background-color: #FF6B6B; color: #fff; }
+
+        /* ============================================================= */
+        /* = TIPOS DE LINKS                                           = */
+        /* ============================================================= */
+        /* Tipos principais de links:
+           
+           1. LINKS INTERNOS: Para páginas do mesmo site
+           2. LINKS EXTERNOS: Para outros sites
+           3. ÂNCORAS: Para seções da mesma página (#secao)
+           4. LINKS DE EMAIL: mailto:email@exemplo.com
+           5. LINKS DE TELEFONE: tel:+5511999999999
+           6. LINKS DE DOWNLOAD: com atributo download
+        */
+
+        .tipos-links {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .tipo-link {
+            background-color: #3D4146;
+            padding: 20px;
+            border-radius: 8px;
+            border: 2px solid #7ED321;
+        }
+
+        .tipo-link h4 {
+            color: #7ED321;
+            margin-bottom: 15px;
+        }
+
+        .tipo-link a {
+            color: #4A90E2;
+            text-decoration: none;
+            display: block;
+            margin: 8px 0;
+            padding: 8px 12px;
+            background-color: rgba(74, 144, 226, 0.1);
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .tipo-link a:hover {
+            background-color: rgba(126, 211, 33, 0.2);
+            color: #7ED321;
+        }
+
+        /* ============================================================= */
+        /* = NAVEGAÇÃO COM ÂNCORAS                                    = */
+        /* ============================================================= */
+        /* Âncoras permitem navegação dentro da mesma página:
+           
+           - href="#secao1": vai para elemento com id="secao1"
+           - href="#top": volta ao topo (convenção)
+           - href="#": link vazio (não recomendado)
+           
+           É importante usar IDs únicos e descritivos.
+        */
+
+        .menu-ancora {
+            background-color: #3D4146;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #4A90E2;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .menu-ancora a {
+            color: #4A90E2;
+            text-decoration: none;
+            margin: 0 15px;
+            padding: 8px 15px;
+            border: 1px solid #4A90E2;
+            border-radius: 20px;
+            display: inline-block;
+            margin: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .menu-ancora a:hover {
+            background-color: #4A90E2;
+            color: #2E3A46;
+        }
+
+        .secao-ancora {
+            background-color: #3D4146;
+            padding: 30px;
+            margin: 30px 0;
+            border-radius: 8px;
+            border: 2px solid #7ED321;
+            min-height: 200px;
+        }
+
+        .secao-ancora h3 {
+            color: #7ED321;
+            margin-bottom: 15px;
+        }
+
+        /* ============================================================= */
+        /* = SEGURANÇA EM LINKS                                       = */
+        /* ============================================================= */
+        /* Atributos de segurança importantes:
+           
+           - rel="noopener": previne acesso à window.opener
+           - rel="noreferrer": não envia referrer header
+           - rel="nofollow": informa que não endossa o link
+           - target="_blank": abre em nova aba (use com noopener)
+           
+           Sempre use rel="noopener" com target="_blank"!
+        */
+
+        .seguranca-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .item-seguranca {
+            background-color: #3D4146;
+            padding: 15px;
+            border-radius: 8px;
+            border: 2px solid #F5A623;
+            text-align: center;
+        }
+
+        .item-seguranca h4 {
+            color: #F5A623;
+            margin-bottom: 10px;
+        }
+
+        .item-seguranca .codigo {
+            background-color: #2E3A46;
+            padding: 8px;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            margin: 10px 0;
+        }
+
+        /* ============================================================= */
+        /* = TÍTULOS E ORGANIZAÇÃO                                    = */
+        /* ============================================================= */
+        h1, h2 {
+            text-align: center;
+            margin: 30px 0 20px 0;
+        }
+
+        h1 {
+            color: #7ED321;
+            font-size: 28px;
+        }
+
+        h2 {
+            color: #4A90E2;
+            font-size: 20px;
+            border-bottom: 2px solid #4A90E2;
+            padding-bottom: 10px;
+        }
+
+        .secao {
+            margin: 40px 0;
+        }
+
+        .codigo-exemplo {
+            background-color: #3D4146;
+            border-left: 4px solid #7ED321;
+            padding: 15px;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+            border-radius: 5px;
+            white-space: pre-wrap;
+            line-height: 1.8;
+        }
+
+        .destaque {
+            background-color: #F5A623;
+            color: #2E3A46;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+            font-weight: bold;
+        }
+
+        .importante {
+            background-color: rgba(255, 107, 107, 0.2);
+            border: 1px solid #FF6B6B;
+            color: #FF6B6B;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+
+        .dica {
+            background-color: rgba(126, 211, 33, 0.2);
+            border: 1px solid #7ED321;
+            color: #7ED321;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+
+        /* Volta ao topo fixo */
+        .volta-topo {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #4A90E2;
+            color: #fff;
+            padding: 10px 15px;
+            border-radius: 50%;
+            text-decoration: none;
+            font-size: 18px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+        }
+
+        .volta-topo:hover {
+            background-color: #7ED321;
+            transform: translateY(-3px);
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="navegacao">
+    <a href="index.html">🏠 Início</a>
+    <a href="04-textos-listas.html">⬅️ Anterior</a>
+    <a href="06-imagens.html">➡️ Próximo</a>
+</div>
+
+<h1 id="topo">🔗 Links e Navegação</h1>
+
+<div class="secao">
+    <h2>🔍 Anatomia de um Link</h2>
+    
+    <div class="anatomia-link">
+        <div style="margin-bottom: 20px;">
+            <span class="tag">&lt;a</span>
+            <span class="href">href="https://google.com"</span>
+            <span class="target">target="_blank"</span>
+            <span class="href">rel="noopener"</span>
+            <span class="tag">&gt;</span>
+            <span class="texto">Ir para Google</span>
+            <span class="tag">&lt;/a&gt;</span>
+        </div>
+        
+        <div style="font-size: 12px; color: #888;">
+            ⬆️ TAG | ⬆️ DESTINO | ⬆️ ONDE ABRIR | ⬆️ SEGURANÇA | ⬆️ TEXTO VISÍVEL
+        </div>
+    </div>
+
+    <div class="codigo-exemplo">
+&lt;!-- Link básico --&gt;
+&lt;a href="pagina.html"&gt;Link interno&lt;/a&gt;
+
+&lt;!-- Link externo seguro --&gt;
+&lt;a href="https://google.com" target="_blank" rel="noopener"&gt;
+    Google (nova aba)
+&lt;/a&gt;
+
+&lt;!-- Link com tooltip --&gt;
+&lt;a href="sobre.html" title="Saiba mais sobre nós"&gt;
+    Sobre
+&lt;/a&gt;
+    </div>
+</div>
+
+<div class="secao">
+    <h2>🎯 Tipos de Links</h2>
+    
+    <div class="tipos-links">
+        <div class="tipo-link">
+            <h4>🏠 Links Internos</h4>
+            <a href="index.html">Portal Principal</a>
+            <a href="03-estrutura-html.html">Estrutura HTML</a>
+            <a href="../16_02-CSS/index.html">Aula CSS</a>
+            <div class="codigo-exemplo">
+&lt;a href="pagina.html"&gt;Mesma pasta&lt;/a&gt;
+&lt;a href="../pasta/arquivo.html"&gt;Pasta pai&lt;/a&gt;
+&lt;a href="/raiz/pagina.html"&gt;Raiz do site&lt;/a&gt;
+            </div>
+        </div>
+
+        <div class="tipo-link">
+            <h4>🌐 Links Externos</h4>
+            <a href="https://developer.mozilla.org" target="_blank" rel="noopener">MDN Web Docs</a>
+            <a href="https://w3schools.com" target="_blank" rel="noopener">W3Schools</a>
+            <a href="https://github.com" target="_blank" rel="noopener">GitHub</a>
+            <div class="codigo-exemplo">
+&lt;a href="https://site.com" 
+   target="_blank" 
+   rel="noopener"&gt;
+   Site Externo
+&lt;/a&gt;
+            </div>
+        </div>
+
+        <div class="tipo-link">
+            <h4>⚓ Âncoras</h4>
+            <a href="#anatomia">Anatomia do Link</a>
+            <a href="#tipos">Tipos de Links</a>
+            <a href="#seguranca">Segurança</a>
+            <a href="#topo">Voltar ao Topo</a>
+            <div class="codigo-exemplo">
+&lt;a href="#secao1"&gt;Ir para Seção 1&lt;/a&gt;
+&lt;a href="#top"&gt;Voltar ao Topo&lt;/a&gt;
+
+&lt;h2 id="secao1"&gt;Seção 1&lt;/h2&gt;
+            </div>
+        </div>
+
+        <div class="tipo-link">
+            <h4>📧 Links Especiais</h4>
+            <a href="mailto:contato@exemplo.com">Enviar E-mail</a>
+            <a href="tel:+5511999999999">Ligar: (11) 99999-9999</a>
+            <a href="https://wa.me/5511999999999" target="_blank" rel="noopener">WhatsApp</a>
+            <div class="codigo-exemplo">
+&lt;a href="mailto:email@site.com"&gt;E-mail&lt;/a&gt;
+&lt;a href="tel:+5511999999999"&gt;Telefone&lt;/a&gt;
+&lt;a href="sms:+5511999999999"&gt;SMS&lt;/a&gt;
+            </div>
+        </div>
+
+        <div class="tipo-link">
+            <h4>💾 Links de Download</h4>
+            <a href="images/exemplo.jpg" download>Download Imagem</a>
+            <a href="#" onclick="alert('Arquivo PDF fictício')">Manual PDF</a>
+            <div class="codigo-exemplo">
+&lt;a href="arquivo.pdf" download&gt;
+   Baixar PDF
+&lt;/a&gt;
+
+&lt;a href="doc.pdf" 
+   download="manual-usuario.pdf"&gt;
+   Baixar com novo nome
+&lt;/a&gt;
+            </div>
+        </div>
+
+        <div class="tipo-link">
+            <h4>🎨 Links Estilizados</h4>
+            <a href="#" style="color: #7ED321; font-weight: bold;">Link Verde</a>
+            <a href="#" style="color: #F5A623; text-decoration: underline;">Link Laranja</a>
+            <a href="#" style="background: #4A90E2; color: white; padding: 5px 10px; border-radius: 5px;">Botão Link</a>
+            <div class="codigo-exemplo">
+&lt;a href="#" class="botao"&gt;Link Botão&lt;/a&gt;
+
+.botao {
+    background: #4A90E2;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+}
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="secao" id="navegacao-ancora">
+    <h2>⚓ Navegação com Âncoras</h2>
+    
+    <div class="menu-ancora">
+        <h3 style="color: #7ED321; margin-bottom: 15px;">Menu de Navegação Interna</h3>
+        <a href="#secao-a">Seção A</a>
+        <a href="#secao-b">Seção B</a>
+        <a href="#secao-c">Seção C</a>
+        <a href="#topo">Voltar ao Topo</a>
+    </div>
+
+    <div class="secao-ancora" id="secao-a">
+        <h3>📍 Seção A - Introdução</h3>
+        <p>Esta é a Seção A. As âncoras permitem navegação rápida dentro da mesma página. Cada seção tem um ID único que pode ser referenciado por links.</p>
+        <div class="codigo-exemplo">
+&lt;!-- No menu --&gt;
+&lt;a href="#secao-a"&gt;Ir para Seção A&lt;/a&gt;
+
+&lt;!-- Na seção --&gt;
+&lt;div id="secao-a"&gt;
+    &lt;h3&gt;Seção A&lt;/h3&gt;
+    &lt;p&gt;Conteúdo da seção...&lt;/p&gt;
+&lt;/div&gt;
+        </div>
+    </div>
+
+    <div class="secao-ancora" id="secao-b">
+        <h3>📍 Seção B - Desenvolvimento</h3>
+        <p>Esta é a Seção B. Use IDs descritivos e únicos. Evite caracteres especiais e espaços nos IDs.</p>
+        <div class="dica">
+            <strong>💡 Boas práticas para IDs:</strong><br>
+            ✅ Use hífen: <code>secao-sobre</code><br>
+            ✅ Seja descritivo: <code>formulario-contato</code><br>
+            ❌ Evite espaços: <code>minha secao</code><br>
+            ❌ Evite acentos: <code>seção</code>
+        </div>
+    </div>
+
+    <div class="secao-ancora" id="secao-c">
+        <h3>📍 Seção C - Conclusão</h3>
+        <p>Esta é a Seção C. A navegação por âncoras é útil para páginas longas, FAQ, documentação e índices.</p>
+        <div class="destaque">
+            <strong>🚀 Casos de uso:</strong> Documentação técnica, FAQs, páginas de produtos longas, portfólios, sites one-page.
+        </div>
+    </div>
+</div>
+
+<div class="secao" id="seguranca">
+    <h2>🛡️ Segurança em Links</h2>
+    
+    <div class="codigo-exemplo">
+&lt;!-- ❌ PERIGOSO - Link externo sem proteção --&gt;
+&lt;a href="https://site-externo.com" target="_blank"&gt;
+    Link Inseguro
+&lt;/a&gt;
+
+&lt;!-- ✅ SEGURO - Link externo com proteção --&gt;
+&lt;a href="https://site-externo.com" 
+   target="_blank" 
+   rel="noopener noreferrer"&gt;
+    Link Seguro
+&lt;/a&gt;
+
+&lt;!-- ✅ MELHOR AINDA - Com título descritivo --&gt;
+&lt;a href="https://developer.mozilla.org" 
+   target="_blank" 
+   rel="noopener noreferrer"
+   title="Abre a documentação da MDN em nova aba"&gt;
+    Documentação MDN
+&lt;/a&gt;
+    </div>
+
+    <div class="seguranca-grid">
+        <div class="item-seguranca">
+            <h4>noopener</h4>
+            <div class="codigo">rel="noopener"</div>
+            <p>Previne que a nova página acesse a janela original via JavaScript</p>
+        </div>
+
+        <div class="item-seguranca">
+            <h4>noreferrer</h4>
+            <div class="codigo">rel="noreferrer"</div>
+            <p>Não envia informações sobre a página de origem (referrer)</p>
+        </div>
+
+        <div class="item-seguranca">
+            <h4>nofollow</h4>
+            <div class="codigo">rel="nofollow"</div>
+            <p>Informa aos motores de busca que não endossa o link</p>
+        </div>
+
+        <div class="item-seguranca">
+            <h4>Combinação</h4>
+            <div class="codigo">rel="noopener noreferrer nofollow"</div>
+            <p>Use múltiplos valores separados por espaço</p>
+        </div>
+    </div>
+
+    <div class="importante">
+        <strong>⚠️ Regra de Ouro:</strong> SEMPRE use <code>rel="noopener"</code> quando usar <code>target="_blank"</code>. Isso previne ataques de tabnabbing!
+    </div>
+</div>
+
+<div class="secao">
+    <h2>✨ Exemplo Prático Completo</h2>
+    
+    <div class="codigo-exemplo">
+&lt;!DOCTYPE html&gt;
+&lt;html lang="pt-BR"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title&gt;Exemplo de Links&lt;/title&gt;
+    &lt;style&gt;
+        .menu {
+            background: #f0f0f0;
+            padding: 15px;
+            text-align: center;
+        }
+        .menu a {
+            margin: 0 15px;
+            text-decoration: none;
+            color: #333;
+            padding: 8px 15px;
+            border-radius: 5px;
+        }
+        .menu a:hover {
+            background: #ddd;
+        }
+        .botao {
+            background: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            display: inline-block;
+            margin: 10px 5px;
+        }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;nav class="menu"&gt;
+        &lt;a href="#home"&gt;Início&lt;/a&gt;
+        &lt;a href="#sobre"&gt;Sobre&lt;/a&gt;
+        &lt;a href="#contato"&gt;Contato&lt;/a&gt;
+        &lt;a href="https://github.com" target="_blank" rel="noopener"&gt;
+            GitHub
+        &lt;/a&gt;
+    &lt;/nav&gt;
+
+    &lt;main&gt;
+        &lt;section id="home"&gt;
+            &lt;h1&gt;Bem-vindos&lt;/h1&gt;
+            &lt;p&gt;Site com navegação por âncoras&lt;/p&gt;
+        &lt;/section&gt;
+
+        &lt;section id="contato"&gt;
+            &lt;h2&gt;Contatos&lt;/h2&gt;
+            &lt;a href="mailto:contato@site.com" class="botao"&gt;
+                📧 E-mail
+            &lt;/a&gt;
+            &lt;a href="tel:+5511999999999" class="botao"&gt;
+                📞 Telefone
+            &lt;/a&gt;
+        &lt;/section&gt;
+    &lt;/main&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+    </div>
+</div>
+
+<!-- Botão fixo volta ao topo -->
+<a href="#topo" class="volta-topo" title="Voltar ao topo">↑</a>
+
+<br><br>
+<div class="navegacao">
+    <a href="index.html">🏠 Início</a>
+    <a href="04-textos-listas.html">⬅️ Anterior</a>
+    <a href="06-imagens.html">➡️ Próximo</a>
+</div>
+
+<hr style="border-color: #4A90E2; margin: 20px 0;">
+<p style="text-align: center; color: #4A90E2;">Dev by <strong>Maugus</strong> em HTML puro 📙</p>
+
+</body>
+</html> 

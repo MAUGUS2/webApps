@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Parte 2 - Aplicações Web e Móveis</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- Sistema de Design Unificado -->
+    <link rel="stylesheet" href="../shared/design-system.css">
+    <link rel="stylesheet" href="../shared/navigation.css">
+    
+    <!-- Tema Dracula Pro Dark para JavaScript -->
+    <style>
+        :root {
+            /* Ultra Dark Minimalist Theme */
+            --ultra-bg: #0a0a0a;
+            --ultra-bg-alt: #111111;
+            --ultra-card: #1a1a1a;
+            --ultra-border: #222222;
+            --ultra-hover: #252525;
+            --ultra-text: #e6e6e6;
+            --ultra-text-muted: #999999;
+            --ultra-text-dim: #666666;
+            
+            /* Accent colors - mais sutis */
+            --accent-primary: #8b7cf8;
+            --accent-secondary: #64748b;
+            --accent-success: #22c55e;
+            --accent-warning: #f59e0b;
+            --accent-info: #3b82f6;
+        }
+        
+        /* Ultra dark minimalist background */
+        body {
+            background: var(--ultra-bg);
+            color: var(--ultra-text);
+            min-height: 100vh;
+            font-weight: 400;
+            /* Remover padding das barras de navegação global */
+            padding-top: 0 !important;
+            padding-bottom: 0 !important;
+        }
+        
+        /* Ocultar barras de navegação global para foco no conteúdo */
+        .global-progress {
+            display: none !important;
+        }
+        
+        .course-nav {
+            display: none !important;
+        }
+        
+        .breadcrumbs {
+            display: none !important;
+        }
+        
+        /* Container com layout focado */
+        .container {
+            background: transparent;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--spacing-4);
+        }
+        
+        /* Main content sem distrações */
+        main {
+            padding: var(--spacing-4) 0;
+        }
+        
+        /* Header ultra minimalista */
+        .header {
+            background: var(--ultra-bg-alt);
+            color: var(--ultra-text);
+            border-bottom: 1px solid var(--ultra-border);
+            padding: var(--spacing-5) 0;
+            margin-bottom: var(--spacing-5);
+        }
+        
+        .header h1 {
+            color: var(--ultra-text);
+            font-size: var(--font-size-3xl);
+            font-weight: 300;
+            margin: 0;
+            letter-spacing: -0.025em;
+        }
+        
+        .header .subtitle {
+            color: var(--ultra-text-muted);
+            font-size: var(--font-size-lg);
+            font-weight: 300;
+            margin-top: var(--spacing-2);
+        }
+        
+        /* Cards ultra minimalistas */
+        .topic-card {
+            background: var(--ultra-card);
+            border: 1px solid var(--ultra-border);
+            text-decoration: none;
+            color: var(--ultra-text);
+            transition: all 0.2s ease;
+            position: relative;
+        }
+        
+        .topic-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--accent-primary);
+            opacity: 0.6;
+        }
+        
+        .topic-card:hover {
+            background: var(--ultra-hover);
+            border-color: var(--accent-primary);
+            transform: translateY(-2px);
+        }
+        
+        /* Header do card reorganizado */
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-4);
+            margin-bottom: var(--spacing-4);
+        }
+        
+        .topic-number {
+            background: var(--accent-primary);
+            color: var(--ultra-bg);
+            width: 36px;
+            height: 36px;
+            border-radius: var(--border-radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: var(--font-size-base);
+            font-weight: 500;
+            flex-shrink: 0;
+        }
+        
+        .card-icon {
+            background: var(--ultra-border);
+            color: var(--ultra-text-muted);
+            width: 36px;
+            height: 36px;
+            border-radius: var(--border-radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: var(--font-size-lg);
+            flex-shrink: 0;
+        }
+        
+        .card-title-wrapper {
+            flex: 1;
+            min-width: 0;
+        }
+        
+        .card-title {
+            color: var(--ultra-text);
+            margin: 0;
+            font-size: var(--font-size-lg);
+            font-weight: 400;
+            line-height: 1.3;
+            letter-spacing: -0.01em;
+        }
+        
+        .card-subtitle {
+            color: var(--ultra-text-muted);
+            font-size: var(--font-size-sm);
+            margin-top: var(--spacing-1);
+            font-weight: 300;
+        }
+        
+        .card-description {
+            color: var(--ultra-text-muted);
+            line-height: 1.5;
+            margin-bottom: var(--spacing-4);
+            font-weight: 300;
+        }
+        
+        .topic-content {
+            font-size: var(--font-size-sm);
+            color: var(--ultra-text-dim);
+            padding-top: var(--spacing-3);
+            border-top: 1px solid var(--ultra-border);
+            font-weight: 300;
+        }
+        
+        /* Cards completados - minimalista */
+        .topic-card.completed {
+            border-color: var(--accent-success);
+            background: var(--ultra-hover);
+        }
+        
+        .topic-card.completed::before {
+            background: var(--accent-success);
+            opacity: 1;
+        }
+        
+        .topic-card.completed .topic-number {
+            background: var(--accent-success);
+            color: var(--ultra-bg);
+        }
+        
+        .topic-card.completed::after {
+            content: '✓';
+            position: absolute;
+            top: var(--spacing-3);
+            right: var(--spacing-3);
+            width: 20px;
+            height: 20px;
+            background: var(--accent-success);
+            color: var(--ultra-bg);
+            border-radius: var(--border-radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 500;
+            font-size: var(--font-size-xs);
+        }
+        
+        /* Seção de introdução escura */
+        .lesson-intro {
+            background: var(--dracula-current-line);
+            border: 1px solid rgba(189, 147, 249, 0.2);
+            border-radius: var(--border-radius-lg);
+            padding: var(--spacing-6);
+            margin-bottom: var(--spacing-8);
+            position: relative;
+        }
+        
+        .lesson-intro h2 {
+            color: var(--dracula-purple);
+            margin-bottom: var(--spacing-4);
+        }
+        
+        .lesson-intro h3 {
+            color: var(--dracula-pink);
+            margin: var(--spacing-4) 0;
+        }
+        
+        .lesson-intro p {
+            color: var(--dracula-fg);
+            margin-bottom: var(--spacing-3);
+        }
+        
+        /* Lista de habilidades escura */
+        .skills-list {
+            list-style: none;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--spacing-2);
+            margin-top: var(--spacing-4);
+        }
+        
+        .skills-list li {
+            background: var(--dracula-bg-light);
+            padding: var(--spacing-2) var(--spacing-3);
+            border-radius: var(--border-radius-md);
+            border-left: 3px solid var(--dracula-purple);
+            font-size: var(--font-size-sm);
+            color: var(--dracula-fg);
+            transition: all 0.2s ease;
+        }
+        
+        .skills-list li:hover {
+            transform: translateX(3px);
+            border-left-color: var(--dracula-pink);
+            box-shadow: 0 2px 8px rgba(189, 147, 249, 0.2);
+            background: var(--dracula-bg-lighter);
+        }
+        
+        .skills-list li::before {
+            content: '⚡ ';
+            margin-right: var(--spacing-1);
+            color: var(--dracula-cyan);
+        }
+        
+        /* Estatísticas mais sutis */
+        .lesson-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: var(--spacing-4);
+            margin: var(--spacing-6) 0;
+        }
+        
+        .stat-card {
+            background: var(--ultra-card);
+            padding: var(--spacing-4);
+            border-radius: var(--border-radius-md);
+            text-align: center;
+            border: 1px solid var(--ultra-border);
+            transition: all 0.2s ease;
+        }
+        
+        .stat-card:hover {
+            background: var(--ultra-hover);
+            border-color: var(--accent-primary);
+        }
+        
+        .stat-number {
+            font-size: var(--font-size-xl);
+            font-weight: 300;
+            color: var(--accent-primary);
+            display: block;
+        }
+        
+        .stat-label {
+            font-size: var(--font-size-sm);
+            color: var(--ultra-text-muted);
+            margin-top: var(--spacing-1);
+            font-weight: 300;
+        }
+        
+        /* Progresso mais sutil */
+        .lesson-progress {
+            margin: var(--spacing-6) 0;
+        }
+        
+        .lesson-progress h2 {
+            color: var(--dracula-fg);
+            font-size: var(--font-size-xl);
+        }
+        
+        .progress {
+            background: var(--dracula-current-line);
+            border-radius: var(--border-radius-full);
+            overflow: hidden;
+            height: 8px;
+        }
+        
+        .progress-bar {
+            background: linear-gradient(90deg, var(--dracula-purple), var(--dracula-pink));
+            height: 100%;
+            border-radius: var(--border-radius-full);
+            transition: width 0.5s ease;
+        }
+        
+        .lesson-progress p {
+            color: var(--dracula-comment);
+            font-size: var(--font-size-sm);
+        }
+        
+        /* Botões mais sutis */
+        .btn-primary {
+            background: linear-gradient(135deg, var(--dracula-purple), var(--dracula-pink));
+            border: none;
+            color: white;
+            transition: all 0.3s ease;
+            padding: var(--spacing-3) var(--spacing-6);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 15px rgba(189, 147, 249, 0.3);
+        }
+        
+        .btn-secondary {
+            background: var(--dracula-current-line);
+            border: 1px solid var(--dracula-comment);
+            color: var(--dracula-fg);
+            padding: var(--spacing-3) var(--spacing-6);
+        }
+        
+        .btn-secondary:hover {
+            background: var(--dracula-bg-light);
+            border-color: var(--dracula-purple);
+            transform: translateY(-1px);
+        }
+        
+        /* Alerta minimalista */
+        .alert-info {
+            background: var(--ultra-card);
+            border: 1px solid var(--accent-info);
+            color: var(--ultra-text);
+            border-radius: var(--border-radius-md);
+            padding: var(--spacing-4);
+            border-left: 3px solid var(--accent-info);
+        }
+        
+        .alert-info span {
+            color: var(--accent-info);
+            font-size: var(--font-size-base);
+        }
+        
+        /* Navegação interna da aula */
+        .lesson-navigation {
+            background: var(--ultra-card);
+            border: 1px solid var(--ultra-border);
+            border-radius: var(--border-radius-md);
+            padding: var(--spacing-5);
+            margin-top: var(--spacing-6);
+        }
+        
+        .nav-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--spacing-4);
+        }
+        
+        .nav-title {
+            color: var(--ultra-text);
+            font-size: var(--font-size-lg);
+            font-weight: 400;
+        }
+        
+        .progress-info {
+            color: var(--ultra-text-muted);
+            font-size: var(--font-size-sm);
+            font-weight: 300;
+        }
+        
+        .topic-navigation {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--spacing-3);
+            margin-bottom: var(--spacing-4);
+        }
+        
+        .topic-nav-item {
+            background: var(--ultra-bg-alt);
+            border: 1px solid var(--ultra-border);
+            border-radius: var(--border-radius-md);
+            padding: var(--spacing-3);
+            text-decoration: none;
+            color: var(--ultra-text);
+            transition: all 0.2s ease;
+            display: block;
+        }
+        
+        .topic-nav-item:hover {
+            background: var(--ultra-hover);
+            border-color: var(--accent-primary);
+        }
+        
+        .topic-nav-item.completed {
+            border-left: 3px solid var(--accent-success);
+        }
+        
+        .topic-nav-item.current {
+            border-left: 3px solid var(--accent-primary);
+        }
+        
+        .topic-nav-number {
+            color: var(--accent-primary);
+            font-weight: 400;
+            font-size: var(--font-size-xs);
+        }
+        
+        .topic-nav-title {
+            font-size: var(--font-size-sm);
+            margin-top: var(--spacing-1);
+            font-weight: 300;
+        }
+        
+        .lesson-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: var(--spacing-4);
+            border-top: 1px solid rgba(189, 147, 249, 0.1);
+        }
+        
+        /* Grid de tópicos */
+        .topics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: var(--spacing-6);
+        }
+        
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .lesson-actions {
+                flex-direction: column;
+                gap: var(--spacing-3);
+                text-align: center;
+            }
+            
+            .nav-header {
+                flex-direction: column;
+                gap: var(--spacing-2);
+                text-align: center;
+            }
+            
+            .topic-navigation {
+                grid-template-columns: 1fr;
+            }
+            
+            .topics-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .lesson-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .lesson-stats {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Scrollbar personalizada para tema escuro */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: var(--dracula-bg-alt);
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: var(--dracula-current-line);
+            border-radius: 3px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--dracula-purple);
+        }
+    </style>
+</head>
+<body data-lesson="16_06-JAVASCRIPT_2" data-topic="index">
+    <!-- Header Principal -->
+    <header class="header">
+        <div class="container">
+            <h1>⚙️ JavaScript - Parte 2</h1>
+            <p class="subtitle">Estruturas de Dados, DOM e Interatividade</p>
+        </div>
+    </header>
+
+    <!-- Conteúdo Principal -->
+    <main class="container">
+        <!-- Introdução da Aula -->
+        <section class="lesson-intro">
+            <h2>🎯 Objetivos da Aula</h2>
+            <p>
+                Nesta segunda parte do JavaScript, vamos aprofundar nossos conhecimentos em manipulação de dados,
+                interação com o navegador e criação de páginas web dinâmicas e interativas.
+            </p>
+            <p>
+                <strong>Duração estimada:</strong> 5-6 horas | 
+                <strong>Dificuldade:</strong> Intermediário | 
+                <strong>Pré-requisitos:</strong> JavaScript Parte 1
+            </p>
+            
+            <h3>🚀 Habilidades que você vai desenvolver:</h3>
+            <ul class="skills-list">
+                <li>Manipular objetos e arrays complexos</li>
+                <li>Criar e usar diferentes tipos de funções</li>
+                <li>Interagir com o Browser Object Model (BOM)</li>
+                <li>Manipular o Document Object Model (DOM)</li>
+                <li>Implementar sistemas de eventos avançados</li>
+                <li>Criar interfaces dinâmicas e responsivas</li>
+            </ul>
+        </section>
+
+        <!-- Estatísticas da Aula -->
+        <section class="lesson-stats">
+            <div class="stat-card">
+                <span class="stat-number">5</span>
+                <span class="stat-label">Tópicos</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number">20+</span>
+                <span class="stat-label">Exercícios</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number">15</span>
+                <span class="stat-label">Demos Interativas</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number">100%</span>
+                <span class="stat-label">Prático</span>
+            </div>
+        </section>
+
+        <!-- Progresso da Aula -->
+        <section class="lesson-progress">
+            <h2 class="text-center mb-4">📊 Seu Progresso</h2>
+            <div class="progress">
+                <div class="progress-bar" id="lesson-progress" style="width: 0%"></div>
+            </div>
+            <p class="text-center mt-2" id="progress-text">0% Concluído</p>
+        </section>
+
+        <!-- Grade de Tópicos -->
+        <section class="topics-grid">
+            <!-- Tópico 1: Tipos de Dados -->
+            <a href="01-tipos-dados.html" class="card topic-card" data-topic="01-tipos-dados">
+                <div class="card-header">
+                    <div class="topic-number">1</div>
+                    <div class="card-icon">📊</div>
+                    <div class="card-title-wrapper">
+                        <h3 class="card-title">Tipos de Dados Avançados</h3>
+                        <div class="card-subtitle">Objects, Arrays, Métodos</div>
+                    </div>
+                </div>
+                <p class="card-description">
+                    Domine objetos e arrays complexos, aprenda métodos de manipulação e 
+                    técnicas avançadas de estruturação de dados.
+                </p>
+                <div class="topic-content">
+                    <strong>Conteúdo:</strong> Objects, Arrays, Métodos, Propriedades
+                </div>
+            </a>
+
+            <!-- Tópico 2: Funções -->
+            <a href="02-funcoes.html" class="card topic-card" data-topic="02-funcoes">
+                <div class="card-header">
+                    <div class="topic-number">2</div>
+                    <div class="card-icon">⚡</div>
+                    <div class="card-title-wrapper">
+                        <h3 class="card-title">Funções Avançadas</h3>
+                        <div class="card-subtitle">Arrow Functions, Callbacks</div>
+                    </div>
+                </div>
+                <p class="card-description">
+                    Explore diferentes tipos de funções, escopo, closures e técnicas 
+                    avançadas de programação funcional.
+                </p>
+                <div class="topic-content">
+                    <strong>Conteúdo:</strong> Arrow Functions, Callbacks, Closures, Scope
+                </div>
+            </a>
+
+            <!-- Tópico 3: BOM -->
+            <a href="03-bom.html" class="card topic-card" data-topic="03-bom">
+                <div class="card-header">
+                    <div class="topic-number">3</div>
+                    <div class="card-icon">🌐</div>
+                    <div class="card-title-wrapper">
+                        <h3 class="card-title">Browser Object Model (BOM)</h3>
+                        <div class="card-subtitle">Window, Location, Navigator</div>
+                    </div>
+                </div>
+                <p class="card-description">
+                    Aprenda a interagir com o navegador: janelas, histórico, localização 
+                    e informações do sistema.
+                </p>
+                <div class="topic-content">
+                    <strong>Conteúdo:</strong> Window, Location, Navigator, History
+                </div>
+            </a>
+
+            <!-- Tópico 4: DOM -->
+            <a href="04-dom.html" class="card topic-card" data-topic="04-dom">
+                <div class="card-header">
+                    <div class="topic-number">4</div>
+                    <div class="card-icon">🏗️</div>
+                    <div class="card-title-wrapper">
+                        <h3 class="card-title">Document Object Model (DOM)</h3>
+                        <div class="card-subtitle">Seletores, Manipulação</div>
+                    </div>
+                </div>
+                <p class="card-description">
+                    Manipule elementos HTML dinamicamente: seleção, modificação, 
+                    criação e remoção de elementos.
+                </p>
+                <div class="topic-content">
+                    <strong>Conteúdo:</strong> Seletores, Manipulação, Criação, Remoção
+                </div>
+            </a>
+
+            <!-- Tópico 5: Eventos -->
+            <a href="05-eventos.html" class="card topic-card" data-topic="05-eventos">
+                <div class="card-header">
+                    <div class="topic-number">5</div>
+                    <div class="card-icon">🎯</div>
+                    <div class="card-title-wrapper">
+                        <h3 class="card-title">Eventos e Interatividade</h3>
+                        <div class="card-subtitle">Event Listeners, Propagação</div>
+                    </div>
+                </div>
+                <p class="card-description">
+                    Crie interfaces interativas com sistema completo de eventos, 
+                    propagação e manipulação avançada.
+                </p>
+                <div class="topic-content">
+                    <strong>Conteúdo:</strong> Event Listeners, Propagação, preventDefault
+                </div>
+            </a>
+        </section>
+
+        <!-- Alerta de Informações -->
+        <div class="alert alert-info">
+            <span>💡</span>
+            <div>
+                <strong>Dica de Estudo:</strong> Esta aula contém muitos exemplos práticos. 
+                Recomendamos que você teste todos os códigos em seu editor preferido e 
+                experimente modificações para consolidar o aprendizado.
+            </div>
+        </div>
+
+        <!-- Navegação Interna da Aula -->
+        <nav class="lesson-navigation">
+            <div class="nav-header">
+                <h3 class="nav-title">Navegação da Aula</h3>
+                <div class="progress-info">
+                    <span id="topics-completed">0</span> de 5 tópicos concluídos
+                </div>
+            </div>
+            
+            <div class="topic-navigation">
+                <a href="01-tipos-dados.html" class="topic-nav-item" data-topic="01-tipos-dados">
+                    <div class="topic-nav-number">Tópico 1</div>
+                    <div class="topic-nav-title">Tipos de Dados</div>
+                </a>
+                <a href="02-funcoes.html" class="topic-nav-item" data-topic="02-funcoes">
+                    <div class="topic-nav-number">Tópico 2</div>
+                    <div class="topic-nav-title">Funções</div>
+                </a>
+                <a href="03-bom.html" class="topic-nav-item" data-topic="03-bom">
+                    <div class="topic-nav-number">Tópico 3</div>
+                    <div class="topic-nav-title">BOM</div>
+                </a>
+                <a href="04-dom.html" class="topic-nav-item" data-topic="04-dom">
+                    <div class="topic-nav-number">Tópico 4</div>
+                    <div class="topic-nav-title">DOM</div>
+                </a>
+                <a href="05-eventos.html" class="topic-nav-item" data-topic="05-eventos">
+                    <div class="topic-nav-number">Tópico 5</div>
+                    <div class="topic-nav-title">Eventos</div>
+                </a>
+            </div>
+            
+            <div class="lesson-actions">
+                <a href="../16_05-JAVASCRIPT_1/index.html" class="btn btn-secondary">
+                    ← Aula Anterior
+                </a>
+                <a href="01-tipos-dados.html" class="btn btn-primary">
+                    Começar Aula →
+                </a>
+            </div>
+        </nav>
+    </main>
+
+    <!-- Scripts -->
+    <script src="../shared/navigation.js"></script>
+    
+    <!-- Scripts específicos da página -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Controle de progresso da aula
+            const topics = ['01-tipos-dados', '02-funcoes', '03-bom', '04-dom', '05-eventos'];
+            const lessonId = '16_06-JAVASCRIPT_2';
+            
+            function updateLessonProgress() {
+                const progress = window.Storage ? window.Storage.getProgress() : {};
+                const lessonProgress = progress[lessonId] || {};
+                
+                let completed = 0;
+                topics.forEach(topicId => {
+                    if (lessonProgress[topicId]) {
+                        completed++;
+                        // Marcar card como concluído
+                        const card = document.querySelector(`[data-topic="${topicId}"]`);
+                        if (card) {
+                            card.classList.add('completed');
+                        }
+                        // Marcar item de navegação como concluído
+                        const navItem = document.querySelector(`.topic-nav-item[data-topic="${topicId}"]`);
+                        if (navItem) {
+                            navItem.classList.add('completed');
+                        }
+                    }
+                });
+                
+                const percentage = Math.round((completed / topics.length) * 100);
+                
+                // Atualizar barra de progresso
+                const progressBar = document.getElementById('lesson-progress');
+                const progressText = document.getElementById('progress-text');
+                const topicsCompleted = document.getElementById('topics-completed');
+                
+                if (progressBar) progressBar.style.width = percentage + '%';
+                if (progressText) progressText.textContent = percentage + '% Concluído';
+                if (topicsCompleted) topicsCompleted.textContent = completed;
+            }
+            
+            // Animação dos cards
+            const cards = document.querySelectorAll('.topic-card');
+            cards.forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(15px)';
+                
+                setTimeout(() => {
+                    card.style.transition = 'all 0.4s ease';
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, index * 80);
+            });
+            
+            // Atualizar progresso
+            updateLessonProgress();
+            
+            // Animação das estatísticas
+            setTimeout(() => {
+                const statNumbers = document.querySelectorAll('.stat-number');
+                statNumbers.forEach(stat => {
+                    const finalValue = stat.textContent.replace(/[^0-9]/g, '');
+                    if (finalValue) {
+                        let current = 0;
+                        const increment = Math.ceil(finalValue / 20);
+                        const timer = setInterval(() => {
+                            current += increment;
+                            if (current >= finalValue) {
+                                current = finalValue;
+                                clearInterval(timer);
+                                stat.textContent = stat.textContent.replace(/[0-9]+/, finalValue);
+                            } else {
+                                stat.textContent = stat.textContent.replace(/[0-9]+/, current);
+                            }
+                        }, 60);
+                    }
+                });
+            }, 400);
+            
+            // Log de debug
+            console.log('🧛‍♂️ JavaScript Parte 2 - Dracula Pro Dark Theme (Refined)!');
+            console.log('📋 Tópicos:', topics);
+            console.log('🎯 Lesson ID:', lessonId);
+        });
+    </script>
+</body>
+</html>

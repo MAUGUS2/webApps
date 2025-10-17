@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌐 HTML - Conceitos Iniciais</title>
+<!-- Usando HTML puro para demonstrar conceitos fundamentais -->
+    <style>
+        * { 
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #2E3A46;
+            color: #fff;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .navegacao {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .navegacao a {
+            color: #4A90E2;
+            text-decoration: none;
+            margin: 0 15px;
+        }
+
+        .navegacao a:hover {
+            color: #7ED321;
+        }
+
+        /* ============================================================= */
+        /* = HISTÓRIA DO HTML                                         = */
+        /* ============================================================= */
+        /* HTML (HyperText Markup Language) nasceu em 1990 com Tim Berners-Lee
+           no CERN. Foi inspirado por conceitos anteriores:
+           
+           - 1945: Vannevar Bush propôs o "Memex"
+           - 1960: Ted Nelson criou o termo "hipertexto" 
+           - 1990: Tim Berners-Lee criou o HTML baseado em SGML
+           
+           O HTML permite criar documentos estruturados com links
+           que conectam diferentes páginas e recursos.
+        */
+
+        .linha-tempo {
+            background-color: #3D4146;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            border-left: 4px solid #4A90E2;
+        }
+
+        .ano {
+            background-color: #4A90E2;
+            color: #fff;
+            padding: 8px 15px;
+            border-radius: 20px;
+            display: inline-block;
+            margin: 10px 0;
+            font-weight: bold;
+        }
+
+        .personagem {
+            background-color: #7ED321;
+            color: #2E3A46;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+            font-weight: bold;
+        }
+
+        /* ============================================================= */
+        /* = TERMOS ATUAIS                                            = */
+        /* ============================================================= */
+        /* No desenvolvimento web moderno usamos termos específicos:
+           
+           - FRONT-END: Interface do usuário (HTML, CSS, JavaScript)
+           - BACK-END: Servidor, banco de dados, lógica de negócio  
+           - FULL-STACK: Desenvolvedor que trabalha com ambos
+           - FRAMEWORK: Conjunto de ferramentas para desenvolvimento
+           - API: Interface de comunicação entre sistemas
+        */
+
+        .glossario {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .termo {
+            background-color: #3D4146;
+            padding: 20px;
+            border-radius: 8px;
+            border: 2px solid #7ED321;
+        }
+
+        .termo h4 {
+            color: #7ED321;
+            margin-bottom: 10px;
+        }
+
+        /* ============================================================= */
+        /* = ARQUITETURA CLIENTE-SERVIDOR                             = */
+        /* ============================================================= */
+        /* A web funciona com arquitetura cliente-servidor:
+           
+           1. CLIENTE (navegador) faz uma requisição HTTP
+           2. SERVIDOR processa a requisição  
+           3. SERVIDOR envia resposta com HTML/CSS/JS
+           4. NAVEGADOR renderiza a página para o usuário
+           
+           Este é o fundamento de toda aplicação web!
+        */
+
+        .fluxo-web {
+            background-color: #3D4146;
+            padding: 30px;
+            margin: 20px 0;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .etapa {
+            background-color: #F5A623;
+            color: #2E3A46;
+            padding: 15px 25px;
+            margin: 10px;
+            border-radius: 25px;
+            display: inline-block;
+            font-weight: bold;
+            position: relative;
+        }
+
+        .seta {
+            color: #7ED321;
+            font-size: 24px;
+            margin: 0 10px;
+        }
+
+        /* ============================================================= */
+        /* = TÍTULOS E ORGANIZAÇÃO                                    = */
+        /* ============================================================= */
+        h1, h2 {
+            text-align: center;
+            margin: 30px 0 20px 0;
+        }
+
+        h1 {
+            color: #7ED321;
+            font-size: 28px;
+        }
+
+        h2 {
+            color: #4A90E2;
+            font-size: 20px;
+            border-bottom: 2px solid #4A90E2;
+            padding-bottom: 10px;
+        }
+
+        .secao {
+            margin: 40px 0;
+        }
+
+        .codigo-exemplo {
+            background-color: #3D4146;
+            border-left: 4px solid #7ED321;
+            padding: 15px;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+            border-radius: 5px;
+            white-space: pre-wrap;
+            line-height: 1.8;
+        }
+
+        .destaque {
+            background-color: #F5A623;
+            color: #2E3A46;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+            font-weight: bold;
+        }
+
+        .curiosidade {
+            background-color: rgba(74, 144, 226, 0.2);
+            border: 1px solid #4A90E2;
+            color: #4A90E2;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="navegacao">
+    <a href="index.html">🏠 Início</a>
+    <a href="09-acessibilidade.html">⬅️ Anterior</a>
+    <a href="02-ambiente-desenvolvimento.html">➡️ Próximo</a>
+</div>
+
+<h1>🌐 Conceitos Iniciais - História e Fundamentos</h1>
+
+<div class="secao">
+    <h2>📚 História do HTML</h2>
+    
+    <div class="linha-tempo">
+        <h3 style="color: #7ED321; margin-bottom: 20px;">Linha do Tempo do HTML</h3>
+        
+        <div class="ano">1945</div>
+        <div class="personagem">
+            <strong>Vannevar Bush - Memex</strong><br>
+            Propôs uma máquina para criar conexões entre documentos, precursora do hipertexto.
+        </div>
+
+        <div class="ano">1960</div>
+        <div class="personagem">
+            <strong>Ted Nelson - Projeto Xanadu</strong><br>
+            Criou o termo "hipertexto" e imaginou documentos interligados em janelas paralelas.
+        </div>
+
+        <div class="ano">1990</div>
+        <div class="personagem">
+            <strong>Tim Berners-Lee - HTML</strong><br>
+            Desenvolveu o HTML no CERN, baseado em SGML, criando a World Wide Web.
+        </div>
+
+        <div class="ano">2014</div>
+        <div class="personagem">
+            <strong>HTML5</strong><br>
+            Versão atual com recursos multimídia, semântica melhorada e APIs modernas.
+        </div>
+    </div>
+
+    <div class="curiosidade">
+        <strong>💡 Curiosidade:</strong> O primeiro site da história ainda está online! Acesse: 
+        <a href="http://info.cern.ch/hypertext/WWW/TheProject.html" target="_blank" style="color: #7ED321;">
+            info.cern.ch/hypertext/WWW/TheProject.html
+        </a>
+    </div>
+</div>
+
+<div class="secao">
+    <h2>💼 Termos Utilizados Atualmente</h2>
+    
+    <div class="glossario">
+        <div class="termo">
+            <h4>🎨 FRONT-END</h4>
+            <p><strong>O que é:</strong> Interface gráfica da aplicação</p>
+            <p><strong>Tecnologias:</strong> HTML, CSS, JavaScript</p>
+            <p><strong>Função:</strong> Criar a experiência do usuário</p>
+        </div>
+
+        <div class="termo">
+            <h4>⚙️ BACK-END</h4>
+            <p><strong>O que é:</strong> Lógica de servidor e banco de dados</p>
+            <p><strong>Tecnologias:</strong> Java, PHP, Python, Node.js</p>
+            <p><strong>Função:</strong> Processar dados e regras de negócio</p>
+        </div>
+
+        <div class="termo">
+            <h4>🔄 FULL-STACK</h4>
+            <p><strong>O que é:</strong> Desenvolvedor completo</p>
+            <p><strong>Conhecimentos:</strong> Front-end + Back-end</p>
+            <p><strong>Vantagem:</strong> Visão completa do projeto</p>
+        </div>
+
+        <div class="termo">
+            <h4>🛠️ FRAMEWORK</h4>
+            <p><strong>O que é:</strong> Conjunto de ferramentas</p>
+            <p><strong>Exemplos:</strong> React, Vue, Angular, Laravel</p>
+            <p><strong>Função:</strong> Acelerar o desenvolvimento</p>
+        </div>
+
+        <div class="termo">
+            <h4>🔌 API</h4>
+            <p><strong>O que é:</strong> Interface de comunicação</p>
+            <p><strong>Função:</strong> Conectar sistemas diferentes</p>
+            <p><strong>Formato:</strong> JSON, XML, REST</p>
+        </div>
+
+        <div class="termo">
+            <h4>☁️ CLOUD</h4>
+            <p><strong>O que é:</strong> Serviços em nuvem</p>
+            <p><strong>Exemplos:</strong> AWS, Azure, Google Cloud</p>
+            <p><strong>Vantagem:</strong> Escalabilidade e disponibilidade</p>
+        </div>
+    </div>
+
+    <div class="destaque">
+        <strong>🎯 Dica de Carreira:</strong> Comece escolhendo uma área (front-end OU back-end) para se especializar primeiro. Depois expanda para full-stack quando dominar bem uma das pontas!
+    </div>
+</div>
+
+<div class="secao">
+    <h2>🌐 Arquitetura Cliente versus Servidor</h2>
+    
+    <div class="codigo-exemplo">
+/* Como funciona uma requisição web */
+
+1. Usuário digita URL no navegador
+2. Navegador envia requisição HTTP para servidor
+3. Servidor processa a requisição
+4. Servidor retorna HTML, CSS e JavaScript
+5. Navegador renderiza a página para o usuário
+    </div>
+
+    <div class="fluxo-web">
+        <h3 style="color: #7ED321; margin-bottom: 20px;">Fluxo de Comunicação Web</h3>
+        
+        <div class="etapa">1. CLIENTE<br>(Navegador)</div>
+        <span class="seta">→</span>
+        <div class="etapa">2. REQUISIÇÃO<br>HTTP</div>
+        <span class="seta">→</span>
+        <div class="etapa">3. SERVIDOR<br>(Processa)</div>
+        <br><br>
+        <div class="etapa">6. USUÁRIO<br>(Visualiza)</div>
+        <span class="seta">←</span>
+        <div class="etapa">5. RENDERIZAÇÃO<br>(Navegador)</div>
+        <span class="seta">←</span>
+        <div class="etapa">4. RESPOSTA<br>HTML/CSS/JS</div>
+    </div>
+
+    <div class="codigo-exemplo">
+/* Exemplo de requisição HTTP básica */
+
+GET /index.html HTTP/1.1
+Host: www.meusite.com
+User-Agent: Mozilla/5.0...
+
+/* Resposta do servidor */
+
+HTTP/1.1 200 OK
+Content-Type: text/html; charset=UTF-8
+
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  &lt;head&gt;&lt;title&gt;Meu Site&lt;/title&gt;&lt;/head&gt;
+  &lt;body&gt;&lt;h1&gt;Olá, Mundo!&lt;/h1&gt;&lt;/body&gt;
+&lt;/html&gt;
+    </div>
+
+    <div class="destaque">
+        <strong>💡 Importante:</strong> Este processo acontece milhões de vezes por segundo na internet! Cada clique, cada imagem carregada, cada formulário enviado usa esta arquitetura cliente-servidor.
+    </div>
+</div>
+
+<br><br>
+<div class="navegacao">
+    <a href="index.html">🏠 Início</a>
+    <a href="09-acessibilidade.html">⬅️ Anterior</a>
+    <a href="02-ambiente-desenvolvimento.html">➡️ Próximo</a>
+</div>
+
+<hr style="border-color: #4A90E2; margin: 20px 0;">
+<p style="text-align: center; color: #4A90E2;">Dev by <strong>Maugus</strong> em HTML puro 📙</p>
+
+</body>
+</html> 

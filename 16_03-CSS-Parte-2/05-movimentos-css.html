@@ -1,0 +1,1003 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🎬 Movimentos CSS - Aula 3</title>
+  <style>
+    /* =====================================
+       🎨 CONFIGURAÇÃO GLOBAL E BASE
+       ===================================== */
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box; /* Facilita cálculos de layout */
+    }
+
+    body {
+      font-family: 'Georgia', serif;
+      line-height: 1.6;
+      color: #333;
+      /* Gradiente de fundo para ambiente visual atrativo */
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      padding: 20px;
+      overflow-x: hidden; /* Evita scroll horizontal nas animações */
+    }
+
+    /* =====================================
+       📦 CONTAINER PRINCIPAL
+       ===================================== */
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      /* Efeito glassmorphism moderno */
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      padding: 40px;
+      box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+    }
+
+    /* =====================================
+       🎯 HIERARQUIA DE TÍTULOS
+       ===================================== */
+    
+    h1 {
+      text-align: center;
+      color: #764ba2;
+      margin-bottom: 30px;
+      font-size: 2.5em;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+      /* Animação sutil no título */
+      animation: titleGlow 3s ease-in-out infinite alternate;
+    }
+
+    @keyframes titleGlow {
+      from { text-shadow: 2px 2px 4px rgba(0,0,0,0.1); }
+      to { text-shadow: 2px 2px 15px rgba(118, 75, 162, 0.3); }
+    }
+
+    h2 {
+      color: #667eea;
+      margin: 30px 0 20px 0;
+      font-size: 1.8em;
+      border-left: 5px solid #667eea;
+      padding-left: 15px;
+    }
+
+    h3 {
+      color: #764ba2;
+      margin: 25px 0 15px 0;
+      font-size: 1.4em;
+    }
+
+    /* =====================================
+       💡 SISTEMA DE ALERTAS E DESTAQUE
+       ===================================== */
+    
+    .alert {
+      padding: 15px;
+      margin: 20px 0;
+      border-radius: 10px;
+      border-left: 5px solid;
+    }
+
+    .alert-info {
+      background: #e1f5fe;
+      border-color: #0288d1;
+      color: #01579b;
+    }
+
+    .alert-tip {
+      background: #f3e5f5;
+      border-color: #8e24aa;
+      color: #4a148c;
+    }
+
+    .alert-example {
+      background: #e8f5e8;
+      border-color: #4caf50;
+      color: #1b5e20;
+    }
+
+    .alert-warning {
+      background: #fff8e1;
+      border-color: #ffa000;
+      color: #e65100;
+    }
+
+    /* =====================================
+       🎯 SEÇÃO DE DEMONSTRAÇÃO PRÁTICA
+       ===================================== */
+    
+    .demo-section {
+      background: #f8f9fa;
+      border: 2px dashed #667eea;
+      border-radius: 15px;
+      padding: 25px;
+      margin: 25px 0;
+      position: relative;
+    }
+
+    .demo-section::before {
+      content: "🎯 DEMONSTRAÇÃO PRÁTICA";
+      position: absolute;
+      top: -12px;
+      left: 20px;
+      background: #667eea;
+      color: white;
+      padding: 5px 15px;
+      border-radius: 20px;
+      font-size: 0.8em;
+      font-weight: bold;
+    }
+
+    /* =====================================
+       🎬 ÁREA DE DEMONSTRAÇÃO DE TRANSFORMAÇÕES
+       ===================================== */
+    
+    .transform-playground {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 30px;
+      margin: 30px 0;
+      padding: 20px;
+      background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+      border-radius: 15px;
+    }
+
+    .transform-card {
+      background: white;
+      border-radius: 15px;
+      padding: 20px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      position: relative;
+      min-height: 150px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* =====================================
+       🔄 TRANSFORMAÇÕES 2D INDIVIDUAIS
+       ===================================== */
+    
+    /* TRANSLATE - Movimentação */
+    .transform-translate:hover {
+      transform: translate(20px, -10px); /* Move 20px direita, 10px cima */
+    }
+
+    /* SCALE - Escala/Zoom */
+    .transform-scale:hover {
+      transform: scale(1.2); /* Aumenta 20% */
+    }
+
+    /* ROTATE - Rotação */
+    .transform-rotate:hover {
+      transform: rotate(15deg); /* Gira 15 graus */
+    }
+
+    /* SKEW - Inclinação */
+    .transform-skew:hover {
+      transform: skew(15deg, 5deg); /* Inclina em X e Y */
+    }
+
+    /* COMBINAÇÕES - Múltiplas transformações */
+    .transform-combo:hover {
+      transform: translate(10px, -5px) rotate(10deg) scale(1.1);
+    }
+
+    /* MATRIX - Transformação matemática completa */
+    .transform-matrix:hover {
+      /* matrix(scaleX, skewY, skewX, scaleY, translateX, translateY) */
+      transform: matrix(1.1, 0.2, -0.1, 1.1, 10, -5);
+    }
+
+    /* =====================================
+       ✨ TRANSIÇÕES INTERATIVAS
+       ===================================== */
+    
+    .transition-demo {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 20px;
+      margin: 20px 0;
+    }
+
+    .transition-box {
+      width: 100%;
+      height: 100px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      color: white;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Transições com diferentes durações */
+    .transition-fast {
+      background: #ff6b6b;
+      transition: all 0.1s ease; /* Super rápida */
+    }
+
+    .transition-normal {
+      background: #4ecdc4;
+      transition: all 0.3s ease; /* Padrão */
+    }
+
+    .transition-slow {
+      background: #45b7d1;
+      transition: all 1s ease; /* Lenta */
+    }
+
+    .transition-very-slow {
+      background: #96ceb4;
+      transition: all 2s ease; /* Muito lenta */
+    }
+
+    /* Efeitos no hover para transições */
+    .transition-box:hover {
+      transform: scale(1.1) rotate(5deg);
+      border-radius: 50%;
+    }
+
+    /* =====================================
+       🎨 EASING FUNCTIONS - CURVAS DE ANIMAÇÃO
+       ===================================== */
+    
+    .easing-demo {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+      margin: 20px 0;
+    }
+
+    .easing-box {
+      width: 100%;
+      height: 80px;
+      background: linear-gradient(45deg, #667eea, #764ba2);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      transition-duration: 0.8s; /* Duração fixa para comparar */
+    }
+
+    /* Diferentes funções de easing */
+    .easing-linear { transition-timing-function: linear; }
+    .easing-ease { transition-timing-function: ease; }
+    .easing-ease-in { transition-timing-function: ease-in; }
+    .easing-ease-out { transition-timing-function: ease-out; }
+    .easing-ease-in-out { transition-timing-function: ease-in-out; }
+    .easing-cubic { transition-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55); }
+
+    .easing-box:hover {
+      transform: translateX(50px) scale(1.1);
+    }
+
+    /* =====================================
+       🎭 ANIMAÇÕES COMPLEXAS
+       ===================================== */
+    
+    .animation-showcase {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      margin: 30px 0;
+    }
+
+    .animation-card {
+      background: white;
+      border-radius: 15px;
+      padding: 20px;
+      text-align: center;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      min-height: 150px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Animação contínua - Pulsação */
+    .animation-pulse {
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+
+    /* Animação contínua - Rotação */
+    .animation-spin {
+      animation: spin 3s linear infinite;
+    }
+
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    /* Animação contínua - Flutuação */
+    .animation-float {
+      animation: float 3s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+    }
+
+    /* Animação complexa - Dança */
+    .animation-dance {
+      animation: dance 2s ease-in-out infinite;
+    }
+
+    @keyframes dance {
+      0%, 100% { transform: rotate(0deg) scale(1); }
+      25% { transform: rotate(5deg) scale(1.1); }
+      50% { transform: rotate(-5deg) scale(0.9); }
+      75% { transform: rotate(3deg) scale(1.05); }
+    }
+
+    /* Animação de entrada - Slide */
+    .animation-slide {
+      animation: slideIn 1s ease-out;
+    }
+
+    @keyframes slideIn {
+      from {
+        transform: translateX(-100px);
+        opacity: 0;
+      }
+      to {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+
+    /* Animação de zoom */
+    .animation-zoom {
+      animation: zoomIn 1s ease-out;
+    }
+
+    @keyframes zoomIn {
+      from {
+        transform: scale(0);
+        opacity: 0;
+      }
+      to {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+
+    /* =====================================
+       🎮 BOTÕES INTERATIVOS
+       ===================================== */
+    
+    .interactive-controls {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin: 20px 0;
+      flex-wrap: wrap;
+    }
+
+    .control-btn {
+      padding: 10px 20px;
+      background: #667eea;
+      color: white;
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    }
+
+    .control-btn:hover {
+      background: #764ba2;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+    }
+
+    .control-btn:active {
+      transform: translateY(0);
+    }
+
+    /* =====================================
+       📊 ELEMENTO DE DEMONSTRAÇÃO PRINCIPAL
+       ===================================== */
+    
+    .main-demo-element {
+      width: 100px;
+      height: 100px;
+      background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+      border-radius: 15px;
+      margin: 30px auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      color: white;
+      font-size: 1.2em;
+      transition: all 0.5s ease;
+      cursor: pointer;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+    }
+
+    /* Classes de transformação para controle JavaScript */
+    .transform-active-translate { transform: translateX(100px); }
+    .transform-active-scale { transform: scale(1.5); }
+    .transform-active-rotate { transform: rotate(180deg); }
+    .transform-active-skew { transform: skew(20deg, 10deg); }
+    .transform-active-combo { transform: translate(50px, -20px) rotate(45deg) scale(1.3); }
+
+    /* =====================================
+       💻 CÓDIGO E EXPLICAÇÕES
+       ===================================== */
+    
+    .code-explanation {
+      background: #f8f9fa;
+      border-left: 4px solid #667eea;
+      padding: 15px;
+      margin: 15px 0;
+      font-family: 'Courier New', monospace;
+      border-radius: 5px;
+    }
+
+    .code-block {
+      background: #2d3748;
+      color: #e2e8f0;
+      padding: 20px;
+      border-radius: 10px;
+      overflow-x: auto;
+      overflow-y: auto;
+      margin: 15px 0;
+      font-family: 'Courier New', monospace;
+      font-size: 0.85em;
+      line-height: 1.5;
+      max-height: 400px;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+    }
+
+    /* =====================================
+       🧭 NAVEGAÇÃO ENTRE PÁGINAS
+       ===================================== */
+    
+    .navigation {
+      text-align: center;
+      margin: 30px 0;
+      padding: 20px;
+      background: rgba(102, 126, 234, 0.1);
+      border-radius: 15px;
+    }
+
+    .navigation a {
+      display: inline-block;
+      margin: 0 10px;
+      padding: 12px 24px;
+      background: #667eea;
+      color: white;
+      text-decoration: none;
+      border-radius: 25px;
+      transition: all 0.3s ease;
+      font-weight: bold;
+    }
+
+    .navigation a:hover {
+      background: #764ba2;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(118, 75, 162, 0.3);
+    }
+
+    /* =====================================
+       📱 RESPONSIVIDADE
+       ===================================== */
+    
+    @media (max-width: 768px) {
+      .container {
+        padding: 20px;
+        margin: 10px;
+      }
+      
+      h1 {
+        font-size: 2em;
+      }
+      
+      .transform-playground {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 15px;
+      }
+      
+      .interactive-controls {
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      .control-btn {
+        width: 200px;
+      }
+    }
+
+    /* =====================================
+       🎨 EFEITOS ESPECIAIS DE FUNDO
+       ===================================== */
+    
+    .background-animation {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: -1;
+      opacity: 0.1;
+    }
+
+    .floating-shape {
+      position: absolute;
+      background: linear-gradient(45deg, #667eea, #764ba2);
+      border-radius: 50%;
+      animation: floatShapes 10s ease-in-out infinite;
+    }
+
+    .floating-shape:nth-child(1) {
+      width: 50px;
+      height: 50px;
+      top: 10%;
+      left: 10%;
+      animation-delay: 0s;
+    }
+
+    .floating-shape:nth-child(2) {
+      width: 30px;
+      height: 30px;
+      top: 20%;
+      right: 20%;
+      animation-delay: 2s;
+    }
+
+    .floating-shape:nth-child(3) {
+      width: 40px;
+      height: 40px;
+      bottom: 20%;
+      left: 30%;
+      animation-delay: 4s;
+    }
+
+    @keyframes floatShapes {
+      0%, 100% {
+        transform: translate(0, 0) rotate(0deg);
+      }
+      33% {
+        transform: translate(30px, -30px) rotate(120deg);
+      }
+      66% {
+        transform: translate(-20px, 20px) rotate(240deg);
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Elementos flutuantes de fundo -->
+  <div class="background-animation">
+    <div class="floating-shape"></div>
+    <div class="floating-shape"></div>
+    <div class="floating-shape"></div>
+  </div>
+
+  <div class="container">
+    <h1>🎬 Movimentos CSS - Transformações e Transições</h1>
+    
+    <div class="alert alert-info">
+      <strong>📚 Objetivo da Aula:</strong> Dominar as transformações 2D e transições CSS para criar interfaces dinâmicas e interativas. Aprenderemos desde movimentos básicos até animações complexas com controle total sobre timing e efeitos.
+    </div>
+
+    <h2>🔄 1. Transformações 2D - Os Cinco Pilares</h2>
+    <p>As transformações 2D permitem modificar elementos sem afetar o layout da página. São a base para criar movimento e interatividade.</p>
+
+    <div class="demo-section">
+      <h3>🎯 Galeria Interativa de Transformações:</h3>
+      <p><em>Passe o mouse sobre cada card para ver a transformação!</em></p>
+      
+      <div class="transform-playground">
+        <div class="transform-card transform-translate">
+          <strong>📍 TRANSLATE</strong>
+          <p>Move o elemento</p>
+          <small>translate(x, y)</small>
+        </div>
+        
+        <div class="transform-card transform-scale">
+          <strong>🔍 SCALE</strong>
+          <p>Redimensiona</p>
+          <small>scale(fator)</small>
+        </div>
+        
+        <div class="transform-card transform-rotate">
+          <strong>🔄 ROTATE</strong>
+          <p>Gira o elemento</p>
+          <small>rotate(graus)</small>
+        </div>
+        
+        <div class="transform-card transform-skew">
+          <strong>📐 SKEW</strong>
+          <p>Inclina/distorce</p>
+          <small>skew(x, y)</small>
+        </div>
+        
+        <div class="transform-card transform-combo">
+          <strong>🎭 COMBO</strong>
+          <p>Múltiplas juntas</p>
+          <small>translate + rotate + scale</small>
+        </div>
+        
+        <div class="transform-card transform-matrix">
+          <strong>🧮 MATRIX</strong>
+          <p>Controle matemático</p>
+          <small>matrix(6 valores)</small>
+        </div>
+      </div>
+
+      <div class="code-block">
+/* 🎯 Exemplos de Transformações 2D */
+
+/* TRANSLATE - Movimentação */
+.move-right {
+  transform: translateX(50px);
+}
+
+/* SCALE - Redimensionamento */
+.scale-up {
+  transform: scale(1.5);
+}
+
+/* ROTATE - Rotação */
+.rotate-45 {
+  transform: rotate(45deg);
+}
+
+/* COMBINAÇÃO - Múltiplas transformações */
+.combo-effect {
+  transform: translateX(20px) rotate(10deg) scale(1.1);
+}</div>
+.elemento {
+  transform: translate(50px, -20px);     /* Move 50px→ e 20px↑ */
+  transform: translateX(100px);          /* Move apenas horizontalmente */
+  transform: translateY(-30px);          /* Move apenas verticalmente */
+}
+
+/* SCALE - Redimensionamento */
+.elemento {
+  transform: scale(1.5);                 /* Aumenta 50% em ambas dimensões */
+  transform: scaleX(2);                  /* Estica horizontalmente */
+  transform: scaleY(0.5);                /* Comprime verticalmente */
+}
+
+/* ROTATE - Rotação */
+.elemento {
+  transform: rotate(45deg);              /* Gira 45 graus horário */
+  transform: rotate(-90deg);             /* Gira 90 graus anti-horário */
+}
+
+/* SKEW - Inclinação */
+.elemento {
+  transform: skew(15deg, 5deg);          /* Inclina em X e Y */
+  transform: skewX(20deg);               /* Inclina apenas em X */
+}
+
+/* COMBINAÇÕES - O poder real! */
+.elemento {
+  transform: translate(20px, -10px) rotate(30deg) scale(1.2);
+}</div>
+
+      <div class="code-explanation">
+        <strong>🎯 Pontos Importantes:</strong><br>
+        • <strong>Ordem importa:</strong> translate → rotate → scale (recomendado)<br>
+        • <strong>Transform-origin:</strong> Define o ponto de rotação/escala<br>
+        • <strong>Performance:</strong> Transform é otimizado pelo navegador<br>
+        • <strong>Layout:</strong> Não afeta posição de outros elementos
+      </div>
+    </div>
+
+    <h2>⏱️ 2. Transições - Movimento Suave Entre Estados</h2>
+    <p>Transições criam mudanças graduais entre valores de propriedades CSS, proporcionando fluidez visual.</p>
+
+    <div class="demo-section">
+      <h3>🎨 Comparativo de Velocidades de Transição:</h3>
+      <p><em>Clique nas caixas para ver diferentes velocidades!</em></p>
+      
+      <div class="transition-demo">
+        <div class="transition-box transition-fast">
+          <span>⚡ 0.1s<br>RÁPIDA</span>
+        </div>
+        <div class="transition-box transition-normal">
+          <span>⚖️ 0.3s<br>NORMAL</span>
+        </div>
+        <div class="transition-box transition-slow">
+          <span>🐌 1s<br>LENTA</span>
+        </div>
+        <div class="transition-box transition-very-slow">
+          <span>🐢 2s<br>MUITO LENTA</span>
+        </div>
+      </div>
+
+      <div class="code-block">
+/* 🎬 Sintaxe Completa das Transições */
+
+.elemento {
+  /* Propriedade individual */
+  transition-property: transform;        /* Que propriedade animar */
+  transition-duration: 0.3s;            /* Duração da transição */
+  transition-timing-function: ease;     /* Curva de animação */
+  transition-delay: 0.1s;               /* Atraso antes de iniciar */
+  
+  /* Sintaxe abreviada (recomendada) */
+  transition: transform 0.3s ease 0.1s;
+  
+  /* Múltiplas propriedades */
+  transition: 
+    transform 0.3s ease,
+    background-color 0.2s linear,
+    box-shadow 0.4s ease-out;
+    
+  /* Todas as propriedades */
+  transition: all 0.3s ease;
+}</div>
+    </div>
+
+    <h2>📈 3. Timing Functions - Curvas de Animação</h2>
+    <p>As funções de timing controlam a aceleração da animação, criando diferentes sensações de movimento.</p>
+
+    <div class="demo-section">
+      <h3>🎭 Comparativo de Easing Functions:</h3>
+      <p><em>Passe o mouse sobre cada caixa para comparar as curvas!</em></p>
+      
+      <div class="easing-demo">
+        <div class="easing-box easing-linear">LINEAR</div>
+        <div class="easing-box easing-ease">EASE</div>
+        <div class="easing-box easing-ease-in">EASE-IN</div>
+        <div class="easing-box easing-ease-out">EASE-OUT</div>
+        <div class="easing-box easing-ease-in-out">EASE-IN-OUT</div>
+        <div class="easing-box easing-cubic">CUBIC-BEZIER</div>
+      </div>
+
+      <div class="code-explanation">
+        <strong>🎯 Quando Usar Cada Easing:</strong><br>
+        • <code>linear</code> - Movimento robótico, carregamentos<br>
+        • <code>ease</code> - Padrão, naturalmente acelerado<br>
+        • <code>ease-in</code> - Começa devagar, acelera no final<br>
+        • <code>ease-out</code> - Começa rápido, desacelera no final<br>
+        • <code>ease-in-out</code> - Suave no início e fim<br>
+        • <code>cubic-bezier()</code> - Controle personalizado total
+      </div>
+    </div>
+
+    <h2>🎪 4. Animações CSS - Controle Total do Movimento</h2>
+    <p>Animações CSS permitem criar sequências complexas de movimento sem JavaScript.</p>
+
+    <div class="demo-section">
+      <h3>🎬 Galeria de Animações Contínuas:</h3>
+      
+      <div class="animation-showcase">
+        <div class="animation-card animation-pulse">
+          <strong>💓 PULSE</strong>
+          <p>Pulsação suave</p>
+        </div>
+        
+        <div class="animation-card animation-spin">
+          <strong>🌀 SPIN</strong>
+          <p>Rotação contínua</p>
+        </div>
+        
+        <div class="animation-card animation-float">
+          <strong>🎈 FLOAT</strong>
+          <p>Flutuação vertical</p>
+        </div>
+        
+        <div class="animation-card animation-dance">
+          <strong>💃 DANCE</strong>
+          <p>Movimento complexo</p>
+        </div>
+        
+        <div class="animation-card animation-slide">
+          <strong>📱 SLIDE</strong>
+          <p>Entrada lateral</p>
+        </div>
+        
+        <div class="animation-card animation-zoom">
+          <strong>🔍 ZOOM</strong>
+          <p>Entrada com zoom</p>
+        </div>
+      </div>
+
+      <div class="code-block">
+/* 🎭 Criando Animações CSS Personalizadas */
+
+/* 1. Definir os keyframes */
+@keyframes minha-animacao {
+  0% {                                   /* Estado inicial */
+    transform: translateX(0) scale(1);
+    opacity: 0;
+  }
+  50% {                                  /* Estado intermediário */
+    transform: translateX(50px) scale(1.2);
+    opacity: 0.7;
+  }
+  100% {                                 /* Estado final */
+    transform: translateX(100px) scale(1);
+    opacity: 1;
+  }
+}
+
+/* 2. Aplicar a animação */
+.elemento-animado {
+  animation-name: minha-animacao;        /* Nome da animação */
+  animation-duration: 2s;                /* Duração */
+  animation-timing-function: ease-in-out; /* Curva */
+  animation-delay: 0.5s;                 /* Atraso */
+  animation-iteration-count: infinite;   /* Repetições */
+  animation-direction: alternate;        /* Direção */
+  animation-fill-mode: forwards;         /* Estado final */
+  animation-play-state: running;         /* Controle */
+  
+  /* Sintaxe abreviada */
+  animation: minha-animacao 2s ease-in-out 0.5s infinite alternate forwards;
+}</div>
+    </div>
+
+    <h2>🎮 5. Demonstração Interativa</h2>
+    <div class="demo-section">
+      <h3>🎯 Controle Manual de Transformações:</h3>
+      <p>Use os botões para aplicar transformações ao elemento central:</p>
+      
+      <div class="main-demo-element" id="demoElement">
+        🎯 CSS
+      </div>
+      
+      <div class="interactive-controls">
+        <button class="control-btn" onclick="applyTransform('translate')">📍 Translate</button>
+        <button class="control-btn" onclick="applyTransform('scale')">🔍 Scale</button>
+        <button class="control-btn" onclick="applyTransform('rotate')">🔄 Rotate</button>
+        <button class="control-btn" onclick="applyTransform('skew')">📐 Skew</button>
+        <button class="control-btn" onclick="applyTransform('combo')">🎭 Combo</button>
+        <button class="control-btn" onclick="resetTransform()">🔄 Reset</button>
+      </div>
+
+      <div class="code-explanation">
+        <strong>🎯 Experimente as Transformações:</strong><br>
+        • <strong>Translate:</strong> Move o elemento horizontalmente<br>
+        • <strong>Scale:</strong> Aumenta o tamanho em 50%<br>
+        • <strong>Rotate:</strong> Gira 180 graus<br>
+        • <strong>Skew:</strong> Inclina o elemento<br>
+        • <strong>Combo:</strong> Combina múltiplas transformações<br>
+        • <strong>Reset:</strong> Volta ao estado original
+      </div>
+    </div>
+
+    <div class="alert alert-tip">
+      <strong>🚀 Dicas de Performance:</strong>
+      <ul>
+        <li><strong>Use transform</strong> em vez de mudar top/left/width/height</li>
+        <li><strong>Prefira opacity e transform</strong> para animações suaves</li>
+        <li><strong>will-change</strong> avisa o navegador sobre animações futuras</li>
+        <li><strong>Hardware acceleration</strong> com transform3d(0,0,0)</li>
+      </ul>
+    </div>
+
+    <div class="alert alert-example">
+      <strong>🎯 Aplicações Práticas:</strong>
+      <ul>
+        <li><strong>Micro-interações:</strong> Hover em botões e cards</li>
+        <li><strong>Loading states:</strong> Spinners e barras de progresso</li>
+        <li><strong>Page transitions:</strong> Entrada e saída de conteúdo</li>
+        <li><strong>UI feedback:</strong> Confirmações e notificações</li>
+        <li><strong>Storytelling:</strong> Animações narrativas</li>
+      </ul>
+    </div>
+
+    <div class="alert alert-warning">
+      <strong>⚠️ Boas Práticas:</strong>
+      <ul>
+        <li><strong>Não abuse:</strong> Muita animação pode cansar o usuário</li>
+        <li><strong>Respeite prefers-reduced-motion</strong> para acessibilidade</li>
+        <li><strong>Teste em dispositivos</strong> menos potentes</li>
+        <li><strong>Mantenha animações</strong> entre 200ms e 500ms para UI</li>
+      </ul>
+    </div>
+
+    <div class="navigation">
+      <a href="04-outras-formatacoes.html">⬅️ Anterior: Outras Formatações</a>
+      <a href="index.html">🏠 Início</a>
+      <span style="padding: 12px 24px; background: #ddd; border-radius: 25px; color: #666;">🎯 Última Aula</span>
+    </div>
+  </div>
+
+  <script>
+    // Controle interativo das transformações
+    function applyTransform(type) {
+      const element = document.getElementById('demoElement');
+      
+      // Remove todas as classes de transformação
+      element.classList.remove(
+        'transform-active-translate',
+        'transform-active-scale',
+        'transform-active-rotate',
+        'transform-active-skew',
+        'transform-active-combo'
+      );
+      
+      // Aplica a transformação selecionada
+      if (type !== 'reset') {
+        element.classList.add(`transform-active-${type}`);
+      }
+      
+      // Feedback visual no botão
+      const buttons = document.querySelectorAll('.control-btn');
+      buttons.forEach(btn => btn.style.background = '#667eea');
+      
+      if (type !== 'reset') {
+        event.target.style.background = '#764ba2';
+      }
+    }
+    
+    function resetTransform() {
+      applyTransform('reset');
+    }
+    
+    // Adiciona interatividade às caixas de transição
+    document.addEventListener('DOMContentLoaded', function() {
+      const transitionBoxes = document.querySelectorAll('.transition-box');
+      
+      transitionBoxes.forEach(box => {
+        box.addEventListener('click', function() {
+          // Toggle da transformação
+          if (this.style.transform) {
+            this.style.transform = '';
+            this.style.borderRadius = '10px';
+          } else {
+            this.style.transform = 'scale(1.1) rotate(5deg)';
+            this.style.borderRadius = '50%';
+          }
+        });
+      });
+      
+      // Animação de entrada sequencial para os cards
+      const animationCards = document.querySelectorAll('.animation-card');
+      animationCards.forEach((card, index) => {
+        card.style.animationDelay = `${index * 0.1}s`;
+      });
+    });
+    
+    // Efeito parallax sutil no scroll
+    window.addEventListener('scroll', () => {
+      const scrolled = window.pageYOffset;
+      const shapes = document.querySelectorAll('.floating-shape');
+      
+      shapes.forEach((shape, index) => {
+        const speed = 0.5 + (index * 0.1);
+        shape.style.transform = `translateY(${scrolled * speed}px)`;
+      });
+    });
+  </script>
+</body>
+</html> 

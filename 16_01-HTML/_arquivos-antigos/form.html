@@ -1,0 +1,197 @@
+<!-- ============================================================= -->
+<!-- = FORMULÁRIOS EM HTML                                       = -->
+<!-- = Estrutura, campos, validações e envio de dados             = -->
+<!-- ============================================================= -->
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Formulários em HTML</title>
+</head>
+<body>
+
+<h1>📝 Formulários em HTML</h1>
+<hr>
+
+<!-- ============================================================= -->
+<!-- = ESTRUTURA BÁSICA                                           = -->
+<!-- = <form>, <label>, <input> básicos                          = -->
+<!-- ============================================================= -->
+
+<h2>📌 Estrutura Básica</h2>
+<p>
+  <code>&lt;form&gt;</code> define o formulário. <br>
+  <code>&lt;label&gt;</code> é o rótulo do campo. <br>
+  <code>&lt;input&gt;</code>, <code>&lt;textarea&gt;</code> e <code>&lt;button&gt;</code> são elementos de entrada.
+</p>
+
+<form>
+  <label for="nome">Nome:</label>
+  <input type="text" id="nome" name="nome">
+</form>
+
+<br><hr>
+
+<!-- ============================================================= -->
+<!-- = PLACEHOLDER E REQUIRED                                     = -->
+<!-- = Texto de exemplo + campo obrigatório                       = -->
+<!-- ============================================================= -->
+
+<h2>🪄 Placeholder e Campo Obrigatório</h2>
+
+<form>
+  <label for="email">Email:</label>
+  <input type="email" id="email" name="email" placeholder="seuemail@exemplo.com" required>
+</form>
+
+<br><hr>
+
+<!-- ============================================================= -->
+<!-- = VALIDAÇÃO DE CAMPOS                                        = -->
+<!-- = Exemplo com minlength e required                           = -->
+<!-- ============================================================= -->
+
+<h2>⚠️ Campo com Validação</h2>
+
+<form>
+  <label for="senha">Senha (mín. 6 caracteres):</label>
+  <input type="password" id="senha" name="senha" minlength="6" required>
+</form>
+
+<br><hr>
+
+<!-- ============================================================= -->
+<!-- = OUTROS TIPOS DE INPUT                                      = -->
+<!-- = date, tel, number, file                                    = -->
+<!-- ============================================================= -->
+
+<h2>📆 Outros Tipos de Campo</h2>
+
+<form>
+  <label for="tel">Telefone:</label>
+  <input type="tel" id="tel" name="tel"><br><br>
+
+  <label for="data">Data de Nascimento:</label>
+  <input type="date" id="data" name="data"><br><br>
+
+  <label for="idade">Idade:</label>
+  <input type="number" id="idade" name="idade" min="0" max="100"><br><br>
+
+  <label for="arquivo">Currículo (PDF):</label>
+  <input type="file" id="arquivo" name="arquivo" accept=".pdf">
+</form>
+
+<br><hr>
+
+<!-- ============================================================= -->
+<!-- = CAMPO DESLIZANTE (SLIDER)                                  = -->
+<!-- = input type="range"                                         = -->
+<!-- ============================================================= -->
+
+<h2>🎛️ Campo com Slider</h2>
+
+<form>
+  <label for="satisfacao">Nível de Satisfação:</label>
+  <input type="range" id="satisfacao" name="satisfacao" min="0" max="10">
+</form>
+
+<br><hr>
+
+<!-- ============================================================= -->
+<!-- = BOTÕES DE SELEÇÃO                                          = -->
+<!-- = Radio (exclusivo) e Checkbox (múltiplo)                    = -->
+<!-- ============================================================= -->
+
+<h2>🎯 Botões de Seleção</h2>
+
+<form>
+  <p>Sexo:</p>
+  <input type="radio" id="masc" name="sexo" value="masc">
+  <label for="masc">Masculino</label><br>
+
+  <input type="radio" id="fem" name="sexo" value="fem">
+  <label for="fem">Feminino</label><br><br>
+
+  <input type="checkbox" id="termos" name="termos" required>
+  <label for="termos">Aceito os termos</label>
+</form>
+
+<br><hr>
+
+<!-- ============================================================= -->
+<!-- = CAMPO SELECT (DROPDOWN)                                    = -->
+<!-- = Lista de opções com <select> e <option>                    = -->
+<!-- ============================================================= -->
+
+<h2>⬇️ Campo <code>&lt;select&gt;</code></h2>
+
+<form>
+  <label for="estado">Escolha seu estado:</label>
+  <select name="estado" id="estado">
+    <option value="">--Selecione--</option>
+    <option value="sp">São Paulo</option>
+    <option value="rj">Rio de Janeiro</option>
+    <option value="mg">Minas Gerais</option>
+  </select>
+</form>
+
+<br><hr>
+
+<!-- ============================================================= -->
+<!-- = FIELDSET + LEGEND                                          = -->
+<!-- = Agrupamento semântico de campos                           = -->
+<!-- ============================================================= -->
+
+<h2>🗂️ Agrupando campos com <code>&lt;fieldset&gt;</code></h2>
+
+<form>
+  <fieldset>
+    <legend>Dados Pessoais</legend>
+
+    <label for="nome">Nome:</label>
+    <input type="text" id="nome" name="nome" required><br><br>
+
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email"><br><br>
+  </fieldset>
+
+  <fieldset>
+    <legend>Mensagem</legend>
+    <label for="msg">Digite sua mensagem:</label><br>
+    <textarea id="msg" name="msg" rows="6" cols="40"></textarea>
+  </fieldset>
+
+  <br>
+  <button type="submit">Enviar</button>
+</form>
+
+<br><hr>
+
+<!-- ============================================================= -->
+<!-- = ENVIO COM GET E POST                                       = -->
+<!-- = Diferença nos métodos e URLs                               = -->
+<!-- ============================================================= -->
+
+<h2>📤 Envio com GET ou POST</h2>
+
+<p><code>method="get"</code> → envia dados pela URL</p>
+
+<form action="https://www.google.com/search" method="get">
+  <label for="q">Pesquisar no Google:</label>
+  <input type="text" id="q" name="q">
+  <button type="submit">Buscar</button>
+</form>
+
+<p><code>method="post"</code> → envia dados de forma oculta (mais seguro)</p>
+
+<form action="/enviar.php" method="post">
+  <label for="nome">Nome:</label>
+  <input type="text" id="nome" name="nome">
+  <button type="submit">Enviar</button>
+</form>
+
+<br><br>
+
+</body>
+</html>

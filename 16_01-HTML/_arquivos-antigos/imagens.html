@@ -1,0 +1,131 @@
+<!-- ============================================================= -->
+<!-- = IMAGENS EM HTML                                           = -->
+<!-- = Trabalhando com imagens internas, externas e acessíveis   = -->
+<!-- ============================================================= -->
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Imagens em HTML</title>
+</head>
+<body>
+
+<h1>🖼️ Trabalhando com Imagens em HTML</h1>
+<hr>
+
+<!-- ============================================================= -->
+<!-- = IMAGENS EXTERNAS (URL)                                    = -->
+<!-- = Usando links diretos com atributos úteis                  = -->
+<!-- ============================================================= -->
+
+<h2>🌐 Imagens Externas (URL)</h2>
+
+<!-- Exemplo sem atributos adicionais -->
+<h3> - Sem atributos</h3>
+<img src="https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png">
+
+<!-- Atributo alt: descrição alternativa -->
+<h3> - Com <code>alt</code> (texto alternativo)</h3>
+<img src="https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png" alt="Google Logo">
+
+<!-- Atributos de largura e altura fixas -->
+<h3> - Com <code>width</code> e <code>height</code></h3>
+<img src="https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png" width="100" height="100">
+
+<!-- Tooltip que aparece ao passar o mouse -->
+<h3> - Com <code>title</code> (tooltip ao passar o mouse)</h3>
+<img src="https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png" title="Google Logo">
+
+<!-- Estilização direta com CSS inline -->
+<h3> - Com <code>style</code> (CSS inline)</h3>
+<img src="https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png" style="width: 100px; height: 100px; border: 1px solid #ccc;">
+
+<br><hr>
+
+<!-- ============================================================= -->
+<!-- = IMAGENS INTERNAS (DA PASTA LOCAL)                         = -->
+<!-- = Usando arquivos salvos no projeto                         = -->
+<!-- ============================================================= -->
+
+<h2>📁 Imagens Internas (da pasta local)</h2>
+
+<!-- Imagem simples com alt -->
+<h3> - Exemplo padrão</h3>
+<img src="images/Baia-dos-Porcos.jpg" alt="Baía dos Porcos">
+
+<!-- Estilização básica -->
+<h3> - Com <code>width</code>, <code>height</code> e estilo visual</h3>
+<img src="images/Baia-dos-Porcos.jpg" style="width: 100px; height: 100px; border-radius: 8px; border: 1px solid #666;">
+
+<!-- Estilo avançado com sombra, borda circular e fundo -->
+<h3> - Exemplo estilizado circular com sombra</h3>
+<img src="images/Baia-dos-Porcos.jpg" style="
+  width: 400px; 
+  height: 400px; 
+  border-radius: 50%; 
+  border: 1px solid black; 
+  box-shadow: 0 0 10px rgba(0,0,0,0.5); 
+  margin: 20px auto; 
+  padding: 10px; 
+  background-color: #f0f0f0; 
+  display: block;
+">
+
+<br><hr>
+
+<!-- ============================================================= -->
+<!-- = IMAGEM COMO LINK                                          = -->
+<!-- = Clicável e com destino externo                            = -->
+<!-- ============================================================= -->
+
+<h2>🔗 Imagem como Link</h2>
+<p>Podemos transformar uma imagem em um link clicável:</p>
+
+<a href="https://www.google.com" target="_blank">
+  <img src="https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png" alt="Google" width="120">
+</a>
+
+<br><hr>
+
+<!-- ============================================================= -->
+<!-- = IMAGEM RESPONSIVA                                         = -->
+<!-- = Ajuste automático ao tamanho da tela                      = -->
+<!-- ============================================================= -->
+
+<h2>📐 Imagem Responsiva</h2>
+<p>Imagens que se adaptam ao tamanho da tela usando <code>style="max-width: 100%"</code>:</p>
+
+<img src="images/Baia-dos-Porcos.jpg" style="max-width: 100%; height: auto;" alt="Baía dos Porcos responsiva">
+
+<br><hr>
+
+<!-- ============================================================= -->
+<!-- = IMAGEM COM LEGENDA (FIGURE + FIGCAPTION)                  = -->
+<!-- = Estrutura semântica para acessibilidade e contexto        = -->
+<!-- ============================================================= -->
+
+<h2>💬 Imagem com Legenda (semântica com <code>&lt;figure&gt;</code>)</h2>
+
+<figure>
+  <img src="images/Baia-dos-Porcos.jpg" width="300" alt="Vista da Baía dos Porcos">
+  <figcaption>📍 Baía dos Porcos – Fernando de Noronha</figcaption>
+</figure>
+
+<br><hr>
+
+<!-- ============================================================= -->
+<!-- = IMAGEM DECORATIVA                                         = -->
+<!-- = Acessibilidade com alt vazio                              = -->
+<!-- ============================================================= -->
+
+<h2>🚫 Imagem Decorativa (acessibilidade)</h2>
+<p>Imagens puramente estéticas devem ter <code>alt=""</code> para serem ignoradas por leitores de tela:</p>
+
+<img src="images/decorativa.png" alt="" style="width: 50px; height: 50px;">
+
+<br><br>
+
+</body>
+</html>

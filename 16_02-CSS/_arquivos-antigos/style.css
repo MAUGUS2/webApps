@@ -1,0 +1,51 @@
+/* ============================================================= */
+/* = STYLE                                                     = */
+/* = Estilos para o site                                       = */
+/* ============================================================= */
+/* Poderiamos usar o css dentro do html, mas é mais recomendado usar um arquivo separado como este.
+Deixando o html mais limpo e organizado.
+Para isso, criamos um arquivo com a extensão .css e linkamos no head do html.
+<link rel="stylesheet" href="style.css">
+Onde: 
+    - 'rel' é o tipo de arquivo que para css usamos 'stylesheet' 
+    - 'href' é o caminho do arquivo css.
+*/
+
+head { /* Seleciona o elemento head da página. */
+    background-color: #454158; /* Define a cor de fundo da página para cinza escuro. */
+}
+body { /* Seleciona o elemento body da página. */
+    background-color: #22212C; /* Define a cor de fundo da página para preto. */ 
+}
+* { /* Seleciona todos os elementos da página. */
+    text-align: center; /* Define o alinhamento do texto de TODOS os elementos para o centro. */
+    color: #F8F8F2; /* Define a cor do texto de TODOS os elementos para branco. */
+}
+h2 { /* Seleciona todos os elementos h2 da página. */
+    color: #ff79c6; /* Define a cor do texto h2 para rosa. */
+}
+
+/* ============================================================= */
+/* = SELETORES                                                 = */
+/* ============================================================= */
+
+/* == ELEMENTOS ================================================ */
+/* O elemento é o nome do elemento html que queremos estilizar. */
+p { /* Seleciona todos os elementos p da página. */
+    text-align: justify; /* Define o alinhamento do texto de 'p' para justificado. */
+    color: #bd93f9; /* Define a cor do texto para roxo. */
+}
+
+/* == IDS ====================================================== */
+/* O id é um identificador único para um elemento da página. */
+#p { /* Seleciona todo os elementos com o id 'p' da página. */
+    text-align: justify; /* Define o alinhamento do texto de 'p' para justificado. */
+    color: #8AFF80; /* Define a cor do texto para verde. */
+}
+
+/* == CLASS ==================================================== */
+/* A classe é um nome que podemos atribuir a um ou mais elementos da página. */
+.p { /* Seleciona todos os elementos com a classe 'p' da página. */
+    text-align: justify; /* Define o alinhamento do texto de 'p' para justificado. */
+    color: #ffb86c; /* Define a cor do texto para laranja. */
+}

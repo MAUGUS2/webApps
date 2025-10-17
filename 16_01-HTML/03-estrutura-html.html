@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🏗️ HTML - Estrutura e Tags</title>
+<!-- Demonstrando a anatomia e estrutura fundamental do HTML -->
+    <style>
+        * { 
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #2E3A46;
+            color: #fff;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .navegacao {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .navegacao a {
+            color: #4A90E2;
+            text-decoration: none;
+            margin: 0 15px;
+        }
+
+        .navegacao a:hover {
+            color: #7ED321;
+        }
+
+        /* ============================================================= */
+        /* = ANATOMIA DE UMA TAG HTML                                 = */
+        /* ============================================================= */
+        /* Uma tag HTML é composta por:
+           
+           <tag atributo="valor">conteúdo</tag>
+           
+           1. TAG DE ABERTURA: <tag>
+           2. ATRIBUTOS: atributo="valor" (opcionais)
+           3. CONTEÚDO: texto ou outras tags
+           4. TAG DE FECHAMENTO: </tag>
+           
+           Algumas tags são auto-fechadas: <br>, <img>, <hr>
+        */
+
+        .anatomia-tag {
+            background-color: #3D4146;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #F5A623;
+            margin: 20px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 18px;
+        }
+
+        .tag-part {
+            display: inline-block;
+            padding: 5px 10px;
+            margin: 3px;
+            border-radius: 3px;
+        }
+
+        .abertura { background-color: #4A90E2; color: #fff; }
+        .fechamento { background-color: #F5A623; color: #2E3A46; }
+        .atributo { background-color: #7ED321; color: #2E3A46; }
+        .conteudo { background-color: #FF6B6B; color: #fff; }
+
+        /* ============================================================= */
+        /* = ESTRUTURA MÍNIMA HTML5                                   = */
+        /* ============================================================= */
+        /* Todo documento HTML5 deve ter a estrutura básica:
+           
+           1. DOCTYPE - informa ao navegador a versão do HTML
+           2. HTML - elemento raiz do documento
+           3. HEAD - metadados, títulos, links CSS/JS
+           4. BODY - conteúdo visível da página
+           
+           Esta estrutura é obrigatória e padronizada mundialmente.
+        */
+
+        .estrutura-html {
+            background-color: #3D4146;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #7ED321;
+            margin: 20px 0;
+        }
+
+        .elemento-html {
+            background-color: #4A90E2;
+            color: #fff;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+        }
+
+        .elemento-html h4 {
+            color: #7ED321;
+            margin-bottom: 10px;
+        }
+
+        /* ============================================================= */
+        /* = ELEMENTOS SEMÂNTICOS HTML5                               = */
+        /* ============================================================= */
+        /* HTML5 introduziu elementos semânticos que dão significado:
+           
+           - HEADER: cabeçalho da página ou seção
+           - NAV: navegação/menu
+           - MAIN: conteúdo principal
+           - SECTION: seções de conteúdo
+           - ARTICLE: artigos independentes
+           - ASIDE: conteúdo lateral/relacionado
+           - FOOTER: rodapé da página ou seção
+           
+           Isso melhora SEO e acessibilidade!
+        */
+
+        .semantica-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .tag-semantica {
+            background-color: #3D4146;
+            padding: 15px;
+            border-radius: 8px;
+            border: 2px solid #7ED321;
+            text-align: center;
+        }
+
+        .tag-semantica h4 {
+            color: #7ED321;
+            margin-bottom: 10px;
+        }
+
+        .layout-demo {
+            background-color: #3D4146;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            font-family: 'Courier New', monospace;
+            white-space: pre-wrap;
+            line-height: 1.8;
+        }
+
+        .visual-layout {
+            border: 2px solid #7ED321;
+            border-radius: 8px;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+
+        .header-demo { background-color: #4A90E2; padding: 15px; text-align: center; }
+        .nav-demo { background-color: #7ED321; color: #2E3A46; padding: 10px; text-align: center; }
+        .main-demo { background-color: #F5A623; color: #2E3A46; padding: 20px; text-align: center; min-height: 100px; }
+        .footer-demo { background-color: #FF6B6B; padding: 15px; text-align: center; }
+
+        /* ============================================================= */
+        /* = TÍTULOS E ORGANIZAÇÃO                                    = */
+        /* ============================================================= */
+        h1, h2 {
+            text-align: center;
+            margin: 30px 0 20px 0;
+        }
+
+        h1 {
+            color: #7ED321;
+            font-size: 28px;
+        }
+
+        h2 {
+            color: #4A90E2;
+            font-size: 20px;
+            border-bottom: 2px solid #4A90E2;
+            padding-bottom: 10px;
+        }
+
+        .secao {
+            margin: 40px 0;
+        }
+
+        .codigo-exemplo {
+            background-color: #3D4146;
+            border-left: 4px solid #7ED321;
+            padding: 15px;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+            border-radius: 5px;
+            white-space: pre-wrap;
+            line-height: 1.8;
+        }
+
+        .destaque {
+            background-color: #F5A623;
+            color: #2E3A46;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+            font-weight: bold;
+        }
+
+        .importante {
+            background-color: rgba(255, 107, 107, 0.2);
+            border: 1px solid #FF6B6B;
+            color: #FF6B6B;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="navegacao">
+    <a href="index.html">🏠 Início</a>
+    <a href="02-ambiente-desenvolvimento.html">⬅️ Anterior</a>
+    <a href="04-textos-listas.html">➡️ Próximo</a>
+</div>
+
+<h1>🏗️ Estrutura HTML - Tags e Anatomia</h1>
+
+<div class="secao">
+    <h2>🔍 Anatomia de uma Tag HTML</h2>
+    
+    <div class="anatomia-tag">
+        <div style="margin-bottom: 20px;">
+            <span class="abertura">&lt;h1</span>
+            <span class="atributo">class="titulo"</span>
+            <span class="abertura">&gt;</span>
+            <span class="conteudo">Meu Título</span>
+            <span class="fechamento">&lt;/h1&gt;</span>
+        </div>
+        
+        <div style="font-size: 14px; color: #888;">
+            ⬆️ TAG DE ABERTURA | ⬆️ ATRIBUTO | ⬆️ CONTEÚDO | ⬆️ TAG DE FECHAMENTO
+        </div>
+    </div>
+
+    <div class="estrutura-html">
+        <h3 style="color: #7ED321; margin-bottom: 20px;">Componentes de uma Tag:</h3>
+        
+        <div class="elemento-html">
+            <h4>🏷️ Nome da Tag</h4>
+            <p>Define o tipo de elemento: h1, p, div, img, etc.</p>
+        </div>
+
+        <div class="elemento-html">
+            <h4>⚙️ Atributos (opcionais)</h4>
+            <p>Configuram o comportamento: class="nome", id="id", src="imagem.jpg"</p>
+        </div>
+
+        <div class="elemento-html">
+            <h4>📝 Conteúdo</h4>
+            <p>Texto ou outras tags HTML aninhadas</p>
+        </div>
+
+        <div class="elemento-html">
+            <h4>🔒 Tag de Fechamento</h4>
+            <p>Marca o fim do elemento (algumas tags são auto-fechadas)</p>
+        </div>
+    </div>
+
+    <div class="importante">
+        <strong>⚠️ Importante:</strong> Tags devem ser sempre fechadas na ordem correta. Se você abrir &lt;div&gt;&lt;p&gt;, deve fechar &lt;/p&gt;&lt;/div&gt;. Isso se chama "aninhamento correto".
+    </div>
+</div>
+
+<div class="secao">
+    <h2>📋 Estrutura Mínima HTML5</h2>
+    
+    <div class="codigo-exemplo">
+&lt;!DOCTYPE html&gt;                    ← Declara HTML5
+&lt;html lang="pt-BR"&gt;                 ← Elemento raiz + idioma
+&lt;head&gt;                              ← Metadados (não visíveis)
+    &lt;meta charset="UTF-8"&gt;          ← Codificação de caracteres
+    &lt;meta name="viewport" 
+          content="width=device-width, 
+                   initial-scale=1.0"&gt; ← Responsividade mobile
+    &lt;title&gt;Título da Página&lt;/title&gt; ← Título na aba do navegador
+&lt;/head&gt;
+&lt;body&gt;                             ← Conteúdo visível
+    &lt;h1&gt;Olá, Mundo!&lt;/h1&gt;           ← Seu conteúdo aqui
+&lt;/body&gt;
+&lt;/html&gt;
+    </div>
+
+    <div class="estrutura-html">
+        <h3 style="color: #7ED321; margin-bottom: 20px;">Cada Parte Explicada:</h3>
+        
+        <div class="elemento-html">
+            <h4>&lt;!DOCTYPE html&gt;</h4>
+            <p><strong>Função:</strong> Informa ao navegador que é HTML5<br>
+               <strong>Obrigatório:</strong> Sempre na primeira linha</p>
+        </div>
+
+        <div class="elemento-html">
+            <h4>&lt;html lang="pt-BR"&gt;</h4>
+            <p><strong>Função:</strong> Elemento raiz do documento<br>
+               <strong>lang:</strong> Idioma para acessibilidade e SEO</p>
+        </div>
+
+        <div class="elemento-html">
+            <h4>&lt;head&gt;</h4>
+            <p><strong>Função:</strong> Metadados, CSS, JavaScript<br>
+               <strong>Invisível:</strong> Não aparece na página</p>
+        </div>
+
+        <div class="elemento-html">
+            <h4>&lt;meta charset="UTF-8"&gt;</h4>
+            <p><strong>Função:</strong> Suporte a acentos e caracteres especiais<br>
+               <strong>Essencial:</strong> Para textos em português</p>
+        </div>
+
+        <div class="elemento-html">
+            <h4>&lt;meta name="viewport"&gt;</h4>
+            <p><strong>Função:</strong> Controla zoom em dispositivos móveis<br>
+               <strong>Responsivo:</strong> Fundamental para mobile</p>
+        </div>
+
+        <div class="elemento-html">
+            <h4>&lt;body&gt;</h4>
+            <p><strong>Função:</strong> Todo conteúdo visível da página<br>
+               <strong>Único:</strong> Apenas um por documento</p>
+        </div>
+    </div>
+</div>
+
+<div class="secao">
+    <h2>🎯 Elementos Semânticos HTML5</h2>
+    
+    <div class="semantica-grid">
+        <div class="tag-semantica">
+            <h4>&lt;header&gt;</h4>
+            <p>Cabeçalho da página ou seção</p>
+            <small>Logo, título, navegação principal</small>
+        </div>
+
+        <div class="tag-semantica">
+            <h4>&lt;nav&gt;</h4>
+            <p>Navegação/Menu</p>
+            <small>Links de navegação do site</small>
+        </div>
+
+        <div class="tag-semantica">
+            <h4>&lt;main&gt;</h4>
+            <p>Conteúdo principal</p>
+            <small>Conteúdo único da página</small>
+        </div>
+
+        <div class="tag-semantica">
+            <h4>&lt;section&gt;</h4>
+            <p>Seção de conteúdo</p>
+            <small>Agrupamento temático</small>
+        </div>
+
+        <div class="tag-semantica">
+            <h4>&lt;article&gt;</h4>
+            <p>Artigo independente</p>
+            <small>Post, notícia, produto</small>
+        </div>
+
+        <div class="tag-semantica">
+            <h4>&lt;aside&gt;</h4>
+            <p>Conteúdo lateral</p>
+            <small>Sidebar, anúncios, relacionados</small>
+        </div>
+
+        <div class="tag-semantica">
+            <h4>&lt;footer&gt;</h4>
+            <p>Rodapé</p>
+            <small>Copyright, contato, links</small>
+        </div>
+    </div>
+
+    <div class="destaque">
+        <strong>🚀 Vantagem dos Elementos Semânticos:</strong> Melhoram SEO (Google entende melhor), acessibilidade (leitores de tela) e organização do código!
+    </div>
+</div>
+
+<div class="secao">
+    <h2>🎨 Layout Semântico em Ação</h2>
+    
+    <div class="visual-layout">
+        <div class="header-demo">
+            <strong>&lt;header&gt;</strong> - Logo e Navegação Principal
+        </div>
+        <div class="nav-demo">
+            <strong>&lt;nav&gt;</strong> - Menu: Início | Sobre | Contato
+        </div>
+        <div class="main-demo">
+            <strong>&lt;main&gt;</strong><br>
+            Conteúdo principal da página<br>
+            (artigos, formulários, etc.)
+        </div>
+        <div class="footer-demo">
+            <strong>&lt;footer&gt;</strong> - © 2024 - Todos os direitos reservados
+        </div>
+    </div>
+
+    <div class="layout-demo">
+&lt;!DOCTYPE html&gt;
+&lt;html lang="pt-BR"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title&gt;Layout Semântico&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;header&gt;
+        &lt;h1&gt;Meu Site&lt;/h1&gt;
+        &lt;nav&gt;
+            &lt;a href="#"&gt;Início&lt;/a&gt;
+            &lt;a href="#"&gt;Sobre&lt;/a&gt;
+            &lt;a href="#"&gt;Contato&lt;/a&gt;
+        &lt;/nav&gt;
+    &lt;/header&gt;
+
+    &lt;main&gt;
+        &lt;section&gt;
+            &lt;h2&gt;Bem-vindos!&lt;/h2&gt;
+            &lt;p&gt;Este é o conteúdo principal.&lt;/p&gt;
+        &lt;/section&gt;
+        
+        &lt;article&gt;
+            &lt;h3&gt;Meu Primeiro Post&lt;/h3&gt;
+            &lt;p&gt;Conteúdo do artigo...&lt;/p&gt;
+        &lt;/article&gt;
+    &lt;/main&gt;
+
+    &lt;aside&gt;
+        &lt;h4&gt;Links Relacionados&lt;/h4&gt;
+        &lt;ul&gt;
+            &lt;li&gt;&lt;a href="#"&gt;Link 1&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href="#"&gt;Link 2&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+    &lt;/aside&gt;
+
+    &lt;footer&gt;
+        &lt;p&gt;&copy; 2024 - Desenvolvido por Maugus&lt;/p&gt;
+    &lt;/footer&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+    </div>
+</div>
+
+<div class="secao">
+    <h2>🔧 Tags Auto-Fechadas</h2>
+    
+    <div class="codigo-exemplo">
+/* Tags que NÃO precisam de fechamento */
+
+&lt;br&gt;              ← Quebra de linha
+&lt;hr&gt;              ← Linha horizontal  
+&lt;img src="..."&gt;   ← Imagem
+&lt;input type="..."&gt; ← Campo de entrada
+&lt;meta ...&gt;        ← Metadados
+&lt;link ...&gt;        ← Link para CSS/Favicon
+
+/* ERRO COMUM - NÃO faça isso: */
+&lt;br&gt;&lt;/br&gt;        ← ❌ Incorreto
+&lt;img&gt;&lt;/img&gt;      ← ❌ Incorreto
+
+/* CORRETO: */
+&lt;br&gt;              ← ✅ Correto
+&lt;img src="foto.jpg" alt="Minha foto"&gt; ← ✅ Correto
+    </div>
+
+    <div class="importante">
+        <strong>💡 Dica:</strong> Se a tag não tem conteúdo interno (como texto), provavelmente é auto-fechada. Exemplos: img, br, hr, input, meta, link.
+    </div>
+</div>
+
+<br><br>
+<div class="navegacao">
+    <a href="index.html">🏠 Início</a>
+    <a href="02-ambiente-desenvolvimento.html">⬅️ Anterior</a>
+    <a href="04-textos-listas.html">➡️ Próximo</a>
+</div>
+
+<hr style="border-color: #4A90E2; margin: 20px 0;">
+<p style="text-align: center; color: #4A90E2;">Dev by <strong>Maugus</strong> em HTML puro 📙</p>
+
+</body>
+</html> 

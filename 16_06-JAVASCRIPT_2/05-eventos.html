@@ -1,0 +1,1052 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eventos e Interatividade - JavaScript Parte 2</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            /* Ultra Dark Minimalist Theme */
+            --ultra-bg: #0a0a0a;
+            --ultra-bg-alt: #111111;
+            --ultra-card: #1a1a1a;
+            --ultra-border: #222222;
+            --ultra-hover: #252525;
+            --ultra-text: #e6e6e6;
+            --ultra-text-muted: #999999;
+            --ultra-text-dim: #666666;
+            
+            /* Accent colors - mais sutis */
+            --accent-primary: #8b7cf8;
+            --accent-secondary: #64748b;
+            --accent-success: #22c55e;
+            --accent-warning: #f59e0b;
+            --accent-info: #3b82f6;
+            --accent-danger: #ef4444;
+            
+            /* Typography */
+            --font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-mono: 'Fira Code', 'Courier New', monospace;
+            
+            /* Spacing */
+            --spacing-1: 0.25rem;
+            --spacing-2: 0.5rem;
+            --spacing-3: 0.75rem;
+            --spacing-4: 1rem;
+            --spacing-5: 1.25rem;
+            --spacing-6: 1.5rem;
+            --spacing-8: 2rem;
+            
+            /* Border radius */
+            --border-radius-sm: 0.25rem;
+            --border-radius-md: 0.375rem;
+            --border-radius-lg: 0.5rem;
+            
+            /* Font sizes */
+            --font-size-xs: 0.75rem;
+            --font-size-sm: 0.875rem;
+            --font-size-base: 1rem;
+            --font-size-lg: 1.125rem;
+            --font-size-xl: 1.25rem;
+            --font-size-2xl: 1.5rem;
+            --font-size-3xl: 1.875rem;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-family);
+            background: var(--ultra-bg);
+            color: var(--ultra-text);
+            line-height: 1.6;
+            font-weight: 400;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--spacing-4);
+        }
+
+        /* Header minimalista */
+        .header {
+            background: var(--ultra-bg-alt);
+            color: var(--ultra-text);
+            text-align: center;
+            padding: var(--spacing-6) 0;
+            margin-bottom: var(--spacing-6);
+            border-bottom: 1px solid var(--ultra-border);
+        }
+
+        .header h1 {
+            font-size: var(--font-size-3xl);
+            font-weight: 300;
+            margin-bottom: var(--spacing-2);
+            letter-spacing: -0.025em;
+        }
+
+        .header .subtitle {
+            color: var(--ultra-text-muted);
+            font-size: var(--font-size-lg);
+            font-weight: 300;
+        }
+
+        /* Progress section */
+        .progress-section {
+            background: var(--ultra-card);
+            border: 1px solid var(--ultra-border);
+            border-radius: var(--border-radius-md);
+            padding: var(--spacing-4);
+            margin-bottom: var(--spacing-6);
+            text-align: center;
+        }
+
+        .progress-bar {
+            background: var(--ultra-border);
+            border-radius: var(--border-radius-lg);
+            height: 8px;
+            margin: var(--spacing-3) 0;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--accent-primary);
+            border-radius: var(--border-radius-lg);
+            transition: width 0.5s ease;
+        }
+
+        /* Content sections */
+        .content-section {
+            background: var(--ultra-card);
+            border: 1px solid var(--ultra-border);
+            border-radius: var(--border-radius-md);
+            padding: var(--spacing-6);
+            margin-bottom: var(--spacing-6);
+        }
+
+        .content-section h2 {
+            color: var(--ultra-text);
+            font-size: var(--font-size-2xl);
+            font-weight: 400;
+            margin-bottom: var(--spacing-4);
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-2);
+        }
+
+        .content-section h3 {
+            color: var(--accent-primary);
+            font-size: var(--font-size-xl);
+            font-weight: 400;
+            margin: var(--spacing-5) 0 var(--spacing-3) 0;
+        }
+
+        .content-section h4 {
+            color: var(--ultra-text);
+            font-size: var(--font-size-lg);
+            font-weight: 400;
+            margin: var(--spacing-4) 0 var(--spacing-2) 0;
+        }
+
+        .content-section p {
+            color: var(--ultra-text-muted);
+            margin-bottom: var(--spacing-3);
+            font-weight: 300;
+        }
+
+        .content-section ul, .content-section ol {
+            color: var(--ultra-text-muted);
+            margin-left: var(--spacing-5);
+            margin-bottom: var(--spacing-3);
+        }
+
+        .content-section li {
+            margin-bottom: var(--spacing-1);
+            font-weight: 300;
+        }
+
+        /* Info boxes */
+        .info-box {
+            padding: var(--spacing-4);
+            border-radius: var(--border-radius-md);
+            margin: var(--spacing-4) 0;
+            border-left: 3px solid;
+            background: var(--ultra-bg-alt);
+        }
+
+        .info-box.tip {
+            border-color: var(--accent-info);
+        }
+
+        .info-box.warning {
+            border-color: var(--accent-warning);
+        }
+
+        .info-box.example {
+            border-color: var(--accent-primary);
+        }
+
+        .info-box.info {
+            border-color: var(--accent-success);
+        }
+
+        .info-box.danger {
+            border-color: var(--accent-danger);
+        }
+
+        .info-box strong {
+            color: var(--ultra-text);
+        }
+
+        /* Code blocks */
+        .code-block {
+            background: var(--ultra-bg);
+            color: var(--ultra-text);
+            padding: var(--spacing-4);
+            border-radius: var(--border-radius-md);
+            margin: var(--spacing-4) 0;
+            overflow-x: auto;
+            font-family: var(--font-mono);
+            font-size: var(--font-size-sm);
+            border: 1px solid var(--ultra-border);
+            position: relative;
+        }
+
+        .code-block::before {
+            content: 'JavaScript';
+            position: absolute;
+            top: var(--spacing-2);
+            right: var(--spacing-3);
+            background: var(--accent-primary);
+            color: var(--ultra-bg);
+            padding: var(--spacing-1) var(--spacing-2);
+            border-radius: var(--border-radius-sm);
+            font-size: var(--font-size-xs);
+            font-weight: 500;
+        }
+
+        /* Demo containers */
+        .demo-container {
+            background: var(--ultra-bg-alt);
+            border: 1px solid var(--ultra-border);
+            border-radius: var(--border-radius-md);
+            padding: var(--spacing-4);
+            margin: var(--spacing-4) 0;
+        }
+
+        .demo-title {
+            color: var(--ultra-text);
+            font-weight: 400;
+            margin-bottom: var(--spacing-3);
+            font-size: var(--font-size-lg);
+        }
+
+        /* Form elements */
+        .input-group {
+            margin: var(--spacing-3) 0;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: var(--spacing-2);
+            font-weight: 400;
+            color: var(--ultra-text);
+            font-size: var(--font-size-sm);
+        }
+
+        .input-group input, 
+        .input-group select, 
+        .input-group textarea {
+            width: 100%;
+            padding: var(--spacing-3);
+            background: var(--ultra-card);
+            border: 1px solid var(--ultra-border);
+            border-radius: var(--border-radius-md);
+            color: var(--ultra-text);
+            font-size: var(--font-size-base);
+            font-family: var(--font-family);
+            transition: border-color 0.2s ease;
+        }
+
+        .input-group input:focus, 
+        .input-group select:focus, 
+        .input-group textarea:focus {
+            outline: none;
+            border-color: var(--accent-primary);
+        }
+
+        /* Buttons */
+        .btn {
+            padding: var(--spacing-3) var(--spacing-5);
+            border: none;
+            border-radius: var(--border-radius-md);
+            font-size: var(--font-size-base);
+            font-weight: 400;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+            margin: var(--spacing-1);
+        }
+
+        .btn-primary {
+            background: var(--accent-primary);
+            color: var(--ultra-bg);
+        }
+
+        .btn-primary:hover {
+            background: #7c6ce8;
+        }
+
+        .btn-secondary {
+            background: var(--ultra-card);
+            color: var(--ultra-text);
+            border: 1px solid var(--ultra-border);
+        }
+
+        .btn-secondary:hover {
+            background: var(--ultra-hover);
+        }
+
+        /* Navigation */
+        .navigation {
+            background: var(--ultra-card);
+            border: 1px solid var(--ultra-border);
+            border-radius: var(--border-radius-md);
+            padding: var(--spacing-5);
+            margin: var(--spacing-6) 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: var(--spacing-4);
+            flex-wrap: wrap;
+        }
+
+        .nav-button {
+            padding: var(--spacing-3) var(--spacing-5);
+            border: none;
+            border-radius: var(--border-radius-md);
+            font-size: var(--font-size-base);
+            font-weight: 400;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .nav-button.primary {
+            background: var(--accent-primary);
+            color: var(--ultra-bg);
+        }
+
+        .nav-button.primary:hover {
+            background: #7c6ce8;
+        }
+
+        .nav-button.secondary {
+            background: var(--ultra-hover);
+            color: var(--ultra-text);
+            border: 1px solid var(--ultra-border);
+        }
+
+        .nav-button.secondary:hover {
+            background: var(--ultra-border);
+        }
+
+        /* Output displays */
+        .output {
+            background: var(--ultra-bg);
+            border: 1px solid var(--ultra-border);
+            border-radius: var(--border-radius-md);
+            padding: var(--spacing-3);
+            margin-top: var(--spacing-3);
+            font-family: var(--font-mono);
+            font-size: var(--font-size-sm);
+            color: var(--ultra-text-muted);
+            min-height: 40px;
+        }
+
+        /* Event-specific styles */
+        .event-demo {
+            background: var(--ultra-bg-alt);
+            border: 1px solid var(--ultra-border);
+            border-radius: var(--border-radius-md);
+            padding: var(--spacing-4);
+            margin: var(--spacing-4) 0;
+            min-height: 150px;
+        }
+
+        .event-target {
+            background: var(--accent-primary);
+            color: var(--ultra-bg);
+            padding: var(--spacing-3);
+            border-radius: var(--border-radius-md);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-align: center;
+            margin: var(--spacing-2);
+        }
+
+        .event-target:hover {
+            background: #7c6ce8;
+            transform: scale(1.05);
+        }
+
+        .event-log {
+            background: var(--ultra-bg);
+            border: 1px solid var(--ultra-border);
+            border-radius: var(--border-radius-md);
+            padding: var(--spacing-3);
+            margin-top: var(--spacing-3);
+            font-family: var(--font-mono);
+            font-size: var(--font-size-sm);
+            color: var(--ultra-text-muted);
+            min-height: 100px;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: var(--spacing-4) 0;
+            background: var(--ultra-bg-alt);
+            border-radius: var(--border-radius-md);
+            overflow: hidden;
+        }
+
+        th, td {
+            padding: var(--spacing-3);
+            text-align: left;
+            border-bottom: 1px solid var(--ultra-border);
+        }
+
+        th {
+            background: var(--ultra-card);
+            color: var(--ultra-text);
+            font-weight: 400;
+        }
+
+        td {
+            color: var(--ultra-text-muted);
+            font-weight: 300;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 var(--spacing-3);
+            }
+            
+            .header h1 {
+                font-size: var(--font-size-2xl);
+            }
+            
+            .content-section {
+                padding: var(--spacing-4);
+            }
+            
+            .navigation {
+                flex-direction: column;
+                gap: var(--spacing-3);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>🎯 Eventos e Interatividade</h1>
+            <p class="subtitle">Event Listeners, Propagação e Manipulação de Eventos</p>
+        </header>
+
+        <!-- Progress Section -->
+        <section class="progress-section">
+            <h3>Progresso do Tópico</h3>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progress-fill"></div>
+            </div>
+            <p>Completar os exercícios para avançar no curso</p>
+        </section>
+
+        <main class="content-section">
+            <h2>⚡ 5. Eventos</h2>
+            
+            <div class="info-box info">
+                <strong>Visão Geral:</strong> Eventos em JavaScript permitem interatividade: capturam ações do usuário (como cliques, digitação e carregamento da página) e definem comportamentos a partir dessas ações.
+            </div>
+
+            <h3>5.1 Tipos de eventos</h3>
+
+            <table class="table-comparison">
+                <thead>
+                    <tr>
+                        <th>Tipo</th>
+                        <th>Descrição</th>
+                        <th>Exemplo de Uso</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>click</strong></td>
+                        <td>Quando o usuário clica em um elemento</td>
+                        <td>Botões, links, imagens</td>
+                    </tr>
+                    <tr>
+                        <td><strong>keydown</strong></td>
+                        <td>Pressionamento de tecla</td>
+                        <td>Campos de texto, jogos</td>
+                    </tr>
+                    <tr>
+                        <td><strong>keyup</strong></td>
+                        <td>Tecla liberada</td>
+                        <td>Validação em tempo real</td>
+                    </tr>
+                    <tr>
+                        <td><strong>submit</strong></td>
+                        <td>Envio de formulário</td>
+                        <td>Validação antes de enviar</td>
+                    </tr>
+                    <tr>
+                        <td><strong>load</strong></td>
+                        <td>Carregamento completo da página</td>
+                        <td>Inicialização de scripts</td>
+                    </tr>
+                    <tr>
+                        <td><strong>mouseover</strong></td>
+                        <td>Cursor do mouse passa sobre um elemento</td>
+                        <td>Tooltips, efeitos hover</td>
+                    </tr>
+                    <tr>
+                        <td><strong>change</strong></td>
+                        <td>Alteração em campo de formulário</td>
+                        <td>Selects, checkboxes</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="info-box tip">
+                Existem centenas de eventos. Os mais usados são os de clique, teclado, e carregamento.
+            </div>
+
+            <h3>5.2 Manipulando eventos</h3>
+
+            <h4>5.2.1 addEventListener</h4>
+
+            <div class="code-block">
+const botao = document.getElementById("meuBotao");
+botao.addEventListener("click", function() {
+  alert("Botão clicado!");
+});
+            </div>
+
+            <div class="info-box info">
+                Permite adicionar vários ouvintes ao mesmo elemento sem sobrescrever outros existentes.
+            </div>
+
+            <div class="demo-container">
+                <div class="demo-title">🧪 Demonstração: Tipos de Eventos Básicos</div>
+                
+                <button id="click-demo" class="btn">Clique em mim!</button>
+                
+                <div class="input-group">
+                    <label for="keyboard-input">Digite algo (eventos de teclado):</label>
+                    <input type="text" id="keyboard-input" placeholder="Digite aqui para testar eventos de teclado">
+                </div>
+
+                <button id="hover-demo" class="btn">Passe o mouse sobre mim!</button>
+
+                <div class="result-box" id="basic-events-result">// Resultados dos eventos aparecerão aqui</div>
+            </div>
+
+            <h4>5.2.2 Evento de clique</h4>
+
+            <div class="code-block">
+document.querySelector("#exemplo").addEventListener("click", () => {
+  console.log("Clique detectado");
+});
+            </div>
+
+            <h4>5.2.3 Evento de teclado</h4>
+
+            <div class="code-block">
+document.addEventListener("keydown", (event) => {
+  console.log(`Tecla pressionada: ${event.key}`);
+});
+            </div>
+
+            <h4>5.2.4 Evento de carregamento</h4>
+
+            <div class="code-block">
+window.addEventListener("load", () => {
+  console.log("Página carregada completamente.");
+});
+            </div>
+
+            <div class="info-box warning">
+                Se quiser manipular elementos logo após o carregamento, use <code>DOMContentLoaded</code> ou <code>load</code>.
+            </div>
+
+            <h3>5.3 Propagação de eventos</h3>
+
+            <div class="info-box info">
+                Eventos percorrem uma árvore de elementos. Há dois modos:
+                <ul style="margin-top: 10px;">
+                    <li><strong>Captura</strong>: de cima para baixo (document → elemento)</li>
+                    <li><strong>Bolha</strong>: de baixo para cima (elemento → document)</li>
+                </ul>
+            </div>
+
+            <h4>5.3.1 Captura e bolha</h4>
+
+            <div class="code-block">
+document.body.addEventListener("click", () => {
+  console.log("Body clicado!");
+}, true); // Captura: true
+            </div>
+
+            <div class="info-box example">
+                A ordem da propagação é controlada pelo terceiro argumento do <code>addEventListener</code>.
+            </div>
+
+            <div class="demo-container">
+                <div class="demo-title">🧪 Demonstração: Propagação de Eventos</div>
+                
+                <div class="event-demo-area">
+                    <div id="parent" class="parent-element">
+                        <strong>Elemento Pai</strong> (clique aqui)
+                        <div id="child" class="child-element">
+                            <strong>Elemento Filho</strong> (clique aqui)
+                            <div id="grandchild" class="grandchild-element">
+                                <strong>Elemento Neto</strong> (clique aqui)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="btn" onclick="setupBubbling()">Configurar Bubbling</button>
+                <button class="btn" onclick="setupCapturing()">Configurar Capturing</button>
+                <button class="btn" onclick="clearEventLog()">Limpar Log</button>
+
+                <div class="event-log" id="event-log">
+                    Log de eventos (clique nos elementos acima após configurar)
+                </div>
+            </div>
+
+            <h4>5.3.2 event.stopPropagation()</h4>
+
+            <div class="code-block">
+const interno = document.getElementById("interno");
+
+interno.addEventListener("click", (e) => {
+  e.stopPropagation();
+  console.log("Clique interno (sem propagar)");
+});
+            </div>
+
+            <div class="info-box warning">
+                <code>stopPropagation()</code> impede que o evento continue subindo (ou descendo) na árvore.
+            </div>
+
+            <div class="demo-container">
+                <div class="demo-title">🧪 Demonstração: stopPropagation()</div>
+                
+                <div class="event-demo-area">
+                    <div id="outer-stop" class="parent-element">
+                        <strong>Elemento Externo</strong>
+                        <div id="inner-stop" class="child-element">
+                            <strong>Elemento Interno</strong> (com stopPropagation)
+                        </div>
+                    </div>
+                </div>
+
+                <button class="btn" onclick="setupStopPropagation()">Configurar Stop Propagation</button>
+                <button class="btn" onclick="testWithoutStop()">Testar Sem Stop</button>
+
+                <div class="result-box" id="stop-result">// Resultados do stopPropagation aparecerão aqui</div>
+            </div>
+
+            <h3>5.4 event.preventDefault() (.extra)</h3>
+
+            <div class="code-block">
+const formulario = document.getElementById("formLogin");
+
+formulario.addEventListener("submit", (e) => {
+  e.preventDefault();
+  console.log("Formulário interceptado sem enviar");
+});
+            </div>
+
+            <div class="info-box info">
+                Esse método é usado para impedir o comportamento padrão (como envio de formulário ou redirecionamento de link).
+            </div>
+
+            <div class="demo-container">
+                <div class="demo-title">🧪 Demonstração: preventDefault()</div>
+                
+                <form id="demo-form">
+                    <div class="input-group">
+                        <label for="demo-name">Nome:</label>
+                        <input type="text" id="demo-name" required>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="demo-email">E-mail:</label>
+                        <input type="email" id="demo-email" required>
+                    </div>
+
+                    <button type="submit" class="btn">Enviar Formulário</button>
+                </form>
+
+                <a href="https://example.com" id="demo-link" style="display: inline-block; margin: 10px 0; color: var(--primary-color); text-decoration: none; font-weight: bold;">Link de Exemplo (preventDefault)</a>
+
+                <button class="btn" onclick="setupPreventDefault()">Ativar preventDefault</button>
+                <button class="btn" onclick="removePreventDefault()">Remover preventDefault</button>
+
+                <div class="result-box" id="prevent-result">// Resultados do preventDefault aparecerão aqui</div>
+            </div>
+
+            <h3>🧠 Resumo</h3>
+            <ul>
+                <li>Eventos reagem a ações do usuário (cliques, teclas, rolagem, etc.)</li>
+                <li><code>addEventListener</code> é a forma moderna e recomendada de escutar eventos.</li>
+                <li>Eventos se propagam (captura e bolha).</li>
+                <li>Podemos interromper a propagação (<code>stopPropagation</code>) ou comportamento padrão (<code>preventDefault</code>).</li>
+            </ul>
+
+            <div class="quiz-section">
+                <h3>📋 Perguntas de Revisão</h3>
+                
+                <div class="quiz-question">
+                    <h4>1. Qual a função do addEventListener?</h4>
+                    <p>Permite adicionar ouvintes de eventos a elementos, sem sobrescrever outros existentes.</p>
+                </div>
+
+                <div class="quiz-question">
+                    <h4>2. Qual a diferença entre captura e bolha?</h4>
+                    <p>Captura vai do document para o elemento, bolha vai do elemento para o document.</p>
+                </div>
+
+                <div class="quiz-question">
+                    <h4>3. Quando usar stopPropagation()?</h4>
+                    <p>Quando queremos impedir que o evento continue se propagando na árvore DOM.</p>
+                </div>
+
+                <div class="quiz-question">
+                    <h4>4. Para que serve preventDefault()?</h4>
+                    <p>Impede o comportamento padrão do elemento (ex: envio de formulário, redirecionamento de link).</p>
+                </div>
+
+                <button class="btn" onclick="completeQuiz()">✅ Marcar Como Concluído</button>
+            </div>
+        </main>
+
+        <section class="conclusion-section">
+            <h2>🎉 Conclusão - JavaScript Parte 2</h2>
+            <p>Parabéns! Você completou o estudo avançado de JavaScript, dominando:</p>
+            <ul style="text-align: left; display: inline-block; margin: 20px 0;">
+                <li><strong>Tipos de Dados:</strong> Objetos e Arrays</li>
+                <li><strong>Funções:</strong> Declarações, Expressões e Arrow Functions</li>
+                <li><strong>BOM:</strong> Interação com o navegador</li>
+                <li><strong>DOM:</strong> Manipulação de elementos HTML</li>
+                <li><strong>Eventos:</strong> Interatividade e propagação</li>
+            </ul>
+            <p>Agora você tem as ferramentas necessárias para criar aplicações web interativas e dinâmicas!</p>
+        </section>
+
+        <nav class="navigation">
+            <a href="04-dom.html" class="nav-button secondary">← Anterior: DOM</a>
+            <a href="index.html" class="nav-button primary">📚 Voltar ao Índice</a>
+            <span class="nav-button secondary" style="opacity: 0.5; cursor: not-allowed;">Fim do Curso ✨</span>
+        </nav>
+    </div>
+
+    <script>
+        // Variáveis para controle de eventos
+        let bubblingListeners = [];
+        let capturingListeners = [];
+        let preventDefaultActive = false;
+
+        // Funções para eventos básicos
+        function setupBasicEvents() {
+            // Evento de clique
+            document.getElementById('click-demo').addEventListener('click', function() {
+                document.getElementById('basic-events-result').textContent = 
+                    `Evento CLICK detectado!\nTempo: ${new Date().toLocaleTimeString()}\nBotão clicado com sucesso!`;
+                updateProgress(20);
+            });
+
+            // Eventos de teclado
+            const keyboardInput = document.getElementById('keyboard-input');
+            
+            keyboardInput.addEventListener('keydown', function(event) {
+                document.getElementById('basic-events-result').textContent = 
+                    `Evento KEYDOWN:\nTecla pressionada: "${event.key}"\nCódigo: ${event.keyCode}\nTexto atual: "${this.value}"`;
+            });
+
+            keyboardInput.addEventListener('keyup', function(event) {
+                document.getElementById('basic-events-result').textContent = 
+                    `Evento KEYUP:\nTecla liberada: "${event.key}"\nTexto atual: "${this.value}"\nComprimento: ${this.value.length}`;
+            });
+
+            // Evento de hover
+            const hoverDemo = document.getElementById('hover-demo');
+            
+            hoverDemo.addEventListener('mouseover', function() {
+                this.style.backgroundColor = '#e8890b';
+                document.getElementById('basic-events-result').textContent = 
+                    'Evento MOUSEOVER: Mouse entrou no elemento!';
+            });
+
+            hoverDemo.addEventListener('mouseout', function() {
+                this.style.backgroundColor = '';
+                document.getElementById('basic-events-result').textContent = 
+                    'Evento MOUSEOUT: Mouse saiu do elemento!';
+            });
+        }
+
+        // Funções para propagação de eventos
+        function setupBubbling() {
+            clearPreviousListeners();
+            
+            const parent = document.getElementById('parent');
+            const child = document.getElementById('child');
+            const grandchild = document.getElementById('grandchild');
+
+            function logEvent(elementName) {
+                return function(event) {
+                    addToEventLog(`BUBBLING: ${elementName} clicado`);
+                };
+            }
+
+            const parentListener = logEvent('PAI');
+            const childListener = logEvent('FILHO');
+            const grandchildListener = logEvent('NETO');
+
+            parent.addEventListener('click', parentListener, false); // false = bubbling
+            child.addEventListener('click', childListener, false);
+            grandchild.addEventListener('click', grandchildListener, false);
+
+            bubblingListeners = [
+                {element: parent, listener: parentListener},
+                {element: child, listener: childListener},
+                {element: grandchild, listener: grandchildListener}
+            ];
+
+            addToEventLog('BUBBLING configurado - clique nos elementos!');
+            updateProgress(40);
+        }
+
+        function setupCapturing() {
+            clearPreviousListeners();
+            
+            const parent = document.getElementById('parent');
+            const child = document.getElementById('child');
+            const grandchild = document.getElementById('grandchild');
+
+            function logEvent(elementName) {
+                return function(event) {
+                    addToEventLog(`CAPTURING: ${elementName} clicado`);
+                };
+            }
+
+            const parentListener = logEvent('PAI');
+            const childListener = logEvent('FILHO');
+            const grandchildListener = logEvent('NETO');
+
+            parent.addEventListener('click', parentListener, true); // true = capturing
+            child.addEventListener('click', childListener, true);
+            grandchild.addEventListener('click', grandchildListener, true);
+
+            capturingListeners = [
+                {element: parent, listener: parentListener},
+                {element: child, listener: childListener},
+                {element: grandchild, listener: grandchildListener}
+            ];
+
+            addToEventLog('CAPTURING configurado - clique nos elementos!');
+        }
+
+        function clearPreviousListeners() {
+            bubblingListeners.forEach(({element, listener}) => {
+                element.removeEventListener('click', listener, false);
+            });
+            capturingListeners.forEach(({element, listener}) => {
+                element.removeEventListener('click', listener, true);
+            });
+            bubblingListeners = [];
+            capturingListeners = [];
+        }
+
+        function addToEventLog(message) {
+            const log = document.getElementById('event-log');
+            const timestamp = new Date().toLocaleTimeString();
+            log.textContent += `[${timestamp}] ${message}\n`;
+            log.scrollTop = log.scrollHeight;
+        }
+
+        function clearEventLog() {
+            document.getElementById('event-log').textContent = 'Log de eventos (clique nos elementos após configurar)\n';
+        }
+
+        // Funções para stopPropagation
+        function setupStopPropagation() {
+            const outer = document.getElementById('outer-stop');
+            const inner = document.getElementById('inner-stop');
+
+            // Remove listeners anteriores
+            outer.removeEventListener('click', outerClickHandler);
+            inner.removeEventListener('click', innerClickHandler);
+            inner.removeEventListener('click', innerClickWithStopHandler);
+
+            // Adiciona novos listeners
+            outer.addEventListener('click', outerClickHandler);
+            inner.addEventListener('click', innerClickWithStopHandler);
+
+            document.getElementById('stop-result').textContent = 
+                'stopPropagation() configurado!\nClique no elemento interno - o evento NÃO vai propagar para o pai.';
+            updateProgress(60);
+        }
+
+        function testWithoutStop() {
+            const outer = document.getElementById('outer-stop');
+            const inner = document.getElementById('inner-stop');
+
+            // Remove listeners anteriores
+            outer.removeEventListener('click', outerClickHandler);
+            inner.removeEventListener('click', innerClickHandler);
+            inner.removeEventListener('click', innerClickWithStopHandler);
+
+            // Adiciona listeners sem stop
+            outer.addEventListener('click', outerClickHandler);
+            inner.addEventListener('click', innerClickHandler);
+
+            document.getElementById('stop-result').textContent = 
+                'Sem stopPropagation()!\nClique no elemento interno - o evento VAI propagar para o pai.';
+        }
+
+        function outerClickHandler() {
+            document.getElementById('stop-result').textContent += 
+                '\n🔵 Evento propagou para o ELEMENTO EXTERNO!';
+        }
+
+        function innerClickHandler() {
+            document.getElementById('stop-result').textContent = 
+                '🔴 Clique no ELEMENTO INTERNO (sem stopPropagation)';
+        }
+
+        function innerClickWithStopHandler(event) {
+            event.stopPropagation();
+            document.getElementById('stop-result').textContent = 
+                '🟡 Clique no ELEMENTO INTERNO (com stopPropagation)\n⛔ Evento NÃO propagou para o pai!';
+        }
+
+        // Funções para preventDefault
+        function setupPreventDefault() {
+            const form = document.getElementById('demo-form');
+            const link = document.getElementById('demo-link');
+
+            // Remove listeners anteriores
+            form.removeEventListener('submit', formSubmitHandler);
+            form.removeEventListener('submit', formPreventHandler);
+            link.removeEventListener('click', linkPreventHandler);
+
+            // Adiciona listeners com preventDefault
+            form.addEventListener('submit', formPreventHandler);
+            link.addEventListener('click', linkPreventHandler);
+
+            preventDefaultActive = true;
+            document.getElementById('prevent-result').textContent = 
+                'preventDefault() ativado!\nTente enviar o formulário ou clicar no link - ações padrão serão impedidas.';
+            updateProgress(80);
+        }
+
+        function removePreventDefault() {
+            const form = document.getElementById('demo-form');
+            const link = document.getElementById('demo-link');
+
+            // Remove listeners com preventDefault
+            form.removeEventListener('submit', formPreventHandler);
+            link.removeEventListener('click', linkPreventHandler);
+
+            // Adiciona listener normal para o formulário
+            form.addEventListener('submit', formSubmitHandler);
+
+            preventDefaultActive = false;
+            document.getElementById('prevent-result').textContent = 
+                'preventDefault() removido!\nAgora o formulário tentará enviar normalmente e o link funcionará.';
+        }
+
+        function formSubmitHandler(event) {
+            document.getElementById('prevent-result').textContent = 
+                'Formulário seria enviado normalmente!\n(Na prática, a página recarregaria)';
+            event.preventDefault(); // Previne apenas para demonstração
+        }
+
+        function formPreventHandler(event) {
+            event.preventDefault();
+            const name = document.getElementById('demo-name').value;
+            const email = document.getElementById('demo-email').value;
+            
+            document.getElementById('prevent-result').textContent = 
+                `preventDefault() aplicado!\nFormulário NÃO foi enviado.\nDados capturados:\nNome: ${name}\nE-mail: ${email}`;
+        }
+
+        function linkPreventHandler(event) {
+            event.preventDefault();
+            document.getElementById('prevent-result').textContent = 
+                'preventDefault() aplicado!\nLink NÃO redirecionou.\nURL original: ' + event.target.href;
+        }
+
+        // Sistema de progresso
+        let currentProgress = 0;
+
+        function updateProgress(newProgress) {
+            if (newProgress > currentProgress) {
+                currentProgress = newProgress;
+                document.getElementById('progress-fill').style.width = currentProgress + '%';
+            }
+        }
+
+        function completeQuiz() {
+            updateProgress(100);
+            alert('🎉 Parabéns! Você concluiu toda a aula de JavaScript Parte 2!\n\nVocê dominou: Tipos de Dados, Funções, BOM, DOM e Eventos!');
+        }
+
+        // Carregar progresso salvo
+        function loadProgress() {
+            const savedProgress = localStorage.getItem('js2-eventos-progress');
+            if (savedProgress) {
+                currentProgress = parseInt(savedProgress);
+                document.getElementById('progress-fill').style.width = currentProgress + '%';
+            }
+        }
+
+        // Inicializar página
+        document.addEventListener('DOMContentLoaded', function() {
+            loadProgress();
+            setupBasicEvents();
+        });
+
+        // Limpeza ao sair da página
+        window.addEventListener('beforeunload', function() {
+            clearPreviousListeners();
+        });
+    </script>
+</body>
+</html> 

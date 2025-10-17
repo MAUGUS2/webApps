@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>16_02_02_style</title>
+<!-- Vamos usar o css interno para estilizar o site. Dessa forma é mais didático e fácil de entender, mas em hambiente de produção é recomendado usar o css externo. -->
+    <style>
+        * { 
+            margin: 0 auto;
+            padding: 0;
+        }
+        /* ============================================================= */
+        /* = COLOR                                                     = */
+        /* ============================================================= */
+        /*  Podemos usar as cores em hexadecimal, rgb, rgba, hsl, hsla. */
+        /*  Para usar as cores em hexadecimal, usamos o # seguido do código hexadecimal. */
+        /*  Para usar as cores em rgb, usamos rgb(red, green, blue). */
+        /*  Para usar as cores em rgba, usamos rgba(red, green, blue, alpha). */
+        /*  Para usar as cores em hsl, usamos hsl(hue, saturation, lightness). */
+        /*  Para usar as cores em hsla, usamos hsla(hue, saturation, lightness, alpha). */
+        /*  Para usar as cores em nome, usamos o nome da cor. */
+        /* Podemos definir as cores dos seguintes elementos:
+            - body (cor de fundo)
+            - h1, h2, p (cor do texto)
+            - background-color (cor de fundo)
+            - color (cor do texto)
+            - border-color (cor da borda)
+            - outline-color (cor do contorno)
+            - text-decoration-color (cor do texto decorativo)
+            - text-shadow-color (cor da sombra do texto)
+            - box-shadow-color (cor da sombra do box)
+            - fill-color (cor do preenchimento)
+            - stroke-color (cor do traço)
+            - accent-color (cor do elemento ativo)
+            - caret-color (cor do cursor)
+            - scrollbar-color (cor do scrollbar)
+            - scrollbar-track-color (cor do fundo do scrollbar)
+            - scrollbar-thumb-color (cor do thumb do scrollbar)
+            - scrollbar-button-color (cor do botão do scrollbar)
+            - scrollbar-track-piece-color (cor do pedaço do fundo do scrollbar)
+            - scrollbar-corner-color (cor do canto do scrollbar)
+            - scrollbar-3dlight-color (cor da luz 3D do scrollbar)
+            - scrollbar-darkshadow-color (cor da sombra escura do scrollbar)
+            - scrollbar-face-color (cor da face do scrollbar)
+            - scrollbar-highlight-color (cor do destaque do scrollbar)
+            - scrollbar-shadow-color (cor da sombra do scrollbar)
+            - scrollbar-track-color (cor do fundo do scrollbar)
+            - scrollbar-track-piece-color (cor do pedaço do fundo do scrollbar)
+        */
+        .cor1 { /* Cor de fundo */
+            background-color: #454158; /* Cor de fundo */
+        }
+
+        .cor2 {
+            background-color: #FF80BF;
+        }
+
+        .cor3 {
+            background-color: #8AFF80;
+        }
+        /* ============================================================= */
+        /* = BACKGROUND                                                = */
+        /* ============================================================= */
+        /* No backgrond alem das cores podemos usar as seguintes propriedades:
+            - background-color (cor de fundo)
+            - background-image (imagem de fundo)
+            - background-repeat (repetir a imagem)
+            - background-position (posição da imagem)
+            - background-size (tamanho da imagem)
+            - background-attachment (fixar a imagem)
+            - background-clip (clip da imagem)
+            - background-origin (origem da imagem)
+            - background-blend-mode (modo de blend da imagem)
+            - background-blend-mode (modo de blend da imagem)
+        */
+
+        body {
+            background-color: #454158;
+        }
+
+        /* ============================================================= */
+        /* = TEXT                                                      = */
+        /* ============================================================= */
+        /* No text podemos ajustar as seguintes propriedades usando as seguintes tags:
+            - text-align (alinhamento do texto)
+            - text-align-last (alinhamento do texto final)
+            - text-align-last-right (alinhamento do texto final direita)
+            - text-align-last-left (alinhamento do texto final esquerda)
+            - text-align-last-center (alinhamento do texto final centralizado)
+            - text-align-last-justify (alinhamento do texto final justificado)
+            - text-align-last-start (alinhamento do texto final inicial)
+            - text-align-last-end (alinhamento do texto final final)
+            - text-align-last-match-parent (alinhamento do texto final do pai)
+            - text-align-last-auto (alinhamento do texto final automático)
+        */
+
+        h1, h2, p {
+            text-align: center;
+        }
+
+        /* ============================================================= */
+        /* = FONT                                                      = */
+        /* ============================================================= */
+        /* No font podemos ajustar as seguintes propriedades usando as seguintes tags:
+            - font-family (fonte do texto)
+            - font-size (tamanho da fonte)
+            - font-weight (peso da fonte)
+                        - font-family (fonte do texto)
+            - font-size (tamanho da fonte)
+            - font-weight (peso da fonte)
+            - font-style (estilo da fonte)
+            - font-variant (variante da fonte)
+            - font-stretch (alongamento da fonte)
+            - font-kerning (kerning da fonte)
+            - font-variant-numeric (variante numérica da fonte)
+            - font-variant-caps (variante caps da fonte)
+            - font-variant-ligatures (variante ligatras da fonte)
+            - font-variant-alternates (variante alternativas da fonte)
+            - font-variant-east-asian (variante east asian da fonte)
+            - font-variant-position (variante posição da fonte)
+        */
+
+
+        h1 {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 24px;
+            font-weight: bold;
+            font-style: italic;
+            font-variant: small-caps;
+            font-stretch: ultra-expanded;
+            font-kerning: normal;
+        }
+
+
+        h2 {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 20px;
+            font-weight: bold;
+            font-style: italic;
+            font-variant: small-caps;
+            font-stretch: ultra-expanded;
+            font-kerning: normal;
+        }
+
+        p {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 14px;
+            font-weight: normal;
+            font-style: normal;
+            font-variant: normal;
+            font-stretch: normal;
+            font-kerning: normal;
+        }
+        /* ============================================================= */
+        /* = BORDER                                                    = */
+        /* ============================================================= */
+        /* No border podemos ajustar as seguintes propriedades usando as seguintes tags:
+            - border-width (largura da borda)
+            - border-style (estilo da borda) (solid, dashed, dotted, double, groove, ridge, inset, outset)
+            - border-color (cor da borda)
+            - border-radius (arredondamento da borda)
+                - border-top-left-radius (arredondamento da borda superior esquerda)
+                - border-top-right-radius (arredondamento da borda superior direita)
+                - border-bottom-left-radius (arredondamento da borda inferior esquerda)
+                - border-bottom-right-radius (arredondamento da borda inferior direita)
+                - border-top-left-radius (arredondamento da borda superior esquerda)
+                - border-top-right-radius (arredondamento da borda superior direita)
+            - border-image (imagem da borda)
+                - border-image-source (fonte da imagem da borda)
+                - border-image-slice (corte da imagem da borda)
+                - border-image-width (largura da imagem da borda)
+                - border-image-outset (deslocamento da imagem da borda)
+                - border-image-repeat (repetir a imagem da borda)
+                - border-image-mode (modo de blend da imagem da borda)
+                - border-image-mode (modo de blend da imagem da borda)
+            
+        */
+        
+        .tamanho {
+            border: 1px solid #22212C; /* Borda */
+            border-radius: 50px 5px; /* Borda arredondada */
+        }
+
+        /* ============================================================= */
+        /* = WIDTH                                                     = */
+        /* ============================================================= */
+        /* No width podemos ajustar as seguintes propriedades usando as seguintes tags:
+            - width (largura)
+            - max-width (largura máxima)
+            - min-width (largura mínima)
+            - width-auto (largura automática)
+            - width-inherit (largura herdada)
+            - width-initial (largura inicial)
+            - width-revert (largura revertida)
+            - width-unset (largura não definida)
+            - width-revert-layer (largura revertida em camada)
+            - width-revert-layer-initial (largura revertida em camada inicial)
+        */
+
+        .tamanho {
+            width: 30%; /* 30% da largura da página */
+
+        }
+
+        .width_height1 {
+            width: auto; /* Largura automática */
+            height: auto; /* Altura automática */
+            border: 1px solid #22212C; /* Borda */
+        }
+
+        .width_height2 {
+            width: 200px; /* 200px de largura */
+            height: 50px; /* 50px de altura */
+            border: 1px solid #22212C; /* Borda */
+        }
+
+        .width_height3 {
+            width: 60%; /* 60% da largura da página */
+            border: 1px solid #22212C; /* Borda */
+        }
+
+        /* ============================================================= */
+        /* = HEIGHT                                                    = */
+        /* ============================================================= */
+        /* No height podemos ajustar as seguintes propriedades usando as seguintes tags:
+            - height (altura)
+            - max-height (altura máxima)
+            - min-height (altura mínima)
+            - height-auto (altura automática)
+            - height-inherit (altura herdada)
+            - height-initial (altura inicial)
+            - height-revert (altura revertida)
+            - height-unset (altura não definida)
+            - height-revert-layer (altura revertida em camada)
+            - height-revert-layer-initial (altura revertida em camada inicial)
+        */
+
+        .tamanho {
+
+            height: auto; /* Altura automática */
+
+        }
+
+        /* ============================================================= */
+        /* = PADDING                                                   = */
+        /* ============================================================= */
+        /* No padding podemos ajustar as seguintes propriedades usando as seguintes tags:
+            - padding (espaçamento interno)
+            - padding-top (espaçamento interno superior)
+            - padding-right (espaçamento interno direito)
+            - padding-bottom (espaçamento interno inferior)
+            - padding-left (espaçamento interno esquerdo)
+            - padding-x (espaçamento interno horizontal)
+            - padding-y (espaçamento interno vertical)
+            - padding-block (espaçamento interno vertical)            
+                - padding-block-start (espaçamento interno vertical inicial)
+                - padding-block-end (espaçamento interno vertical final)
+            - padding-inline (espaçamento interno horizontal)
+                - padding-inline-start (espaçamento interno horizontal inicial)
+                - padding-inline-end (espaçamento interno horizontal final)
+        */
+        .espaco {
+            padding: 20px; /* Espaçamento interno */
+        }
+
+        /* ============================================================= */
+        /* = BOX MODEL                                                 = */
+        /* ============================================================= */
+        /* Vamos ver o Box Model em detalhes.
+            - content (tamanho do conteúdo)
+            - padding (espaçamento interno)
+            - border (borda)
+            - margin (espaçamento externo)
+            - width (largura)
+            - height (altura)
+            - max-width (largura máxima)
+            - min-width (largura mínima)
+            - max-height (altura máxima)
+        */
+        .box_model {
+            width: 350px;
+            padding: 20px;
+            height: 100px;
+            border: 5px solid #8AFF80;
+            margin: 20px;
+            background-color: #ffb86c;
+            box-sizing: border-box; 
+            
+        }
+
+        .principal {
+            width: 100%; /* 100% da largura da página */
+            padding: 20px; /* Espaçamento interno */
+            margin: auto; /* Centraliza o elemento */
+        }
+
+
+        
+    </style>
+
+</head>
+<body>
+    <h1> Historia da Internet </h1>
+    <div class="principal">
+    <div class="tamanho cor2">
+        <h2> Vannevar Bush </h2>
+            <p class="espaco"> Vannevar Bush (Chelsea, Massachusetts, 11 de março de 1890 — Belmont, 30 de junho de 1974) foi um engenheiro, inventor e político estadunidense, que durante a Segunda Guerra Mundial chefiou o Escritório de Pesquisa Científica dos Estados Unidos e Desenvolvimento (OSRD), por meio do qual quase toda a P&D militar durante a guerra foi realizada, incluindo importantes desenvolvimentos em radar e o início e administração inicial do Projeto Manhattan. Ele enfatizou a importância da pesquisa científica para a segurança nacional e o bem-estar econômico e foi o principal responsável pelo movimento que levou à criação da National Science Foundation.
+            </p>
+    </div>
+    <br>
+    <div class="tamanho cor3">
+        <h2> Theodor (Ted) Nelson </h2>
+            <p class="espaco"> Theodor Holm Nelson, ou simplesmente Ted Nelson, é um filósofo e sociólogo estadunidense nascido em 1937. Pioneiro da Tecnologia da Informação, inventou os termos hipertexto e hipermídia, em 1963, e os publicou em livro, no ano de 1965. Também inventou os termos transclusão, transcopyright e virtualidade.
+            </p>
+    </div>
+    <br>
+    <div>
+        <h2> Tim Berners-Lee </h2>
+            <p class="espaco"> Timothy John Berners-Lee KBE, OM, FRS (TimBL ou TBL) (Londres, 8 de junho de 1955) é um físico britânico, cientista da computação e professor do MIT. É o criador da World Wide Web, tendo feito a primeira proposta para sua criação a 12 de março de 1989. Em 25 de dezembro de 1990, com a ajuda de Robert Cailliau e de um jovem estudante do CERN, implementou a primeira comunicação bem-sucedida entre um cliente HTTP e o servidor através da internet.
+            </p>
+    </div>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+
+<!-- ============================================================= -->
+<!-- = WIDTH and HEIGHT                                          = -->
+<!-- ============================================================= -->
+<H1> Width e Height </H1>
+<br>
+<div class="width_height1">
+    <h2> 1 </h2>
+</div>
+<br>
+
+
+<div class="width_height2">
+    <h2> 2 </h2>
+</div> 
+<br>
+
+<div class="width_height3">
+    <h2> 3 </h2>
+</div>
+<br>
+
+<!-- ============================================================= -->
+<!-- = BOX MODEL                                                 = -->
+<!-- ============================================================= -->
+<H1> Box Model </H1>
+<br>
+    <div class="box_model">
+        <p> BOX MODEL é o modelo de caixa do CSS. </p>
+    </div>
+
+
+<br>
+<br>
+</body>
+</html>

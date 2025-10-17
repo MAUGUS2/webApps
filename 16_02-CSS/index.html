@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🎨 Aula 2 - CSS Completo</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Courier New', monospace;
+      background: linear-gradient(135deg, #454158 0%, #22212c 100%);
+      color: #fff;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 40px;
+      padding: 30px 0;
+    }
+
+    .header h1 {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+      color: #fff;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    }
+
+    .header .subtitle {
+      font-size: 1.2rem;
+      color: #ff80bf;
+      margin-bottom: 20px;
+    }
+
+    .topics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 25px;
+      margin-bottom: 40px;
+    }
+
+    .topic-card {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 15px;
+      padding: 25px;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .topic-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+      border-color: rgba(255, 255, 255, 0.3);
+    }
+
+    .topic-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #8AFF80, #ff80bf);
+      border-radius: 15px 15px 0 0;
+    }
+
+    .topic-header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+
+    .topic-icon {
+      font-size: 2rem;
+      margin-right: 15px;
+      width: 50px;
+      text-align: center;
+    }
+
+    .topic-title {
+      font-size: 1.3rem;
+      font-weight: bold;
+      color: #fff;
+    }
+
+    .topic-description {
+      color: #ff80bf;
+      line-height: 1.5;
+      margin-bottom: 15px;
+    }
+
+    .topic-link {
+      display: inline-block;
+      background: rgba(138, 255, 128, 0.2);
+      color: #8AFF80;
+      text-decoration: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-weight: bold;
+      transition: all 0.3s ease;
+      border: 2px solid transparent;
+    }
+
+    .topic-link:hover {
+      background: rgba(138, 255, 128, 0.3);
+      border-color: rgba(138, 255, 128, 0.5);
+      transform: translateX(5px);
+    }
+
+    .footer {
+      text-align: center;
+      margin-top: 40px;
+      padding: 30px 0;
+      border-top: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .footer-links {
+      margin: 20px 0;
+    }
+
+    .footer-links a {
+      color: #ff80bf;
+      text-decoration: none;
+      margin: 0 15px;
+      transition: color 0.3s ease;
+    }
+
+    .footer-links a:hover {
+      color: #8AFF80;
+    }
+
+    .info-box {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 15px;
+      padding: 25px;
+      text-align: center;
+      margin: 30px 0;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .info-box h2 {
+      font-size: 1.8rem;
+      margin-bottom: 10px;
+      color: #8AFF80;
+    }
+
+    .info-box p {
+      font-size: 1.1rem;
+      opacity: 0.9;
+      color: #ff80bf;
+    }
+
+    @media (max-width: 768px) {
+      .header h1 {
+        font-size: 2rem;
+      }
+
+      .topics-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+
+      .topic-card {
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <h1>🎨 Aula 2 - CSS Completo</h1>
+      <p class="subtitle">Domine estilização, layout e design responsivo</p>
+    </header>
+
+    <!-- Informações sobre o curso -->
+    <div class="info-box">
+      <h2>🎯 Estilização Profissional</h2>
+      <p>5 temas essenciais para dominar CSS desde sintaxe básica até posicionamento avançado</p>
+    </div>
+
+    <main class="topics-grid">
+      <!-- Tema 1: CSS Básico -->
+      <article class="topic-card">
+        <div class="topic-header">
+          <div class="topic-icon">📚</div>
+          <h2 class="topic-title">CSS Básico</h2>
+        </div>
+        <p class="topic-description">
+          Definição, sintaxe, seletores e hierarquia. 
+          Base fundamental para estilização web.
+        </p>
+        <a href="01-css-basico.html" class="topic-link">
+          Aprender CSS →
+        </a>
+      </article>
+
+      <!-- Tema 2: Cores e Estilização -->
+      <article class="topic-card">
+        <div class="topic-header">
+          <div class="topic-icon">🌈</div>
+          <h2 class="topic-title">Cores e Estilização</h2>
+        </div>
+        <p class="topic-description">
+          Comentários, cores, fundo, bordas, margem e padding. 
+          Elementos visuais essenciais.
+        </p>
+        <a href="02-cores-background.html" class="topic-link">
+          Explorar Cores →
+        </a>
+      </article>
+
+      <!-- Tema 3: Dimensões e Texto -->
+      <article class="topic-card">
+        <div class="topic-header">
+          <div class="topic-icon">📏</div>
+          <h2 class="topic-title">Dimensões e Texto</h2>
+        </div>
+        <p class="topic-description">
+          Width, height, formatação de texto e box model. 
+          Controle preciso de layout.
+        </p>
+        <a href="03-dimensoes-texto.html" class="topic-link">
+          Dominar Layout →
+        </a>
+      </article>
+
+      <!-- Tema 4: Layout Clássico -->
+      <article class="topic-card">
+        <div class="topic-header">
+          <div class="topic-icon">🔀</div>
+          <h2 class="topic-title">Layout Clássico</h2>
+        </div>
+        <p class="topic-description">
+          Float, clear, elementos block e inline. 
+          Técnicas tradicionais de posicionamento.
+        </p>
+        <a href="04-float-block-inline.html" class="topic-link">
+          Aplicar Float →
+        </a>
+      </article>
+
+      <!-- Tema 5: Posicionamento -->
+      <article class="topic-card">
+        <div class="topic-header">
+          <div class="topic-icon">🎯</div>
+          <h2 class="topic-title">Posicionamento</h2>
+        </div>
+        <p class="topic-description">
+          Display, position, z-index e overflow. 
+          Controle avançado de posicionamento.
+        </p>
+        <a href="05-display-position.html" class="topic-link">
+          Posicionar Elementos →
+        </a>
+      </article>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-links">
+        <a href="../16_01-HTML/index.html">📚 Aula Anterior: HTML</a>
+        <a href="../">🏠 Voltar ao Curso</a>
+      </div>
+      
+      <p style="margin: 20px 0; color: #ff80bf; font-size: 0.9rem;">
+        🎨 <strong>Material Didático:</strong> 5 Temas Essenciais de CSS
+      </p>
+      
+      <p style="color: #ff80bf; font-size: 0.9rem;">
+        Dev by <strong style="color: #8AFF80;">Maugus</strong> | 
+        Estrutura didática e responsiva em CSS puro 🎨
+      </p>
+    </footer>
+  </div>
+
+  <script>
+    // Efeito de hover suave nos cards
+    document.querySelectorAll('.topic-card').forEach(card => {
+      card.addEventListener('mouseenter', function() {
+        this.style.transform = 'translateY(-8px)';
+      });
+      
+      card.addEventListener('mouseleave', function() {
+        this.style.transform = 'translateY(0px)';
+      });
+    });
+  </script>
+</body>
+</html> 

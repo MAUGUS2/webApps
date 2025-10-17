@@ -1,0 +1,991 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🧭 Barras de Navegação - CSS Aula 3</title>
+  <style>
+    /* =====================================
+       🎨 CONFIGURAÇÃO GLOBAL E BASE
+       ===================================== */
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box; /* Facilita cálculos de layout */
+    }
+
+    body {
+      font-family: 'Georgia', serif;
+      line-height: 1.6;
+      color: #333;
+      /* Gradiente de fundo para ambiente visual agradável */
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    /* =====================================
+       📦 CONTAINER PRINCIPAL
+       ===================================== */
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      /* Efeito glassmorphism moderno */
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      padding: 40px;
+      box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+    }
+
+    /* =====================================
+       🎯 HIERARQUIA DE TÍTULOS
+       ===================================== */
+    
+    h1 {
+      text-align: center;
+      color: #764ba2;
+      margin-bottom: 30px;
+      font-size: 2.5em;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      color: #667eea;
+      margin: 30px 0 20px 0;
+      font-size: 1.8em;
+      border-left: 5px solid #667eea;
+      padding-left: 15px;
+    }
+
+    h3 {
+      color: #764ba2;
+      margin: 25px 0 15px 0;
+      font-size: 1.4em;
+    }
+
+    /* =====================================
+       💡 SISTEMA DE ALERTAS E DESTAQUE
+       ===================================== */
+    
+    .alert {
+      padding: 15px;
+      margin: 20px 0;
+      border-radius: 10px;
+      border-left: 5px solid;
+    }
+
+    .alert-info {
+      background: #e1f5fe;
+      border-color: #0288d1;
+      color: #01579b;
+    }
+
+    .alert-tip {
+      background: #f3e5f5;
+      border-color: #8e24aa;
+      color: #4a148c;
+    }
+
+    .alert-example {
+      background: #e8f5e8;
+      border-color: #4caf50;
+      color: #1b5e20;
+    }
+
+    .alert-warning {
+      background: #fff8e1;
+      border-color: #ffa000;
+      color: #e65100;
+    }
+
+    /* =====================================
+       🎯 SEÇÃO DE DEMONSTRAÇÃO PRÁTICA
+       ===================================== */
+    
+    .demo-section {
+      background: #f8f9fa;
+      border: 2px dashed #667eea;
+      border-radius: 15px;
+      padding: 25px;
+      margin: 25px 0;
+      position: relative;
+    }
+
+    .demo-section::before {
+      content: "🎯 DEMONSTRAÇÃO PRÁTICA";
+      position: absolute;
+      top: -12px;
+      left: 20px;
+      background: #667eea;
+      color: white;
+      padding: 5px 15px;
+      border-radius: 20px;
+      font-size: 0.8em;
+      font-weight: bold;
+    }
+
+    /* =====================================
+       🧭 NAVEGAÇÃO HORIZONTAL - VERSÕES
+       ===================================== */
+    
+    .nav-showcase {
+      display: grid;
+      gap: 30px;
+      margin: 30px 0;
+    }
+
+    /* Navegação Horizontal Simples */
+    .nav-horizontal-simple {
+      background: #667eea;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+
+    .nav-horizontal-simple ul {
+      list-style: none;
+      display: flex;
+      margin: 0;
+      padding: 0;
+    }
+
+    .nav-horizontal-simple li {
+      flex: 1; /* Distribui igualmente */
+    }
+
+    .nav-horizontal-simple a {
+      display: block;
+      padding: 15px 20px;
+      color: white;
+      text-decoration: none;
+      text-align: center;
+      transition: all 0.3s ease;
+      border-right: 1px solid rgba(255,255,255,0.2);
+    }
+
+    .nav-horizontal-simple a:hover {
+      background: rgba(255,255,255,0.2);
+      transform: translateY(-2px);
+    }
+
+    .nav-horizontal-simple li:last-child a {
+      border-right: none;
+    }
+
+    /* Navegação Horizontal Moderna */
+    .nav-horizontal-modern {
+      background: white;
+      border-radius: 15px;
+      padding: 10px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+    }
+
+    .nav-horizontal-modern ul {
+      list-style: none;
+      display: flex;
+      gap: 5px;
+      margin: 0;
+      padding: 0;
+    }
+
+    .nav-horizontal-modern a {
+      display: block;
+      padding: 12px 24px;
+      color: #667eea;
+      text-decoration: none;
+      border-radius: 10px;
+      transition: all 0.3s ease;
+      font-weight: 500;
+    }
+
+    .nav-horizontal-modern a:hover,
+    .nav-horizontal-modern a.active {
+      background: #667eea;
+      color: white;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+    }
+
+    /* Navegação com Indicador */
+    .nav-horizontal-indicator {
+      background: #f8f9fa;
+      border-radius: 15px;
+      padding: 5px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .nav-horizontal-indicator ul {
+      list-style: none;
+      display: flex;
+      margin: 0;
+      padding: 0;
+      position: relative;
+      z-index: 2;
+    }
+
+    .nav-horizontal-indicator a {
+      display: block;
+      padding: 15px 25px;
+      color: #667eea;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      font-weight: 500;
+      position: relative;
+    }
+
+    .nav-horizontal-indicator a:hover {
+      color: white;
+    }
+
+    /* Indicador deslizante */
+    .nav-indicator {
+      position: absolute;
+      top: 5px;
+      left: 5px;
+      height: calc(100% - 10px);
+      background: #667eea;
+      border-radius: 10px;
+      transition: all 0.3s ease;
+      z-index: 1;
+      width: 120px; /* Largura inicial */
+    }
+
+    /* =====================================
+       📱 NAVEGAÇÃO VERTICAL - VERSÕES
+       ===================================== */
+    
+    .nav-vertical-showcase {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+      margin: 30px 0;
+    }
+
+    /* Navegação Vertical Clássica */
+    .nav-vertical-classic {
+      background: white;
+      border-radius: 15px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+      overflow: hidden;
+    }
+
+    .nav-vertical-classic ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .nav-vertical-classic li {
+      border-bottom: 1px solid #f0f0f0;
+    }
+
+    .nav-vertical-classic li:last-child {
+      border-bottom: none;
+    }
+
+    .nav-vertical-classic a {
+      display: block;
+      padding: 18px 25px;
+      color: #333;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .nav-vertical-classic a::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      height: 100%;
+      width: 0;
+      background: #667eea;
+      transition: width 0.3s ease;
+    }
+
+    .nav-vertical-classic a:hover::before,
+    .nav-vertical-classic a.active::before {
+      width: 4px;
+    }
+
+    .nav-vertical-classic a:hover,
+    .nav-vertical-classic a.active {
+      background: #f8f9ff;
+      color: #667eea;
+      padding-left: 35px;
+    }
+
+    /* Navegação Vertical com Ícones */
+    .nav-vertical-icons {
+      background: #2d3748;
+      border-radius: 15px;
+      overflow: hidden;
+    }
+
+    .nav-vertical-icons ul {
+      list-style: none;
+      margin: 0;
+      padding: 20px 0;
+    }
+
+    .nav-vertical-icons a {
+      display: flex;
+      align-items: center;
+      padding: 15px 25px;
+      color: #a0aec0;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .nav-vertical-icons .icon {
+      width: 20px;
+      height: 20px;
+      margin-right: 15px;
+      font-size: 1.2em;
+    }
+
+    .nav-vertical-icons a:hover,
+    .nav-vertical-icons a.active {
+      background: #667eea;
+      color: white;
+      padding-left: 35px;
+    }
+
+    /* =====================================
+       📱 NAVEGAÇÃO RESPONSIVA
+       ===================================== */
+    
+    .nav-responsive {
+      background: white;
+      border-radius: 15px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+      position: relative;
+    }
+
+    .nav-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 25px;
+      border-bottom: 1px solid #f0f0f0;
+    }
+
+    .nav-logo {
+      font-weight: bold;
+      color: #667eea;
+      font-size: 1.2em;
+    }
+
+    .nav-toggle {
+      display: none;
+      background: none;
+      border: none;
+      font-size: 1.5em;
+      color: #667eea;
+      cursor: pointer;
+    }
+
+    .nav-menu {
+      display: flex;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .nav-menu li {
+      border-right: 1px solid #f0f0f0;
+    }
+
+    .nav-menu li:last-child {
+      border-right: none;
+    }
+
+    .nav-menu a {
+      display: block;
+      padding: 15px 25px;
+      color: #333;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .nav-menu a:hover,
+    .nav-menu a.active {
+      background: #667eea;
+      color: white;
+    }
+
+    /* =====================================
+       💻 CÓDIGO E EXPLICAÇÕES
+       ===================================== */
+    
+    .code-explanation {
+      background: #f8f9fa;
+      border-left: 4px solid #667eea;
+      padding: 15px;
+      margin: 15px 0;
+      font-family: 'Courier New', monospace;
+      border-radius: 5px;
+    }
+
+    .code-block {
+      background: #2d3748;
+      color: #e2e8f0;
+      padding: 20px;
+      border-radius: 10px;
+      overflow-x: auto;
+      overflow-y: auto;
+      margin: 15px 0;
+      font-family: 'Courier New', monospace;
+      font-size: 0.85em;
+      line-height: 1.5;
+      max-height: 400px;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+    }
+
+    /* =====================================
+       🧭 NAVEGAÇÃO ENTRE PÁGINAS
+       ===================================== */
+    
+    .navigation {
+      text-align: center;
+      margin: 30px 0;
+      padding: 20px;
+      background: rgba(102, 126, 234, 0.1);
+      border-radius: 15px;
+    }
+
+    .navigation a {
+      display: inline-block;
+      margin: 0 10px;
+      padding: 12px 24px;
+      background: #667eea;
+      color: white;
+      text-decoration: none;
+      border-radius: 25px;
+      transition: all 0.3s ease;
+      font-weight: bold;
+    }
+
+    .navigation a:hover {
+      background: #764ba2;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(118, 75, 162, 0.3);
+    }
+
+    /* =====================================
+       📱 RESPONSIVIDADE PARA NAVEGAÇÃO
+       ===================================== */
+    
+    @media (max-width: 768px) {
+      .container {
+        padding: 20px;
+        margin: 10px;
+      }
+      
+      h1 {
+        font-size: 2em;
+      }
+      
+      .nav-vertical-showcase {
+        grid-template-columns: 1fr;
+      }
+      
+      .nav-toggle {
+        display: block !important;
+      }
+      
+      .nav-menu {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: white;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        z-index: 1000;
+      }
+      
+      .nav-menu.active {
+        display: flex;
+      }
+      
+      .nav-menu li {
+        border-right: none;
+        border-bottom: 1px solid #f0f0f0;
+      }
+      
+      .nav-horizontal-simple ul {
+        flex-direction: column;
+      }
+      
+      .nav-horizontal-simple a {
+        border-right: none;
+        border-bottom: 1px solid rgba(255,255,255,0.2);
+      }
+      
+      .nav-horizontal-modern ul {
+        flex-direction: column;
+        gap: 2px;
+      }
+    }
+
+    /* =====================================
+       🎨 EFEITOS E ANIMAÇÕES
+       ===================================== */
+    
+    .feature-highlight {
+      background: linear-gradient(45deg, #667eea, #764ba2);
+      color: white;
+      padding: 20px;
+      border-radius: 15px;
+      margin: 20px 0;
+      text-align: center;
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      margin: 20px 0;
+    }
+
+    .feature-card {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    }
+
+    .feature-icon {
+      font-size: 2em;
+      margin-bottom: 10px;
+      color: #667eea;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🧭 Barras de Navegação CSS</h1>
+    
+    <div class="alert alert-info">
+      <strong>📚 Objetivo da Aula:</strong> Criar sistemas de navegação profissionais e responsivos usando apenas CSS. Exploraremos desde navegações horizontais simples até sistemas complexos com indicadores visuais e adaptação mobile.
+    </div>
+
+    <h2>🔄 1. Navegação Horizontal - Layouts Modernos</h2>
+    <p>Navegações horizontais são ideais para menus principais, oferecendo acesso rápido aos links mais importantes.</p>
+
+    <div class="demo-section">
+      <h3>🎨 Galeria de Estilos Horizontais:</h3>
+      
+      <div class="nav-showcase">
+        <div>
+          <h4>📌 Navegação Simples</h4>
+          <nav class="nav-horizontal-simple">
+            <ul>
+              <li><a href="#home">🏠 Home</a></li>
+              <li><a href="#sobre">👥 Sobre</a></li>
+              <li><a href="#servicos">⚙️ Serviços</a></li>
+              <li><a href="#contato">📞 Contato</a></li>
+            </ul>
+          </nav>
+        </div>
+
+        <div>
+          <h4>✨ Navegação Moderna</h4>
+          <nav class="nav-horizontal-modern">
+            <ul>
+              <li><a href="#home" class="active">🏠 Home</a></li>
+              <li><a href="#produtos">📦 Produtos</a></li>
+              <li><a href="#blog">📝 Blog</a></li>
+              <li><a href="#sobre">👥 Sobre</a></li>
+              <li><a href="#contato">📞 Contato</a></li>
+            </ul>
+          </nav>
+        </div>
+
+        <div>
+          <h4>🎯 Navegação com Indicador</h4>
+          <nav class="nav-horizontal-indicator">
+            <div class="nav-indicator"></div>
+            <ul>
+              <li><a href="#dashboard">📊 Dashboard</a></li>
+              <li><a href="#analytics">📈 Analytics</a></li>
+              <li><a href="#settings">⚙️ Settings</a></li>
+              <li><a href="#profile">👤 Profile</a></li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+
+      <div class="code-block">
+/* 🧭 Navegação Horizontal Básica */
+nav ul {
+  list-style: none;
+  display: flex;
+  margin: 0;
+  padding: 0;
+}
+
+nav a {
+  display: block;
+  padding: 15px 20px;
+  color: #333;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+nav a:hover {
+  background: #667eea;
+  color: white;
+}</div>
+.nav-horizontal {
+  background: #667eea;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.nav-horizontal ul {
+  list-style: none;          /* Remove bullets */
+  display: flex;             /* Layout horizontal */
+  margin: 0;
+  padding: 0;
+}
+
+.nav-horizontal li {
+  flex: 1;                   /* Distribui espaço igualmente */
+}
+
+.nav-horizontal a {
+  display: block;            /* Preenche todo o espaço */
+  padding: 15px 20px;        /* Área clicável generosa */
+  color: white;
+  text-decoration: none;
+  text-align: center;
+  transition: all 0.3s ease; /* Transição suave */
+}
+
+.nav-horizontal a:hover {
+  background: rgba(255,255,255,0.2);
+  transform: translateY(-2px); /* Efeito de elevação */
+}</div>
+
+      <div class="code-explanation">
+        <strong>🎯 Pontos Importantes:</strong><br>
+        • <code>display: flex</code> - Alinha itens horizontalmente<br>
+        • <code>flex: 1</code> - Distribui espaço igualmente<br>
+        • <code>display: block</code> - Aumenta área clicável<br>
+        • <code>transition</code> - Suaviza mudanças visuais
+      </div>
+    </div>
+
+    <h2>📱 2. Navegação Vertical - Menus Laterais</h2>
+    <p>Navegações verticais são perfeitas para dashboards, menus laterais e interfaces com muitas opções.</p>
+
+    <div class="demo-section">
+      <h3>🎨 Estilos Verticais Profissionais:</h3>
+      
+      <div class="nav-vertical-showcase">
+        <div>
+          <h4>📋 Menu Clássico</h4>
+          <nav class="nav-vertical-classic">
+            <ul>
+              <li><a href="#dashboard" class="active">📊 Dashboard</a></li>
+              <li><a href="#usuarios">👥 Usuários</a></li>
+              <li><a href="#relatorios">📈 Relatórios</a></li>
+              <li><a href="#configuracoes">⚙️ Configurações</a></li>
+              <li><a href="#ajuda">❓ Ajuda</a></li>
+            </ul>
+          </nav>
+        </div>
+
+        <div>
+          <h4>🎨 Menu com Ícones</h4>
+          <nav class="nav-vertical-icons">
+            <ul>
+              <li><a href="#inbox" class="active">
+                <span class="icon">📥</span>
+                <span>Inbox</span>
+              </a></li>
+              <li><a href="#drafts">
+                <span class="icon">📝</span>
+                <span>Drafts</span>
+              </a></li>
+              <li><a href="#sent">
+                <span class="icon">📤</span>
+                <span>Sent</span>
+              </a></li>
+              <li><a href="#trash">
+                <span class="icon">🗑️</span>
+                <span>Trash</span>
+              </a></li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+
+      <div class="code-block">
+/* 📱 Navegação Vertical com Efeitos */
+.nav-vertical {
+  background: white;
+  border-radius: 15px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+  overflow: hidden;
+}
+
+.nav-vertical ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-vertical li {
+  border-bottom: 1px solid #f0f0f0; /* Separadores visuais */
+}
+
+.nav-vertical a {
+  display: block;
+  padding: 18px 25px;
+  color: #333;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  position: relative;        /* Para efeitos de pseudo-elementos */
+}
+
+/* Barra indicadora animada */
+.nav-vertical a::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 0;                  /* Começa invisível */
+  background: #667eea;
+  transition: width 0.3s ease;
+}
+
+.nav-vertical a:hover::before,
+.nav-vertical a.active::before {
+  width: 4px;                /* Barra aparece no hover/active */
+}
+
+.nav-vertical a:hover {
+  background: #f8f9ff;       /* Fundo sutil */
+  color: #667eea;            /* Cor de destaque */
+  padding-left: 35px;        /* Indentação visual */
+}</div>
+    </div>
+
+    <h2>📱 3. Navegação Responsiva - Mobile First</h2>
+    <p>Navegações que se adaptam perfeitamente a diferentes tamanhos de tela, essencial para web moderna.</p>
+
+    <div class="demo-section">
+      <h3>🔄 Menu Hamburger Responsivo:</h3>
+      
+      <nav class="nav-responsive">
+        <div class="nav-header">
+          <div class="nav-logo">🚀 MeuSite</div>
+          <button class="nav-toggle" onclick="toggleMenu()">☰</button>
+        </div>
+        <ul class="nav-menu" id="navMenu">
+          <li><a href="#home" class="active">🏠 Home</a></li>
+          <li><a href="#sobre">👥 Sobre</a></li>
+          <li><a href="#servicos">⚙️ Serviços</a></li>
+          <li><a href="#portfolio">💼 Portfolio</a></li>
+          <li><a href="#contato">📞 Contato</a></li>
+        </ul>
+      </nav>
+
+      <div class="code-block">
+/* 📱 Navegação Responsiva Completa */
+
+/* Desktop First */
+.nav-responsive {
+  background: white;
+  border-radius: 15px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+}
+
+.nav-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 25px;
+}
+
+.nav-toggle {
+  display: none;             /* Escondido no desktop */
+  background: none;
+  border: none;
+  font-size: 1.5em;
+  cursor: pointer;
+}
+
+.nav-menu {
+  display: flex;             /* Horizontal no desktop */
+  list-style: none;
+}
+
+/* Mobile Styles */
+@media (max-width: 768px) {
+  .nav-toggle {
+    display: block;          /* Mostra botão no mobile */
+  }
+  
+  .nav-menu {
+    display: none;           /* Esconde menu por padrão */
+    flex-direction: column;  /* Vertical no mobile */
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  }
+  
+  .nav-menu.active {
+    display: flex;           /* Mostra quando ativo */
+  }
+}</div>
+
+      <div class="code-explanation">
+        <strong>🎯 Estratégia Mobile-First:</strong><br>
+        • <strong>Display: none/flex</strong> - Controla visibilidade<br>
+        • <strong>Position: absolute</strong> - Menu sobreposto<br>
+        • <strong>Flex-direction: column</strong> - Layout vertical mobile<br>
+        • <strong>Media queries</strong> - Breakpoints responsivos
+      </div>
+    </div>
+
+    <h2>⚡ 4. Características Essenciais</h2>
+    
+    <div class="feature-grid">
+      <div class="feature-card">
+        <div class="feature-icon">🎯</div>
+        <h4>Acessibilidade</h4>
+        <p>Navegação por teclado, âncoras semânticas e ARIA labels</p>
+      </div>
+      
+      <div class="feature-card">
+        <div class="feature-icon">📱</div>
+        <h4>Responsividade</h4>
+        <p>Adaptação perfeita para desktop, tablet e mobile</p>
+      </div>
+      
+      <div class="feature-card">
+        <div class="feature-icon">⚡</div>
+        <h4>Performance</h4>
+        <p>CSS puro, sem dependências JavaScript pesadas</p>
+      </div>
+      
+      <div class="feature-card">
+        <div class="feature-icon">🎨</div>
+        <h4>Visual</h4>
+        <p>Efeitos suaves, estados hover e feedback visual</p>
+      </div>
+    </div>
+
+    <div class="feature-highlight">
+      <h3>💡 Dica Profissional</h3>
+      <p>Use <code>position: sticky</code> para criar navegações que "grudam" no topo durante o scroll, mantendo sempre os links acessíveis!</p>
+    </div>
+
+    <div class="alert alert-tip">
+      <strong>🚀 Melhores Práticas:</strong>
+      <ul>
+        <li><strong>Hierarquia clara:</strong> Links mais importantes em destaque</li>
+        <li><strong>Estados visuais:</strong> :hover, :active, :focus bem definidos</li>
+        <li><strong>Área clicável:</strong> Mínimo 44px x 44px para touch</li>
+        <li><strong>Contraste:</strong> Texto legível em todos os backgrounds</li>
+      </ul>
+    </div>
+
+    <div class="alert alert-example">
+      <strong>🎯 Casos de Uso:</strong>
+      <ul>
+        <li><strong>Site corporativo:</strong> Navegação horizontal com dropdown</li>
+        <li><strong>Dashboard admin:</strong> Menu vertical com ícones</li>
+        <li><strong>E-commerce:</strong> Menu responsivo com categorias</li>
+        <li><strong>Blog:</strong> Navegação simples e clean</li>
+      </ul>
+    </div>
+
+    <div class="alert alert-warning">
+      <strong>⚠️ Armadilhas Comuns:</strong>
+      <ul>
+        <li><strong>Muitos itens:</strong> Pode sobrecarregar visualmente</li>
+        <li><strong>Links genéricos:</strong> "Clique aqui" não é descritivo</li>
+        <li><strong>Só CSS:</strong> Alguns efeitos complexos precisam JS</li>
+        <li><strong>Teste real:</strong> Sempre teste em dispositivos reais</li>
+      </ul>
+    </div>
+
+    <div class="navigation">
+      <a href="02-pseudoclasses-pseudoelementos.html">⬅️ Anterior: Pseudoclasses</a>
+      <a href="index.html">🏠 Início</a>
+      <a href="04-outras-formatacoes.html">➡️ Próximo: Outras Formatações</a>
+    </div>
+  </div>
+
+  <script>
+    // Função para toggle do menu mobile
+    function toggleMenu() {
+      const navMenu = document.getElementById('navMenu');
+      navMenu.classList.toggle('active');
+    }
+
+    // Animação do indicador de navegação
+    document.addEventListener('DOMContentLoaded', function() {
+      const indicatorNav = document.querySelector('.nav-horizontal-indicator');
+      if (indicatorNav) {
+        const links = indicatorNav.querySelectorAll('a');
+        const indicator = indicatorNav.querySelector('.nav-indicator');
+        
+        links.forEach((link, index) => {
+          link.addEventListener('mouseenter', function() {
+            const linkWidth = this.offsetWidth;
+            const linkPosition = this.offsetLeft;
+            
+            indicator.style.width = linkWidth + 'px';
+            indicator.style.transform = `translateX(${linkPosition}px)`;
+          });
+        });
+        
+        // Reset quando sair da área
+        indicatorNav.addEventListener('mouseleave', function() {
+          indicator.style.transform = 'translateX(5px)';
+          indicator.style.width = '120px';
+        });
+      }
+      
+      // Adiciona interatividade aos links
+      const allNavLinks = document.querySelectorAll('nav a');
+      allNavLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+          e.preventDefault();
+          
+          // Remove active de todos os links do mesmo nav
+          const nav = this.closest('nav');
+          nav.querySelectorAll('a').forEach(l => l.classList.remove('active'));
+          
+          // Adiciona active ao link clicado
+          this.classList.add('active');
+        });
+      });
+    });
+  </script>
+</body>
+</html> 
+</html> 

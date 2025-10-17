@@ -1,0 +1,938 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document Object Model (DOM) - JavaScript Parte 2</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            /* Ultra Dark Minimalist Theme */
+            --ultra-bg: #0a0a0a;
+            --ultra-bg-alt: #111111;
+            --ultra-card: #1a1a1a;
+            --ultra-border: #222222;
+            --ultra-hover: #252525;
+            --ultra-text: #e6e6e6;
+            --ultra-text-muted: #999999;
+            --ultra-text-dim: #666666;
+            
+            /* Accent colors - mais sutis */
+            --accent-primary: #8b7cf8;
+            --accent-secondary: #64748b;
+            --accent-success: #22c55e;
+            --accent-warning: #f59e0b;
+            --accent-info: #3b82f6;
+            --accent-danger: #ef4444;
+            
+            /* Typography */
+            --font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-mono: 'Fira Code', 'Courier New', monospace;
+            
+            /* Spacing */
+            --spacing-1: 0.25rem;
+            --spacing-2: 0.5rem;
+            --spacing-3: 0.75rem;
+            --spacing-4: 1rem;
+            --spacing-5: 1.25rem;
+            --spacing-6: 1.5rem;
+            --spacing-8: 2rem;
+            
+            /* Border radius */
+            --border-radius-sm: 0.25rem;
+            --border-radius-md: 0.375rem;
+            --border-radius-lg: 0.5rem;
+            
+            /* Font sizes */
+            --font-size-xs: 0.75rem;
+            --font-size-sm: 0.875rem;
+            --font-size-base: 1rem;
+            --font-size-lg: 1.125rem;
+            --font-size-xl: 1.25rem;
+            --font-size-2xl: 1.5rem;
+            --font-size-3xl: 1.875rem;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-family);
+            background: var(--ultra-bg);
+            color: var(--ultra-text);
+            line-height: 1.6;
+            font-weight: 400;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--spacing-4);
+        }
+
+        /* Header minimalista */
+        .header {
+            background: var(--ultra-bg-alt);
+            color: var(--ultra-text);
+            text-align: center;
+            padding: var(--spacing-6) 0;
+            margin-bottom: var(--spacing-6);
+            border-bottom: 1px solid var(--ultra-border);
+        }
+
+        .header h1 {
+            font-size: var(--font-size-3xl);
+            font-weight: 300;
+            margin-bottom: var(--spacing-2);
+            letter-spacing: -0.025em;
+        }
+
+        .header .subtitle {
+            color: var(--ultra-text-muted);
+            font-size: var(--font-size-lg);
+            font-weight: 300;
+        }
+
+        /* Progress section */
+        .progress-section {
+            background: var(--ultra-card);
+            border: 1px solid var(--ultra-border);
+            border-radius: var(--border-radius-md);
+            padding: var(--spacing-4);
+            margin-bottom: var(--spacing-6);
+            text-align: center;
+        }
+
+        .progress-bar {
+            background: var(--ultra-border);
+            border-radius: var(--border-radius-lg);
+            height: 8px;
+            margin: var(--spacing-3) 0;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--accent-primary);
+            border-radius: var(--border-radius-lg);
+            transition: width 0.5s ease;
+        }
+
+        /* Content sections */
+        .content-section {
+            background: var(--ultra-card);
+            border: 1px solid var(--ultra-border);
+            border-radius: var(--border-radius-md);
+            padding: var(--spacing-6);
+            margin-bottom: var(--spacing-6);
+        }
+
+        .content-section h2 {
+            color: var(--ultra-text);
+            font-size: var(--font-size-2xl);
+            font-weight: 400;
+            margin-bottom: var(--spacing-4);
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-2);
+        }
+
+        .content-section h3 {
+            color: var(--accent-primary);
+            font-size: var(--font-size-xl);
+            font-weight: 400;
+            margin: var(--spacing-5) 0 var(--spacing-3) 0;
+        }
+
+        .content-section h4 {
+            color: var(--ultra-text);
+            font-size: var(--font-size-lg);
+            font-weight: 400;
+            margin: var(--spacing-4) 0 var(--spacing-2) 0;
+        }
+
+        .content-section p {
+            color: var(--ultra-text-muted);
+            margin-bottom: var(--spacing-3);
+            font-weight: 300;
+        }
+
+        .content-section ul, .content-section ol {
+            color: var(--ultra-text-muted);
+            margin-left: var(--spacing-5);
+            margin-bottom: var(--spacing-3);
+        }
+
+        .content-section li {
+            margin-bottom: var(--spacing-1);
+            font-weight: 300;
+        }
+
+        /* Info boxes */
+        .info-box {
+            padding: var(--spacing-4);
+            border-radius: var(--border-radius-md);
+            margin: var(--spacing-4) 0;
+            border-left: 3px solid;
+            background: var(--ultra-bg-alt);
+        }
+
+        .info-box.tip {
+            border-color: var(--accent-info);
+        }
+
+        .info-box.warning {
+            border-color: var(--accent-warning);
+        }
+
+        .info-box.example {
+            border-color: var(--accent-primary);
+        }
+
+        .info-box.info {
+            border-color: var(--accent-success);
+        }
+
+        .info-box.danger {
+            border-color: var(--accent-danger);
+        }
+
+        .info-box strong {
+            color: var(--ultra-text);
+        }
+
+        /* Code blocks */
+        .code-block {
+            background: var(--ultra-bg);
+            color: var(--ultra-text);
+            padding: var(--spacing-4);
+            border-radius: var(--border-radius-md);
+            margin: var(--spacing-4) 0;
+            overflow-x: auto;
+            font-family: var(--font-mono);
+            font-size: var(--font-size-sm);
+            border: 1px solid var(--ultra-border);
+            position: relative;
+        }
+
+        .code-block::before {
+            content: 'JavaScript';
+            position: absolute;
+            top: var(--spacing-2);
+            right: var(--spacing-3);
+            background: var(--accent-primary);
+            color: var(--ultra-bg);
+            padding: var(--spacing-1) var(--spacing-2);
+            border-radius: var(--border-radius-sm);
+            font-size: var(--font-size-xs);
+            font-weight: 500;
+        }
+
+        /* Demo containers */
+        .demo-container {
+            background: var(--ultra-bg-alt);
+            border: 1px solid var(--ultra-border);
+            border-radius: var(--border-radius-md);
+            padding: var(--spacing-4);
+            margin: var(--spacing-4) 0;
+        }
+
+        .demo-title {
+            color: var(--ultra-text);
+            font-weight: 400;
+            margin-bottom: var(--spacing-3);
+            font-size: var(--font-size-lg);
+        }
+
+        /* Form elements */
+        .input-group {
+            margin: var(--spacing-3) 0;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: var(--spacing-2);
+            font-weight: 400;
+            color: var(--ultra-text);
+            font-size: var(--font-size-sm);
+        }
+
+        .input-group input, 
+        .input-group select, 
+        .input-group textarea {
+            width: 100%;
+            padding: var(--spacing-3);
+            background: var(--ultra-card);
+            border: 1px solid var(--ultra-border);
+            border-radius: var(--border-radius-md);
+            color: var(--ultra-text);
+            font-size: var(--font-size-base);
+            font-family: var(--font-family);
+            transition: border-color 0.2s ease;
+        }
+
+        .input-group input:focus, 
+        .input-group select:focus, 
+        .input-group textarea:focus {
+            outline: none;
+            border-color: var(--accent-primary);
+        }
+
+        /* Buttons */
+        .btn {
+            padding: var(--spacing-3) var(--spacing-5);
+            border: none;
+            border-radius: var(--border-radius-md);
+            font-size: var(--font-size-base);
+            font-weight: 400;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+            margin: var(--spacing-1);
+        }
+
+        .btn-primary {
+            background: var(--accent-primary);
+            color: var(--ultra-bg);
+        }
+
+        .btn-primary:hover {
+            background: #7c6ce8;
+        }
+
+        .btn-secondary {
+            background: var(--ultra-card);
+            color: var(--ultra-text);
+            border: 1px solid var(--ultra-border);
+        }
+
+        .btn-secondary:hover {
+            background: var(--ultra-hover);
+        }
+
+        /* Navigation */
+        .navigation {
+            background: var(--ultra-card);
+            border: 1px solid var(--ultra-border);
+            border-radius: var(--border-radius-md);
+            padding: var(--spacing-5);
+            margin: var(--spacing-6) 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: var(--spacing-4);
+            flex-wrap: wrap;
+        }
+
+        .nav-button {
+            padding: var(--spacing-3) var(--spacing-5);
+            border: none;
+            border-radius: var(--border-radius-md);
+            font-size: var(--font-size-base);
+            font-weight: 400;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .nav-button.primary {
+            background: var(--accent-primary);
+            color: var(--ultra-bg);
+        }
+
+        .nav-button.primary:hover {
+            background: #7c6ce8;
+        }
+
+        .nav-button.secondary {
+            background: var(--ultra-hover);
+            color: var(--ultra-text);
+            border: 1px solid var(--ultra-border);
+        }
+
+        .nav-button.secondary:hover {
+            background: var(--ultra-border);
+        }
+
+        /* Output displays */
+        .output {
+            background: var(--ultra-bg);
+            border: 1px solid var(--ultra-border);
+            border-radius: var(--border-radius-md);
+            padding: var(--spacing-3);
+            margin-top: var(--spacing-3);
+            font-family: var(--font-mono);
+            font-size: var(--font-size-sm);
+            color: var(--ultra-text-muted);
+            min-height: 40px;
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: var(--spacing-4) 0;
+            background: var(--ultra-bg-alt);
+            border-radius: var(--border-radius-md);
+            overflow: hidden;
+        }
+
+        th, td {
+            padding: var(--spacing-3);
+            text-align: left;
+            border-bottom: 1px solid var(--ultra-border);
+        }
+
+        th {
+            background: var(--ultra-card);
+            color: var(--ultra-text);
+            font-weight: 400;
+        }
+
+        td {
+            color: var(--ultra-text-muted);
+            font-weight: 300;
+        }
+
+        /* DOM specific styles */
+        .dom-playground {
+            background: var(--ultra-bg-alt);
+            border: 1px solid var(--ultra-border);
+            border-radius: var(--border-radius-md);
+            padding: var(--spacing-4);
+            margin: var(--spacing-4) 0;
+            min-height: 200px;
+        }
+
+        .created-element {
+            background: var(--accent-success);
+            color: var(--ultra-bg);
+            padding: var(--spacing-2);
+            margin: var(--spacing-2);
+            border-radius: var(--border-radius-sm);
+            display: inline-block;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 var(--spacing-3);
+            }
+            
+            .header h1 {
+                font-size: var(--font-size-2xl);
+            }
+            
+            .content-section {
+                padding: var(--spacing-4);
+            }
+            
+            .navigation {
+                flex-direction: column;
+                gap: var(--spacing-3);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>🏗️ Document Object Model (DOM)</h1>
+            <p class="subtitle">Manipulação e Modificação de Elementos HTML</p>
+        </header>
+
+        <!-- Progress Section -->
+        <section class="progress-section">
+            <h3>Progresso do Tópico</h3>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progress-fill"></div>
+            </div>
+            <p>Completar os exercícios para avançar no curso</p>
+        </section>
+
+        <main class="content-section">
+            <h2>📄 4. DOM – Document Object Model</h2>
+            
+            <div class="info-box info">
+                <strong>Visão Geral:</strong> O DOM é uma interface de programação que representa a estrutura da página web como uma árvore de objetos. Ele permite manipular elementos HTML de forma dinâmica via JavaScript.
+            </div>
+
+            <h3>4.1 Estrutura do DOM</h3>
+
+            <div class="info-box tip">
+                O DOM modela o HTML como uma <strong>árvore de nós (nodes)</strong> — cada tag vira um objeto que pode ser acessado, alterado ou removido.
+            </div>
+
+            <div class="dom-tree">
+document
+└── html
+    ├── head
+    │   ├── title
+    │   └── meta
+    └── body
+        ├── h1
+        ├── div
+        │   ├── p
+        │   └── span
+        └── footer
+            </div>
+
+            <div class="code-block">
+console.log(document.body); // Acessa o body da página
+            </div>
+
+            <h3>4.2 Selecionando elementos HTML</h3>
+
+            <h4>4.2.1 Métodos getElementById, getElementsByTagName, getElementsByClassName</h4>
+
+            <div class="code-block">
+const titulo = document.getElementById("titulo");
+const paragrafos = document.getElementsByTagName("p");
+const destaques = document.getElementsByClassName("destaque");
+            </div>
+
+            <div class="info-box info">
+                <code>getElementById</code> retorna <strong>um único elemento</strong>. Os demais retornam <strong>coleções</strong> (HTMLCollection).
+            </div>
+
+            <h4>4.2.2 Métodos querySelector e querySelectorAll</h4>
+
+            <div class="code-block">
+const primeiroParagrafo = document.querySelector("p");
+const todosOsLinks = document.querySelectorAll("a");
+            </div>
+
+            <div class="info-box tip">
+                <code>querySelector</code> aceita seletores CSS e retorna o <strong>primeiro match</strong>. <code>querySelectorAll</code> retorna uma <strong>NodeList</strong> com todos os elementos encontrados.
+            </div>
+
+            <!-- Elementos para demonstração -->
+            <div class="demo-container">
+                <div class="demo-title">🧪 Demonstração: Seleção de Elementos</div>
+                
+                <div id="demo-titulo" class="demo-element">Título de demonstração</div>
+                <p class="demo-paragrafo">Primeiro parágrafo</p>
+                <p class="demo-paragrafo destaque">Segundo parágrafo com destaque</p>
+                <div class="demo-element">
+                    <span class="destaque">Span com destaque</span>
+                    <a href="#" class="demo-link">Link de exemplo</a>
+                </div>
+
+                <button class="btn" onclick="selectById()">Selecionar por ID</button>
+                <button class="btn" onclick="selectByTag()">Selecionar por Tag</button>
+                <button class="btn" onclick="selectByClass()">Selecionar por Classe</button>
+                <button class="btn" onclick="selectByQuery()">querySelector</button>
+                <button class="btn" onclick="selectAllByQuery()">querySelectorAll</button>
+
+                <div class="result-box" id="selection-result">// Resultados da seleção aparecerão aqui</div>
+            </div>
+
+            <h3>4.3 Modificando elementos</h3>
+
+            <h4>4.3.1 Modificando conteúdo</h4>
+
+            <div class="code-block">
+document.getElementById("titulo").textContent = "Novo Título";
+            </div>
+
+            <h4>4.3.2 Modificando atributos</h4>
+
+            <div class="code-block">
+const link = document.querySelector("a");
+link.setAttribute("href", "https://exemplo.com");
+link.setAttribute("target", "_blank");
+            </div>
+
+            <h4>4.3.3 Modificando estilo</h4>
+
+            <div class="code-block">
+const caixa = document.querySelector(".caixa");
+caixa.style.backgroundColor = "lightblue";
+            </div>
+
+            <div class="demo-container">
+                <div class="demo-title">🧪 Demonstração: Modificação de Elementos</div>
+                
+                <div id="modify-demo" class="demo-element">
+                    Elemento para modificação
+                </div>
+
+                <div class="input-group">
+                    <label for="new-content">Novo conteúdo:</label>
+                    <input type="text" id="new-content" placeholder="Digite o novo texto">
+                </div>
+
+                <div class="input-group">
+                    <label for="new-color">Nova cor de fundo:</label>
+                    <select id="new-color">
+                        <option value="lightblue">Azul claro</option>
+                        <option value="lightgreen">Verde claro</option>
+                        <option value="lightyellow">Amarelo claro</option>
+                        <option value="lightcoral">Coral claro</option>
+                        <option value="lightgray">Cinza claro</option>
+                    </select>
+                </div>
+
+                <button class="btn" onclick="changeContent()">Alterar Conteúdo</button>
+                <button class="btn" onclick="changeStyle()">Alterar Estilo</button>
+                <button class="btn" onclick="addAttribute()">Adicionar Atributo</button>
+                <button class="btn" onclick="resetElement()">Resetar</button>
+
+                <div class="result-box" id="modify-result">// Resultados das modificações aparecerão aqui</div>
+            </div>
+
+            <h4>4.3.4 Criando e removendo elementos</h4>
+
+            <div class="code-block">
+const novoItem = document.createElement("li");
+novoItem.textContent = "Item novo";
+document.querySelector("ul").appendChild(novoItem);
+
+const remover = document.querySelector("ul li");
+remover.remove();
+            </div>
+
+            <div class="demo-container">
+                <div class="demo-title">🧪 Demonstração: Criação e Remoção</div>
+                
+                <ul id="demo-list">
+                    <li>Item 1 - Original</li>
+                    <li>Item 2 - Original</li>
+                </ul>
+
+                <div class="input-group">
+                    <label for="new-item">Novo item para a lista:</label>
+                    <input type="text" id="new-item" placeholder="Digite o texto do novo item">
+                </div>
+
+                <button class="btn" onclick="createItem()">Criar Item</button>
+                <button class="btn" onclick="removeLastItem()">Remover Último</button>
+                <button class="btn" onclick="removeFirstItem()">Remover Primeiro</button>
+                <button class="btn" onclick="clearList()">Limpar Lista</button>
+
+                <div class="result-box" id="creation-result">// Resultados da criação/remoção aparecerão aqui</div>
+            </div>
+
+            <h4>4.3.5 innerHTML vs. textContent (.extra)</h4>
+
+            <table class="table-comparison">
+                <thead>
+                    <tr>
+                        <th>Método</th>
+                        <th>Descrição</th>
+                        <th>Exemplo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>innerHTML</strong></td>
+                        <td>Lê/insere HTML (interpreta tags)</td>
+                        <td><code>element.innerHTML = "&lt;b&gt;Negrito&lt;/b&gt;"</code></td>
+                    </tr>
+                    <tr>
+                        <td><strong>textContent</strong></td>
+                        <td>Lê/insere apenas texto puro (sem HTML)</td>
+                        <td><code>element.textContent = "&lt;b&gt;Negrito&lt;/b&gt;"</code></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="info-box warning">
+                <strong>Cuidado!</strong> <code>innerHTML</code> pode ser uma vulnerabilidade de segurança (XSS) se usado com dados externos.
+            </div>
+
+            <div class="demo-container">
+                <div class="demo-title">🧪 Demonstração: innerHTML vs textContent</div>
+                
+                <div class="input-group">
+                    <label for="html-input">Digite HTML ou texto:</label>
+                    <input type="text" id="html-input" placeholder="Ex: <strong>Texto em negrito</strong>" value="<strong>Texto em negrito</strong>">
+                </div>
+
+                <div id="innerHTML-demo" class="demo-element">
+                    Área para innerHTML
+                </div>
+
+                <div id="textContent-demo" class="demo-element">
+                    Área para textContent
+                </div>
+
+                <button class="btn" onclick="testInnerHTML()">Usar innerHTML</button>
+                <button class="btn" onclick="testTextContent()">Usar textContent</button>
+                <button class="btn" onclick="compareResults()">Comparar Ambos</button>
+
+                <div class="result-box" id="content-result">// Comparação aparecerá aqui</div>
+            </div>
+
+            <h3>🧠 Resumo</h3>
+            <ul>
+                <li>O DOM modela a estrutura HTML como árvore de objetos.</li>
+                <li>Podemos selecionar elementos com vários métodos.</li>
+                <li>A modificação pode ser de conteúdo, atributos, estilos ou estrutura.</li>
+                <li><code>innerHTML</code> renderiza HTML, enquanto <code>textContent</code> não.</li>
+                <li>Criação e remoção dinâmica permitem interatividade avançada.</li>
+            </ul>
+
+            <div class="quiz-section">
+                <h3>📋 Perguntas de Revisão</h3>
+                
+                <div class="quiz-question">
+                    <h4>1. O que é o DOM e como ele representa a página HTML?</h4>
+                    <p>O DOM é uma árvore de objetos que representa a estrutura HTML, permitindo manipulação via JavaScript.</p>
+                </div>
+
+                <div class="quiz-question">
+                    <h4>2. Qual a diferença entre getElementById e querySelector?</h4>
+                    <p><code>getElementById</code> busca apenas por ID, <code>querySelector</code> aceita qualquer seletor CSS.</p>
+                </div>
+
+                <div class="quiz-question">
+                    <h4>3. Como adicionar um novo elemento a uma lista?</h4>
+                    <p>Usando <code>createElement()</code>, definindo conteúdo e usando <code>appendChild()</code>.</p>
+                </div>
+
+                <div class="quiz-question">
+                    <h4>4. Quando usar textContent ao invés de innerHTML?</h4>
+                    <p>Quando queremos inserir apenas texto, evitando interpretação de HTML e riscos de XSS.</p>
+                </div>
+
+                <button class="btn" onclick="completeQuiz()">✅ Marcar Como Concluído</button>
+            </div>
+        </main>
+
+        <nav class="navigation">
+            <a href="03-bom.html" class="nav-button secondary">← Anterior: BOM</a>
+            <a href="index.html" class="nav-button primary">📚 Voltar ao Índice</a>
+            <a href="05-eventos.html" class="nav-button secondary">Próximo: Eventos →</a>
+        </nav>
+    </div>
+
+    <script>
+        // Funções de seleção de elementos
+        function selectById() {
+            const element = document.getElementById('demo-titulo');
+            element.classList.add('highlight');
+            
+            setTimeout(() => element.classList.remove('highlight'), 2000);
+            
+            document.getElementById('selection-result').textContent = 
+                `getElementById('demo-titulo'):\nElemento encontrado: ${element.tagName}\nConteúdo: "${element.textContent}"`;
+            updateProgress(15);
+        }
+
+        function selectByTag() {
+            const elements = document.getElementsByTagName('p');
+            
+            // Highlight todos os elementos
+            Array.from(elements).forEach(el => {
+                el.classList.add('highlight');
+                setTimeout(() => el.classList.remove('highlight'), 2000);
+            });
+            
+            document.getElementById('selection-result').textContent = 
+                `getElementsByTagName('p'):\nQuantidade encontrada: ${elements.length}\nPrimeiro elemento: "${elements[0]?.textContent}"`;
+        }
+
+        function selectByClass() {
+            const elements = document.getElementsByClassName('destaque');
+            
+            Array.from(elements).forEach(el => {
+                el.classList.add('highlight');
+                setTimeout(() => el.classList.remove('highlight'), 2000);
+            });
+            
+            document.getElementById('selection-result').textContent = 
+                `getElementsByClassName('destaque'):\nQuantidade encontrada: ${elements.length}\nElementos com classe destaque destacados`;
+            updateProgress(30);
+        }
+
+        function selectByQuery() {
+            const element = document.querySelector('.demo-paragrafo');
+            element.classList.add('highlight');
+            
+            setTimeout(() => element.classList.remove('highlight'), 2000);
+            
+            document.getElementById('selection-result').textContent = 
+                `querySelector('.demo-paragrafo'):\nPrimeiro elemento encontrado\nConteúdo: "${element.textContent}"`;
+        }
+
+        function selectAllByQuery() {
+            const elements = document.querySelectorAll('.demo-element');
+            
+            elements.forEach(el => {
+                el.classList.add('highlight');
+                setTimeout(() => el.classList.remove('highlight'), 2000);
+            });
+            
+            document.getElementById('selection-result').textContent = 
+                `querySelectorAll('.demo-element'):\nNodeList com ${elements.length} elementos\nTodos os elementos .demo-element destacados`;
+        }
+
+        // Funções de modificação de elementos
+        function changeContent() {
+            const element = document.getElementById('modify-demo');
+            const newContent = document.getElementById('new-content').value || 'Conteúdo alterado!';
+            
+            const oldContent = element.textContent;
+            element.textContent = newContent;
+            
+            document.getElementById('modify-result').textContent = 
+                `Conteúdo alterado:\nAnterior: "${oldContent}"\nNovo: "${newContent}"`;
+            updateProgress(45);
+        }
+
+        function changeStyle() {
+            const element = document.getElementById('modify-demo');
+            const newColor = document.getElementById('new-color').value;
+            
+            element.style.backgroundColor = newColor;
+            element.style.border = '3px solid ' + (newColor === 'lightblue' ? 'blue' : 'green');
+            element.style.transform = 'scale(1.05)';
+            
+            setTimeout(() => {
+                element.style.transform = 'scale(1)';
+            }, 1000);
+            
+            document.getElementById('modify-result').textContent = 
+                `Estilo alterado:\nCor de fundo: ${newColor}\nBorda e transformação aplicadas`;
+        }
+
+        function addAttribute() {
+            const element = document.getElementById('modify-demo');
+            element.setAttribute('data-modified', 'true');
+            element.setAttribute('title', 'Elemento modificado via JavaScript');
+            
+            document.getElementById('modify-result').textContent = 
+                `Atributos adicionados:\ndata-modified="true"\ntitle="Elemento modificado via JavaScript"\nPasse o mouse sobre o elemento!`;
+        }
+
+        function resetElement() {
+            const element = document.getElementById('modify-demo');
+            element.textContent = 'Elemento para modificação';
+            element.style.cssText = '';
+            element.removeAttribute('data-modified');
+            element.removeAttribute('title');
+            
+            document.getElementById('modify-result').textContent = 'Elemento resetado para o estado original!';
+        }
+
+        // Funções de criação e remoção
+        function createItem() {
+            const list = document.getElementById('demo-list');
+            const newItemText = document.getElementById('new-item').value || 'Novo item';
+            
+            const newItem = document.createElement('li');
+            newItem.textContent = `${newItemText} - Criado às ${new Date().toLocaleTimeString()}`;
+            newItem.style.backgroundColor = '#e8f5e8';
+            newItem.style.animation = 'fadeIn 0.5s ease-in';
+            
+            list.appendChild(newItem);
+            
+            document.getElementById('new-item').value = '';
+            document.getElementById('creation-result').textContent = 
+                `Item criado e adicionado à lista!\nTotal de itens: ${list.children.length}`;
+            updateProgress(60);
+        }
+
+        function removeLastItem() {
+            const list = document.getElementById('demo-list');
+            if (list.children.length > 0) {
+                const lastItem = list.lastElementChild;
+                const itemText = lastItem.textContent;
+                lastItem.remove();
+                
+                document.getElementById('creation-result').textContent = 
+                    `Último item removido: "${itemText}"\nItens restantes: ${list.children.length}`;
+            } else {
+                document.getElementById('creation-result').textContent = 'Lista está vazia!';
+            }
+        }
+
+        function removeFirstItem() {
+            const list = document.getElementById('demo-list');
+            if (list.children.length > 0) {
+                const firstItem = list.firstElementChild;
+                const itemText = firstItem.textContent;
+                firstItem.remove();
+                
+                document.getElementById('creation-result').textContent = 
+                    `Primeiro item removido: "${itemText}"\nItens restantes: ${list.children.length}`;
+            } else {
+                document.getElementById('creation-result').textContent = 'Lista está vazia!';
+            }
+        }
+
+        function clearList() {
+            const list = document.getElementById('demo-list');
+            const itemCount = list.children.length;
+            list.innerHTML = '';
+            
+            document.getElementById('creation-result').textContent = 
+                `Lista limpa! ${itemCount} itens removidos.`;
+        }
+
+        // Funções de comparação innerHTML vs textContent
+        function testInnerHTML() {
+            const input = document.getElementById('html-input').value;
+            const element = document.getElementById('innerHTML-demo');
+            
+            element.innerHTML = input;
+            
+            document.getElementById('content-result').textContent = 
+                `innerHTML aplicado:\nInput: "${input}"\nResultado: HTML interpretado (verifique o elemento acima)`;
+            updateProgress(75);
+        }
+
+        function testTextContent() {
+            const input = document.getElementById('html-input').value;
+            const element = document.getElementById('textContent-demo');
+            
+            element.textContent = input;
+            
+            document.getElementById('content-result').textContent = 
+                `textContent aplicado:\nInput: "${input}"\nResultado: Texto literal (HTML não interpretado)`;
+        }
+
+        function compareResults() {
+            const input = document.getElementById('html-input').value;
+            const innerHTMLElement = document.getElementById('innerHTML-demo');
+            const textContentElement = document.getElementById('textContent-demo');
+            
+            innerHTMLElement.innerHTML = input;
+            textContentElement.textContent = input;
+            
+            document.getElementById('content-result').textContent = 
+                `Comparação realizada:\nInput: "${input}"\n\ninnerHTML: Interpreta HTML (tags funcionam)\ntextContent: Texto literal (tags aparecem como texto)\n\nObserve a diferença nos elementos acima!`;
+            updateProgress(90);
+        }
+
+        // Sistema de progresso
+        let currentProgress = 0;
+
+        function updateProgress(newProgress) {
+            if (newProgress > currentProgress) {
+                currentProgress = newProgress;
+                document.getElementById('progress-fill').style.width = currentProgress + '%';
+            }
+        }
+
+        function completeQuiz() {
+            updateProgress(100);
+            alert('🎉 Parabéns! Você concluiu a seção do DOM!');
+        }
+    </script>
+</body>
+</html> 

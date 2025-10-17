@@ -1,0 +1,960 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🏷️ Tags Semânticas HTML5 - Aula 4</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            line-height: 1.8;
+            color: #333;
+            background: linear-gradient(135deg, #2196F3 0%, #1976d2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+        }
+
+        h1 {
+            text-align: center;
+            color: #1976d2;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            animation: titleGlow 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes titleGlow {
+            from { text-shadow: 2px 2px 4px rgba(0,0,0,0.1); }
+            to { text-shadow: 2px 2px 15px rgba(25, 118, 210, 0.3); }
+        }
+
+        h2 {
+            color: #2196F3;
+            margin: 30px 0 20px 0;
+            font-size: 1.8em;
+            border-left: 5px solid #2196F3;
+            padding-left: 15px;
+        }
+
+        h3 {
+            color: #1976d2;
+            margin: 25px 0 15px 0;
+            font-size: 1.4em;
+        }
+
+        p {
+            margin-bottom: 15px;
+            text-align: justify;
+            font-size: 1.1em;
+        }
+
+        ul, ol {
+            margin: 15px 0;
+            padding-left: 30px;
+        }
+
+        li {
+            margin-bottom: 8px;
+            font-size: 1.05em;
+        }
+
+        strong {
+            color: #1565c0;
+        }
+
+        code {
+            background: #f5f5f5;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            color: #d32f2f;
+            font-weight: bold;
+        }
+
+        .alert {
+            padding: 20px;
+            margin: 25px 0;
+            border-radius: 10px;
+            border-left: 5px solid;
+            line-height: 1.7;
+            font-size: 1.05em;
+        }
+
+        .alert br {
+            margin-bottom: 8px;
+        }
+
+        .alert strong {
+            display: block;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        .alert-info {
+            background: #e3f2fd;
+            border-color: #2196F3;
+            color: #0d47a1;
+        }
+
+        .alert-tip {
+            background: #f3e5f5;
+            border-color: #8e24aa;
+            color: #4a148c;
+        }
+
+        .tags-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+
+        .tag-section {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tag-section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+        }
+
+        .tag-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #2196F3, #1976d2);
+        }
+
+        .tag-name {
+            color: #2196F3;
+            font-size: 1.4em;
+            font-weight: bold;
+            margin-bottom: 15px;
+            font-family: 'Courier New', monospace;
+        }
+
+        .tag-description {
+            color: #666;
+            font-size: 1em;
+            line-height: 1.5;
+            margin-bottom: 15px;
+        }
+
+        .code-block {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 25px;
+            border-radius: 12px;
+            overflow-x: auto;
+            margin: 20px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            line-height: 1.7;
+            border: 2px solid #4a5568;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+        }
+
+        .code-block::before {
+            content: "📝 Código";
+            display: block;
+            color: #a0aec0;
+            font-size: 0.8em;
+            margin-bottom: 10px;
+            border-bottom: 1px solid #4a5568;
+            padding-bottom: 8px;
+        }
+
+        /* Elementos Interativos - Tema Azul */
+        .tag-playground {
+            background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+            border: 3px dashed #2196F3;
+            border-radius: 20px;
+            padding: 25px;
+            margin: 25px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tag-playground::before {
+            content: "🎮 PLAYGROUND INTERATIVO";
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #2196F3;
+            color: white;
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-size: 0.8em;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(33, 150, 243, 0.3);
+        }
+
+        .interactive-tag {
+            display: inline-block;
+            background: linear-gradient(135deg, #2196F3, #1976d2);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 25px;
+            margin: 5px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            font-family: 'Courier New', monospace;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(33, 150, 243, 0.3);
+        }
+
+        .interactive-tag:hover {
+            transform: translateY(-3px) scale(1.1);
+            box-shadow: 0 8px 25px rgba(33, 150, 243, 0.4);
+            background: linear-gradient(135deg, #1976d2, #1565c0);
+        }
+
+        .tag-demo-area {
+            background: white;
+            border: 2px solid #2196F3;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+            min-height: 150px;
+            transition: all 0.3s ease;
+        }
+
+        .floating-explanation {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: linear-gradient(135deg, #2196F3, #1976d2);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+            max-width: 400px;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .floating-explanation.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .close-explanation {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        .semantic-memory-game {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 25px 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #f3e5f5, #e1bee7);
+            border-radius: 15px;
+            border: 2px solid #9C27B0;
+        }
+
+        .memory-card {
+            background: white;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            min-height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .memory-card:hover {
+            transform: scale(1.05);
+            border-color: #2196F3;
+            background: #e3f2fd;
+        }
+
+        .memory-card.flipped {
+            background: #e8f5e9;
+            border-color: #4CAF50;
+        }
+
+        .memory-card.matched {
+            background: linear-gradient(135deg, #e8f5e9, #c8e6c9);
+            border-color: #4CAF50;
+            transform: scale(0.95);
+            opacity: 0.8;
+        }
+
+        .memory-card .card-content {
+            font-weight: bold;
+            font-size: 0.9em;
+        }
+
+        .score-board {
+            background: linear-gradient(135deg, #fff3e0, #ffe0b2);
+            border: 2px solid #FF9800;
+            border-radius: 15px;
+            padding: 15px;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .visual-hierarchy {
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            border: 2px solid #6c757d;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 25px 0;
+            position: relative;
+        }
+
+        .hierarchy-level {
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .hierarchy-level:hover {
+            transform: translateX(10px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .level-1 { background: #e3f2fd; border-left: 5px solid #2196F3; }
+        .level-2 { background: #e8f5e9; border-left: 5px solid #4CAF50; margin-left: 20px; }
+        .level-3 { background: #fff3e0; border-left: 5px solid #FF9800; margin-left: 40px; }
+
+        .demo-area {
+            background: #f8f9fa;
+            border: 2px solid #2196F3;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+
+        .demo-result {
+            background: white;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 10px;
+            border: 1px solid #ddd;
+        }
+
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 40px;
+            padding: 20px 0;
+            border-top: 2px solid #e0e0e0;
+        }
+
+        .nav-button {
+            background: #2196F3;
+            color: white;
+            text-decoration: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(33, 150, 243, 0.3);
+        }
+
+        .nav-button:hover {
+            background: #1976d2;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(33, 150, 243, 0.4);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+
+            .tags-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .navigation {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            h1 {
+                font-size: 2em;
+            }
+
+            h2 {
+                font-size: 1.5em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🏷️ Tags Semânticas do HTML5</h1>
+        </header>
+
+        <main>
+            <div class="alert alert-info">
+                <strong>💡 Visão Geral:</strong> As tags semânticas do HTML5 representam um avanço importante na estruturação de conteúdo. Cada uma carrega significado próprio e função específica na página, contribuindo para uma web mais organizada, acessível e compreensível.
+            </div>
+
+            <div class="tag-playground">
+                <h3>🎮 Explore as Tags Interativamente</h3>
+                <p>Clique nas tags abaixo para ver suas explicações e exemplos:</p>
+                <div style="margin: 20px 0;">
+                    <div class="interactive-tag" onclick="showTagExplanation('header')">
+                        &lt;header&gt;
+                    </div>
+                    <div class="interactive-tag" onclick="showTagExplanation('nav')">
+                        &lt;nav&gt;
+                    </div>
+                    <div class="interactive-tag" onclick="showTagExplanation('main')">
+                        &lt;main&gt;
+                    </div>
+                    <div class="interactive-tag" onclick="showTagExplanation('article')">
+                        &lt;article&gt;
+                    </div>
+                    <div class="interactive-tag" onclick="showTagExplanation('section')">
+                        &lt;section&gt;
+                    </div>
+                    <div class="interactive-tag" onclick="showTagExplanation('aside')">
+                        &lt;aside&gt;
+                    </div>
+                    <div class="interactive-tag" onclick="showTagExplanation('footer')">
+                        &lt;footer&gt;
+                    </div>
+                </div>
+                <div id="tag-demo-result" class="tag-demo-area">
+                    <p>🎯 Clique em uma tag acima para ver sua demonstração!</p>
+                </div>
+            </div>
+
+            <div class="visual-hierarchy">
+                <h3>🏗️ Hierarquia Visual das Tags HTML5</h3>
+                <div class="hierarchy-level level-1" onclick="highlightLevel(1)">
+                    <strong>&lt;html&gt;</strong> - Elemento raiz do documento
+                </div>
+                <div class="hierarchy-level level-2" onclick="highlightLevel(2)">
+                    <strong>&lt;header&gt;</strong> - Cabeçalho da página
+                </div>
+                <div class="hierarchy-level level-2" onclick="highlightLevel(2)">
+                    <strong>&lt;nav&gt;</strong> - Menu de navegação
+                </div>
+                <div class="hierarchy-level level-2" onclick="highlightLevel(2)">
+                    <strong>&lt;main&gt;</strong> - Conteúdo principal
+                </div>
+                <div class="hierarchy-level level-3" onclick="highlightLevel(3)">
+                    <strong>&lt;article&gt;</strong> - Conteúdo independente
+                </div>
+                <div class="hierarchy-level level-3" onclick="highlightLevel(3)">
+                    <strong>&lt;section&gt;</strong> - Seção temática
+                </div>
+                <div class="hierarchy-level level-2" onclick="highlightLevel(2)">
+                    <strong>&lt;aside&gt;</strong> - Conteúdo lateral
+                </div>
+                <div class="hierarchy-level level-2" onclick="highlightLevel(2)">
+                    <strong>&lt;footer&gt;</strong> - Rodapé da página
+                </div>
+            </div>
+
+            <section class="tags-grid">
+                <!-- Section -->
+                <div class="tag-section">
+                    <h3 class="tag-name">&lt;section&gt;</h3>
+                    <p class="tag-description">Representa uma seção genérica de conteúdo tematicamente relacionada. Ideal para agrupar blocos com título e propósito em comum.</p>
+                    
+                    <div class="code-block">
+&lt;section&gt;
+    &lt;h2&gt;Serviços&lt;/h2&gt;
+    &lt;p&gt;Oferecemos consultoria, design e desenvolvimento web.&lt;/p&gt;
+&lt;/section&gt;
+                    </div>
+                    
+                    <div class="alert alert-tip">
+                        <strong>💡 Dica:</strong> Use quando houver título associado e o conteúdo puder ser isolado como uma seção temática.
+                    </div>
+                </div>
+
+                <!-- Article -->
+                <div class="tag-section">
+                    <h3 class="tag-name">&lt;article&gt;</h3>
+                    <p class="tag-description">Define conteúdo independente e autocontido, como postagens de blog, artigos de notícias ou fóruns.</p>
+                    
+                    <div class="code-block">
+&lt;article&gt;
+  &lt;h2&gt;Como usar HTML5&lt;/h2&gt;
+  &lt;p&gt;Aprenda como aplicar HTML5 no seu projeto.&lt;/p&gt;
+&lt;/article&gt;
+                    </div>
+                    
+                    <div class="alert alert-tip">
+                        <strong>✨ Exemplo:</strong> Artigos podem conter seus próprios &lt;header&gt; e &lt;footer&gt;.
+                    </div>
+                </div>
+
+                <!-- Aside -->
+                <div class="tag-section">
+                    <h3 class="tag-name">&lt;aside&gt;</h3>
+                    <p class="tag-description">Usado para conteúdo complementar ou lateral, como barras laterais, links relacionados, anúncios ou citações.</p>
+                    
+                    <div class="code-block">
+&lt;aside&gt;
+  &lt;h3&gt;Leia também&lt;/h3&gt;
+  &lt;ul&gt;
+    &lt;li&gt;&lt;a href="#"&gt;Dicas de CSS&lt;/a&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/aside&gt;
+                    </div>
+                    
+                    <div class="alert alert-tip">
+                        <strong>💡 Dica:</strong> Deve ser usado para conteúdo secundário que ainda esteja relacionado com o conteúdo principal.
+                    </div>
+                </div>
+
+                <!-- Header -->
+                <div class="tag-section">
+                    <h3 class="tag-name">&lt;header&gt;</h3>
+                    <p class="tag-description">Define o cabeçalho de uma página ou seção. Normalmente contém títulos, logotipos e menus.</p>
+                    
+                    <div class="code-block">
+&lt;header&gt;
+  &lt;h1&gt;Meu Blog&lt;/h1&gt;
+  &lt;nav&gt;...&lt;/nav&gt;
+&lt;/header&gt;
+                    </div>
+                    
+                    <div class="alert alert-info">
+                        <strong>⚠️ Atenção:</strong> Não confundir com &lt;head&gt;, que é parte do &lt;html&gt; para metadados!
+                    </div>
+                </div>
+
+                <!-- Nav -->
+                <div class="tag-section">
+                    <h3 class="tag-name">&lt;nav&gt;</h3>
+                    <p class="tag-description">Define uma área de navegação com links importantes do site (menu principal, breadcrumbs, etc).</p>
+                    
+                    <div class="code-block">
+&lt;nav&gt;
+  &lt;ul&gt;
+    &lt;li&gt;&lt;a href="#"&gt;Início&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="#"&gt;Sobre&lt;/a&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/nav&gt;
+                    </div>
+                    
+                    <div class="alert alert-tip">
+                        <strong>💡 Dica:</strong> Evite usar &lt;nav&gt; para todos os links, apenas para os principais.
+                    </div>
+                </div>
+
+                <!-- Footer -->
+                <div class="tag-section">
+                    <h3 class="tag-name">&lt;footer&gt;</h3>
+                    <p class="tag-description">Representa o rodapé de uma página ou seção. Geralmente contém informações como autoria, copyright ou links adicionais.</p>
+                    
+                    <div class="code-block">
+&lt;footer&gt;
+  &lt;p&gt;&copy; 2025 Maugus ✌️&lt;/p&gt;
+&lt;/footer&gt;
+                    </div>
+                    
+                    <div class="alert alert-tip">
+                        <strong>💡 Dica:</strong> Pode ser usado em vários níveis: página inteira ou dentro de &lt;article&gt;, por exemplo.
+                    </div>
+                </div>
+
+                <!-- Main -->
+                <div class="tag-section">
+                    <h3 class="tag-name">&lt;main&gt;</h3>
+                    <p class="tag-description">Especifica o conteúdo principal e único da página, excluindo cabeçalhos, barras laterais e rodapés.</p>
+                    
+                    <div class="code-block">
+&lt;main&gt;
+  &lt;h2&gt;Bem-vindo&lt;/h2&gt;
+  &lt;p&gt;Conteúdo principal da página.&lt;/p&gt;
+&lt;/main&gt;
+                    </div>
+                    
+                    <div class="alert alert-info">
+                        <strong>⚠️ Importante:</strong> Apenas um &lt;main&gt; deve existir por página.
+                    </div>
+                </div>
+
+                <!-- Figure e Figcaption -->
+                <div class="tag-section">
+                    <h3 class="tag-name">&lt;figure&gt; e &lt;figcaption&gt;</h3>
+                    <p class="tag-description"><strong>&lt;figure&gt;:</strong> agrupa elementos visuais (como imagens ou gráficos)<br>
+                    <strong>&lt;figcaption&gt;:</strong> legenda descritiva associada ao conteúdo da figura</p>
+                    
+                    <div class="code-block">
+&lt;figure&gt;
+  &lt;img src="grafico.png" alt="Gráfico de crescimento"&gt;
+  &lt;figcaption&gt;Representação do crescimento anual.&lt;/figcaption&gt;
+&lt;/figure&gt;
+                    </div>
+                    
+                    <div class="alert alert-tip">
+                        <strong>✨ Exemplo:</strong> Úteis para enriquecer o conteúdo com contexto visual e descritivo.
+                    </div>
+                </div>
+
+                <!-- Details e Summary -->
+                <div class="tag-section">
+                    <h3 class="tag-name">&lt;details&gt; e &lt;summary&gt;</h3>
+                    <p class="tag-description"><strong>&lt;details&gt;:</strong> cria uma área expansível de conteúdo<br>
+                    <strong>&lt;summary&gt;:</strong> título visível da área</p>
+                    
+                    <div class="code-block">
+&lt;details&gt;
+  &lt;summary&gt;Saiba mais&lt;/summary&gt;
+  &lt;p&gt;Informações adicionais visíveis ao expandir.&lt;/p&gt;
+&lt;/details&gt;
+                    </div>
+                    
+                    <div class="demo-area">
+                        <strong>Demonstração ao vivo:</strong>
+                        <div class="demo-result">
+                            <details>
+                                <summary>Clique para expandir</summary>
+                                <p>Este conteúdo aparece quando expandido! Ótimo para FAQs.</p>
+                            </details>
+                        </div>
+                    </div>
+                    
+                    <div class="alert alert-tip">
+                        <strong>💡 Dica:</strong> Ótimos para FAQs ou conteúdos que devem ser revelados sob demanda.
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h2>🎮 Jogo da Memória - Tags Semânticas</h2>
+                <div class="score-board">
+                    <h3>🏆 Pontuação</h3>
+                    <p>Tentativas: <span id="attempts">0</span> | Pares encontrados: <span id="pairs-found">0</span>/6</p>
+                    <button onclick="startMemoryGame()" style="background: #2196F3; color: white; border: none; padding: 10px 20px; border-radius: 25px; cursor: pointer; margin: 10px;">
+                        🔄 Novo Jogo
+                    </button>
+                </div>
+                
+                <div class="semantic-memory-game" id="memory-game">
+                    <!-- Cards serão gerados dinamicamente -->
+                </div>
+            </section>
+
+            <section>
+                <h2>📝 Resumo</h2>
+                <div class="alert alert-info">
+                    As tags semânticas do HTML5 ajudam a dar sentido e estrutura lógica às páginas. Usar cada uma de forma adequada melhora a organização, acessibilidade e SEO do site.
+                </div>
+            </section>
+
+            <section>
+                <h2>🤔 Perguntas de Revisão</h2>
+                <div class="alert alert-tip">
+                    <strong>Questões para reflexão:</strong>
+                    
+                    <ul>
+                        <li>Quando devo usar &lt;article&gt; e não &lt;section&gt;?</li>
+                        <li>Qual a diferença entre &lt;aside&gt; e &lt;nav&gt;?</li>
+                        <li>O que &lt;main&gt; representa e por que só deve haver um por página?</li>
+                        <li>Como &lt;figure&gt; e &lt;figcaption&gt; contribuem para acessibilidade?</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section>
+                <h2>🚀 Próximos Passos</h2>
+                <div class="alert alert-tip">
+                    <strong>Atividades sugeridas:</strong>
+                    
+                    <ul>
+                        <li>Criar uma estrutura de site usando todas as tags semânticas apresentadas</li>
+                        <li>Refatorar um código HTML antigo usando as tags semânticas do HTML5</li>
+                        <li>Esboçar um layout em papel e planejar que tag semântica usar em cada parte</li>
+                    </ul>
+                </div>
+            </section>
+        </main>
+
+        <nav class="navigation">
+            <a href="01-html-semantico.html" class="nav-button">← HTML Semântico</a>
+            <a href="03-acessibilidade.html" class="nav-button">Próximo: Acessibilidade →</a>
+        </nav>
+    </div>
+
+    <!-- Floating Explanation Modal -->
+    <div id="floating-explanation" class="floating-explanation">
+        <button class="close-explanation" onclick="closeExplanation()">×</button>
+        <div id="explanation-content"></div>
+    </div>
+
+    <script>
+        // Dados das tags para demonstração
+        const tagData = {
+            'header': {
+                title: '&lt;header&gt;',
+                description: 'Define o cabeçalho de uma página ou seção',
+                example: `<div style="background: #f8f9fa; padding: 15px; border-radius: 8px;">
+                    <h2 style="color: #2196F3;">📰 Meu Blog</h2>
+                    <p style="color: #666; margin: 5px 0;">Últimas notícias e artigos</p>
+                </div>`,
+                code: `&lt;header&gt;
+    &lt;h1&gt;Meu Blog&lt;/h1&gt;
+    &lt;p&gt;Últimas notícias&lt;/p&gt;
+&lt;/header&gt;`
+            },
+            'nav': {
+                title: '&lt;nav&gt;',
+                description: 'Área de navegação com links importantes',
+                example: `<div style="background: #e3f2fd; padding: 15px; border-radius: 8px;">
+                    <a href="#" style="margin: 0 10px; color: #1976d2; text-decoration: none;">🏠 Início</a>
+                    <a href="#" style="margin: 0 10px; color: #1976d2; text-decoration: none;">📖 Sobre</a>
+                    <a href="#" style="margin: 0 10px; color: #1976d2; text-decoration: none;">📞 Contato</a>
+                </div>`,
+                code: `&lt;nav&gt;
+    &lt;a href="#"&gt;Início&lt;/a&gt;
+    &lt;a href="#"&gt;Sobre&lt;/a&gt;
+    &lt;a href="#"&gt;Contato&lt;/a&gt;
+&lt;/nav&gt;`
+            },
+            'main': {
+                title: '&lt;main&gt;',
+                description: 'Conteúdo principal único da página',
+                example: `<div style="background: #e8f5e9; padding: 15px; border-radius: 8px;">
+                    <h3 style="color: #4CAF50;">🎯 Conteúdo Principal</h3>
+                    <p style="color: #333;">Este é o conteúdo mais importante da página.</p>
+                </div>`,
+                code: `&lt;main&gt;
+    &lt;h2&gt;Artigo Principal&lt;/h2&gt;
+    &lt;p&gt;Conteúdo único...&lt;/p&gt;
+&lt;/main&gt;`
+            },
+            'article': {
+                title: '&lt;article&gt;',
+                description: 'Conteúdo independente e autocontido',
+                example: `<div style="background: #fff3e0; padding: 15px; border-radius: 8px; border-left: 4px solid #FF9800;">
+                    <h4 style="color: #F57C00; margin: 0 0 10px 0;">📄 Post do Blog</h4>
+                    <p style="color: #333; margin: 5px 0;">Este artigo pode ser distribuído independentemente.</p>
+                    <small style="color: #666;">Publicado em 07/06/2025</small>
+                </div>`,
+                code: `&lt;article&gt;
+    &lt;h2&gt;Post do Blog&lt;/h2&gt;
+    &lt;p&gt;Conteúdo do artigo...&lt;/p&gt;
+&lt;/article&gt;`
+            },
+            'section': {
+                title: '&lt;section&gt;',
+                description: 'Agrupa conteúdo tematicamente relacionado',
+                example: `<div style="background: #f3e5f5; padding: 15px; border-radius: 8px;">
+                    <h4 style="color: #9C27B0;">📋 Seção de Conteúdo</h4>
+                    <p style="color: #333;">Conteúdo agrupado por tema específico.</p>
+                </div>`,
+                code: `&lt;section&gt;
+    &lt;h2&gt;Capítulo 1&lt;/h2&gt;
+    &lt;p&gt;Conteúdo da seção...&lt;/p&gt;
+&lt;/section&gt;`
+            },
+            'aside': {
+                title: '&lt;aside&gt;',
+                description: 'Conteúdo complementar ou lateral',
+                example: `<div style="background: #ffebee; padding: 15px; border-radius: 8px; border: 2px dashed #f44336;">
+                    <h5 style="color: #d32f2f;">📌 Informação Adicional</h5>
+                    <p style="color: #333; font-size: 0.9em;">Conteúdo relacionado mas secundário.</p>
+                </div>`,
+                code: `&lt;aside&gt;
+    &lt;h3&gt;Links Relacionados&lt;/h3&gt;
+    &lt;ul&gt;...&lt;/ul&gt;
+&lt;/aside&gt;`
+            },
+            'footer': {
+                title: '&lt;footer&gt;',
+                description: 'Rodapé da página ou seção',
+                example: `<div style="background: #37474f; color: white; padding: 15px; border-radius: 8px; text-align: center;">
+                    <p style="margin: 0;">© 2025 - Todos os direitos reservados</p>
+                </div>`,
+                code: `&lt;footer&gt;
+    &lt;p&gt;© 2025 - Maugus&lt;/p&gt;
+&lt;/footer&gt;`
+            }
+        };
+
+        // Função para mostrar explicação das tags
+        function showTagExplanation(tagName) {
+            const data = tagData[tagName];
+            const demoArea = document.getElementById('tag-demo-result');
+            
+            demoArea.innerHTML = `
+                <div style="text-align: left;">
+                    <h4 style="color: #2196F3; margin-bottom: 10px;">${data.title}</h4>
+                    <p style="margin-bottom: 15px;"><strong>Função:</strong> ${data.description}</p>
+                    
+                    <div style="margin: 15px 0;">
+                        <strong>📖 Exemplo Visual:</strong>
+                        ${data.example}
+                    </div>
+                    
+                    <div style="margin: 15px 0;">
+                        <strong>💻 Código:</strong>
+                        <div style="background: #2d3748; color: #e2e8f0; padding: 15px; border-radius: 8px; margin-top: 8px; font-family: monospace; white-space: pre-line;">${data.code}</div>
+                    </div>
+                </div>
+            `;
+            
+            demoArea.style.border = '3px solid #2196F3';
+            demoArea.style.background = '#e3f2fd';
+        }
+
+        // Função para destacar níveis da hierarquia
+        function highlightLevel(level) {
+            // Remove destaque anterior
+            document.querySelectorAll('.hierarchy-level').forEach(el => {
+                el.style.transform = '';
+                el.style.boxShadow = '';
+            });
+            
+            // Destaca nível selecionado
+            document.querySelectorAll(`.level-${level}`).forEach(el => {
+                el.style.transform = 'translateX(15px) scale(1.02)';
+                el.style.boxShadow = '0 8px 25px rgba(0,0,0,0.15)';
+            });
+        }
+
+        // Jogo da Memória
+        let memoryGameData = [
+            { id: 1, content: '&lt;header&gt;', pair: 'Cabeçalho' },
+            { id: 2, content: 'Cabeçalho', pair: '&lt;header&gt;' },
+            { id: 3, content: '&lt;nav&gt;', pair: 'Navegação' },
+            { id: 4, content: 'Navegação', pair: '&lt;nav&gt;' },
+            { id: 5, content: '&lt;main&gt;', pair: 'Principal' },
+            { id: 6, content: 'Principal', pair: '&lt;main&gt;' },
+            { id: 7, content: '&lt;article&gt;', pair: 'Artigo' },
+            { id: 8, content: 'Artigo', pair: '&lt;article&gt;' },
+            { id: 9, content: '&lt;section&gt;', pair: 'Seção' },
+            { id: 10, content: 'Seção', pair: '&lt;section&gt;' },
+            { id: 11, content: '&lt;footer&gt;', pair: 'Rodapé' },
+            { id: 12, content: 'Rodapé', pair: '&lt;footer&gt;' }
+        ];
+
+        let flippedCards = [];
+        let matchedPairs = 0;
+        let attempts = 0;
+
+        function startMemoryGame() {
+            const gameContainer = document.getElementById('memory-game');
+            const shuffledData = [...memoryGameData].sort(() => Math.random() - 0.5);
+            
+            gameContainer.innerHTML = '';
+            flippedCards = [];
+            matchedPairs = 0;
+            attempts = 0;
+            updateScore();
+            
+            shuffledData.forEach((card, index) => {
+                const cardElement = document.createElement('div');
+                cardElement.className = 'memory-card';
+                cardElement.dataset.id = card.id;
+                cardElement.dataset.content = card.content;
+                cardElement.dataset.pair = card.pair;
+                cardElement.innerHTML = `
+                    <div class="card-content">?</div>
+                `;
+                cardElement.onclick = () => flipCard(cardElement);
+                gameContainer.appendChild(cardElement);
+            });
+        }
+
+        function flipCard(card) {
+            if (card.classList.contains('flipped') || card.classList.contains('matched') || flippedCards.length >= 2) {
+                return;
+            }
+            
+            card.classList.add('flipped');
+            card.querySelector('.card-content').innerHTML = card.dataset.content;
+            flippedCards.push(card);
+            
+            if (flippedCards.length === 2) {
+                attempts++;
+                updateScore();
+                setTimeout(checkMatch, 1000);
+            }
+        }
+
+        function checkMatch() {
+            const [card1, card2] = flippedCards;
+            
+            if (card1.dataset.content === card2.dataset.pair || card1.dataset.pair === card2.dataset.content) {
+                card1.classList.add('matched');
+                card2.classList.add('matched');
+                matchedPairs++;
+                
+                if (matchedPairs === 6) {
+                    setTimeout(() => {
+                        alert(`🎉 Parabéns! Você completou o jogo em ${attempts} tentativas!`);
+                    }, 500);
+                }
+            } else {
+                card1.classList.remove('flipped');
+                card2.classList.remove('flipped');
+                card1.querySelector('.card-content').innerHTML = '?';
+                card2.querySelector('.card-content').innerHTML = '?';
+            }
+            
+            flippedCards = [];
+            updateScore();
+        }
+
+        function updateScore() {
+            document.getElementById('attempts').textContent = attempts;
+            document.getElementById('pairs-found').textContent = matchedPairs;
+        }
+
+        // Inicializar jogo ao carregar página
+        document.addEventListener('DOMContentLoaded', function() {
+            startMemoryGame();
+        });
+    </script>
+</body>
+</html> 

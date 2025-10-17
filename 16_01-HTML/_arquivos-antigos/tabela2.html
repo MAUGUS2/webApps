@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Tabelas com colspan e rowspan</title>
+</head>
+<body>
+
+<h1>📐 Tabelas Avançadas em HTML</h1>
+<hr>
+
+<!-- ╔══════════════════════════════════════════════════════════════════╗ -->
+<!-- ║  COLSPAN — Mesclar Colunas (horizontal)                          ║ -->
+<!-- ║ Uma célula ocupa o espaço de duas ou mais colunas.               ║ -->
+<!-- ╚══════════════════════════════════════════════════════════════════╝ -->
+
+<h2>🔸 <code>colspan</code> — Mesclar Colunas</h2>
+<p>O atributo <strong>colspan</strong> permite que uma célula ocupe múltiplas colunas.</p>
+
+<!-- ◼️ Exemplo 1: Mesclando 2 colunas -->
+<table border="1">
+  <tr>
+    <td colspan="2">🔷 colspan="2"</td>
+    <td>Coluna 3</td>
+    <td>Coluna 4</td>
+  </tr>
+  <tr>
+    <td>1.1</td><td>1.2</td><td>1.3</td><td>1.4</td>
+  </tr>
+</table>
+
+<br>
+
+<!-- ◼️ Exemplo 2: Mesclando 3 colunas -->
+<table border="1">
+  <tr>
+    <td>Coluna 1</td>
+    <td colspan="3">🔷 colspan="3" → ocupa 3 colunas</td>
+  </tr>
+  <tr>
+    <td>2.1</td><td>2.2</td><td>2.3</td><td>2.4</td>
+  </tr>
+</table>
+
+<br><hr>
+
+<!-- ╔══════════════════════════════════════════════════════════════════╗ -->
+<!-- ║  ROWSPAN — Mesclar Linhas (vertical)                             ║ -->
+<!-- ║ Uma célula ocupa o espaço de duas ou mais linhas.                ║ -->
+<!-- ╚══════════════════════════════════════════════════════════════════╝ -->
+
+<h2>🔹 <code>rowspan</code> — Mesclar Linhas</h2>
+<p>O atributo <strong>rowspan</strong> permite que uma célula ocupe várias linhas.</p>
+
+<!-- ◼️ Exemplo 1: Célula ocupando 2 linhas -->
+<table border="1">
+  <tr>
+    <td rowspan="2">🔶 rowspan="2"</td>
+    <td>Coluna 2</td><td>Coluna 3</td><td>Coluna 4</td>
+  </tr>
+  <tr>
+    <td>2.2</td><td>2.3</td><td>2.4</td>
+  </tr>
+</table>
+
+<br>
+
+<!-- ◼️ Exemplo 2: rowspan em outra posição (coluna 3) -->
+<table border="1">
+  <tr>
+    <td>1.1</td><td>1.2</td>
+    <td rowspan="3">🔶 rowspan="3"</td>
+    <td>1.4</td>
+  </tr>
+  <tr>
+    <td>2.1</td><td>2.2</td><td>2.4</td>
+  </tr>
+  <tr>
+    <td>3.1</td><td>3.2</td><td>3.4</td>
+  </tr>
+</table>
+
+<br><hr>
+
+<!-- ╔══════════════════════════════════════════════════════════════════╗ -->
+<!-- ║  COMBINAÇÃO — colspan + rowspan                                  ║ -->
+<!-- ║ Uso simultâneo para criar layouts complexos                      ║ -->
+<!-- ╚══════════════════════════════════════════════════════════════════╝ -->
+
+<h2>🔄 Combinação de <code>colspan</code> e <code>rowspan</code></h2>
+
+<!-- ◼️ Exemplo 1: Mesclando 2 colunas e 2 linhas -->
+<table border="1">
+  <tr>
+    <td colspan="2" rowspan="2">🔷🔶 colspan="2" rowspan="2"</td>
+    <td>1.3</td>
+    <td>1.4</td>
+  </tr>
+  <tr>
+    <td>2.3</td>
+    <td>2.4</td>
+  </tr>
+  <tr>
+    <td>3.1</td><td>3.2</td><td>3.3</td><td>3.4</td>
+  </tr>
+</table>
+
+<br>
+
+<!-- ◼️ Exemplo 2: Título horizontal + coluna mesclada vertical -->
+<table border="1">
+  <tr>
+    <td colspan="3">🔷 Título de Seção</td>
+    <td rowspan="2">🔶 rowspan="2"</td>
+  </tr>
+  <tr>
+    <td>2.1</td><td>2.2</td><td>2.3</td>
+  </tr>
+  <tr>
+    <td>3.1</td><td>3.2</td><td>3.3</td><td>3.4</td>
+  </tr>
+</table>
+
+<br><hr>
+
+<!-- ╔══════════════════════════════════════════════════════════════════╗ -->
+<!-- ║  ESTRUTURA SEMÂNTICA: thead, tbody, tfoot                        ║ -->
+<!-- ║ Organização semântica para tabelas reais de dados                ║ -->
+<!-- ╚══════════════════════════════════════════════════════════════════╝ -->
+
+<h2>📊 Estrutura com <code>&lt;thead&gt;</code>, <code>&lt;tbody&gt;</code>, <code>&lt;tfoot&gt;</code></h2>
+
+<table border="1">
+  <!-- Cabeçalho da tabela -->
+  <thead>
+    <tr>
+      <th>Produto</th>
+      <th>Quantidade</th>
+      <th>Preço Unitário</th>
+      <th>Total</th>
+    </tr>
+  </thead>
+
+  <!-- Corpo da tabela -->
+  <tbody>
+    <tr>
+      <td>Notebook</td><td>1</td><td>R$ 3000</td><td>R$ 3000</td>
+    </tr>
+    <tr>
+      <td>Mouse</td><td>2</td><td>R$ 50</td><td>R$ 100</td>
+    </tr>
+  </tbody>
+
+  <!-- Rodapé com soma final -->
+  <tfoot>
+    <tr>
+      <td colspan="3"><strong>Total Geral</strong></td>
+      <td><strong>R$ 3100</strong></td>
+    </tr>
+  </tfoot>
+</table>
+
+<br><hr>
+
+<!-- ╔══════════════════════════════════════════════════════════════════╗ -->
+<!-- ║  DICAS DIDÁTICAS                                                 ║ -->
+<!-- ╚══════════════════════════════════════════════════════════════════╝ -->
+
+<h2>🧠 Dicas Importantes</h2>
+<ul>
+  <li>🧮 Ajuste a quantidade de colunas com base nos valores de <code>colspan</code> e <code>rowspan</code>.</li>
+  <li>🔗 Combine os dois para tabelas complexas (ex: boletins, dashboards).</li>
+  <li>📎 Use <code>&lt;th&gt;</code> em cabeçalhos por acessibilidade e semântica.</li>
+  <li>🧽 Mantenha a tabela limpa e legível. Evite misturar demais rowspan e colspan.</li>
+</ul>
+
+</body>
+</html>

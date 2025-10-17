@@ -1,0 +1,64 @@
+<!-- ============================================================= -->
+<!-- = TABELA COM ACESSIBILIDADE SEMÂNTICA                       = -->
+<!-- = Utilização de summary, caption, th, e estrutura clara     = -->
+<!-- ============================================================= -->
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tabela com Acessibilidade</title>
+</head>
+<body>
+
+<!-- ============================================================= -->
+<!-- = TABELA SEMÂNTICA                                          = -->
+<!-- = Boa prática para acessibilidade visual e auditiva         = -->
+<!-- ============================================================= -->
+
+<table border="1"
+  summary="Tabela com os preços em reais de ameixa preta e pera d'água. Possui um nível de cabeçalho de coluna e um de linha.">
+
+  <!-- ========================================================= -->
+  <!-- = <caption>: título visível da tabela                   = -->
+  <!-- = Aparece acima da tabela e descreve seu conteúdo       = -->
+  <!-- ========================================================= -->
+  <caption>
+    Preços em reais de ameixa preta e pera d'água em Campinas
+  </caption>
+
+  <!-- ========================================================= -->
+  <!-- = PRIMEIRA LINHA: Cabeçalhos de coluna (<th>)           = -->
+  <!-- = A primeira célula está vazia para alinhar com linhas  = -->
+  <!-- ========================================================= -->
+  <tr>
+    <td></td> <!-- Espaço vazio no canto superior esquerdo -->
+    <th scope="col">Ameixa preta</th>
+    <th scope="col">Pera d'água</th>
+  </tr>
+
+  <!-- ========================================================= -->
+  <!-- = LINHA 1 DE DADOS: Cabeçalho de linha com <th>         = -->
+  <!-- = scope="row" indica que é um rótulo para a linha       = -->
+  <!-- ========================================================= -->
+  <tr>
+    <th scope="row">Atacado</th>
+    <td>1,00</td>
+    <td>1,50</td>
+  </tr>
+
+  <!-- ========================================================= -->
+  <!-- = LINHA 2 DE DADOS: Outro cabeçalho de linha (<th>)     = -->
+  <!-- ========================================================= -->
+  <tr>
+    <th scope="row">Varejo</th>
+    <td>2,00</td>
+    <td>2,50</td>
+  </tr>
+
+</table>
+
+</body>
+</html>

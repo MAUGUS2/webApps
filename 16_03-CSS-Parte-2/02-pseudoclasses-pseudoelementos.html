@@ -1,0 +1,986 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎭 Pseudoclasses e Pseudoelementos - CSS Aula 3</title>
+    <style>
+        /* =====================================
+           🎨 CONFIGURAÇÃO GLOBAL E BASE
+           ===================================== */
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box; /* Facilita cálculos de layout */
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            line-height: 1.6;
+            color: #333;
+            /* Gradiente de fundo para ambiente visual agradável */
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        /* =====================================
+           📦 CONTAINER PRINCIPAL
+           ===================================== */
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            /* Efeito glassmorphism moderno */
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+        }
+
+        /* =====================================
+           🎯 HIERARQUIA DE TÍTULOS
+           ===================================== */
+        
+        h1 {
+            text-align: center;
+            color: #764ba2;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            /* Animação sutil no título */
+            animation: titleGlow 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes titleGlow {
+            from { text-shadow: 2px 2px 4px rgba(0,0,0,0.1); }
+            to { text-shadow: 2px 2px 15px rgba(118, 75, 162, 0.3); }
+        }
+
+        h2 {
+            color: #667eea;
+            margin: 30px 0 20px 0;
+            font-size: 1.8em;
+            border-left: 5px solid #667eea;
+            padding-left: 15px;
+        }
+
+        h3 {
+            color: #764ba2;
+            margin: 25px 0 15px 0;
+            font-size: 1.4em;
+        }
+
+        h4 {
+            color: #5a6cb2;
+            margin: 20px 0 10px 0;
+            font-size: 1.2em;
+        }
+
+        /* =====================================
+           💡 SISTEMA DE ALERTAS E DESTAQUE
+           ===================================== */
+        
+        .alert {
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 10px;
+            border-left: 5px solid;
+        }
+
+        .alert-info {
+            background: #e1f5fe;
+            border-color: #0288d1;
+            color: #01579b;
+        }
+
+        .alert-tip {
+            background: #f3e5f5;
+            border-color: #8e24aa;
+            color: #4a148c;
+        }
+
+        .alert-example {
+            background: #e8f5e8;
+            border-color: #4caf50;
+            color: #1b5e20;
+        }
+
+        .alert-warning {
+            background: #fff8e1;
+            border-color: #ffa000;
+            color: #e65100;
+        }
+
+        .alert-note {
+            background: #fff3e0;
+            border-color: #f57c00;
+            color: #e65100;
+        }
+
+        /* =====================================
+           🎯 SEÇÃO DE DEMONSTRAÇÃO PRÁTICA
+           ===================================== */
+        
+        .demo-section {
+            background: #f8f9fa;
+            border: 2px dashed #667eea;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 25px 0;
+            position: relative;
+        }
+
+        .demo-section::before {
+            content: "🎯 DEMONSTRAÇÃO PRÁTICA";
+            position: absolute;
+            top: -12px;
+            left: 20px;
+            background: #667eea;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            font-weight: bold;
+        }
+
+        /* =====================================
+           💻 CÓDIGO E EXPLICAÇÕES
+           ===================================== */
+        
+        .code-block {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 20px;
+            border-radius: 10px;
+            overflow-x: auto;
+            overflow-y: auto;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85em;
+            line-height: 1.5;
+            position: relative;
+            max-height: 400px;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        .code-block::before {
+            content: "💻 CÓDIGO CSS";
+            position: absolute;
+            top: -12px;
+            right: 15px;
+            background: #4a5568;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.8em;
+            font-weight: bold;
+        }
+
+        .code-explanation {
+            background: #f8f9fa;
+            border-left: 4px solid #667eea;
+            padding: 15px;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            border-radius: 5px;
+        }
+
+        /* Código inline */
+        code {
+            background: #f7fafc;
+            color: #2d3748;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+        }
+
+        /* =====================================
+           📊 TABELA DE REFERÊNCIA
+           ===================================== */
+        
+        .reference-table {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            margin: 25px 0;
+        }
+
+        .reference-table table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .reference-table th {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 15px;
+            font-weight: bold;
+            text-align: left;
+        }
+
+        .reference-table td {
+            padding: 15px;
+            border-bottom: 1px solid #f0f0f0;
+            transition: all 0.3s ease;
+        }
+
+        .reference-table tr:hover td {
+            background: #f8f9ff;
+            color: #667eea;
+        }
+
+        .reference-table code {
+            background: #f0f0f0;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            color: #333;
+        }
+
+        ul, ol {
+            margin: 15px 0;
+            padding-left: 30px;
+        }
+
+        li {
+            margin: 8px 0;
+        }
+
+        /* =====================================
+           🧭 NAVEGAÇÃO ENTRE PÁGINAS
+           ===================================== */
+        
+        .navigation {
+            text-align: center;
+            margin: 30px 0;
+            padding: 20px;
+            background: rgba(102, 126, 234, 0.1);
+            border-radius: 15px;
+        }
+
+        .navigation a {
+            display: inline-block;
+            margin: 0 10px;
+            padding: 12px 24px;
+            background: #667eea;
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            font-weight: bold;
+        }
+
+        .navigation a:hover {
+            background: #764ba2;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(118, 75, 162, 0.3);
+        }
+
+    /* EXEMPLOS INTERATIVOS DE PSEUDOCLASSES */
+
+    /* Demonstração de links */
+    .demo-links {
+      background: #f8f9fa;
+      padding: 20px;
+      border-radius: 10px;
+      margin: 20px 0;
+      border: 2px solid #dee2e6;
+    }
+
+    /* Links reais para demonstração */
+    .demo-links a:link {
+      color: #0056b3; /* Azul para links não visitados */
+      text-decoration: none;
+      font-weight: bold;
+      padding: 8px 15px;
+      border-radius: 5px;
+      display: inline-block;
+      margin: 5px;
+      transition: all 0.3s ease;
+    }
+
+    .demo-links a:visited {
+      color: #6f42c1; /* Roxo para links visitados */
+    }
+
+    .demo-links a:hover {
+      background: #e3f2fd; /* Fundo azul claro no hover */
+      color: #004085;
+      transform: translateY(-2px);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .demo-links a:active {
+      color: #dc3545; /* Vermelho quando clicado */
+      transform: translateY(0);
+    }
+
+    /* Botão demonstrativo */
+    .demo-button {
+      background: #667eea;
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin: 10px;
+    }
+
+    .demo-button:hover {
+      background: #5a67d8;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+    }
+
+    .demo-button:active {
+      background: #4c51bf;
+      transform: translateY(0);
+    }
+
+    /* Formulário demonstrativo */
+    .demo-form {
+      background: #f8f9fa;
+      padding: 20px;
+      border-radius: 10px;
+      margin: 20px 0;
+      border: 2px solid #dee2e6;
+    }
+
+    .demo-form input[type="text"],
+    .demo-form input[type="email"] {
+      width: 100%;
+      padding: 10px;
+      border: 2px solid #ced4da;
+      border-radius: 5px;
+      margin: 8px 0;
+      font-size: 14px;
+      transition: all 0.3s ease;
+    }
+
+    /* Estados enabled/disabled */
+    .demo-form input:enabled {
+      border-color: #28a745; /* Verde para habilitado */
+      background: white;
+    }
+
+    .demo-form input:disabled {
+      background-color: #e9ecef; /* Cinza para desabilitado */
+      border-color: #ced4da;
+      cursor: not-allowed;
+    }
+
+    .demo-form input:focus {
+      outline: none;
+      border-color: #667eea;
+      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    }
+
+    /* Checkbox demonstrativo */
+    .demo-checkbox {
+      margin: 15px 0;
+    }
+
+    .demo-checkbox input[type="checkbox"] {
+      margin-right: 10px;
+      transform: scale(1.2);
+    }
+
+    .demo-checkbox input[type="checkbox"]:checked + label {
+      color: #28a745;
+      font-weight: bold;
+    }
+
+    /* EXEMPLOS DE PSEUDOELEMENTOS */
+
+    /* Demonstração ::before e ::after */
+    .demo-before-after {
+      background: #f8f9fa;
+      padding: 20px;
+      border-radius: 10px;
+      margin: 20px 0;
+      border: 2px solid #dee2e6;
+    }
+
+    .demo-before-after p {
+      margin: 15px 0;
+      padding: 10px;
+      background: white;
+      border-radius: 5px;
+      position: relative;
+    }
+
+    /* Exemplo ::before */
+    .exemplo-before::before {
+      content: "👉 "; /* Ícone antes do texto */
+      color: #28a745;
+      font-weight: bold;
+      margin-right: 5px;
+    }
+
+    /* Exemplo ::after */
+    .exemplo-after::after {
+      content: " ✨"; /* Ícone depois do texto */
+      color: #ffc107;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+
+    /* Demonstração ::first-letter */
+    .demo-first-letter::first-letter {
+      font-size: 3em;
+      color: #667eea;
+      float: left;
+      line-height: 1;
+      margin-right: 5px;
+      margin-top: 2px;
+      font-weight: bold;
+    }
+
+    /* Demonstração ::first-line */
+    .demo-first-line::first-line {
+      font-weight: bold;
+      color: #764ba2;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    /* Demonstração ::selection */
+    .demo-selection::selection {
+      background: #fff3cd;
+      color: #856404;
+    }
+
+    /* Lista com ::marker customizado */
+    .demo-marker {
+      list-style: none;
+    }
+
+    .demo-marker li::marker {
+      content: "🌟 ";
+      font-size: 1.2em;
+    }
+
+    .demo-marker li {
+      padding: 5px 0;
+      margin-left: 20px;
+    }
+
+    /* Container para exemplos lado a lado */
+    .exemplo-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin: 20px 0;
+    }
+
+    .exemplo-card {
+      background: #f8f9fa;
+      padding: 15px;
+      border-radius: 8px;
+      border: 2px solid #dee2e6;
+    }
+
+    .exemplo-card h5 {
+      color: #495057;
+      margin-bottom: 10px;
+      font-size: 1.1rem;
+    }
+
+    /* Responsividade */
+    @media (max-width: 768px) {
+      .exemplo-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+    <div class="container fade-in">
+        <h1>🎭 Pseudoclasses e Pseudoelementos</h1>
+        
+        <div class="alert alert-info">
+            <strong>📚 Objetivo da Aula:</strong> Dominar pseudoclasses e pseudoelementos CSS para criar interfaces interativas e elementos visuais avançados. Estes seletores especiais permitem aplicar estilos baseados em <strong>estados dinâmicos</strong> e <strong>partes específicas</strong> de elementos sem adicionar HTML extra.
+        </div>
+
+        <h2>🎭 1. Pseudoclasses - Estados Dinâmicos</h2>
+
+        <div class="alert alert-tip">
+            <strong>💡 Conceito Fundamental:</strong><br>
+            Pseudoclasses aplicam estilos baseados no <strong>estado atual</strong> dos elementos. Elas reagem a interações do usuário (hover, focus, active) e condições especiais (checked, disabled, visited), proporcionando feedback visual dinâmico.
+        </div>
+
+        <div class="demo-section">
+            <h3>🔗 Pseudoclasses para Links</h3>
+            <h4>1.1 :link e :visited - Histórico de Navegação</h4>
+
+            <div class="exemplo-grid">
+                <div class="exemplo-card">
+                    <h5>📝 Código CSS Educativo</h5>
+                    <div class="code-block">
+/* 🔗 Links não visitados */
+a:link {
+  color: #0056b3;
+  text-decoration: none;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+/* 👁️ Links já visitados pelo usuário */
+a:visited {
+  color: #6f42c1;
+  opacity: 0.8;
+}</div>
+                </div>
+                <div class="exemplo-card">
+                    <h5>🔍 Demonstração Interativa</h5>
+                    <div class="demo-links">
+                        <a href="#exemplo1" class="highlight-on-hover">Link não visitado</a><br>
+                        <a href="#exemplo2" class="highlight-on-hover">Outro link</a><br>
+                        <a href="#exemplo3" class="highlight-on-hover">Mais um link</a>
+                    </div>
+                    <p><em>Clique nos links para ver a mudança de cor!</em></p>
+                </div>
+            </div>
+
+            <div class="code-explanation">
+                <strong>🎯 Explicação Prática:</strong><br>
+                • <code>:link</code> - Aplica estilo a links <strong>ainda não visitados</strong><br>
+                • <code>:visited</code> - Aplica estilo a links <strong>já visitados</strong> pelo usuário<br>
+                • Essencial para feedback visual de navegação<br>
+                • Melhora a experiência do usuário indicando onde já esteve
+            </div>
+        </div>
+
+      <h4>2.1.2 :hover - Interação com Mouse</h4>
+
+      <pre><code>/* Quando o mouse passa por cima */
+a:hover {
+  background: #e3f2fd;      /* Fundo azul claro */
+  color: #004085;           /* Azul mais escuro */
+  transform: translateY(-2px); /* Move 2px para cima */
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1); /* Sombra sutil */
+  transition: all 0.3s ease;  /* Transição suave */
+}</code></pre>
+
+      <div class="alert example">
+        <strong>✨ Teste agora:</strong> Passe o mouse sobre os links acima para ver o efeito!
+      </div>
+
+      <h4>2.1.3 :active - Momento do Clique</h4>
+
+      <pre><code>/* No momento exato do clique */
+a:active {
+  color: #dc3545;           /* Vermelho quando clicado */
+  transform: translateY(0); /* Volta à posição original */
+}</code></pre>
+
+      <div class="demo-form">
+        <h5>🔘 Botão Demonstrativo</h5>
+        <button class="demo-button">Clique e mantenha pressionado para ver :active</button>
+      </div>
+
+      <h3>📝 Pseudoclasses para Formulários</h3>
+
+      <h4>2.1.4 :enabled e :disabled</h4>
+
+      <div class="exemplo-grid">
+        <div class="exemplo-card">
+          <h5>📝 Código CSS</h5>
+          <pre><code>/* Campos habilitados */
+input:enabled {
+  border-color: #28a745;   /* Verde */
+  background: white;       /* Fundo branco */
+  cursor: text;           /* Cursor de texto */
+}
+
+/* Campos desabilitados */
+input:disabled {
+  background-color: #e9ecef;     /* Cinza */
+  border-color: #ced4da;   /* Borda cinza */
+  cursor: not-allowed;     /* Cursor proibido */
+}</code></pre>
+        </div>
+        <div class="exemplo-card">
+          <h5>🔍 Demonstração</h5>
+          <div class="demo-form">
+            <input type="text" placeholder="Campo habilitado" enabled>
+            <input type="text" placeholder="Campo desabilitado" disabled>
+          </div>
+        </div>
+      </div>
+
+      <h4>2.1.5 :checked - Elementos Marcados</h4>
+
+      <pre><code>/* Checkbox ou radio marcado */
+input:checked + label {
+  color: #28a745;          /* Verde para o label */
+  font-weight: bold;       /* Texto em negrito */
+  transform: scale(1.05);  /* Leve aumento de tamanho */
+}</code></pre>
+
+      <div class="demo-form">
+        <div class="demo-checkbox">
+          <input type="checkbox" id="demo-check" name="demo">
+          <label for="demo-check">Marque esta opção para ver o efeito :checked</label>
+        </div>
+      </div>
+
+      <h2>2.2 Pseudoelementos - Partes Específicas</h2>
+
+      <div class="alert tip">
+        <strong>💡 Definição</strong><br>
+        Pseudoelementos permitem aplicar estilos a <strong>partes específicas</strong> de um elemento, como a <strong>primeira letra</strong> ou criar <strong>elementos virtuais</strong> que não existem no HTML.
+      </div>
+
+      <h3>✨ Criando Conteúdo Virtual</h3>
+
+      <h4>2.2.1 ::before - Antes do Elemento</h4>
+
+      <div class="exemplo-grid">
+        <div class="exemplo-card">
+          <h5>📝 Código CSS</h5>
+          <pre><code>/* Adiciona conteúdo ANTES */
+p::before {
+  content: "👉 ";          /* Ícone emoji */
+  color: #28a745;         /* Verde */
+  font-weight: bold;      /* Negrito */
+  margin-right: 5px;      /* Espaço à direita */
+}</code></pre>
+        </div>
+        <div class="exemplo-card">
+          <h5>🔍 Resultado</h5>
+          <div class="demo-before-after">
+            <p class="exemplo-before">Este texto tem um ícone antes!</p>
+          </div>
+        </div>
+      </div>
+
+      <h4>2.2.2 ::after - Depois do Elemento</h4>
+
+      <div class="exemplo-grid">
+        <div class="exemplo-card">
+          <h5>📝 Código CSS</h5>
+          <pre><code>/* Adiciona conteúdo DEPOIS */
+p::after {
+  content: " ✨";         /* Ícone emoji */
+  color: #ffc107;        /* Amarelo */
+  animation: pulse 2s infinite; /* Animação */
+}</code></pre>
+        </div>
+        <div class="exemplo-card">
+          <h5>🔍 Resultado</h5>
+          <div class="demo-before-after">
+            <p class="exemplo-after">Este texto tem um ícone animado depois!</p>
+          </div>
+        </div>
+      </div>
+
+      <h3>📝 Estilizando Partes do Texto</h3>
+
+      <h4>2.2.3 ::first-letter - Primeira Letra</h4>
+
+      <div class="exemplo-grid">
+        <div class="exemplo-card">
+          <h5>📝 Código CSS</h5>
+          <pre><code>/* Estiliza apenas a primeira letra */
+p::first-letter {
+  font-size: 3em;        /* 3x maior */
+  color: #667eea;        /* Azul */
+  float: left;           /* Flutua à esquerda */
+  line-height: 1;        /* Altura da linha */
+  margin-right: 5px;     /* Espaço à direita */
+  font-weight: bold;     /* Negrito */
+}</code></pre>
+        </div>
+        <div class="exemplo-card">
+          <h5>🔍 Resultado</h5>
+          <p class="demo-first-letter">Esta primeira letra é maior e colorida, criando um efeito de capitular como nos livros antigos.</p>
+        </div>
+      </div>
+
+      <h4>2.2.4 ::first-line - Primeira Linha</h4>
+
+      <div class="exemplo-grid">
+        <div class="exemplo-card">
+          <h5>📝 Código CSS</h5>
+          <pre><code>/* Estiliza apenas a primeira linha */
+p::first-line {
+  font-weight: bold;        /* Negrito */
+  color: #764ba2;          /* Roxo */
+  text-transform: uppercase; /* Maiúsculas */
+  letter-spacing: 1px;     /* Espaçamento das letras */
+}</code></pre>
+        </div>
+        <div class="exemplo-card">
+          <h5>🔍 Resultado</h5>
+          <p class="demo-first-line">Esta primeira linha aparece em negrito e maiúsculas, enquanto o resto do texto permanece normal. Este efeito é muito útil para destacar o início de parágrafos importantes.</p>
+        </div>
+      </div>
+
+      <h4>2.2.5 ::selection - Texto Selecionado</h4>
+
+      <div class="exemplo-grid">
+        <div class="exemplo-card">
+          <h5>📝 Código CSS</h5>
+          <pre><code>/* Quando o texto é selecionado */
+::selection {
+  background: #fff3cd;     /* Fundo amarelo claro */
+  color: #856404;         /* Texto marrom */
+}</code></pre>
+        </div>
+        <div class="exemplo-card">
+          <h5>🔍 Teste Agora</h5>
+          <p class="demo-selection">Selecione este texto com o mouse para ver o efeito personalizado do ::selection! Arraste o mouse sobre estas palavras.</p>
+        </div>
+      </div>
+
+      <h4>2.2.6 ::marker - Marcadores de Lista</h4>
+
+      <div class="exemplo-grid">
+        <div class="exemplo-card">
+          <h5>📝 Código CSS</h5>
+          <pre><code>/* Personaliza marcadores de lista */
+li::marker {
+  content: "🌟 ";         /* Estrela como marcador */
+  font-size: 1.2em;      /* Maior que o texto */
+}</code></pre>
+        </div>
+        <div class="exemplo-card">
+          <h5>🔍 Resultado</h5>
+          <ul class="demo-marker">
+            <li>Primeiro item da lista</li>
+            <li>Segundo item da lista</li>
+            <li>Terceiro item da lista</li>
+          </ul>
+        </div>
+      </div>
+
+      <h3>📊 Tabela Comparativa Completa</h3>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Tipo</th>
+            <th>Símbolo</th>
+            <th>Exemplo</th>
+            <th>Quando Usar</th>
+            <th>Resultado</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Pseudoclasse</strong></td>
+            <td><code>:</code></td>
+            <td><code>a:hover</code></td>
+            <td>Estados dinâmicos</td>
+            <td>Muda com interação</td>
+          </tr>
+          <tr>
+            <td><strong>Pseudoelemento</strong></td>
+            <td><code>::</code></td>
+            <td><code>p::first-line</code></td>
+            <td>Partes específicas</td>
+            <td>Estiliza parte do elemento</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="alert warning">
+        <strong>⚠️ Dica Importante:</strong> Pseudoclasses reagem a <strong>estados</strong> (hover, active, checked), enquanto pseudoelementos criam ou estilizam <strong>partes</strong> (before, after, first-letter).
+      </div>
+
+      <div class="alert summary">
+        <strong>📚 O que aprendemos:</strong>
+        <ul>
+          <li>🎭 Pseudoclasses reagem a <strong>estados</strong> como <code>:hover</code>, <code>:visited</code>, <code>:checked</code></li>
+          <li>✨ Pseudoelementos atuam sobre <strong>partes</strong> de elementos, como <code>::before</code>, <code>::selection</code></li>
+          <li>🚀 Combinar esses seletores ajuda a criar experiências ricas sem sobrecarregar o HTML</li>
+          <li>🎨 Eles permitem interatividade e detalhes visuais sem JavaScript</li>
+        </ul>
+      </div>
+
+      <div class="alert question">
+        <strong>🤔 Teste seus conhecimentos</strong>
+        <ul>
+          <li>Para que serve a propriedade <code>content</code> em <code>::after</code>?</li>
+          <li>Qual a diferença prática entre <code>:hover</code> e <code>:active</code>?</li>
+          <li>Como o seletor <code>li::marker</code> personaliza listas?</li>
+          <li>Por que usar <code>::first-letter</code> em vez de estilizar manualmente?</li>
+        </ul>
+      </div>
+
+      <h3>🎯 Tarefas Práticas</h3>
+      <ul>
+        <li>🔨 Criar um botão com animação completa usando <code>:hover</code>, <code>:active</code> e <code>transition</code></li>
+        <li>🎨 Desenvolver uma lista estilizada com <code>::marker</code> personalizado e ícones únicos</li>
+        <li>✨ Implementar um parágrafo com <code>::first-letter</code> estilo revista e <code>::first-line</code> destacada</li>
+        <li>🖱️ Testar <code>::selection</code> com cores que combinem com o design da página</li>
+        <li>📝 Criar um formulário que use todos os estados <code>:enabled</code>, <code>:disabled</code>, <code>:focus</code> e <code>:checked</code></li>
+      </ul>
+
+        <div class="navigation">
+            <a href="01-dom-arvore.html">⬅️ Anterior: DOM</a>
+            <a href="index.html">🏠 Início</a>
+            <a href="03-barra-navegacao.html">➡️ Próximo: Navegação</a>
+        </div>
+    </div>
+
+    <script>
+        // Adiciona interatividade aos elementos demonstrativos
+        document.addEventListener('DOMContentLoaded', function() {
+            // Adiciona efeitos de hover melhorados
+            const hoverElements = document.querySelectorAll('.highlight-on-hover');
+            
+            hoverElements.forEach(element => {
+                element.addEventListener('mouseenter', function() {
+                    this.style.transform = 'scale(1.05)';
+                    this.style.transition = 'all 0.3s ease';
+                });
+                
+                element.addEventListener('mouseleave', function() {
+                    this.style.transform = 'scale(1)';
+                });
+            });
+
+            // Adiciona animação de entrada sequencial para os cards
+            const demoCards = document.querySelectorAll('.exemplo-card');
+            demoCards.forEach((card, index) => {
+                card.style.animationDelay = `${index * 0.1}s`;
+                card.classList.add('fade-in');
+            });
+
+            // Adiciona feedback visual para formulários
+            const formInputs = document.querySelectorAll('input, button');
+            formInputs.forEach(input => {
+                input.addEventListener('focus', function() {
+                    this.style.boxShadow = '0 0 0 3px rgba(102, 126, 234, 0.3)';
+                });
+                
+                input.addEventListener('blur', function() {
+                    this.style.boxShadow = 'none';
+                });
+            });
+
+            // Adiciona tooltips informativos para código
+            const codeBlocks = document.querySelectorAll('.code-block');
+            codeBlocks.forEach(block => {
+                block.addEventListener('click', function() {
+                    const tooltip = document.createElement('div');
+                    tooltip.textContent = '💡 Clique nos elementos da demonstração para ver os efeitos!';
+                    tooltip.style.cssText = `
+                        position: fixed;
+                        top: 20px;
+                        right: 20px;
+                        background: #4caf50;
+                        color: white;
+                        padding: 10px 15px;
+                        border-radius: 5px;
+                        z-index: 1000;
+                        animation: fadeIn 0.3s ease;
+                    `;
+                    document.body.appendChild(tooltip);
+                    
+                    setTimeout(() => {
+                        if (document.body.contains(tooltip)) {
+                            document.body.removeChild(tooltip);
+                        }
+                    }, 3000);
+                });
+            });
+
+            // Adiciona efeito de destaque ao scroll
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.animation = 'fadeIn 0.6s ease-in';
+                    }
+                });
+            });
+
+            document.querySelectorAll('.demo-section').forEach(section => {
+                observer.observe(section);
+            });
+
+            // Adiciona animação personalizada para pseudoelementos
+            const pseudoElements = document.querySelectorAll('.exemplo-before, .exemplo-after');
+            pseudoElements.forEach(element => {
+                element.addEventListener('mouseenter', function() {
+                    this.style.transform = 'scale(1.02)';
+                    this.style.background = 'rgba(102, 126, 234, 0.1)';
+                });
+                
+                element.addEventListener('mouseleave', function() {
+                    this.style.transform = 'scale(1)';
+                    this.style.background = 'white';
+                });
+            });
+        });
+
+        /* =====================================
+           🎨 EFEITOS ESPECIAIS ADICIONAIS
+           ===================================== */
+        
+        // Animação de entrada para os elementos
+        const style = document.createElement('style');
+        style.textContent = `
+            .fade-in {
+                animation: fadeIn 0.6s ease-in;
+            }
+
+            @keyframes fadeIn {
+                from {
+                    opacity: 0;
+                    transform: translateY(20px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+
+            .highlight-on-hover {
+                transition: all 0.3s ease;
+            }
+
+            .highlight-on-hover:hover {
+                background: rgba(102, 126, 234, 0.1);
+                border-radius: 8px;
+                padding: 10px;
+                margin: 5px 0;
+            }
+
+            /* Responsividade adicional */
+            @media (max-width: 768px) {
+                .container {
+                    padding: 20px;
+                    margin: 10px;
+                }
+                
+                h1 {
+                    font-size: 2em;
+                }
+                
+                .exemplo-grid {
+                    grid-template-columns: 1fr;
+                }
+                
+                .demo-section {
+                    padding: 15px;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html> 

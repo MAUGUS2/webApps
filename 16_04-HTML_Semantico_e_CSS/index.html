@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🚀 Aula 4 - HTML Semântico e CSS</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Courier New', monospace;
+      background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+      color: #fff;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 40px;
+      padding: 30px 0;
+    }
+
+    .header h1 {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+      color: #fff;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    }
+
+    .header .subtitle {
+      font-size: 1.2rem;
+      color: #e8f5e9;
+      margin-bottom: 20px;
+    }
+
+    .topics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 25px;
+      margin-bottom: 40px;
+    }
+
+    .topic-card {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 15px;
+      padding: 25px;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .topic-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+      border-color: rgba(255, 255, 255, 0.3);
+    }
+
+    .topic-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #e8f5e9, #c8e6c9);
+      border-radius: 15px 15px 0 0;
+    }
+
+    .topic-header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+
+    .topic-icon {
+      font-size: 2rem;
+      margin-right: 15px;
+      width: 50px;
+      text-align: center;
+    }
+
+    .topic-title {
+      font-size: 1.3rem;
+      font-weight: bold;
+      color: #fff;
+    }
+
+    .topic-description {
+      color: #e8f5e9;
+      line-height: 1.7;
+      margin-bottom: 15px;
+      font-size: 1.05em;
+      text-align: justify;
+    }
+
+    .topic-link {
+      display: inline-block;
+      background: rgba(232, 245, 233, 0.2);
+      color: #e8f5e9;
+      text-decoration: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-weight: bold;
+      transition: all 0.3s ease;
+      border: 2px solid transparent;
+    }
+
+    .topic-link:hover {
+      background: rgba(232, 245, 233, 0.3);
+      border-color: rgba(232, 245, 233, 0.5);
+      transform: translateX(5px);
+    }
+
+    .footer {
+      text-align: center;
+      margin-top: 40px;
+      padding: 30px 0;
+      border-top: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .footer-links {
+      margin: 20px 0;
+    }
+
+    .footer-links a {
+      color: #e8f5e9;
+      text-decoration: none;
+      margin: 0 15px;
+      transition: color 0.3s ease;
+    }
+
+    .footer-links a:hover {
+      color: #c8e6c9;
+    }
+
+    .info-box {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 15px;
+      padding: 25px;
+      text-align: center;
+      margin: 30px 0;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .info-box h2 {
+      font-size: 1.8rem;
+      margin-bottom: 10px;
+      color: #e8f5e9;
+    }
+
+    .info-box p {
+      font-size: 1.1rem;
+      opacity: 0.9;
+      color: #c8e6c9;
+      line-height: 1.6;
+      margin-bottom: 10px;
+    }
+
+    @media (max-width: 768px) {
+      .header h1 {
+        font-size: 2rem;
+      }
+
+      .topics-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+
+      .topic-card {
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <h1>🚀 Aula 4 - HTML Semântico e CSS</h1>
+      <p class="subtitle">Estrutura, Acessibilidade e Boas Práticas</p>
+    </header>
+
+    <!-- Informações sobre o curso -->
+    <div class="info-box">
+      <h2>🧭 Web Semântica e Acessível</h2>
+      <p>5 temas fundamentais para dominar HTML Semântico e criar páginas acessíveis e bem estruturadas</p>
+    </div>
+
+    <main class="topics-grid">
+      <!-- Tema 1: HTML Semântico -->
+      <article class="topic-card">
+        <div class="topic-header">
+          <div class="topic-icon">🏗️</div>
+          <h2 class="topic-title">HTML Semântico</h2>
+        </div>
+        <p class="topic-description">
+          Conceitos básicos, benefícios e exemplos de tags semânticas. 
+          Compreenda a diferença entre marcação semântica e não semântica.
+        </p>
+        <a href="01-html-semantico.html" class="topic-link">
+          Explorar Semântica →
+        </a>
+      </article>
+
+      <!-- Tema 2: Tags Semânticas do HTML5 -->
+      <article class="topic-card">
+        <div class="topic-header">
+          <div class="topic-icon">🏷️</div>
+          <h2 class="topic-title">Tags Semânticas HTML5</h2>
+        </div>
+        <p class="topic-description">
+          Section, article, aside, header, nav, footer, main, figure e details. 
+          Domine todas as tags semânticas do HTML5 com exemplos práticos.
+        </p>
+        <a href="02-tags-semanticas.html" class="topic-link">
+          Dominar Tags →
+        </a>
+      </article>
+
+      <!-- Tema 3: Acessibilidade -->
+      <article class="topic-card">
+        <div class="topic-header">
+          <div class="topic-icon">♿</div>
+          <h2 class="topic-title">Acessibilidade</h2>
+        </div>
+        <p class="topic-description">
+          Importância da acessibilidade, atributos tabindex, role e aria-label. 
+          Crie páginas inclusivas para todos os usuários.
+        </p>
+        <a href="03-acessibilidade.html" class="topic-link">
+          Tornar Acessível →
+        </a>
+      </article>
+
+      <!-- Tema 4: CSS e HTML Semântico -->
+      <article class="topic-card">
+        <div class="topic-header">
+          <div class="topic-icon">🎨</div>
+          <h2 class="topic-title">CSS e HTML Semântico</h2>
+        </div>
+        <p class="topic-description">
+          Separação de responsabilidades, classes e IDs em elementos semânticos. 
+          Integre CSS com HTML semântico de forma profissional.
+        </p>
+        <a href="04-css-html-semantico.html" class="topic-link">
+          Estilizar Semanticamente →
+        </a>
+      </article>
+
+      <!-- Tema 5: Conclusão e Boas Práticas -->
+      <article class="topic-card">
+        <div class="topic-header">
+          <div class="topic-icon">🎯</div>
+          <h2 class="topic-title">Conclusão e Boas Práticas</h2>
+        </div>
+        <p class="topic-description">
+          Revisão geral, considerações sobre separação de responsabilidades. 
+          Consolide todos os conhecimentos em práticas profissionais.
+        </p>
+        <a href="05-conclusao-praticas.html" class="topic-link">
+          Finalizar Aprendizado →
+        </a>
+      </article>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-links">
+        <a href="../16_01-HTML/index.html">← Aula 1: HTML</a>
+        <a href="../16_02-CSS/index.html">← Aula 2: CSS Básico</a>
+        <a href="../16_03-CSS-Parte-2/index.html">← Aula 3: CSS Avançado</a>
+        <a href="#">🏠 Início</a>
+      </div>
+      <p>
+        🎯 <strong>Aula 4</strong> • HTML Semântico e CSS para Desenvolvedores Web<br>
+        Crie páginas acessíveis, bem estruturadas e profissionais
+      </p>
+    </footer>
+  </div>
+</body>
+</html> 

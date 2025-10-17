@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🖼️ HTML - Trabalhando com Imagens</title>
+<!-- Demonstrando inserção e otimização de imagens -->
+    <style>
+        * { 
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #2E3A46;
+            color: #fff;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .navegacao {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .navegacao a {
+            color: #4A90E2;
+            text-decoration: none;
+            margin: 0 15px;
+        }
+
+        .navegacao a:hover {
+            color: #7ED321;
+        }
+
+        /* ============================================================= */
+        /* = ANATOMIA DA TAG IMG                                       = */
+        /* ============================================================= */
+        /* A tag img é auto-fechada e possui atributos essenciais:
+           
+           <img src="caminho" alt="descrição" width="200" height="150">
+           
+           - src: caminho da imagem (obrigatório)
+           - alt: texto alternativo para acessibilidade (obrigatório!)
+           - width: largura em pixels
+           - height: altura em pixels
+           - title: tooltip ao passar o mouse
+           - loading: lazy loading (loading="lazy")
+        */
+
+        .anatomia-img {
+            background-color: #3D4146;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #F5A623;
+            margin: 20px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 16px;
+        }
+
+        .img-part {
+            display: inline-block;
+            padding: 3px 8px;
+            margin: 2px;
+            border-radius: 3px;
+        }
+
+        .tag { background-color: #4A90E2; color: #fff; }
+        .src { background-color: #7ED321; color: #2E3A46; }
+        .alt { background-color: #F5A623; color: #2E3A46; }
+        .dimensao { background-color: #FF6B6B; color: #fff; }
+
+        /* ============================================================= */
+        /* = EXEMPLOS DE IMAGENS                                      = */
+        /* ============================================================= */
+        /* Diferentes formas de inserir e estilizar imagens */
+
+        .galeria-exemplos {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .exemplo-img {
+            background-color: #3D4146;
+            padding: 20px;
+            border-radius: 8px;
+            border: 2px solid #7ED321;
+            text-align: center;
+        }
+
+        .exemplo-img h4 {
+            color: #7ED321;
+            margin-bottom: 15px;
+        }
+
+        .exemplo-img img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin: 10px 0;
+        }
+
+        /* ============================================================= */
+        /* = DIMENSIONAMENTO E RESPONSIVIDADE                         = */
+        /* ============================================================= */
+        /* Técnicas para dimensionar imagens de forma responsiva:
+           
+           - max-width: 100%: imagem nunca excede o container
+           - height: auto: mantém proporção
+           - object-fit: controla como a imagem se ajusta
+           - aspect-ratio: define proporção fixa
+        */
+
+        .responsividade-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .responsivo-exemplo {
+            background-color: #3D4146;
+            padding: 15px;
+            border-radius: 8px;
+            border: 2px solid #4A90E2;
+        }
+
+        .responsivo-exemplo h4 {
+            color: #4A90E2;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+
+        .img-fixa {
+            width: 200px;
+            height: 150px;
+        }
+
+        .img-responsiva {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .img-cover {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+        }
+
+        .img-contain {
+            width: 100%;
+            height: 150px;
+            object-fit: contain;
+            background-color: #2E3A46;
+        }
+
+        /* ============================================================= */
+        /* = FIGURE E FIGCAPTION                                      = */
+        /* ============================================================= */
+        /* Figure é um elemento semântico para agrupar imagem e legenda:
+           
+           <figure>
+               <img src="imagem.jpg" alt="descrição">
+               <figcaption>Legenda da imagem</figcaption>
+           </figure>
+           
+           Melhora acessibilidade e SEO
+        */
+
+        .figura-exemplo {
+            background-color: #3D4146;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        figure {
+            margin: 20px 0;
+            text-align: center;
+            background-color: #2E3A46;
+            padding: 15px;
+            border-radius: 8px;
+            border: 2px solid #7ED321;
+        }
+
+        figcaption {
+            color: #7ED321;
+            font-style: italic;
+            margin-top: 10px;
+            padding: 8px;
+            background-color: rgba(126, 211, 33, 0.1);
+            border-radius: 5px;
+        }
+
+        /* ============================================================= */
+        /* = FORMATOS DE IMAGEM                                       = */
+        /* ============================================================= */
+        /* Diferentes formatos têm características específicas:
+           
+           - JPEG: fotos, muitas cores, compressão com perda
+           - PNG: transparência, compressão sem perda, logos
+           - GIF: animações, poucas cores
+           - SVG: vetorial, escalável, pequeno
+           - WebP: moderno, melhor compressão
+        */
+
+        .formatos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .formato-card {
+            background-color: #3D4146;
+            padding: 15px;
+            border-radius: 8px;
+            border: 2px solid #F5A623;
+            text-align: center;
+        }
+
+        .formato-card h4 {
+            color: #F5A623;
+            margin-bottom: 10px;
+        }
+
+        .formato-icon {
+            font-size: 32px;
+            margin: 10px 0;
+        }
+
+        /* ============================================================= */
+        /* = IMAGENS COMO LINKS                                       = */
+        /* ============================================================= */
+        /* Imagens podem ser links clicáveis */
+
+        .link-img {
+            display: inline-block;
+            border: 3px solid transparent;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            margin: 10px;
+        }
+
+        .link-img:hover {
+            border-color: #7ED321;
+            transform: scale(1.05);
+        }
+
+        .link-img img {
+            display: block;
+            border-radius: 5px;
+        }
+
+        /* ============================================================= */
+        /* = TÍTULOS E ORGANIZAÇÃO                                    = */
+        /* ============================================================= */
+        h1, h2 {
+            text-align: center;
+            margin: 30px 0 20px 0;
+        }
+
+        h1 {
+            color: #7ED321;
+            font-size: 28px;
+        }
+
+        h2 {
+            color: #4A90E2;
+            font-size: 20px;
+            border-bottom: 2px solid #4A90E2;
+            padding-bottom: 10px;
+        }
+
+        .secao {
+            margin: 40px 0;
+        }
+
+        .codigo-exemplo {
+            background-color: #3D4146;
+            border-left: 4px solid #7ED321;
+            padding: 15px;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+            border-radius: 5px;
+            white-space: pre-wrap;
+            line-height: 1.8;
+        }
+
+        .destaque {
+            background-color: #F5A623;
+            color: #2E3A46;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+            font-weight: bold;
+        }
+
+        .importante {
+            background-color: rgba(255, 107, 107, 0.2);
+            border: 1px solid #FF6B6B;
+            color: #FF6B6B;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+
+        .dica {
+            background-color: rgba(126, 211, 33, 0.2);
+            border: 1px solid #7ED321;
+            color: #7ED321;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+
+        /* Placeholder para imagens de demonstração */
+        .img-placeholder {
+            background: linear-gradient(135deg, #4A90E2, #7ED321);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            text-align: center;
+            border-radius: 8px;
+            margin: 10px 0;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="navegacao">
+    <a href="index.html">🏠 Início</a>
+    <a href="05-links.html">⬅️ Anterior</a>
+    <a href="07-tabelas.html">➡️ Próximo</a>
+</div>
+
+<h1>🖼️ Trabalhando com Imagens</h1>
+
+<div class="secao">
+    <h2>🔍 Anatomia da Tag IMG</h2>
+    
+    <div class="anatomia-img">
+        <div style="margin-bottom: 20px;">
+            <span class="tag">&lt;img</span>
+            <span class="src">src="images/foto.jpg"</span>
+            <span class="alt">alt="Descrição da imagem"</span>
+            <span class="dimensao">width="300"</span>
+            <span class="dimensao">height="200"</span>
+            <span class="tag">&gt;</span>
+        </div>
+        
+        <div style="font-size: 12px; color: #888;">
+            ⬆️ TAG | ⬆️ CAMINHO | ⬆️ ACESSIBILIDADE | ⬆️ DIMENSÕES
+        </div>
+    </div>
+
+    <div class="codigo-exemplo">
+&lt;!-- Imagem básica --&gt;
+&lt;img src="foto.jpg" alt="Minha foto"&gt;
+
+&lt;!-- Imagem com dimensões --&gt;
+&lt;img src="logo.png" alt="Logo da empresa" width="200" height="100"&gt;
+
+&lt;!-- Imagem com tooltip --&gt;
+&lt;img src="produto.jpg" alt="Produto em destaque" title="Clique para ampliar"&gt;
+
+&lt;!-- Imagem com lazy loading --&gt;
+&lt;img src="banner.jpg" alt="Banner principal" loading="lazy"&gt;
+    </div>
+
+    <div class="importante">
+        <strong>⚠️ Atributo ALT é obrigatório!</strong> Sem ele, leitores de tela não conseguem descrever a imagem para pessoas com deficiência visual.
+    </div>
+</div>
+
+<div class="secao">
+    <h2>📏 Dimensionamento e Responsividade</h2>
+    
+    <div class="responsividade-grid">
+        <div class="responsivo-exemplo">
+            <h4>Tamanho Fixo (problemático)</h4>
+            <div class="img-placeholder img-fixa" style="width: 200px; height: 150px;">
+                200px × 150px<br>FIXO
+            </div>
+            <div class="codigo-exemplo">
+img {
+    width: 200px;
+    height: 150px;
+}
+/* ❌ Não responsivo */
+            </div>
+        </div>
+
+        <div class="responsivo-exemplo">
+            <h4>Responsiva (recomendado)</h4>
+            <div class="img-placeholder img-responsiva" style="height: 150px;">
+                Max-width: 100%<br>RESPONSIVO
+            </div>
+            <div class="codigo-exemplo">
+img {
+    max-width: 100%;
+    height: auto;
+}
+/* ✅ Se adapta ao container */
+            </div>
+        </div>
+
+        <div class="responsivo-exemplo">
+            <h4>Object-fit: Cover</h4>
+            <div class="img-placeholder img-cover" style="height: 150px;">
+                Cover<br>CORTA PARA CABER
+            </div>
+            <div class="codigo-exemplo">
+img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+}
+/* Corta se necessário */
+            </div>
+        </div>
+
+        <div class="responsivo-exemplo">
+            <h4>Object-fit: Contain</h4>
+            <div class="img-placeholder img-contain" style="height: 150px;">
+                Contain<br>CABE INTEIRA
+            </div>
+            <div class="codigo-exemplo">
+img {
+    width: 100%;
+    height: 150px;
+    object-fit: contain;
+}
+/* Imagem inteira visível */
+            </div>
+        </div>
+    </div>
+
+    <div class="dica">
+        <strong>💡 Dica de responsividade:</strong> Use sempre <code>max-width: 100%</code> e <code>height: auto</code> como base. Use <code>object-fit</code> para controles avançados.
+    </div>
+</div>
+
+<div class="secao">
+    <h2>🎨 Figure e Figcaption</h2>
+    
+    <div class="figura-exemplo">
+        <figure>
+            <div class="img-placeholder" style="height: 200px; width: 100%;">
+                IMAGEM DE EXEMPLO<br>
+                (Paisagem de montanha)
+            </div>
+            <figcaption>
+                🏔️ Vista panorâmica da Serra da Mantiqueira ao amanhecer
+            </figcaption>
+        </figure>
+
+        <figure>
+            <div class="img-placeholder" style="height: 150px; width: 100%;">
+                GRÁFICO DE EXEMPLO<br>
+                (Vendas 2024)
+            </div>
+            <figcaption>
+                📊 Crescimento de vendas no primeiro trimestre de 2024
+            </figcaption>
+        </figure>
+    </div>
+
+    <div class="codigo-exemplo">
+&lt;figure&gt;
+    &lt;img src="paisagem.jpg" alt="Vista da montanha"&gt;
+    &lt;figcaption&gt;
+        Vista panorâmica da Serra da Mantiqueira ao amanhecer
+    &lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;figure&gt;
+    &lt;img src="grafico.png" alt="Gráfico de vendas"&gt;
+    &lt;figcaption&gt;
+        Crescimento de vendas no primeiro trimestre de 2024
+    &lt;/figcaption&gt;
+&lt;/figure&gt;
+    </div>
+
+    <div class="destaque">
+        <strong>🚀 Vantagens do Figure:</strong> Melhor semântica, acessibilidade aprimorada, SEO otimizado e agrupamento lógico de imagem + legenda.
+    </div>
+</div>
+
+<div class="secao">
+    <h2>📁 Formatos de Imagem</h2>
+    
+    <div class="formatos-grid">
+        <div class="formato-card">
+            <div class="formato-icon">🖼️</div>
+            <h4>JPEG (.jpg)</h4>
+            <p><strong>Uso:</strong> Fotos</p>
+            <p><strong>Vantagem:</strong> Arquivo pequeno</p>
+            <p><strong>Desvantagem:</strong> Perde qualidade</p>
+        </div>
+
+        <div class="formato-card">
+            <div class="formato-icon">🎨</div>
+            <h4>PNG (.png)</h4>
+            <p><strong>Uso:</strong> Logos, ícones</p>
+            <p><strong>Vantagem:</strong> Transparência</p>
+            <p><strong>Desvantagem:</strong> Arquivo maior</p>
+        </div>
+
+        <div class="formato-card">
+            <div class="formato-icon">🎬</div>
+            <h4>GIF (.gif)</h4>
+            <p><strong>Uso:</strong> Animações</p>
+            <p><strong>Vantagem:</strong> Movimento</p>
+            <p><strong>Desvantagem:</strong> Poucas cores</p>
+        </div>
+
+        <div class="formato-card">
+            <div class="formato-icon">📐</div>
+            <h4>SVG (.svg)</h4>
+            <p><strong>Uso:</strong> Ícones, logos</p>
+            <p><strong>Vantagem:</strong> Escalável</p>
+            <p><strong>Desvantagem:</strong> Complexo para fotos</p>
+        </div>
+
+        <div class="formato-card">
+            <div class="formato-icon">⚡</div>
+            <h4>WebP (.webp)</h4>
+            <p><strong>Uso:</strong> Web moderna</p>
+            <p><strong>Vantagem:</strong> 30% menor</p>
+            <p><strong>Desvantagem:</strong> Suporte limitado</p>
+        </div>
+    </div>
+
+    <div class="codigo-exemplo">
+&lt;!-- Escolha o formato certo --&gt;
+&lt;img src="foto.jpg" alt="Foto de família"&gt;        &lt;!-- JPEG para fotos --&gt;
+&lt;img src="logo.png" alt="Logo da empresa"&gt;       &lt;!-- PNG para logos --&gt;
+&lt;img src="icone.svg" alt="Ícone de menu"&gt;        &lt;!-- SVG para ícones --&gt;
+&lt;img src="animacao.gif" alt="Loading..."&gt;        &lt;!-- GIF para animações --&gt;
+
+&lt;!-- Fallback para WebP --&gt;
+&lt;picture&gt;
+    &lt;source srcset="imagem.webp" type="image/webp"&gt;
+    &lt;img src="imagem.jpg" alt="Descrição"&gt;
+&lt;/picture&gt;
+    </div>
+</div>
+
+<div class="secao">
+    <h2>🔗 Imagens como Links</h2>
+    
+    <div style="text-align: center; margin: 20px 0;">
+        <a href="https://www.google.com" target="_blank" rel="noopener" class="link-img">
+            <div class="img-placeholder" style="width: 150px; height: 100px;">
+                CLIQUE AQUI<br>
+                🔗 Link Image
+            </div>
+        </a>
+        
+        <a href="07-tabelas.html" class="link-img">
+            <div class="img-placeholder" style="width: 150px; height: 100px;">
+                PRÓXIMA AULA<br>
+                📊 Tabelas
+            </div>
+        </a>
+    </div>
+
+    <div class="codigo-exemplo">
+&lt;!-- Imagem como link --&gt;
+&lt;a href="pagina-destino.html"&gt;
+    &lt;img src="banner.jpg" alt="Clique para saber mais"&gt;
+&lt;/a&gt;
+
+&lt;!-- Imagem com link externo --&gt;
+&lt;a href="https://site.com" target="_blank" rel="noopener"&gt;
+    &lt;img src="logo-parceiro.png" alt="Visite nosso parceiro"&gt;
+&lt;/a&gt;
+
+&lt;!-- CSS para efeito hover --&gt;
+&lt;style&gt;
+.link-img {
+    transition: transform 0.3s ease;
+}
+.link-img:hover {
+    transform: scale(1.05);
+}
+&lt;/style&gt;
+    </div>
+</div>
+
+<div class="secao">
+    <h2>⚡ Otimização e Performance</h2>
+    
+    <div class="codigo-exemplo">
+&lt;!-- Lazy Loading - carrega apenas quando necessário --&gt;
+&lt;img src="imagem-pesada.jpg" alt="Descrição" loading="lazy"&gt;
+
+&lt;!-- Srcset para diferentes resoluções --&gt;
+&lt;img src="pequena.jpg" 
+     srcset="pequena.jpg 480w, 
+             media.jpg 800w, 
+             grande.jpg 1200w"
+     sizes="(max-width: 480px) 100vw, 
+            (max-width: 800px) 50vw, 
+            25vw"
+     alt="Imagem responsiva"&gt;
+
+&lt;!-- Picture para diferentes formatos --&gt;
+&lt;picture&gt;
+    &lt;source media="(min-width: 800px)" srcset="desktop.webp"&gt;
+    &lt;source media="(min-width: 400px)" srcset="tablet.webp"&gt;
+    &lt;img src="mobile.jpg" alt="Imagem adaptativa"&gt;
+&lt;/picture&gt;
+
+&lt;!-- Preload para imagens críticas --&gt;
+&lt;link rel="preload" as="image" href="hero-image.jpg"&gt;
+    </div>
+
+    <div class="dica">
+        <strong>💡 Dicas de otimização:</strong><br>
+        ✅ Use <code>loading="lazy"</code> para imagens abaixo da dobra<br>
+        ✅ Comprima imagens antes de subir (TinyPNG, ImageOptim)<br>
+        ✅ Use WebP quando possível<br>
+        ✅ Implemente srcset para diferentes telas<br>
+        ✅ Use ferramentas como Lighthouse para medir performance
+    </div>
+</div>
+
+<div class="secao">
+    <h2>✨ Exemplo Prático Completo</h2>
+    
+    <div class="codigo-exemplo">
+&lt;!DOCTYPE html&gt;
+&lt;html lang="pt-BR"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title&gt;Galeria de Imagens&lt;/title&gt;
+    &lt;style&gt;
+        .galeria {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+        .item {
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .item img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+        .item:hover img {
+            transform: scale(1.1);
+        }
+        figcaption {
+            padding: 15px;
+            background: #f8f9fa;
+            color: #333;
+        }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div class="galeria"&gt;
+        &lt;figure class="item"&gt;
+            &lt;img src="natureza1.jpg" 
+                 alt="Cachoeira em meio à mata"
+                 loading="lazy"&gt;
+            &lt;figcaption&gt;
+                Cachoeira do Vale Verde
+            &lt;/figcaption&gt;
+        &lt;/figure&gt;
+
+        &lt;figure class="item"&gt;
+            &lt;picture&gt;
+                &lt;source srcset="montanha.webp" type="image/webp"&gt;
+                &lt;img src="montanha.jpg" 
+                     alt="Pico da montanha ao nascer do sol"
+                     loading="lazy"&gt;
+            &lt;/picture&gt;
+            &lt;figcaption&gt;
+                Pico do Itatiaia
+            &lt;/figcaption&gt;
+        &lt;/figure&gt;
+    &lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+    </div>
+</div>
+
+<br><br>
+<div class="navegacao">
+    <a href="index.html">🏠 Início</a>
+    <a href="05-links.html">⬅️ Anterior</a>
+    <a href="07-tabelas.html">➡️ Próximo</a>
+</div>
+
+<hr style="border-color: #4A90E2; margin: 20px 0;">
+<p style="text-align: center; color: #4A90E2;">Dev by <strong>Maugus</strong> em HTML puro 📙</p>
+
+</body>
+</html> 

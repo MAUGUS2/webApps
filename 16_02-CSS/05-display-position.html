@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎪 CSS - Display, Position, Z-Index e Overflow</title>
+<!-- Usando CSS interno para ser mais didático e fácil de entender -->
+    <style>
+        * { 
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Courier New', Courier, monospace;
+            background-color: #454158;
+            color: #fff;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .navegacao {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .navegacao a {
+            color: #FF80BF;
+            text-decoration: none;
+            margin: 0 15px;
+        }
+
+        .navegacao a:hover {
+            color: #8AFF80;
+        }
+
+        /* ============================================================= */
+        /* = DISPLAY                                                   = */
+        /* ============================================================= */
+        /* Display controla como um elemento é exibido na página.
+           Valores principais:
+           - block: comportamento de bloco
+           - inline: comportamento inline
+           - inline-block: híbrido
+           - none: elemento não aparece
+           - flex: layout flexível
+           - grid: layout em grade
+           - table: comporta como tabela
+        */
+
+        .exemplo-display {
+            background-color: #22212C;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+
+        .display-block {
+            display: block;
+            background-color: #FF80BF;
+            color: #000;
+            padding: 15px;
+            margin: 10px 0;
+            width: 250px;
+            text-align: center;
+        }
+
+        .display-inline {
+            display: inline;
+            background-color: #8AFF80;
+            color: #000;
+            padding: 8px 15px;
+            margin: 0 5px;
+        }
+
+        .display-inline-block {
+            display: inline-block;
+            background-color: #ffb86c;
+            color: #000;
+            padding: 15px;
+            margin: 5px;
+            width: 120px;
+            height: 80px;
+            text-align: center;
+            vertical-align: top;
+        }
+
+        .display-none {
+            display: none; /* Este elemento não aparecerá */
+        }
+
+        .display-flex {
+            display: flex;
+            gap: 10px;
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+
+        .flex-item {
+            background-color: #8AFF80;
+            color: #000;
+            padding: 10px;
+            flex: 1;
+            text-align: center;
+            border-radius: 3px;
+        }
+
+        /* ============================================================= */
+        /* = POSITION                                                  = */
+        /* ============================================================= */
+        /* Position controla como um elemento é posicionado:
+           - static: posição normal (padrão)
+           - relative: relativo à sua posição original
+           - absolute: relativo ao pai posicionado mais próximo
+           - fixed: relativo à viewport (janela do navegador)
+           - sticky: híbrido relative/fixed
+        */
+
+        .container-position {
+            background-color: #22212C;
+            padding: 30px;
+            margin: 20px 0;
+            border-radius: 8px;
+            position: relative; /* Contexto para absolute */
+            height: 300px;
+            border: 2px dashed #8AFF80;
+        }
+
+        .position-static {
+            position: static; /* Padrão */
+            background-color: #FF80BF;
+            color: #000;
+            padding: 15px;
+            margin: 10px;
+            display: inline-block;
+            border-radius: 5px;
+        }
+
+        .position-relative {
+            position: relative;
+            top: 20px;
+            left: 30px;
+            background-color: #8AFF80;
+            color: #000;
+            padding: 15px;
+            margin: 10px;
+            display: inline-block;
+            border-radius: 5px;
+        }
+
+        .position-absolute {
+            position: absolute;
+            top: 50px;
+            right: 20px;
+            background-color: #ffb86c;
+            color: #000;
+            padding: 15px;
+            border-radius: 5px;
+        }
+
+        .position-fixed {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #FF80BF;
+            color: #000;
+            padding: 10px 15px;
+            border-radius: 5px;
+            font-size: 12px;
+            z-index: 1000;
+        }
+
+        /* ============================================================= */
+        /* = Z-INDEX                                                   = */
+        /* ============================================================= */
+        /* Z-index controla a ordem de empilhamento dos elementos.
+           Só funciona em elementos posicionados (não static).
+           Valores maiores ficam "por cima" de menores.
+        */
+
+        .container-zindex {
+            background-color: #22212C;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            position: relative;
+            height: 200px;
+        }
+
+        .z-baixo {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            width: 120px;
+            height: 120px;
+            background-color: #FF80BF;
+            color: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            z-index: 1; /* Baixo */
+        }
+
+        .z-medio {
+            position: absolute;
+            top: 60px;
+            left: 60px;
+            width: 120px;
+            height: 120px;
+            background-color: #8AFF80;
+            color: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            z-index: 2; /* Médio */
+        }
+
+        .z-alto {
+            position: absolute;
+            top: 100px;
+            left: 100px;
+            width: 120px;
+            height: 120px;
+            background-color: #ffb86c;
+            color: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            z-index: 3; /* Alto */
+        }
+
+        /* ============================================================= */
+        /* = OVERFLOW                                                  = */
+        /* ============================================================= */
+        /* Overflow controla o que acontece quando o conteúdo é maior
+           que o contêiner:
+           - visible: conteúdo vaza (padrão)
+           - hidden: conteúdo é cortado
+           - scroll: sempre mostra scrollbars
+           - auto: scrollbars apenas quando necessário
+        */
+
+        .overflow-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .overflow-example {
+            width: 200px;
+            height: 120px;
+            background-color: #22212C;
+            border: 2px solid #8AFF80;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .overflow-visible {
+            overflow: visible; /* Padrão - conteúdo vaza */
+        }
+
+        .overflow-hidden {
+            overflow: hidden; /* Conteúdo é cortado */
+        }
+
+        .overflow-scroll {
+            overflow: scroll; /* Sempre mostra scrollbars */
+        }
+
+        .overflow-auto {
+            overflow: auto; /* Scrollbars quando necessário */
+        }
+
+        .conteudo-grande {
+            width: 300px;
+            height: 200px;
+            background: linear-gradient(45deg, #FF80BF, #8AFF80);
+            color: #000;
+            padding: 10px;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        /* ============================================================= */
+        /* = TÍTULOS E ORGANIZAÇÃO                                    = */
+        /* ============================================================= */
+        h1, h2 {
+            text-align: center;
+            margin: 30px 0 20px 0;
+        }
+
+        h1 {
+            color: #8AFF80;
+            font-size: 28px;
+        }
+
+        h2 {
+            color: #FF80BF;
+            font-size: 20px;
+            border-bottom: 2px solid #FF80BF;
+            padding-bottom: 10px;
+        }
+
+        .secao {
+            margin: 40px 0;
+        }
+
+        .codigo-exemplo {
+            background-color: #454158;
+            border-left: 4px solid #8AFF80;
+            padding: 15px;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+            border-radius: 5px;
+            white-space: pre-wrap;
+            line-height: 1.8;
+        }
+
+        .destaque {
+            background-color: #ffb86c;
+            color: #000;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+
+        .aviso {
+            background-color: rgba(255, 128, 191, 0.2);
+            border: 1px solid #FF80BF;
+            color: #FF80BF;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+
+        .tabela-display {
+            background-color: #22212C;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            overflow-x: auto;
+        }
+
+        .tabela-display table {
+            width: 100%;
+            border-collapse: collapse;
+            color: #fff;
+        }
+
+        .tabela-display th {
+            background-color: #8AFF80;
+            color: #000;
+            padding: 10px;
+            text-align: left;
+        }
+
+        .tabela-display td {
+            padding: 10px;
+            border-bottom: 1px solid #454158;
+        }
+
+        .tabela-display tr:nth-child(even) {
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="navegacao">
+    <a href="index.html">🏠 Início</a>
+    <a href="04-float-block-inline.html">⬅️ Anterior</a>
+    <a href="01-css-basico.html">➡️ Próximo</a>
+</div>
+
+<h1>🎪 Display, Position, Z-Index e Overflow</h1>
+
+<div class="secao">
+    <h2>📺 Display</h2>
+    
+    <div class="codigo-exemplo">
+/* Valores principais de display */
+<br>
+display: block;         /* Comportamento de bloco */
+<br>
+display: inline;        /* Comportamento inline */
+<br>
+display: inline-block;  /* Híbrido */
+<br>
+display: none;          /* Elemento não aparece */
+<br>
+display: flex;          /* Layout flexível */
+<br>
+display: grid;          /* Layout em grade */
+<br>
+display: table;         /* Comporta como tabela */
+    </div>
+
+    <div class="exemplo-display">
+        <h3 style="color: #8AFF80; margin-bottom: 15px;">Exemplos de Display:</h3>
+        
+        <div class="display-block">Display: Block</div>
+        
+        <p>Display Inline: 
+        <span class="display-inline">Inline 1</span>
+        <span class="display-inline">Inline 2</span>
+        <span class="display-inline">Inline 3</span>
+        </p>
+        
+        <div style="margin: 15px 0;">
+            <div class="display-inline-block">IB 1</div>
+            <div class="display-inline-block">IB 2</div>
+            <div class="display-inline-block">IB 3</div>
+        </div>
+
+        <div class="display-flex">
+            <div class="flex-item">Flex 1</div>
+            <div class="flex-item">Flex 2</div>
+            <div class="flex-item">Flex 3</div>
+        </div>
+    </div>
+
+    <div class="tabela-display">
+        <table>
+            <thead>
+                <tr>
+                    <th>Display</th>
+                    <th>Comportamento</th>
+                    <th>Uso Comum</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>block</code></td>
+                    <td>Nova linha, largura total</td>
+                    <td>Divs, parágrafos, títulos</td>
+                </tr>
+                <tr>
+                    <td><code>inline</code></td>
+                    <td>Mesma linha, largura do conteúdo</td>
+                    <td>Links, spans, texto</td>
+                </tr>
+                <tr>
+                    <td><code>inline-block</code></td>
+                    <td>Mesma linha + aceita dimensões</td>
+                    <td>Botões, menus, cards</td>
+                </tr>
+                <tr>
+                    <td><code>flex</code></td>
+                    <td>Layout flexível moderno</td>
+                    <td>Layouts responsivos</td>
+                </tr>
+                <tr>
+                    <td><code>none</code></td>
+                    <td>Elemento não aparece</td>
+                    <td>Mostrar/ocultar elementos</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="secao">
+    <h2>📍 Position</h2>
+    
+    <div class="codigo-exemplo">
+/* Tipos de posicionamento */
+position: static;     /* Padrão - fluxo normal */
+position: relative;   /* Relativo à posição original */
+position: absolute;   /* Relativo ao pai posicionado */
+position: fixed;      /* Relativo à viewport */
+position: sticky;     /* Híbrido relative/fixed */
+
+/* Propriedades de posicionamento */
+top: 20px;     /* Distância do topo */
+right: 10px;   /* Distância da direita */
+bottom: 15px;  /* Distância da base */
+left: 5px;     /* Distância da esquerda */
+    </div>
+
+    <div class="container-position">
+        <div class="position-static">Static (Padrão)</div>
+        <div class="position-relative">Relative (movido 20px/30px)</div>
+        <div class="position-absolute">Absolute (top: 50px, right: 20px)</div>
+        <p style="margin-top: 50px; color: #8AFF80;">
+            <strong>Container com position: relative</strong><br>
+            O elemento absolute se posiciona relativo a este container.
+        </p>
+    </div>
+
+    <div class="destaque">
+        <strong>🎯 Dicas importantes:</strong><br>
+        • <code>relative</code>: elemento mantém espaço original<br>
+        • <code>absolute</code>: elemento sai do fluxo normal<br>
+        • <code>fixed</code>: sempre visível, mesmo com scroll<br>
+        • Elementos posicionados podem usar z-index
+    </div>
+</div>
+
+<div class="secao">
+    <h2>📚 Z-Index</h2>
+    
+    <div class="codigo-exemplo">
+/* Z-index controla ordem de empilhamento */
+z-index: 1;     /* Nível 1 */
+z-index: 10;    /* Nível 10 - fica por cima do 1 */
+z-index: -1;    /* Nível negativo - fica atrás */
+
+/* IMPORTANTE: só funciona em elementos posicionados */
+position: relative;  /* ou absolute, fixed, sticky */
+z-index: 999;       /* Agora funciona! */
+    </div>
+
+    <div class="container-zindex">
+        <div class="z-baixo">Z-index: 1</div>
+        <div class="z-medio">Z-index: 2</div>
+        <div class="z-alto">Z-index: 3</div>
+        <p style="position: absolute; bottom: 10px; left: 20px; color: #8AFF80; font-size: 12px;">
+            Elementos se sobrepõem conforme o z-index
+        </p>
+    </div>
+
+    <div class="aviso">
+        <strong>⚠️ Atenção:</strong> Z-index só funciona em elementos posicionados (não static). Valores maiores ficam "por cima".
+    </div>
+</div>
+
+<div class="secao">
+    <h2>📦 Overflow</h2>
+    
+    <div class="codigo-exemplo">
+/* Controla conteúdo que excede o contêiner */
+overflow: visible;  /* Padrão - conteúdo vaza */
+overflow: hidden;   /* Conteúdo é cortado */
+overflow: scroll;   /* Sempre mostra scrollbars */
+overflow: auto;     /* Scrollbars quando necessário */
+
+/* Controle por eixo */
+overflow-x: hidden;  /* Só eixo horizontal */
+overflow-y: scroll;  /* Só eixo vertical */
+    </div>
+
+    <div class="overflow-container">
+        <div>
+            <h4 style="color: #FF80BF; margin-bottom: 10px;">Visible (Padrão)</h4>
+            <div class="overflow-example overflow-visible">
+                <div class="conteudo-grande">Conteúdo vaza!</div>
+            </div>
+        </div>
+
+        <div>
+            <h4 style="color: #FF80BF; margin-bottom: 10px;">Hidden</h4>
+            <div class="overflow-example overflow-hidden">
+                <div class="conteudo-grande">Conteúdo cortado</div>
+            </div>
+        </div>
+
+        <div>
+            <h4 style="color: #FF80BF; margin-bottom: 10px;">Scroll</h4>
+            <div class="overflow-example overflow-scroll">
+                <div class="conteudo-grande">Sempre com scroll</div>
+            </div>
+        </div>
+
+        <div>
+            <h4 style="color: #FF80BF; margin-bottom: 10px;">Auto</h4>
+            <div class="overflow-example overflow-auto">
+                <div class="conteudo-grande">Scroll quando necessário</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="destaque">
+        <strong>💡 Usos comuns:</strong><br>
+        • <code>overflow: hidden</code> - Clearfix, ocultar conteúdo<br>
+        • <code>overflow: auto</code> - Áreas de conteúdo scrollável<br>
+        • <code>overflow: scroll</code> - Sempre mostrar scrollbars<br>
+        • <code>overflow-x/y</code> - Controle específico por eixo
+    </div>
+</div>
+
+<!-- Elemento fixed de exemplo -->
+<div class="position-fixed">
+    Position: Fixed<br>
+    (sempre visível)
+</div>
+
+<br><br>
+<div class="navegacao">
+    <a href="index.html">🏠 Início</a>
+    <a href="04-float-block-inline.html">⬅️ Anterior</a>
+    <a href="01-css-basico.html">➡️ Próximo</a>
+</div>
+
+<hr style="border-color: #FF80BF; margin: 20px 0;">
+<p style="text-align: center; color: #FF80BF;">Dev by <strong>Maugus</strong> em CSS puro 🎨</p>
+
+</body>
+</html> 

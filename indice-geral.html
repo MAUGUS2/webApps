@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📚 Índice Geral - Aplicações Web e Móveis</title>
+    <style>
+        /* CSS Custom Properties */
+        :root {
+            /* Ultra Dark Color Palette */
+            --ultra-bg: #0a0a0a;
+            --ultra-card: #111111;
+            --ultra-hover: #1a1a1a;
+            --ultra-border: #222222;
+            --ultra-text: #e6e6e6;
+            --ultra-text-muted: #999999;
+            --ultra-text-dim: #666666;
+            
+            /* Accent Colors */
+            --accent-primary: #8b7cf8;
+            --accent-secondary: #6366f1;
+            --accent-success: #10b981;
+            --accent-warning: #f59e0b;
+            --accent-error: #ef4444;
+            
+            /* Spacing Scale */
+            --spacing-1: 0.25rem;
+            --spacing-2: 0.5rem;
+            --spacing-3: 0.75rem;
+            --spacing-4: 1rem;
+            --spacing-5: 1.25rem;
+            --spacing-6: 1.5rem;
+            --spacing-8: 2rem;
+            --spacing-10: 2.5rem;
+            --spacing-12: 3rem;
+            
+            /* Typography Scale */
+            --font-size-xs: 0.75rem;
+            --font-size-sm: 0.875rem;
+            --font-size-base: 1rem;
+            --font-size-lg: 1.125rem;
+            --font-size-xl: 1.25rem;
+            --font-size-2xl: 1.5rem;
+            --font-size-3xl: 1.875rem;
+            --font-size-4xl: 2.25rem;
+            
+            /* Border Radius */
+            --border-radius-sm: 0.375rem;
+            --border-radius-md: 0.5rem;
+            --border-radius-lg: 0.75rem;
+            --border-radius-xl: 1rem;
+        }
+
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-weight: 300;
+            background: var(--ultra-bg);
+            color: var(--ultra-text);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: var(--spacing-6);
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: var(--spacing-12);
+            padding: var(--spacing-10) 0;
+        }
+
+        .header h1 {
+            font-size: var(--font-size-4xl);
+            font-weight: 300;
+            color: var(--ultra-text);
+            margin-bottom: var(--spacing-4);
+            letter-spacing: -0.025em;
+        }
+
+        .header .subtitle {
+            font-size: var(--font-size-lg);
+            color: var(--ultra-text-muted);
+            font-weight: 300;
+            margin-bottom: var(--spacing-6);
+        }
+
+        .course-info {
+            background: var(--ultra-card);
+            border: 1px solid var(--ultra-border);
+            border-radius: var(--border-radius-lg);
+            padding: var(--spacing-6);
+            margin-bottom: var(--spacing-10);
+            text-align: center;
+        }
+
+        .course-info h2 {
+            font-size: var(--font-size-xl);
+            color: var(--accent-primary);
+            margin-bottom: var(--spacing-3);
+            font-weight: 400;
+        }
+
+        .course-info p {
+            color: var(--ultra-text-muted);
+            font-size: var(--font-size-base);
+        }
+
+        /* Lessons Grid */
+        .lessons-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: var(--spacing-6);
+            margin-bottom: var(--spacing-10);
+        }
+
+        /* Lesson Card */
+        .lesson-card {
+            background: var(--ultra-card);
+            border: 1px solid var(--ultra-border);
+            border-radius: var(--border-radius-lg);
+            padding: var(--spacing-6);
+            transition: all 0.2s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .lesson-card:hover {
+            border-color: var(--accent-primary);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(139, 124, 248, 0.1);
+        }
+
+        .lesson-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: var(--spacing-5);
+            padding-bottom: var(--spacing-4);
+            border-bottom: 1px solid var(--ultra-border);
+        }
+
+        .lesson-number {
+            background: var(--accent-primary);
+            color: var(--ultra-bg);
+            width: 40px;
+            height: 40px;
+            border-radius: var(--border-radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 500;
+            font-size: var(--font-size-lg);
+            margin-right: var(--spacing-4);
+            flex-shrink: 0;
+        }
+
+        .lesson-title {
+            font-size: var(--font-size-xl);
+            font-weight: 400;
+            color: var(--ultra-text);
+            margin-bottom: var(--spacing-2);
+        }
+
+        .lesson-subtitle {
+            font-size: var(--font-size-sm);
+            color: var(--ultra-text-muted);
+            font-weight: 300;
+        }
+
+        .lesson-description {
+            color: var(--ultra-text-muted);
+            margin-bottom: var(--spacing-5);
+            font-size: var(--font-size-sm);
+            line-height: 1.5;
+        }
+
+        /* Topics List */
+        .topics-list {
+            list-style: none;
+            margin-bottom: var(--spacing-5);
+        }
+
+        .topics-list li {
+            padding: var(--spacing-2) 0;
+            color: var(--ultra-text-dim);
+            font-size: var(--font-size-xs);
+            border-bottom: 1px solid var(--ultra-border);
+            display: flex;
+            align-items: center;
+        }
+
+        .topics-list li:last-child {
+            border-bottom: none;
+        }
+
+        .topics-list li::before {
+            content: "▸";
+            color: var(--accent-primary);
+            margin-right: var(--spacing-2);
+            font-size: var(--font-size-sm);
+        }
+
+        /* Lesson Link */
+        .lesson-link {
+            display: inline-flex;
+            align-items: center;
+            background: var(--ultra-hover);
+            color: var(--ultra-text);
+            text-decoration: none;
+            padding: var(--spacing-3) var(--spacing-5);
+            border-radius: var(--border-radius-md);
+            font-size: var(--font-size-sm);
+            font-weight: 400;
+            transition: all 0.2s ease;
+            border: 1px solid var(--ultra-border);
+            width: 100%;
+            justify-content: center;
+        }
+
+        .lesson-link:hover {
+            background: var(--accent-primary);
+            color: var(--ultra-bg);
+            border-color: var(--accent-primary);
+        }
+
+        /* Progress Section */
+        .progress-section {
+            background: var(--ultra-card);
+            border: 1px solid var(--ultra-border);
+            border-radius: var(--border-radius-lg);
+            padding: var(--spacing-6);
+            margin-bottom: var(--spacing-10);
+            text-align: center;
+        }
+
+        .progress-section h3 {
+            font-size: var(--font-size-xl);
+            color: var(--accent-primary);
+            margin-bottom: var(--spacing-4);
+            font-weight: 400;
+        }
+
+        .progress-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: var(--spacing-4);
+            margin-top: var(--spacing-5);
+        }
+
+        .stat-item {
+            background: var(--ultra-hover);
+            border: 1px solid var(--ultra-border);
+            border-radius: var(--border-radius-md);
+            padding: var(--spacing-4);
+        }
+
+        .stat-number {
+            font-size: var(--font-size-2xl);
+            font-weight: 400;
+            color: var(--accent-primary);
+            display: block;
+        }
+
+        .stat-label {
+            font-size: var(--font-size-xs);
+            color: var(--ultra-text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: var(--spacing-8) 0;
+            border-top: 1px solid var(--ultra-border);
+            margin-top: var(--spacing-10);
+        }
+
+        .footer p {
+            color: var(--ultra-text-dim);
+            font-size: var(--font-size-sm);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                padding: var(--spacing-4);
+            }
+
+            .header h1 {
+                font-size: var(--font-size-3xl);
+            }
+
+            .lessons-grid {
+                grid-template-columns: 1fr;
+                gap: var(--spacing-4);
+            }
+
+            .lesson-card {
+                padding: var(--spacing-4);
+            }
+
+            .progress-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .lesson-card {
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        .lesson-card:nth-child(1) { animation-delay: 0.1s; }
+        .lesson-card:nth-child(2) { animation-delay: 0.2s; }
+        .lesson-card:nth-child(3) { animation-delay: 0.3s; }
+        .lesson-card:nth-child(4) { animation-delay: 0.4s; }
+        .lesson-card:nth-child(5) { animation-delay: 0.5s; }
+        .lesson-card:nth-child(6) { animation-delay: 0.6s; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <h1>📚 Aplicações Web e Móveis</h1>
+            <p class="subtitle">Índice Geral do Curso Completo</p>
+        </header>
+
+        <!-- Course Info -->
+        <div class="course-info">
+            <h2>🎯 Jornada Completa de Desenvolvimento Web</h2>
+            <p>Do HTML básico ao JavaScript avançado - 6 aulas estruturadas para formar desenvolvedores web completos</p>
+        </div>
+
+        <!-- Progress Section -->
+        <div class="progress-section">
+            <h3>📊 Estatísticas do Curso</h3>
+            <div class="progress-stats">
+                <div class="stat-item">
+                    <span class="stat-number">6</span>
+                    <span class="stat-label">Aulas</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">35+</span>
+                    <span class="stat-label">Tópicos</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">100+</span>
+                    <span class="stat-label">Exercícios</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">∞</span>
+                    <span class="stat-label">Aprendizado</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Lessons Grid -->
+        <main class="lessons-grid">
+            <!-- Aula 1: HTML -->
+            <article class="lesson-card">
+                <div class="lesson-header">
+                    <div class="lesson-number">1</div>
+                    <div>
+                        <h2 class="lesson-title">HTML Fundamental</h2>
+                        <p class="lesson-subtitle">Estrutura e Semântica Web</p>
+                    </div>
+                </div>
+                <p class="lesson-description">
+                    Fundamentos essenciais do HTML, desde conceitos básicos até acessibilidade e formulários interativos.
+                </p>
+                <ul class="topics-list">
+                    <li>Conceitos Iniciais e Web</li>
+                    <li>Ambiente de Desenvolvimento</li>
+                    <li>Estrutura HTML Completa</li>
+                    <li>Textos e Listas</li>
+                    <li>Links e Navegação</li>
+                    <li>Imagens e Mídia</li>
+                    <li>Tabelas Estruturadas</li>
+                    <li>Formulários Interativos</li>
+                    <li>Acessibilidade e Inclusão</li>
+                </ul>
+                <a href="16_01-HTML/index.html" class="lesson-link">
+                    🌐 Acessar Aula 1
+                </a>
+            </article>
+
+            <!-- Aula 2: CSS -->
+            <article class="lesson-card">
+                <div class="lesson-header">
+                    <div class="lesson-number">2</div>
+                    <div>
+                        <h2 class="lesson-title">CSS Completo</h2>
+                        <p class="lesson-subtitle">Estilização e Layout</p>
+                    </div>
+                </div>
+                <p class="lesson-description">
+                    Domine CSS desde sintaxe básica até posicionamento avançado e design responsivo.
+                </p>
+                <ul class="topics-list">
+                    <li>CSS Básico e Sintaxe</li>
+                    <li>Cores e Background</li>
+                    <li>Dimensões e Tipografia</li>
+                    <li>Float, Block e Inline</li>
+                    <li>Display e Posicionamento</li>
+                </ul>
+                <a href="16_02-CSS/index.html" class="lesson-link">
+                    🎨 Acessar Aula 2
+                </a>
+            </article>
+
+            <!-- Aula 3: CSS Parte 2 -->
+            <article class="lesson-card">
+                <div class="lesson-header">
+                    <div class="lesson-number">3</div>
+                    <div>
+                        <h2 class="lesson-title">CSS Avançado</h2>
+                        <p class="lesson-subtitle">Técnicas Profissionais</p>
+                    </div>
+                </div>
+                <p class="lesson-description">
+                    Técnicas avançadas de CSS incluindo DOM, pseudo-classes, navegação e animações.
+                </p>
+                <ul class="topics-list">
+                    <li>DOM e Árvore de Elementos</li>
+                    <li>Pseudo-classes e Pseudo-elementos</li>
+                    <li>Barras de Navegação</li>
+                    <li>Formatações Avançadas</li>
+                    <li>Movimentos e Animações CSS</li>
+                </ul>
+                <a href="16_03-CSS-Parte-2/index.html" class="lesson-link">
+                    ⚡ Acessar Aula 3
+                </a>
+            </article>
+
+            <!-- Aula 4: HTML Semântico -->
+            <article class="lesson-card">
+                <div class="lesson-header">
+                    <div class="lesson-number">4</div>
+                    <div>
+                        <h2 class="lesson-title">HTML Semântico</h2>
+                        <p class="lesson-subtitle">Estrutura Moderna</p>
+                    </div>
+                </div>
+                <p class="lesson-description">
+                    HTML5 semântico, acessibilidade avançada e integração com CSS para projetos profissionais.
+                </p>
+                <ul class="topics-list">
+                    <li>HTML Semântico Moderno</li>
+                    <li>Tags Semânticas HTML5</li>
+                    <li>Acessibilidade Avançada</li>
+                    <li>CSS com HTML Semântico</li>
+                    <li>Práticas e Conclusão</li>
+                </ul>
+                <a href="16_04-HTML_Semantico_e_CSS/index.html" class="lesson-link">
+                    🏗️ Acessar Aula 4
+                </a>
+            </article>
+
+            <!-- Aula 5: JavaScript 1 -->
+            <article class="lesson-card">
+                <div class="lesson-header">
+                    <div class="lesson-number">5</div>
+                    <div>
+                        <h2 class="lesson-title">JavaScript Parte 1</h2>
+                        <p class="lesson-subtitle">Fundamentos da Programação</p>
+                    </div>
+                </div>
+                <p class="lesson-description">
+                    Introdução ao JavaScript, desde fundamentos até funções, eventos e ambiente prático.
+                </p>
+                <ul class="topics-list">
+                    <li>Fundamentos JavaScript</li>
+                    <li>Tipos e Estruturas de Dados</li>
+                    <li>Funções e Eventos</li>
+                    <li>Ambiente e Prática</li>
+                </ul>
+                <a href="16_05-JAVASCRIPT_1/index.html" class="lesson-link">
+                    ⚡ Acessar Aula 5
+                </a>
+            </article>
+
+            <!-- Aula 6: JavaScript 2 -->
+            <article class="lesson-card">
+                <div class="lesson-header">
+                    <div class="lesson-number">6</div>
+                    <div>
+                        <h2 class="lesson-title">JavaScript Parte 2</h2>
+                        <p class="lesson-subtitle">Conceitos Avançados</p>
+                    </div>
+                </div>
+                <p class="lesson-description">
+                    JavaScript avançado com objetos, arrays, BOM, DOM e manipulação de eventos para interatividade completa.
+                </p>
+                <ul class="topics-list">
+                    <li>Tipos de Dados Avançados</li>
+                    <li>Funções Avançadas</li>
+                    <li>Browser Object Model (BOM)</li>
+                    <li>Document Object Model (DOM)</li>
+                    <li>Eventos e Interatividade</li>
+                </ul>
+                <a href="16_06-JAVASCRIPT_2/index.html" class="lesson-link">
+                    🚀 Acessar Aula 6
+                </a>
+            </article>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>💻 Curso de Aplicações Web e Móveis - Desenvolvido com dedicação para o aprendizado completo</p>
+        </footer>
+    </div>
+
+    <script>
+        // Adicionar interatividade sutil
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animação suave ao carregar
+            const cards = document.querySelectorAll('.lesson-card');
+            cards.forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                
+                setTimeout(() => {
+                    card.style.transition = 'all 0.6s ease';
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, index * 100);
+            });
+
+            // Efeito hover nos cards
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-4px)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                });
+            });
+
+            // Atualizar estatísticas dinamicamente
+            const statNumbers = document.querySelectorAll('.stat-number');
+            statNumbers.forEach(stat => {
+                const finalValue = stat.textContent;
+                if (finalValue !== '∞') {
+                    let currentValue = 0;
+                    const increment = parseInt(finalValue.replace('+', '')) / 20;
+                    
+                    const timer = setInterval(() => {
+                        currentValue += increment;
+                        if (currentValue >= parseInt(finalValue.replace('+', ''))) {
+                            stat.textContent = finalValue;
+                            clearInterval(timer);
+                        } else {
+                            stat.textContent = Math.floor(currentValue) + (finalValue.includes('+') ? '+' : '');
+                        }
+                    }, 50);
+                }
+            });
+        });
+    </script>
+</body>
+</html>

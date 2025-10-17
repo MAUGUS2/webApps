@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌳 Árvore DOM - CSS Aula 3</title>
+    <style>
+        /* =====================================
+           🎨 CONFIGURAÇÃO GLOBAL E BASE
+           ===================================== */
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box; /* Facilita cálculos de layout */
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            line-height: 1.6;
+            color: #333;
+            /* Gradiente de fundo para ambiente visual agradável */
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        /* =====================================
+           📦 CONTAINER PRINCIPAL
+           ===================================== */
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            /* Efeito glassmorphism moderno */
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+        }
+
+        /* =====================================
+           🎯 HIERARQUIA DE TÍTULOS
+           ===================================== */
+        
+        h1 {
+            text-align: center;
+            color: #764ba2;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            /* Animação sutil no título */
+            animation: titleGlow 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes titleGlow {
+            from { text-shadow: 2px 2px 4px rgba(0,0,0,0.1); }
+            to { text-shadow: 2px 2px 15px rgba(118, 75, 162, 0.3); }
+        }
+
+        h2 {
+            color: #667eea;
+            margin: 30px 0 20px 0;
+            font-size: 1.8em;
+            border-left: 5px solid #667eea;
+            padding-left: 15px;
+        }
+
+        h3 {
+            color: #764ba2;
+            margin: 25px 0 15px 0;
+            font-size: 1.4em;
+        }
+
+        /* =====================================
+           💡 SISTEMA DE ALERTAS E DESTAQUE
+           ===================================== */
+        
+        .alert {
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 10px;
+            border-left: 5px solid;
+        }
+
+        .alert-info {
+            background: #e1f5fe;
+            border-color: #0288d1;
+            color: #01579b;
+        }
+
+        .alert-tip {
+            background: #f3e5f5;
+            border-color: #8e24aa;
+            color: #4a148c;
+        }
+
+        .alert-example {
+            background: #e8f5e8;
+            border-color: #4caf50;
+            color: #1b5e20;
+        }
+
+        .alert-warning {
+            background: #fff8e1;
+            border-color: #ffa000;
+            color: #e65100;
+        }
+
+        /* =====================================
+           🎯 SEÇÃO DE DEMONSTRAÇÃO PRÁTICA
+           ===================================== */
+        
+        .demo-section {
+            background: #f8f9fa;
+            border: 2px dashed #667eea;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 25px 0;
+            position: relative;
+        }
+
+        .demo-section::before {
+            content: "🎯 DEMONSTRAÇÃO PRÁTICA";
+            position: absolute;
+            top: -12px;
+            left: 20px;
+            background: #667eea;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            font-weight: bold;
+        }
+
+        /* =====================================
+           🌳 VISUALIZAÇÕES DA ÁRVORE DOM
+           ===================================== */
+        
+        .dom-tree-showcase {
+            display: grid;
+            gap: 30px;
+            margin: 30px 0;
+        }
+
+        /* Demonstração Pai-Filho */
+        .demo-pai-filho {
+            background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+            border: 3px solid #1976d2;
+            border-radius: 15px;
+            padding: 25px;
+            position: relative;
+            box-shadow: 0 8px 25px rgba(25, 118, 210, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .demo-pai-filho:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 35px rgba(25, 118, 210, 0.3);
+        }
+
+        .demo-pai-filho::before {
+            content: "🏠 ELEMENTO PAI (ul)";
+            position: absolute;
+            top: -15px;
+            left: 20px;
+            background: #1976d2;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(25, 118, 210, 0.3);
+        }
+
+        .demo-pai-filho li {
+            background: linear-gradient(135deg, #fff3e0, #ffe0b2);
+            border: 3px solid #f57c00;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 15px 0;
+            position: relative;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .demo-pai-filho li:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(245, 124, 0, 0.3);
+        }
+
+        .demo-pai-filho li::before {
+            content: "👶 FILHO (li)";
+            position: absolute;
+            top: -12px;
+            right: 10px;
+            background: #f57c00;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.8em;
+            font-weight: bold;
+        }
+
+        /* Demonstração Ancestral-Descendente */
+        .demo-ancestral {
+            background: linear-gradient(135deg, #e8f5e8, #c8e6c9);
+            border: 3px solid #388e3c;
+            border-radius: 15px;
+            padding: 25px;
+            position: relative;
+            box-shadow: 0 8px 25px rgba(56, 142, 60, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .demo-ancestral:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 35px rgba(56, 142, 60, 0.3);
+        }
+
+        .demo-ancestral::before {
+            content: "🌳 ANCESTRAL (div)";
+            position: absolute;
+            top: -15px;
+            left: 20px;
+            background: #388e3c;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(56, 142, 60, 0.3);
+        }
+
+        .demo-intermediario {
+            background: linear-gradient(135deg, #fff3e0, #ffcc02);
+            border: 2px solid #ff8f00;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .demo-intermediario:hover {
+            transform: scale(1.02);
+        }
+
+        .demo-intermediario::before {
+            content: "🔗 INTERMEDIÁRIO (section)";
+            position: absolute;
+            top: -12px;
+            left: 15px;
+            background: #ff8f00;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.8em;
+            font-weight: bold;
+        }
+
+        .demo-descendente {
+            background: linear-gradient(135deg, #f3e5f5, #e1bee7);
+            border: 2px solid #8e24aa;
+            border-radius: 10px;
+            padding: 15px;
+            position: relative;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .demo-descendente:hover {
+            transform: scale(1.03);
+            box-shadow: 0 4px 15px rgba(142, 36, 170, 0.3);
+        }
+
+        .demo-descendente::before {
+            content: "🎯 DESCENDENTE (p)";
+            position: absolute;
+            top: -12px;
+            right: 10px;
+            background: #8e24aa;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.8em;
+            font-weight: bold;
+        }
+
+        /* Demonstração Irmãos */
+        .demo-irmaos {
+            background: linear-gradient(135deg, #fce4ec, #f8bbd9);
+            border: 3px solid #c2185b;
+            border-radius: 15px;
+            padding: 25px;
+            position: relative;
+            box-shadow: 0 8px 25px rgba(194, 24, 91, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .demo-irmaos:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 35px rgba(194, 24, 91, 0.3);
+        }
+
+        .demo-irmaos::before {
+            content: "👨‍👩‍👧‍👦 CONTAINER PAI";
+            position: absolute;
+            top: -15px;
+            left: 20px;
+            background: #c2185b;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(194, 24, 91, 0.3);
+        }
+
+        .irmao {
+            background: linear-gradient(135deg, #e8eaf6, #c5cae9);
+            border: 2px solid #3f51b5;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 15px 10px;
+            position: relative;
+            display: inline-block;
+            width: calc(50% - 20px);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .irmao:hover {
+            transform: scale(1.05) rotate(1deg);
+            box-shadow: 0 8px 25px rgba(63, 81, 181, 0.3);
+        }
+
+        .irmao::before {
+            content: "👫 IRMÃO";
+            position: absolute;
+            top: -12px;
+            left: 10px;
+            background: #3f51b5;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.8em;
+            font-weight: bold;
+        }
+
+        /* =====================================
+           🎮 SELETORES INTERATIVOS
+           ===================================== */
+        
+        .seletores-showcase {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+
+        .seletor-card {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .seletor-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+        }
+
+        .seletor-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+        }
+
+        .seletor-title {
+            color: #667eea;
+            font-size: 1.1em;
+            font-weight: bold;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .seletor-exemplo {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px 0;
+            position: relative;
+        }
+
+        /* Aplicação dos seletores nos exemplos */
+        .seletor-pai-filho ul > li {
+            color: #1976d2;
+            font-weight: bold;
+            background: rgba(25, 118, 210, 0.1);
+            padding: 8px;
+            border-radius: 5px;
+            margin: 5px 0;
+        }
+
+        .seletor-ancestral-descendente div p {
+            font-weight: bold;
+            color: #388e3c;
+            background: rgba(56, 142, 60, 0.1);
+            padding: 8px;
+            border-radius: 5px;
+        }
+
+        .seletor-irmao-adjacente li + li {
+            margin-top: 12px;
+            border-top: 2px solid #f57c00;
+            padding-top: 12px;
+            background: rgba(245, 124, 0, 0.1);
+        }
+
+        .seletor-irmao-geral h4 ~ p {
+            color: #8e24aa;
+            font-style: italic;
+            background: rgba(142, 36, 170, 0.1);
+            padding: 8px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+
+        /* =====================================
+           💻 CÓDIGO E EXPLICAÇÕES
+           ===================================== */
+        
+        .code-block {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 20px;
+            border-radius: 10px;
+            overflow-x: auto;
+            overflow-y: auto;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85em;
+            line-height: 1.5;
+            position: relative;
+            max-height: 400px;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        .code-block::before {
+            content: "💻 CÓDIGO CSS";
+            position: absolute;
+            top: -12px;
+            right: 15px;
+            background: #4a5568;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.8em;
+            font-weight: bold;
+        }
+
+        .code-explanation {
+            background: #f8f9fa;
+            border-left: 4px solid #667eea;
+            padding: 15px;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            border-radius: 5px;
+        }
+
+        /* =====================================
+           📊 TABELA DE REFERÊNCIA
+           ===================================== */
+        
+        .reference-table {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            margin: 25px 0;
+        }
+
+        .reference-table table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .reference-table th {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 15px;
+            font-weight: bold;
+            text-align: left;
+        }
+
+        .reference-table td {
+            padding: 15px;
+            border-bottom: 1px solid #f0f0f0;
+            transition: all 0.3s ease;
+        }
+
+        .reference-table tr:hover td {
+            background: #f8f9ff;
+            color: #667eea;
+        }
+
+        .reference-table code {
+            background: #f0f0f0;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            color: #333;
+        }
+
+        /* =====================================
+           🧭 NAVEGAÇÃO ENTRE PÁGINAS
+           ===================================== */
+        
+        .navigation {
+            text-align: center;
+            margin: 30px 0;
+            padding: 20px;
+            background: rgba(102, 126, 234, 0.1);
+            border-radius: 15px;
+        }
+
+        .navigation a {
+            display: inline-block;
+            margin: 0 10px;
+            padding: 12px 24px;
+            background: #667eea;
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            font-weight: bold;
+        }
+
+        .navigation a:hover {
+            background: #764ba2;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(118, 75, 162, 0.3);
+        }
+
+        /* =====================================
+           📱 RESPONSIVIDADE
+           ===================================== */
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+                margin: 10px;
+            }
+            
+            h1 {
+                font-size: 2em;
+            }
+            
+            .seletores-showcase {
+                grid-template-columns: 1fr;
+            }
+            
+            .irmao {
+                width: 100%;
+                margin: 10px 0;
+            }
+            
+            .demo-section {
+                padding: 15px;
+            }
+        }
+
+        /* =====================================
+           🎨 EFEITOS ESPECIAIS
+           ===================================== */
+        
+        .highlight-on-hover {
+            transition: all 0.3s ease;
+        }
+
+        .highlight-on-hover:hover {
+            background: rgba(102, 126, 234, 0.1);
+            border-radius: 8px;
+            padding: 10px;
+            margin: 5px 0;
+        }
+
+        /* Animação de entrada para os elementos */
+        .fade-in {
+            animation: fadeIn 0.6s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container fade-in">
+        <h1>🌳 Árvore DOM - Relações e Seletores</h1>
+        
+        <div class="alert alert-info">
+            <strong>📚 Objetivo da Aula:</strong> Compreender a estrutura hierárquica do DOM (Document Object Model) e dominar os seletores CSS baseados em relações familiares entre elementos. Esta base é fundamental para escrever CSS eficiente e bem estruturado.
+        </div>
+
+        <h2>🏠 1. Relação Pai e Filho</h2>
+        <p>No DOM, um elemento <strong>pai</strong> contém outros elementos diretamente, chamados de <strong>filhos</strong>. Esta é a relação mais básica e direta.</p>
+
+        <div class="demo-section">
+            <h3>🎯 Demonstração Visual Interativa:</h3>
+            <p><em>Passe o mouse sobre os elementos para ver as relações!</em></p>
+            
+            <ul class="demo-pai-filho">
+                <li class="highlight-on-hover">Item 1 - Filho direto do &lt;ul&gt;</li>
+                <li class="highlight-on-hover">Item 2 - Também filho direto do &lt;ul&gt;</li>
+                <li class="highlight-on-hover">Item 3 - Outro filho do mesmo pai</li>
+            </ul>
+
+            <div class="code-block">
+/* 🎯 Seletor Pai > Filho (Direto) */
+ul > li {
+  color: #1976d2;
+  font-weight: bold;
+  background: rgba(25, 118, 210, 0.1);
+  padding: 8px;
+  border-radius: 5px;
+  margin: 5px 0;
+}
+
+/* ⚠️ IMPORTANTE: > seleciona APENAS filhos DIRETOS */</div>
+
+            <div class="code-explanation">
+                <strong>🔍 Como Funciona:</strong><br>
+                • O seletor <code>ul > li</code> aplica estilos <strong>apenas</strong> aos elementos <code>&lt;li&gt;</code> que são filhos <strong>diretos</strong> de <code>&lt;ul&gt;</code><br>
+                • Se houvesse um <code>&lt;li&gt;</code> dentro de outro elemento, ele <strong>não</strong> seria afetado<br>
+                • É mais específico que o seletor de descendente simples<br>
+                • Use <code>></code> quando a estrutura HTML for conhecida e fixa
+            </div>
+        </div>
+
+        <h2>🌳 2. Relação Ancestral e Descendente</h2>
+        <p>Um <strong>ancestral</strong> é qualquer elemento que contém outro, independente do nível. Um <strong>descendente</strong> está em qualquer lugar dentro do ancestral.</p>
+
+        <div class="demo-section">
+            <h3>🎯 Hierarquia de Múltiplos Níveis:</h3>
+            
+            <div class="demo-ancestral">
+                <div class="demo-intermediario">
+                    <div class="demo-descendente highlight-on-hover">
+                        Este parágrafo é <strong>descendente</strong> do div maior (ancestral), mesmo estando em níveis diferentes!
+                    </div>
+                </div>
+            </div>
+
+            <div class="code-block">
+/* 🌳 Seletor Ancestral Descendente (Espaço) */
+div p {
+  font-weight: bold;
+  color: #388e3c;
+  background: rgba(56, 142, 60, 0.1);
+  padding: 8px;
+  border-radius: 5px;
+}
+
+/* 🔍 NOTA: Seleciona TODOS os <p> dentro de 
+   QUALQUER <div>, em qualquer nível */</div>
+
+            <div class="code-explanation">
+                <strong>🎯 Diferença Fundamental:</strong><br>
+                • <code>div > p</code> - Apenas filhos <strong>diretos</strong><br>
+                • <code>div p</code> - <strong>Todos</strong> os descendentes (qualquer nível)<br>
+                • Use o espaço quando não souber a estrutura exata<br>
+                • Use <code>></code> quando quiser ser mais específico
+            </div>
+        </div>
+
+        <h2>👫 3. Relação entre Irmãos</h2>
+        <p>Elementos <strong>irmãos</strong> compartilham o mesmo pai e estão no mesmo nível hierárquico, como irmãos em uma família.</p>
+
+        <div class="demo-section">
+            <h3>🎯 Demonstração de Elementos Irmãos:</h3>
+            
+            <div class="demo-irmaos">
+                <div class="irmao highlight-on-hover">Primeiro Irmão</div>
+                <div class="irmao highlight-on-hover">Segundo Irmão</div>
+            </div>
+
+            <div class="code-block">
+/* 👫 Seletor de Irmão Adjacente (+) */
+li + li {
+  margin-top: 12px;
+  border-top: 2px solid #f57c00;
+  padding-top: 12px;
+  background: rgba(245, 124, 0, 0.1);
+}
+
+/* 👥 Seletor de Irmãos Gerais (~) */
+h3 ~ p {
+  color: #8e24aa;
+  font-style: italic;
+  background: rgba(142, 36, 170, 0.1);
+  padding: 8px;
+  border-radius: 5px;
+}</div>
+
+            <div class="code-explanation">
+                <strong>⚡ Dois Tipos de Seletores de Irmãos:</strong><br>
+                • <code>+</code> (adjacente) - Seleciona <strong>apenas o próximo</strong> irmão imediato<br>
+                • <code>~</code> (geral) - Seleciona <strong>todos os irmãos</strong> que vêm depois<br>
+                • Ambos requerem que os elementos sejam irmãos (mesmo pai)<br>
+                • Úteis para criar espaçamentos e separações visuais
+            </div>
+        </div>
+
+        <h2>🎮 4. Playground Interativo de Seletores</h2>
+        
+        <div class="demo-section">
+            <h3>🚀 Teste os Seletores em Ação:</h3>
+            <p><em>Cada card demonstra um tipo de seletor diferente!</em></p>
+            
+            <div class="seletores-showcase">
+                <div class="seletor-card">
+                    <div class="seletor-title">
+                        🏠 Pai > Filho
+                        <code>ul > li</code>
+                    </div>
+                    <div class="seletor-exemplo seletor-pai-filho">
+                        <ul>
+                            <li>Item direto</li>
+                            <li>Outro item direto</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="seletor-card">
+                    <div class="seletor-title">
+                        🌳 Ancestral Descendente
+                        <code>div p</code>
+                    </div>
+                    <div class="seletor-exemplo seletor-ancestral-descendente">
+                        <div>
+                            <p>Descendente em qualquer nível</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="seletor-card">
+                    <div class="seletor-title">
+                        👫 Irmão Adjacente
+                        <code>li + li</code>
+                    </div>
+                    <div class="seletor-exemplo seletor-irmao-adjacente">
+                        <ul>
+                            <li>Primeiro item</li>
+                            <li>Segundo item (com estilo)</li>
+                            <li>Terceiro item (com estilo)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="seletor-card">
+                    <div class="seletor-title">
+                        👥 Irmãos Gerais
+                        <code>h4 ~ p</code>
+                    </div>
+                    <div class="seletor-exemplo seletor-irmao-geral">
+                        <h4>Título de exemplo</h4>
+                        <p>Primeiro parágrafo após o título</p>
+                        <p>Segundo parágrafo também estilizado</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <h2>📊 5. Tabela de Referência Completa</h2>
+        
+        <div class="reference-table">
+            <table>
+                <thead>
+                    <tr>
+                        <th>🎯 Relacionamento</th>
+                        <th>📝 Sintaxe</th>
+                        <th>🔍 Exemplo</th>
+                        <th>📖 Descrição</th>
+                        <th>⚡ Quando Usar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Pai → Filho</strong></td>
+                        <td><code>A > B</code></td>
+                        <td><code>ul > li</code></td>
+                        <td>Seleciona apenas filhos diretos</td>
+                        <td>Estruturas específicas conhecidas</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Ancestral → Descendente</strong></td>
+                        <td><code>A B</code></td>
+                        <td><code>div p</code></td>
+                        <td>Seleciona descendentes em qualquer nível</td>
+                        <td>Estruturas flexíveis e variáveis</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Irmão Adjacente</strong></td>
+                        <td><code>A + B</code></td>
+                        <td><code>h1 + p</code></td>
+                        <td>Seleciona o próximo irmão imediato</td>
+                        <td>Espaçamentos específicos</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Irmãos Gerais</strong></td>
+                        <td><code>A ~ B</code></td>
+                        <td><code>h1 ~ p</code></td>
+                        <td>Seleciona todos os irmãos seguintes</td>
+                        <td>Grupos de elementos relacionados</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="alert alert-tip">
+            <strong>🚀 Dicas de Performance:</strong>
+            <ul>
+                <li><strong>Seja específico:</strong> Use seletores mais diretos quando possível</li>
+                <li><strong>Evite cascatas longas:</strong> <code>div div div p</code> é lento</li>
+                <li><strong>Use classes:</strong> Para elementos reutilizáveis</li>
+                <li><strong>Combine seletores:</strong> <code>.menu > li</code> é mais eficiente</li>
+            </ul>
+        </div>
+
+        <div class="alert alert-example">
+            <strong>🎯 Aplicações Práticas:</strong>
+            <ul>
+                <li><strong>Navegação:</strong> <code>nav > ul > li</code> para menus</li>
+                <li><strong>Artigos:</strong> <code>article h2 ~ p</code> para parágrafos após títulos</li>
+                <li><strong>Formulários:</strong> <code>label + input</code> para campos relacionados</li>
+                <li><strong>Cards:</strong> <code>.card > .header</code> para componentes</li>
+            </ul>
+        </div>
+
+        <div class="alert alert-warning">
+            <strong>⚠️ Armadilhas Comuns:</strong>
+            <ul>
+                <li><strong>Ordem importa:</strong> <code>A + B</code> não é igual a <code>B + A</code></li>
+                <li><strong>Caso específico:</strong> Seletores CSS são case-sensitive em algumas situações</li>
+                <li><strong>Performance:</strong> Seletores complexos demais podem ser lentos</li>
+                <li><strong>Manutenção:</strong> Estruturas muito específicas são frágeis</li>
+            </ul>
+        </div>
+
+        <div class="navigation">
+            <a href="index.html">🏠 Início</a>
+            <a href="02-pseudoclasses-pseudoelementos.html">➡️ Próximo: Pseudoclasses</a>
+        </div>
+    </div>
+
+    <script>
+        // Adiciona interatividade aos elementos demonstrativos
+        document.addEventListener('DOMContentLoaded', function() {
+            // Adiciona efeitos de hover melhorados
+            const hoverElements = document.querySelectorAll('.highlight-on-hover');
+            
+            hoverElements.forEach(element => {
+                element.addEventListener('mouseenter', function() {
+                    this.style.transform = 'scale(1.05)';
+                    this.style.transition = 'all 0.3s ease';
+                });
+                
+                element.addEventListener('mouseleave', function() {
+                    this.style.transform = 'scale(1)';
+                });
+            });
+
+            // Adiciona animação de entrada sequencial para os cards
+            const seletorCards = document.querySelectorAll('.seletor-card');
+            seletorCards.forEach((card, index) => {
+                card.style.animationDelay = `${index * 0.1}s`;
+                card.classList.add('fade-in');
+            });
+
+            // Adiciona tooltips informativos
+            const codeBlocks = document.querySelectorAll('.code-block');
+            codeBlocks.forEach(block => {
+                block.addEventListener('click', function() {
+                    const tooltip = document.createElement('div');
+                    tooltip.textContent = '💡 Código copiado para análise!';
+                    tooltip.style.cssText = `
+                        position: fixed;
+                        top: 20px;
+                        right: 20px;
+                        background: #4caf50;
+                        color: white;
+                        padding: 10px 15px;
+                        border-radius: 5px;
+                        z-index: 1000;
+                        animation: fadeIn 0.3s ease;
+                    `;
+                    document.body.appendChild(tooltip);
+                    
+                    setTimeout(() => {
+                        document.body.removeChild(tooltip);
+                    }, 2000);
+                });
+            });
+
+            // Adiciona efeito de destaque ao scroll
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.animation = 'fadeIn 0.6s ease-in';
+                    }
+                });
+            });
+
+            document.querySelectorAll('.demo-section').forEach(section => {
+                observer.observe(section);
+            });
+        });
+    </script>
+</body>
+</html> 

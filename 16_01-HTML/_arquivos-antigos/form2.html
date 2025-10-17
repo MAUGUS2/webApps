@@ -1,0 +1,127 @@
+<!-- ============================================================= -->
+<!-- = FORMULÁRIOS AVANÇADOS EM HTML                             = -->
+<!-- = Campos agrupados, múltiplas seleções e acessibilidade     = -->
+<!-- ============================================================= -->
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Formulário Avançado</title>
+</head>
+<body>
+
+<form action="enviar.php" method="POST">
+
+  <!-- ============================================================= -->
+  <!-- = FORMULÁRIO BÁSICO: TEXTO E SENHA                          = -->
+  <!-- ============================================================= -->
+
+  <fieldset>
+    <legend>FORMULÁRIO Types</legend><br>
+
+    <label for="nome">Nome:</label>
+    <input type="text" name="nome" value="Digite seu nome" size="50" maxlength="50">
+    <br><br>
+
+    <label for="senha">Senha:</label>
+    <input type="password" name="senha" value="" size="20" maxlength="8">
+    <br><br>
+  </fieldset>
+
+  <!-- ============================================================= -->
+  <!-- = CHECKBOXES: SELEÇÃO MÚLTIPLA                              = -->
+  <!-- ============================================================= -->
+
+  <fieldset>
+    <legend>Linguagens de Interesse</legend><br>
+
+    <label>
+      <input type="checkbox" name="linguagem[]" value="cbuilder"> C++
+    </label>
+
+    <label>
+      <input type="checkbox" name="linguagem[]" value="php" checked> PHP
+    </label>
+
+    <label>
+      <input type="checkbox" name="linguagem[]" value="delphi"> Delphi
+    </label>
+    <br><br>
+  </fieldset>
+
+  <!-- ============================================================= -->
+  <!-- = RADIO: ESCOLHA EXCLUSIVA ENTRE OPÇÕES                     = -->
+  <!-- ============================================================= -->
+
+  <fieldset>
+    <legend>Linguagem que irá cursar agora</legend><br>
+
+    <label>
+      <input type="radio" name="curso" value="cbuilder"> C++
+    </label>
+
+    <label>
+      <input type="radio" name="curso" value="php" checked> PHP
+    </label>
+
+    <label>
+      <input type="radio" name="curso" value="delphi"> Delphi
+    </label>
+    <br><br>
+  </fieldset>
+
+  <!-- ============================================================= -->
+  <!-- = SELECT (dropdown) - ESCOLHA ÚNICA                         = -->
+  <!-- ============================================================= -->
+
+  <fieldset>
+    <legend>Cursos que já fez na escola</legend><br>
+
+    <label for="escola">Escolha:</label>
+    <select name="escola" id="escola">
+      <option value="bcb">C++Builder</option>
+      <option value="php" selected>PHP</option>
+      <option value="delphi">Delphi</option>
+    </select>
+  </fieldset>
+
+  <br>
+
+  <!-- ============================================================= -->
+  <!-- = SELECT MÚLTIPLO                                           = -->
+  <!-- ============================================================= -->
+
+  <fieldset>
+    <legend>Linguagens que já domina</legend><br>
+
+    <select name="D1" size="10" multiple>
+      <option value="bcb">C++Builder</option>
+      <option value="php" selected>PHP</option>
+      <option value="delphi">Delphi</option>
+    </select>
+  </fieldset>
+
+  <br>
+
+  <!-- ============================================================= -->
+  <!-- = TEXTAREA                                                  = -->
+  <!-- ============================================================= -->
+
+  <label for="mensagem">Mensagem:</label><br><br>
+  <textarea name="opiniao" rows="5" cols="40">Digite aqui sua msg...</textarea>
+
+  <br><br>
+
+  <!-- ============================================================= -->
+  <!-- = BOTÃO DE ENVIO                                            = -->
+  <!-- ============================================================= -->
+
+  <input name="Submit" type="submit" id="Submit" value="Enviar">
+
+</form>
+
+</body>
+</html>

@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>⚡ CSS - Float, Clear, Block e Inline</title>
+<!-- Usando CSS interno para ser mais didático e fácil de entender -->
+    <style>
+        * { 
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Courier New', Courier, monospace;
+            background-color: #454158;
+            color: #fff;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .navegacao {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .navegacao a {
+            color: #FF80BF;
+            text-decoration: none;
+            margin: 0 15px;
+        }
+
+        .navegacao a:hover {
+            color: #8AFF80;
+        }
+
+        /* ============================================================= */
+        /* = FLOAT                                                     = */
+        /* ============================================================= */
+        /* Float remove o elemento do fluxo normal e o posiciona à 
+           esquerda ou direita do contêiner, permitindo que o conteúdo
+           flua ao seu redor.
+           
+           Valores possíveis:
+           - left: flutua à esquerda
+           - right: flutua à direita  
+           - none: comportamento padrão (não flutua)
+        */
+
+        .container-float {
+            background-color: #22212C;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            overflow: hidden; /* Clearfix simples */
+        }
+
+        .float-left {
+            float: left;
+            width: 200px;
+            height: 120px;
+            background-color: #FF80BF;
+            color: #000;
+            padding: 15px;
+            margin: 0 15px 15px 0;
+            border-radius: 8px;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .float-right {
+            float: right;
+            width: 180px;
+            height: 100px;
+            background-color: #8AFF80;
+            color: #000;
+            padding: 15px;
+            margin: 0 0 15px 15px;
+            border-radius: 8px;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .texto-float {
+            text-align: justify;
+            line-height: 1.8;
+        }
+
+        /* ============================================================= */
+        /* = CLEAR                                                     = */
+        /* ============================================================= */
+        /* Clear evita que um elemento seja renderizado ao lado de 
+           elementos flutuados específicos.
+           
+           Valores:
+           - left: não flutua nada à esquerda
+           - right: não flutua nada à direita
+           - both: não flutua nada em ambos os lados
+           - none: valor padrão
+        */
+
+        .clear-example {
+            background-color: #22212C;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+
+        .item-float {
+            float: left;
+            width: 150px;
+            height: 80px;
+            background-color: #ffb86c;
+            color: #000;
+            margin: 0 10px 10px 0;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .clear-left {
+            clear: left;
+            background-color: #FF80BF;
+            color: #000;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+        }
+
+        .clear-both {
+            clear: both;
+            background-color: #8AFF80;
+            color: #000;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+        }
+
+        /* ============================================================= */
+        /* = CLEARFIX                                                  = */
+        /* ============================================================= */
+        /* Clearfix é uma técnica para fazer o elemento pai "envolver"
+           seus filhos flutuados, evitando que o contêiner colapse */
+
+        .clearfix::after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+
+        .sem-clearfix {
+            background-color: #22212C;
+            border: 2px dashed #FF80BF;
+            margin: 20px 0;
+            padding: 10px;
+        }
+
+        .com-clearfix {
+            background-color: #22212C;
+            border: 2px solid #8AFF80;
+            margin: 20px 0;
+            padding: 10px;
+        }
+
+        .filho-float {
+            float: left;
+            width: 120px;
+            height: 80px;
+            background-color: #ffb86c;
+            color: #000;
+            margin: 5px;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* ============================================================= */
+        /* = ELEMENTOS BLOCK                                           = */
+        /* ============================================================= */
+        /* Elementos block ocupam toda a largura disponível por padrão
+           e começam em uma nova linha.
+           
+           Características:
+           - Respeitam width, height, margin e padding
+           - Ocupam largura total por padrão
+           - Empilham verticalmente
+           
+           Exemplos: div, p, h1-h6, ul, ol, li, form, etc.
+        */
+
+        .exemplo-block {
+            background-color: #22212C;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+
+        .elemento-block {
+            display: block;
+            background-color: #FF80BF;
+            color: #000;
+            padding: 15px;
+            margin: 10px 0;
+            width: 70%; /* Largura específica */
+            border-radius: 5px;
+        }
+
+        /* ============================================================= */
+        /* = ELEMENTOS INLINE                                          = */
+        /* ============================================================= */
+        /* Elementos inline não começam em nova linha e ocupam apenas
+           o espaço necessário ao seu conteúdo.
+           
+           Limitações:
+           - width e height não têm efeito
+           - margin vertical não afeta layout
+           - padding vertical pode sobrepor outros elementos
+           
+           Exemplos: span, a, strong, em, code, img, etc.
+        */
+
+        .exemplo-inline {
+            background-color: #22212C;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+
+        .elemento-inline {
+            display: inline;
+            background-color: #8AFF80;
+            color: #000;
+            padding: 8px 12px;
+            margin: 0 5px;
+            border-radius: 3px;
+        }
+
+        /* ============================================================= */
+        /* = INLINE-BLOCK                                             = */
+        /* ============================================================= */
+        /* Inline-block combina características dos dois:
+           - Flui como inline (não quebra linha)
+           - Aceita dimensões como block (width, height, margins)
+        */
+
+        .elemento-inline-block {
+            display: inline-block;
+            background-color: #ffb86c;
+            color: #000;
+            padding: 15px;
+            margin: 10px;
+            width: 120px;
+            height: 80px;
+            border-radius: 5px;
+            text-align: center;
+            vertical-align: top;
+        }
+
+        /* ============================================================= */
+        /* = COMPARAÇÃO VISUAL                                        = */
+        /* ============================================================= */
+
+        .comparacao-display {
+            background-color: #22212C;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+
+        .linha-exemplo {
+            margin: 15px 0;
+            padding: 10px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+        }
+
+        /* ============================================================= */
+        /* = TÍTULOS E ORGANIZAÇÃO                                    = */
+        /* ============================================================= */
+        h1, h2 {
+            text-align: center;
+            margin: 30px 0 20px 0;
+        }
+
+        h1 {
+            color: #8AFF80;
+            font-size: 28px;
+        }
+
+        h2 {
+            color: #FF80BF;
+            font-size: 20px;
+            border-bottom: 2px solid #FF80BF;
+            padding-bottom: 10px;
+        }
+
+        .secao {
+            margin: 40px 0;
+        }
+
+        .codigo-exemplo {
+            background-color: #454158;
+            border-left: 4px solid #8AFF80;
+            padding: 15px;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+            border-radius: 5px;
+            white-space: pre-wrap;
+            line-height: 1.8;
+        }
+
+        .destaque {
+            background-color: #ffb86c;
+            color: #000;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+
+        .aviso {
+            background-color: rgba(255, 128, 191, 0.2);
+            border: 1px solid #FF80BF;
+            color: #FF80BF;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="navegacao">
+    <a href="index.html">🏠 Início</a>
+    <a href="03-dimensoes-texto.html">⬅️ Anterior</a>
+    <a href="05-display-position.html">➡️ Próximo</a>
+</div>
+
+<h1>⚡ Float, Clear, Block e Inline</h1>
+
+<div class="aviso">
+    <strong>⚠️ Nota Importante:</strong> Float era amplamente usado para layouts antes do Flexbox e Grid. Hoje é usado principalmente para flutuar imagens dentro de texto.
+</div>
+
+<div class="secao">
+    <h2>🌊 Float</h2>
+    
+    <div class="codigo-exemplo">
+/* Float básico */
+.esquerda { float: left; }     /* Flutua à esquerda */
+.direita { float: right; }     /* Flutua à direita */
+.normal { float: none; }       /* Comportamento padrão */
+
+/* Dica: Sempre defina width em elementos flutuados */
+.sidebar {
+    float: left;
+    width: 250px;
+}
+    </div>
+
+    <div class="container-float">
+        <div class="float-left">
+            <strong>Float Left</strong><br>
+            Elemento flutuado à esquerda
+        </div>
+        <div class="float-right">
+            <strong>Float Right</strong><br>
+            Flutuado à direita
+        </div>
+        <div class="texto-float">
+            Este texto flui ao redor dos elementos flutuados. Float remove os elementos do fluxo normal do documento, permitindo que o conteúdo subsequente flua ao seu redor. É importante notar que elementos flutuados podem causar problemas de layout se não forem gerenciados adequadamente. O texto continua fluindo e se adapta aos espaços disponíveis ao redor dos elementos flutuados, criando um efeito de "envolvimento" que era muito utilizado em layouts de jornais e revistas.
+        </div>
+    </div>
+</div>
+
+<div class="secao">
+    <h2>🚫 Clear</h2>
+    
+    <div class="codigo-exemplo">
+/* Clear evita que elementos fiquem ao lado de floats */
+.limpar-esquerda { clear: left; }    /* Não permite floats à esquerda */
+.limpar-direita { clear: right; }    /* Não permite floats à direita */
+.limpar-ambos { clear: both; }       /* Não permite floats em ambos lados */
+    </div>
+
+    <div class="clear-example">
+        <div class="item-float">Float 1</div>
+        <div class="item-float">Float 2</div>
+        <div class="item-float">Float 3</div>
+        
+        <div class="clear-left">
+            <strong>Clear: left</strong> - Este elemento não permite floats à sua esquerda
+        </div>
+        
+        <div class="item-float">Float 4</div>
+        <div class="item-float">Float 5</div>
+        
+        <div class="clear-both">
+            <strong>Clear: both</strong> - Este elemento força uma nova linha, sem floats ao lado
+        </div>
+    </div>
+</div>
+
+<div class="secao">
+    <h2>🔧 Clearfix</h2>
+    
+    <div class="codigo-exemplo">
+/* Clearfix - força o pai a "envolver" filhos flutuados */
+.clearfix::after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+/* Alternativa moderna */
+.clearfix {
+    overflow: hidden;
+}
+    </div>
+
+    <div class="sem-clearfix">
+        <h4 style="color: #FF80BF;">SEM Clearfix (contêiner colapsa)</h4>
+        <div class="filho-float">Float 1</div>
+        <div class="filho-float">Float 2</div>
+        <div class="filho-float">Float 3</div>
+    </div>
+
+    <div class="com-clearfix clearfix">
+        <h4 style="color: #8AFF80;">COM Clearfix (contêiner envolve)</h4>
+        <div class="filho-float">Float 1</div>
+        <div class="filho-float">Float 2</div>
+        <div class="filho-float">Float 3</div>
+    </div>
+
+    <div class="destaque">
+        <strong>💡 Dica:</strong> Use <code>overflow: hidden;</code> no pai como clearfix simples, ou a técnica <code>::after</code> para casos mais complexos.
+    </div>
+</div>
+
+<div class="secao">
+    <h2>🧱 Elementos Block</h2>
+    
+    <div class="codigo-exemplo">
+/* Características dos elementos BLOCK */
+display: block;
+
+/* Propriedades que funcionam: */
+width: 300px;      ✅ Funciona
+height: 100px;     ✅ Funciona  
+margin: 20px;      ✅ Funciona (todos os lados)
+padding: 15px;     ✅ Funciona (todos os lados)
+
+/* Comportamento: */
+- Ocupam largura total do pai (por padrão)
+- Iniciam em nova linha
+- Empilham verticalmente
+    </div>
+
+    <div class="exemplo-block">
+        <div class="elemento-block">Elemento Block 1 - Largura: 70%</div>
+        <div class="elemento-block">Elemento Block 2 - Cada um em sua linha</div>
+        <div class="elemento-block">Elemento Block 3 - Respeitam width e height</div>
+    </div>
+</div>
+
+<div class="secao">
+    <h2>📝 Elementos Inline</h2>
+    
+    <div class="codigo-exemplo">
+/* Características dos elementos INLINE */
+display: inline;
+
+/* Propriedades que NÃO funcionam: */
+width: 300px;      ❌ Ignorado
+height: 100px;     ❌ Ignorado
+margin-top: 20px;  ❌ Não afeta layout
+margin-bottom: 20px; ❌ Não afeta layout
+
+/* Propriedades que funcionam: */
+margin-left: 10px;   ✅ Funciona
+margin-right: 10px;  ✅ Funciona  
+padding: 5px;        ✅ Funciona (mas pode sobrepor)
+    </div>
+
+    <div class="exemplo-inline">
+        <p>Elementos inline fluem no mesmo parágrafo: 
+        <span class="elemento-inline">Inline 1</span>
+        <span class="elemento-inline">Inline 2</span>
+        <span class="elemento-inline">Inline 3</span>
+        e continuam na mesma linha quando há espaço.</p>
+    </div>
+</div>
+
+<div class="secao">
+    <h2>🔄 Inline-Block</h2>
+    
+    <div class="codigo-exemplo">
+/* INLINE-BLOCK - melhor dos dois mundos */
+display: inline-block;
+
+/* Combina características: */
+✅ Flui como inline (mesma linha)
+✅ Aceita width e height como block
+✅ Respeita margins em todos os lados
+✅ Útil para menus, botões, cards
+    </div>
+
+    <div class="exemplo-inline">
+        <div class="elemento-inline-block">
+            Card 1<br>
+            120px × 80px
+        </div>
+        <div class="elemento-inline-block">
+            Card 2<br>
+            120px × 80px
+        </div>
+        <div class="elemento-inline-block">
+            Card 3<br>
+            120px × 80px
+        </div>
+    </div>
+
+    <div class="destaque">
+        <strong>🎯 Uso comum:</strong> Inline-block é perfeito para criar menus horizontais, grids simples de cards ou qualquer layout onde você quer elementos lado a lado com controle total de dimensões.
+    </div>
+</div>
+
+<div class="secao">
+    <h2>📊 Comparação Visual</h2>
+    
+    <div class="comparacao-display">
+        <div class="linha-exemplo">
+            <strong style="color: #8AFF80;">Block:</strong> 
+            <div style="display: block; background: #FF80BF; color: #000; padding: 10px; margin: 5px 0; width: 200px;">Elemento Block</div>
+            <div style="display: block; background: #FF80BF; color: #000; padding: 10px; margin: 5px 0; width: 150px;">Outro Block</div>
+        </div>
+
+        <div class="linha-exemplo">
+            <strong style="color: #8AFF80;">Inline:</strong> 
+            <span style="display: inline; background: #8AFF80; color: #000; padding: 5px; margin: 0 5px;">Inline 1</span>
+            <span style="display: inline; background: #8AFF80; color: #000; padding: 5px; margin: 0 5px;">Inline 2</span>
+            <span style="display: inline; background: #8AFF80; color: #000; padding: 5px; margin: 0 5px;">Inline 3</span>
+        </div>
+
+        <div class="linha-exemplo">
+            <strong style="color: #8AFF80;">Inline-block:</strong> 
+            <span style="display: inline-block; background: #ffb86c; color: #000; padding: 10px; margin: 5px; width: 80px; height: 40px; text-align: center;">IB 1</span>
+            <span style="display: inline-block; background: #ffb86c; color: #000; padding: 10px; margin: 5px; width: 80px; height: 40px; text-align: center;">IB 2</span>
+            <span style="display: inline-block; background: #ffb86c; color: #000; padding: 10px; margin: 5px; width: 80px; height: 40px; text-align: center;">IB 3</span>
+        </div>
+    </div>
+</div>
+
+<br><br>
+<div class="navegacao">
+    <a href="index.html">🏠 Início</a>
+    <a href="03-dimensoes-texto.html">⬅️ Anterior</a>
+    <a href="05-display-position.html">➡️ Próximo</a>
+</div>
+
+<hr style="border-color: #FF80BF; margin: 20px 0;">
+<p style="text-align: center; color: #FF80BF;">Dev by <strong>Maugus</strong> em CSS puro 🎨</p>
+
+</body>
+</html> 

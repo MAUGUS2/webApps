@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎯 CSS Básico - Fundamentos</title>
+<!-- Usando CSS interno para ser mais didático e fácil de entender -->
+    <style>
+        * { 
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Courier New', Courier, monospace;
+            background-color: #454158;
+            color: #fff;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .navegacao {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .navegacao a {
+            color: #FF80BF;
+            text-decoration: none;
+            margin: 0 15px;
+        }
+
+        .navegacao a:hover {
+            color: #8AFF80;
+        }
+
+        /* ============================================================= */
+        /* = DEFINIÇÃO DO CSS                                         = */
+        /* ============================================================= */
+        /* CSS (Cascading Style Sheets) é uma linguagem de folhas de estilo
+           que descreve como os elementos HTML devem ser apresentados na tela.
+           
+           Benefícios do CSS:
+           - Separação entre conteúdo (HTML) e apresentação (CSS)
+           - Facilita manutenção e atualizações
+           - Melhor performance no carregamento
+           - Reutilização de estilos
+        */
+
+        /* ============================================================= */
+        /* = SINTAXE BÁSICA DO CSS                                    = */
+        /* ============================================================= */
+        /* A sintaxe do CSS segue o padrão:
+           
+           seletor {
+               propriedade: valor;
+               propriedade2: valor2;
+           }
+           
+           - seletor: define qual elemento será estilizado
+           - propriedade: característica que será alterada
+           - valor: como a propriedade será definida
+        */
+
+        .exemplo-sintaxe {
+            background-color: #22212C;
+            border-left: 4px solid #8AFF80;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+
+        /* ============================================================= */
+        /* = SELETORES CSS                                            = */
+        /* ============================================================= */
+        /* Os seletores determinam quais elementos HTML serão afetados */
+
+        /* SELETOR DE TAG - seleciona todos os elementos da tag */
+        p {
+            font-size: 16px;
+        }
+
+        /* SELETOR DE CLASSE - seleciona elementos com class específica */
+        .exemplo-classe {
+            background-color: #FF80BF;
+            color: #000;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+        }
+
+        /* SELETOR DE ID - seleciona um elemento único com ID específico */
+        #exemplo-id {
+            background-color: #8AFF80;
+            color: #000;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+            border: 2px solid #22212C;
+        }
+
+        /* SELETOR UNIVERSAL - seleciona TODOS os elementos */
+        /* * { margin: 0; padding: 0; } */
+
+        /* AGRUPAMENTO DE SELETORES - aplica o mesmo estilo a múltiplos seletores */
+        .grupo1, .grupo2, .grupo3 {
+            border: 2px dashed #ffb86c;
+            padding: 10px;
+            margin: 5px 0;
+            background-color: #22212C;
+        }
+
+        /* ============================================================= */
+        /* = FORMAS DE APLICAR CSS                                    = */
+        /* ============================================================= */
+        
+        .exemplo-aplicacao {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .tipo-css {
+            background-color: #22212C;
+            padding: 20px;
+            border-radius: 8px;
+            border: 2px solid #8AFF80;
+        }
+
+        /* ============================================================= */
+        /* = HIERARQUIA E ESPECIFICIDADE                              = */
+        /* ============================================================= */
+        /* A hierarquia do CSS segue estas regras:
+           1. CSS Inline (style="...") - MAIOR PRIORIDADE
+           2. IDs (#meuId) - 100 pontos
+           3. Classes (.minhaClasse) - 10 pontos  
+           4. Tags (p, div) - 1 ponto
+           5. Em caso de empate, o último código prevalece
+        */
+
+        .teste-hierarquia {
+            background-color: #22212C;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+        }
+
+        .texto-classe {
+            color: #FF80BF; /* 10 pontos */
+        }
+
+        #texto-id {
+            color: #8AFF80; /* 100 pontos - GANHA */
+        }
+
+        /* ============================================================= */
+        /* = TÍTULOS E ORGANIZAÇÃO                                    = */
+        /* ============================================================= */
+        h1, h2 {
+            text-align: center;
+            margin: 30px 0 20px 0;
+        }
+
+        h1 {
+            color: #8AFF80;
+            font-size: 28px;
+        }
+
+        h2 {
+            color: #FF80BF;
+            font-size: 20px;
+            border-bottom: 2px solid #FF80BF;
+            padding-bottom: 10px;
+        }
+
+        .secao {
+            margin: 40px 0;
+        }
+
+        .codigo-exemplo {
+            background-color: #454158;
+            border-left: 4px solid #8AFF80;
+            padding: 15px;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+            border-radius: 5px;
+            white-space: pre-wrap;
+            line-height: 1.8;
+        }
+
+        .destaque {
+            background-color: #ffb86c;
+            color: #000;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="navegacao">
+    <a href="index.html">🏠 Início</a>
+    <a href="05-display-position.html">⬅️ Anterior</a>
+    <a href="02-cores-background.html">➡️ Próximo</a>
+</div>
+
+<h1>🎯 CSS Básico - Fundamentos</h1>
+
+<div class="secao">
+    <h2>📘 Definição do CSS</h2>
+    <p>CSS (Cascading Style Sheets) é uma linguagem que descreve como elementos HTML são apresentados.</p>
+    
+    <div class="destaque">
+        <strong>💡 Benefícios:</strong><br>
+        ✅ Separação de conteúdo e apresentação<br>
+        ✅ Facilita manutenção<br>
+        ✅ Melhor performance<br>
+        ✅ Reutilização de código
+    </div>
+</div>
+
+<div class="secao">
+    <h2>⚙️ Sintaxe Básica</h2>
+    <div class="codigo-exemplo">
+/* Estrutura básica do CSS */
+seletor {
+    propriedade: valor;
+    propriedade2: valor2;
+}
+
+/* Exemplo prático */
+p {
+    color: blue;
+    font-size: 16px;
+    text-align: center;
+}
+    </div>
+    
+    <div class="exemplo-sintaxe">
+        <strong>Componentes da sintaxe:</strong><br>
+        🎯 <strong>Seletor:</strong> define QUAL elemento será estilizado<br>
+        🔧 <strong>Propriedade:</strong> define O QUE será alterado<br>
+        💎 <strong>Valor:</strong> define COMO será alterado
+    </div>
+</div>
+
+<div class="secao">
+    <h2>🎯 Seletores CSS</h2>
+    
+    <div class="codigo-exemplo">
+/* 1. SELETOR DE TAG */
+p { color: white; }
+
+/* 2. SELETOR DE CLASSE */
+.minha-classe { background: pink; }
+
+/* 3. SELETOR DE ID */
+#meu-id { background: green; }
+
+/* 4. SELETOR UNIVERSAL */
+* { margin: 0; padding: 0; }
+
+/* 5. AGRUPAMENTO DE SELETORES */
+h1, h2, h3 { font-family: Arial; }
+    </div>
+
+    <div class="exemplo-classe">
+        <strong>Seletor de CLASSE:</strong> .exemplo-classe { } - Seleciona elementos com class="exemplo-classe"
+    </div>
+
+    <div id="exemplo-id">
+        <strong>Seletor de ID:</strong> #exemplo-id { } - Seleciona elemento com id="exemplo-id"
+    </div>
+
+    <div class="grupo1">Grupo 1 - Estilo compartilhado</div>
+    <div class="grupo2">Grupo 2 - Estilo compartilhado</div>
+    <div class="grupo3">Grupo 3 - Estilo compartilhado</div>
+</div>
+
+<div class="secao">
+    <h2>📝 Formas de Aplicar CSS</h2>
+    
+    <div class="exemplo-aplicacao">
+        <div class="tipo-css">
+            <h3 style="color: #FF80BF;">1. CSS Inline</h3>
+            <div class="codigo-exemplo">
+&lt;p style="color: red;"&gt;Texto&lt;/p&gt;
+            </div>
+            <p><strong>Uso:</strong> Estilos únicos em um elemento</p>
+        </div>
+
+        <div class="tipo-css">
+            <h3 style="color: #FF80BF;">2. CSS Interno</h3>
+            <div class="codigo-exemplo">
+&lt;head&gt;
+  &lt;style&gt;
+    p { color: blue; }
+  &lt;/style&gt;
+&lt;/head&gt;
+            </div>
+            <p><strong>Uso:</strong> Estilos para uma página específica</p>
+        </div>
+
+        <div class="tipo-css">
+            <h3 style="color: #FF80BF;">3. CSS Externo</h3>
+            <div class="codigo-exemplo">
+&lt;link rel="stylesheet" href="styles.css"&gt;
+            </div>
+            <p><strong>Uso:</strong> Estilos para múltiplas páginas</p>
+        </div>
+    </div>
+</div>
+
+<div class="secao">
+    <h2>🏆 Hierarquia e Especificidade</h2>
+    
+    <div class="codigo-exemplo">
+/* ORDEM DE PRIORIDADE (maior para menor): */
+
+1. CSS Inline: style="color: red"     → 1000 pontos
+2. IDs: #meuId                        → 100 pontos  
+3. Classes: .minhaClasse              → 10 pontos
+4. Tags: p, div, h1                   → 1 ponto
+
+/* Em caso de empate, o ÚLTIMO código prevalece */
+    </div>
+
+    <div class="teste-hierarquia">
+        <p id="texto-id" class="texto-classe">
+            Este texto demonstra hierarquia: ID (#texto-id) tem prioridade sobre classe (.texto-classe)
+        </p>
+        <p style="color: #ffb86c;">
+            Este texto usa CSS inline - TEM A MAIOR PRIORIDADE
+        </p>
+    </div>
+
+    <div class="destaque">
+        <strong>🎯 Dica Important:</strong> Use <code>!important</code> apenas quando necessário, pois quebra a hierarquia natural!
+    </div>
+</div>
+
+<br><br>
+<div class="navegacao">
+    <a href="index.html">🏠 Início</a>
+    <a href="05-display-position.html">⬅️ Anterior</a>
+    <a href="02-cores-background.html">➡️ Próximo</a>
+</div>
+
+<hr style="border-color: #FF80BF; margin: 20px 0;">
+<p style="text-align: center; color: #FF80BF;">Dev by <strong>Maugus</strong> em CSS puro 🎨</p>
+
+</body>
+</html> 

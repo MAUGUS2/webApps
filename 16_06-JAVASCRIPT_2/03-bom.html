@@ -1,0 +1,919 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Browser Object Model (BOM) - JavaScript Parte 2</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            /* Ultra Dark Minimalist Theme */
+            --ultra-bg: #0a0a0a;
+            --ultra-bg-alt: #111111;
+            --ultra-card: #1a1a1a;
+            --ultra-border: #222222;
+            --ultra-hover: #252525;
+            --ultra-text: #e6e6e6;
+            --ultra-text-muted: #999999;
+            --ultra-text-dim: #666666;
+            
+            /* Accent colors - mais sutis */
+            --accent-primary: #8b7cf8;
+            --accent-secondary: #64748b;
+            --accent-success: #22c55e;
+            --accent-warning: #f59e0b;
+            --accent-info: #3b82f6;
+            --accent-danger: #ef4444;
+            
+            /* Typography */
+            --font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-mono: 'Fira Code', 'Courier New', monospace;
+            
+            /* Spacing */
+            --spacing-1: 0.25rem;
+            --spacing-2: 0.5rem;
+            --spacing-3: 0.75rem;
+            --spacing-4: 1rem;
+            --spacing-5: 1.25rem;
+            --spacing-6: 1.5rem;
+            --spacing-8: 2rem;
+            
+            /* Border radius */
+            --border-radius-sm: 0.25rem;
+            --border-radius-md: 0.375rem;
+            --border-radius-lg: 0.5rem;
+            
+            /* Font sizes */
+            --font-size-xs: 0.75rem;
+            --font-size-sm: 0.875rem;
+            --font-size-base: 1rem;
+            --font-size-lg: 1.125rem;
+            --font-size-xl: 1.25rem;
+            --font-size-2xl: 1.5rem;
+            --font-size-3xl: 1.875rem;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-family);
+            background: var(--ultra-bg);
+            color: var(--ultra-text);
+            line-height: 1.6;
+            font-weight: 400;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--spacing-4);
+        }
+
+        /* Header minimalista */
+        .header {
+            background: var(--ultra-bg-alt);
+            color: var(--ultra-text);
+            text-align: center;
+            padding: var(--spacing-6) 0;
+            margin-bottom: var(--spacing-6);
+            border-bottom: 1px solid var(--ultra-border);
+        }
+
+        .header h1 {
+            font-size: var(--font-size-3xl);
+            font-weight: 300;
+            margin-bottom: var(--spacing-2);
+            letter-spacing: -0.025em;
+        }
+
+        .header .subtitle {
+            color: var(--ultra-text-muted);
+            font-size: var(--font-size-lg);
+            font-weight: 300;
+        }
+
+        /* Progress section */
+        .progress-section {
+            background: var(--ultra-card);
+            border: 1px solid var(--ultra-border);
+            border-radius: var(--border-radius-md);
+            padding: var(--spacing-4);
+            margin-bottom: var(--spacing-6);
+            text-align: center;
+        }
+
+        .progress-bar {
+            background: var(--ultra-border);
+            border-radius: var(--border-radius-lg);
+            height: 8px;
+            margin: var(--spacing-3) 0;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--accent-primary);
+            border-radius: var(--border-radius-lg);
+            transition: width 0.5s ease;
+        }
+
+        /* Content sections */
+        .content-section {
+            background: var(--ultra-card);
+            border: 1px solid var(--ultra-border);
+            border-radius: var(--border-radius-md);
+            padding: var(--spacing-6);
+            margin-bottom: var(--spacing-6);
+        }
+
+        .content-section h2 {
+            color: var(--ultra-text);
+            font-size: var(--font-size-2xl);
+            font-weight: 400;
+            margin-bottom: var(--spacing-4);
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-2);
+        }
+
+        .content-section h3 {
+            color: var(--accent-primary);
+            font-size: var(--font-size-xl);
+            font-weight: 400;
+            margin: var(--spacing-5) 0 var(--spacing-3) 0;
+        }
+
+        .content-section h4 {
+            color: var(--ultra-text);
+            font-size: var(--font-size-lg);
+            font-weight: 400;
+            margin: var(--spacing-4) 0 var(--spacing-2) 0;
+        }
+
+        .content-section p {
+            color: var(--ultra-text-muted);
+            margin-bottom: var(--spacing-3);
+            font-weight: 300;
+        }
+
+        .content-section ul, .content-section ol {
+            color: var(--ultra-text-muted);
+            margin-left: var(--spacing-5);
+            margin-bottom: var(--spacing-3);
+        }
+
+        .content-section li {
+            margin-bottom: var(--spacing-1);
+            font-weight: 300;
+        }
+
+        /* Info boxes */
+        .info-box {
+            padding: var(--spacing-4);
+            border-radius: var(--border-radius-md);
+            margin: var(--spacing-4) 0;
+            border-left: 3px solid;
+            background: var(--ultra-bg-alt);
+        }
+
+        .info-box.tip {
+            border-color: var(--accent-info);
+        }
+
+        .info-box.warning {
+            border-color: var(--accent-warning);
+        }
+
+        .info-box.example {
+            border-color: var(--accent-primary);
+        }
+
+        .info-box.info {
+            border-color: var(--accent-success);
+        }
+
+        .info-box.danger {
+            border-color: var(--accent-danger);
+        }
+
+        .info-box strong {
+            color: var(--ultra-text);
+        }
+
+        /* Code blocks */
+        .code-block {
+            background: var(--ultra-bg);
+            color: var(--ultra-text);
+            padding: var(--spacing-4);
+            border-radius: var(--border-radius-md);
+            margin: var(--spacing-4) 0;
+            overflow-x: auto;
+            font-family: var(--font-mono);
+            font-size: var(--font-size-sm);
+            border: 1px solid var(--ultra-border);
+            position: relative;
+        }
+
+        .code-block::before {
+            content: 'JavaScript';
+            position: absolute;
+            top: var(--spacing-2);
+            right: var(--spacing-3);
+            background: var(--accent-primary);
+            color: var(--ultra-bg);
+            padding: var(--spacing-1) var(--spacing-2);
+            border-radius: var(--border-radius-sm);
+            font-size: var(--font-size-xs);
+            font-weight: 500;
+        }
+
+        /* Demo containers */
+        .demo-container {
+            background: var(--ultra-bg-alt);
+            border: 1px solid var(--ultra-border);
+            border-radius: var(--border-radius-md);
+            padding: var(--spacing-4);
+            margin: var(--spacing-4) 0;
+        }
+
+        .demo-title {
+            color: var(--ultra-text);
+            font-weight: 400;
+            margin-bottom: var(--spacing-3);
+            font-size: var(--font-size-lg);
+        }
+
+        /* Form elements */
+        .input-group {
+            margin: var(--spacing-3) 0;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: var(--spacing-2);
+            font-weight: 400;
+            color: var(--ultra-text);
+            font-size: var(--font-size-sm);
+        }
+
+        .input-group input, 
+        .input-group select, 
+        .input-group textarea {
+            width: 100%;
+            padding: var(--spacing-3);
+            background: var(--ultra-card);
+            border: 1px solid var(--ultra-border);
+            border-radius: var(--border-radius-md);
+            color: var(--ultra-text);
+            font-size: var(--font-size-base);
+            font-family: var(--font-family);
+            transition: border-color 0.2s ease;
+        }
+
+        .input-group input:focus, 
+        .input-group select:focus, 
+        .input-group textarea:focus {
+            outline: none;
+            border-color: var(--accent-primary);
+        }
+
+        /* Buttons */
+        .btn {
+            padding: var(--spacing-3) var(--spacing-5);
+            border: none;
+            border-radius: var(--border-radius-md);
+            font-size: var(--font-size-base);
+            font-weight: 400;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+            margin: var(--spacing-1);
+        }
+
+        .btn-primary {
+            background: var(--accent-primary);
+            color: var(--ultra-bg);
+        }
+
+        .btn-primary:hover {
+            background: #7c6ce8;
+        }
+
+        .btn-secondary {
+            background: var(--ultra-card);
+            color: var(--ultra-text);
+            border: 1px solid var(--ultra-border);
+        }
+
+        .btn-secondary:hover {
+            background: var(--ultra-hover);
+        }
+
+        /* Navigation */
+        .navigation {
+            background: var(--ultra-card);
+            border: 1px solid var(--ultra-border);
+            border-radius: var(--border-radius-md);
+            padding: var(--spacing-5);
+            margin: var(--spacing-6) 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: var(--spacing-4);
+            flex-wrap: wrap;
+        }
+
+        .nav-button {
+            padding: var(--spacing-3) var(--spacing-5);
+            border: none;
+            border-radius: var(--border-radius-md);
+            font-size: var(--font-size-base);
+            font-weight: 400;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .nav-button.primary {
+            background: var(--accent-primary);
+            color: var(--ultra-bg);
+        }
+
+        .nav-button.primary:hover {
+            background: #7c6ce8;
+        }
+
+        .nav-button.secondary {
+            background: var(--ultra-hover);
+            color: var(--ultra-text);
+            border: 1px solid var(--ultra-border);
+        }
+
+        .nav-button.secondary:hover {
+            background: var(--ultra-border);
+        }
+
+        /* Output displays */
+        .output {
+            background: var(--ultra-bg);
+            border: 1px solid var(--ultra-border);
+            border-radius: var(--border-radius-md);
+            padding: var(--spacing-3);
+            margin-top: var(--spacing-3);
+            font-family: var(--font-mono);
+            font-size: var(--font-size-sm);
+            color: var(--ultra-text-muted);
+            min-height: 40px;
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: var(--spacing-4) 0;
+            background: var(--ultra-bg-alt);
+            border-radius: var(--border-radius-md);
+            overflow: hidden;
+        }
+
+        th, td {
+            padding: var(--spacing-3);
+            text-align: left;
+            border-bottom: 1px solid var(--ultra-border);
+        }
+
+        th {
+            background: var(--ultra-card);
+            color: var(--ultra-text);
+            font-weight: 400;
+        }
+
+        td {
+            color: var(--ultra-text-muted);
+            font-weight: 300;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 var(--spacing-3);
+            }
+            
+            .header h1 {
+                font-size: var(--font-size-2xl);
+            }
+            
+            .content-section {
+                padding: var(--spacing-4);
+            }
+            
+            .navigation {
+                flex-direction: column;
+                gap: var(--spacing-3);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>🌐 Browser Object Model (BOM)</h1>
+            <p class="subtitle">Window, Location, Navigator e History</p>
+        </header>
+
+        <!-- Progress Section -->
+        <section class="progress-section">
+            <h3>Progresso do Tópico</h3>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progress-fill"></div>
+            </div>
+            <p>Completar os exercícios para avançar no curso</p>
+        </section>
+
+        <main class="content-section">
+            <h2>🌐 3. BOM – Browser Object Model</h2>
+            
+            <div class="info-box info">
+                <strong>Visão Geral:</strong> O BOM (Browser Object Model) é a interface que permite ao JavaScript interagir com o navegador em si. Ao contrário do DOM (que lida com o conteúdo da página), o BOM gerencia <strong>janelas, abas, URLs, histórico e propriedades do navegador</strong>.
+            </div>
+
+            <h3>3.1 Objeto window</h3>
+
+            <p>O objeto <code>window</code> é o objeto global no contexto do navegador:</p>
+
+            <div class="code-block">
+console.log(window.innerWidth); // largura da janela em pixels
+            </div>
+
+            <div class="info-box tip">
+                <strong>Dica:</strong> Todas as variáveis e funções globais viram propriedades do objeto <code>window</code>.
+            </div>
+
+            <div class="demo-container">
+                <div class="demo-title">🧪 Demonstração: Objeto Window</div>
+                
+                <button class="btn" onclick="showWindowInfo()">Informações da Janela</button>
+                <button class="btn" onclick="showScreenInfo()">Informações da Tela</button>
+                <button class="btn" onclick="resizeDemo()">Redimensionar (Demo)</button>
+
+                <div class="result-box" id="window-result">// Informações da janela aparecerão aqui</div>
+            </div>
+
+            <h3>3.2 Objeto location</h3>
+
+            <p>Manipula e acessa a URL da página atual:</p>
+
+            <div class="code-block">
+console.log(window.location.href); // retorna a URL completa
+window.location.reload(); // recarrega a página
+            </div>
+
+            <div class="info-box example">
+                <strong>Exemplo prático:</strong>
+                <div class="code-block">
+if (location.hostname === "localhost") {
+  alert("Ambiente local detectado!");
+}
+                </div>
+            </div>
+
+            <div class="demo-container">
+                <div class="demo-title">🧪 Demonstração: Objeto Location</div>
+                
+                <button class="btn" onclick="showLocationInfo()">Informações da URL</button>
+                <button class="btn" onclick="changeHash()">Alterar Hash</button>
+                <button class="btn" onclick="showProtocol()">Mostrar Protocolo</button>
+
+                <div class="result-box" id="location-result">// Informações da localização aparecerão aqui</div>
+            </div>
+
+            <h3>3.3 Objeto navigator</h3>
+
+            <p>Oferece informações sobre o navegador e o sistema:</p>
+
+            <div class="code-block">
+console.log(navigator.userAgent);
+console.log(navigator.language);
+            </div>
+
+            <div class="info-box info">
+                Pode ser usado para detectar o tipo de navegador, versão, idioma, plataforma etc.
+            </div>
+
+            <div class="info-grid">
+                <div class="info-card">
+                    <h4>🔍 navigator.userAgent</h4>
+                    <p>String identificando o navegador e sistema operacional</p>
+                </div>
+                <div class="info-card">
+                    <h4>🌍 navigator.language</h4>
+                    <p>Idioma preferido do usuário</p>
+                </div>
+                <div class="info-card">
+                    <h4>📱 navigator.platform</h4>
+                    <p>Plataforma do sistema operacional</p>
+                </div>
+                <div class="info-card">
+                    <h4>🔌 navigator.onLine</h4>
+                    <p>Status da conexão com a internet</p>
+                </div>
+            </div>
+
+            <div class="demo-container">
+                <div class="demo-title">🧪 Demonstração: Objeto Navigator</div>
+                
+                <button class="btn" onclick="showNavigatorInfo()">Informações do Navegador</button>
+                <button class="btn" onclick="checkOnlineStatus()">Status Online</button>
+                <button class="btn" onclick="getLanguageInfo()">Idioma e Localização</button>
+
+                <div class="result-box" id="navigator-result">// Informações do navegador aparecerão aqui</div>
+            </div>
+
+            <h3>3.4 Objeto screen</h3>
+
+            <p>Retorna informações sobre a resolução da tela:</p>
+
+            <div class="code-block">
+console.log(screen.width);
+console.log(screen.availHeight);
+            </div>
+
+            <div class="info-box warning">
+                <strong>Atenção:</strong> Esses dados referem-se <strong>à tela do dispositivo</strong>, não à janela do navegador.
+            </div>
+
+            <h3>3.5 Objeto history</h3>
+
+            <p>Permite navegar pelo histórico de navegação da aba:</p>
+
+            <div class="code-block">
+history.back();   // vai para a página anterior
+history.forward(); // vai para a próxima página (se houver)
+            </div>
+
+            <div class="info-box tip">
+                <code>history.length</code> mostra o número de páginas visitadas no histórico da aba.
+            </div>
+
+            <div class="demo-container">
+                <div class="demo-title">🧪 Demonstração: Histórico e Tela</div>
+                
+                <button class="btn" onclick="showHistoryInfo()">Informações do Histórico</button>
+                <button class="btn" onclick="simulateBack()">Simular Voltar</button>
+                <button class="btn" onclick="showScreenDetails()">Detalhes da Tela</button>
+
+                <div class="result-box" id="history-result">// Informações do histórico aparecerão aqui</div>
+            </div>
+
+            <h3>3.6 Métodos e alertas do window (.extra)</h3>
+
+            <p>O objeto <code>window</code> também fornece métodos para interação direta com o usuário:</p>
+
+            <h4>📢 Alertas, confirmação e entrada:</h4>
+
+            <div class="code-block">
+alert("Mensagem simples ao usuário");
+const resposta = confirm("Deseja continuar?");
+const nome = prompt("Qual o seu nome?");
+            </div>
+
+            <h4>⏰ Temporizadores:</h4>
+
+            <div class="code-block">
+setTimeout(() => {
+  console.log("Executado após 2 segundos");
+}, 2000);
+
+let intervalo = setInterval(() => {
+  console.log("Repetindo a cada segundo");
+}, 1000);
+
+clearInterval(intervalo); // cancela o intervalo
+            </div>
+
+            <div class="info-box warning">
+                Evite abusar de <code>alert</code>, <code>confirm</code> e <code>prompt</code> — eles bloqueiam a interface.
+            </div>
+
+            <div class="demo-container">
+                <div class="demo-title">🧪 Demonstração: Alertas e Temporizadores</div>
+                
+                <div class="input-group">
+                    <label for="timer-seconds">Segundos para o timer:</label>
+                    <input type="number" id="timer-seconds" placeholder="Digite os segundos" value="3">
+                </div>
+
+                <button class="btn" onclick="showAlert()">Mostrar Alert</button>
+                <button class="btn" onclick="showConfirm()">Mostrar Confirm</button>
+                <button class="btn" onclick="showPrompt()">Mostrar Prompt</button>
+                <button class="btn" onclick="startTimer()">Iniciar Timer</button>
+                <button class="btn" onclick="startInterval()">Iniciar Intervalo</button>
+                <button class="btn" onclick="stopInterval()">Parar Intervalo</button>
+
+                <div class="result-box" id="alerts-result">// Resultados dos alertas e timers aparecerão aqui</div>
+            </div>
+
+            <h3>🧠 Resumo</h3>
+            <ul>
+                <li>O BOM é usado para interagir com o navegador, fora da página HTML.</li>
+                <li><code>window</code> é o objeto global e pai de todos os outros.</li>
+                <li><code>location</code>, <code>navigator</code>, <code>screen</code>, e <code>history</code> fornecem informações e controle sobre o ambiente do navegador.</li>
+                <li>Métodos como <code>alert</code>, <code>setTimeout</code> e <code>confirm</code> fazem parte do <code>window</code>.</li>
+            </ul>
+
+            <div class="quiz-section">
+                <h3>📋 Perguntas de Revisão</h3>
+                
+                <div class="quiz-question">
+                    <h4>1. Qual a diferença entre window e document?</h4>
+                    <p><code>window</code> é o objeto global do navegador, enquanto <code>document</code> representa o conteúdo HTML da página.</p>
+                </div>
+
+                <div class="quiz-question">
+                    <h4>2. Como acessar a URL atual com JavaScript?</h4>
+                    <p>Usando <code>window.location.href</code> ou simplesmente <code>location.href</code>.</p>
+                </div>
+
+                <div class="quiz-question">
+                    <h4>3. Para que serve o navigator.userAgent?</h4>
+                    <p>Identifica o navegador, versão e sistema operacional do usuário.</p>
+                </div>
+
+                <div class="quiz-question">
+                    <h4>4. Como funcionam setTimeout e setInterval?</h4>
+                    <p><code>setTimeout</code> executa uma função após um tempo. <code>setInterval</code> executa repetidamente em intervalos.</p>
+                </div>
+
+                <div class="quiz-question">
+                    <h4>5. O que history.back() faz?</h4>
+                    <p>Navega para a página anterior no histórico do navegador.</p>
+                </div>
+
+                <button class="btn" onclick="completeQuiz()">✅ Marcar Como Concluído</button>
+            </div>
+        </main>
+
+        <nav class="navigation">
+            <a href="02-funcoes.html" class="nav-button secondary">← Anterior: Funções</a>
+            <a href="index.html" class="nav-button primary">📚 Voltar ao Índice</a>
+            <a href="04-dom.html" class="nav-button secondary">Próximo: DOM →</a>
+        </nav>
+    </div>
+
+    <script>
+        // Variável para controlar intervalo
+        let myInterval = null;
+
+        // Funções para demonstração do objeto window
+        function showWindowInfo() {
+            const info = `Informações da Janela:
+Largura interna: ${window.innerWidth}px
+Altura interna: ${window.innerHeight}px
+Largura externa: ${window.outerWidth}px
+Altura externa: ${window.outerHeight}px
+Posição X: ${window.screenX || window.screenLeft}
+Posição Y: ${window.screenY || window.screenTop}`;
+            
+            document.getElementById('window-result').textContent = info;
+            updateProgress(15);
+        }
+
+        function showScreenInfo() {
+            const info = `Informações da Tela:
+Largura total: ${screen.width}px
+Altura total: ${screen.height}px
+Largura disponível: ${screen.availWidth}px
+Altura disponível: ${screen.availHeight}px
+Profundidade de cor: ${screen.colorDepth} bits
+Densidade de pixels: ${window.devicePixelRatio}`;
+            
+            document.getElementById('window-result').textContent = info;
+        }
+
+        function resizeDemo() {
+            // Nota: Muitos navegadores bloqueiam redimensionamento automático por segurança
+            if (window.outerWidth > 800) {
+                try {
+                    window.resizeTo(800, 600);
+                    document.getElementById('window-result').textContent = 
+                        'Tentativa de redimensionar para 800x600px\n(Pode ser bloqueado pelo navegador por segurança)';
+                } catch (e) {
+                    document.getElementById('window-result').textContent = 
+                        'Redimensionamento bloqueado pelo navegador por segurança.';
+                }
+            } else {
+                document.getElementById('window-result').textContent = 
+                    'Janela já está em tamanho reduzido.';
+            }
+        }
+
+        // Funções para demonstração do objeto location
+        function showLocationInfo() {
+            const info = `Informações da URL:
+URL completa: ${location.href}
+Protocolo: ${location.protocol}
+Host: ${location.host}
+Hostname: ${location.hostname}
+Port: ${location.port || 'padrão'}
+Pathname: ${location.pathname}
+Search: ${location.search || 'nenhum'}
+Hash: ${location.hash || 'nenhum'}`;
+            
+            document.getElementById('location-result').textContent = info;
+            updateProgress(30);
+        }
+
+        function changeHash() {
+            const newHash = '#demo-hash-' + Date.now();
+            location.hash = newHash;
+            document.getElementById('location-result').textContent = 
+                `Hash alterado para: ${newHash}\nVerifique a URL do navegador!`;
+        }
+
+        function showProtocol() {
+            const protocol = location.protocol;
+            const isSecure = protocol === 'https:';
+            document.getElementById('location-result').textContent = 
+                `Protocolo: ${protocol}\nConexão ${isSecure ? 'SEGURA (HTTPS)' : 'não segura (HTTP)'}`;
+        }
+
+        // Funções para demonstração do objeto navigator
+        function showNavigatorInfo() {
+            const info = `Informações do Navegador:
+User Agent: ${navigator.userAgent}
+Plataforma: ${navigator.platform}
+Idioma: ${navigator.language}
+Idiomas aceitos: ${navigator.languages?.join(', ') || 'Não disponível'}
+Cookies habilitados: ${navigator.cookieEnabled}
+Java habilitado: ${navigator.javaEnabled()}`;
+            
+            document.getElementById('navigator-result').textContent = info;
+            updateProgress(45);
+        }
+
+        function checkOnlineStatus() {
+            const isOnline = navigator.onLine;
+            const status = isOnline ? 'ONLINE' : 'OFFLINE';
+            document.getElementById('navigator-result').textContent = 
+                `Status da conexão: ${status}\n${isOnline ? '🌐 Conectado à internet' : '📵 Sem conexão com a internet'}`;
+        }
+
+        function getLanguageInfo() {
+            const info = `Informações de Idioma:
+Idioma principal: ${navigator.language}
+Todos os idiomas: ${navigator.languages?.join(', ') || 'Não disponível'}
+Timezone: ${Intl.DateTimeFormat().resolvedOptions().timeZone}
+Formato de data local: ${new Date().toLocaleDateString()}
+Formato de hora local: ${new Date().toLocaleTimeString()}`;
+            
+            document.getElementById('navigator-result').textContent = info;
+        }
+
+        // Funções para demonstração de history e screen
+        function showHistoryInfo() {
+            const info = `Informações do Histórico:
+Comprimento do histórico: ${history.length} páginas
+Hash atual: ${location.hash || 'nenhum'}
+Estado atual: ${history.state || 'nenhum estado personalizado'}
+
+Informações da Tela:
+Resolução: ${screen.width}x${screen.height}
+Área disponível: ${screen.availWidth}x${screen.availHeight}`;
+            
+            document.getElementById('history-result').textContent = info;
+            updateProgress(60);
+        }
+
+        function simulateBack() {
+            if (history.length > 1) {
+                document.getElementById('history-result').textContent = 
+                    'Executando history.back() em 2 segundos...\n(Irá voltar para a página anterior)';
+                setTimeout(() => {
+                    history.back();
+                }, 2000);
+            } else {
+                document.getElementById('history-result').textContent = 
+                    'Não há páginas anteriores no histórico para voltar.';
+            }
+        }
+
+        function showScreenDetails() {
+            const info = `Detalhes Completos da Tela:
+Resolução total: ${screen.width}x${screen.height}
+Área de trabalho: ${screen.availWidth}x${screen.availHeight}
+Profundidade de cor: ${screen.colorDepth} bits
+Densidade de pixels: ${window.devicePixelRatio}x
+Orientação: ${screen.orientation?.type || 'Não disponível'}
+Janela do navegador: ${window.innerWidth}x${window.innerHeight}`;
+            
+            document.getElementById('history-result').textContent = info;
+        }
+
+        // Funções para demonstração de alertas e timers
+        function showAlert() {
+            alert('Este é um exemplo de alert!\nEle bloqueia a interface até ser fechado.');
+            document.getElementById('alerts-result').textContent = 
+                'Alert exibido e fechado pelo usuário.';
+            updateProgress(75);
+        }
+
+        function showConfirm() {
+            const resposta = confirm('Você deseja continuar com a demonstração?');
+            document.getElementById('alerts-result').textContent = 
+                `Confirm retornou: ${resposta}\n${resposta ? 'Usuário confirmou' : 'Usuário cancelou'}`;
+        }
+
+        function showPrompt() {
+            const nome = prompt('Qual é o seu nome?', 'Digite aqui...');
+            document.getElementById('alerts-result').textContent = 
+                `Prompt retornou: "${nome}"\n${nome ? `Olá, ${nome}!` : 'Usuário cancelou ou não digitou nada'}`;
+        }
+
+        function startTimer() {
+            const seconds = parseInt(document.getElementById('timer-seconds').value) || 3;
+            document.getElementById('alerts-result').textContent = 
+                `Timer iniciado para ${seconds} segundos...\nAguarde...`;
+            
+            setTimeout(() => {
+                document.getElementById('alerts-result').textContent = 
+                    `⏰ Timer de ${seconds} segundos concluído!\nExecutado às ${new Date().toLocaleTimeString()}`;
+            }, seconds * 1000);
+        }
+
+        function startInterval() {
+            if (myInterval) {
+                clearInterval(myInterval);
+            }
+            
+            let counter = 0;
+            myInterval = setInterval(() => {
+                counter++;
+                document.getElementById('alerts-result').textContent = 
+                    `🔄 Intervalo executando...\nContador: ${counter}\nTempo: ${new Date().toLocaleTimeString()}`;
+            }, 1000);
+            
+            updateProgress(90);
+        }
+
+        function stopInterval() {
+            if (myInterval) {
+                clearInterval(myInterval);
+                myInterval = null;
+                document.getElementById('alerts-result').textContent = 
+                    '⏹️ Intervalo interrompido.';
+            } else {
+                document.getElementById('alerts-result').textContent = 
+                    'Nenhum intervalo está executando.';
+            }
+        }
+
+        // Sistema de progresso
+        let currentProgress = 0;
+
+        function updateProgress(newProgress) {
+            if (newProgress > currentProgress) {
+                currentProgress = newProgress;
+                document.getElementById('progress-fill').style.width = currentProgress + '%';
+            }
+        }
+
+        function completeQuiz() {
+            updateProgress(100);
+            alert('🎉 Parabéns! Você concluiu a seção do BOM!');
+        }
+
+        // Carregar progresso salvo
+        function loadProgress() {
+            const savedProgress = localStorage.getItem('js2-bom-progress');
+            if (savedProgress) {
+                currentProgress = parseInt(savedProgress);
+                document.getElementById('progress-fill').style.width = currentProgress + '%';
+            }
+        }
+
+        // Inicializar página
+        document.addEventListener('DOMContentLoaded', loadProgress);
+
+        // Limpar intervalos ao sair da página
+        window.addEventListener('beforeunload', () => {
+            if (myInterval) {
+                clearInterval(myInterval);
+            }
+        });
+    </script>
+</body>
+</html> 

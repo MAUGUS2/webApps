@@ -1,0 +1,1647 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🔧 Tipos e Estruturas | Aula 5</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <style>
+    /* =========================
+       DESIGN SYSTEM VARIABLES
+       ========================= */
+    :root {
+      /* Colors */
+      --primary-50: #fef7e7;
+      --primary-100: #fdecc4;
+      --primary-200: #fbd687;
+      --primary-300: #f9c04a;
+      --primary-400: #f7b31d;
+      --primary-500: #f39c12;
+      --primary-600: #d68910;
+      --primary-700: #b8760e;
+      --primary-800: #9a630c;
+      --primary-900: #7c500a;
+
+      --secondary-50: #f8f9fa;
+      --secondary-100: #e9ecef;
+      --secondary-200: #dee2e6;
+      --secondary-300: #ced4da;
+      --secondary-400: #adb5bd;
+      --secondary-500: #6c757d;
+      --secondary-600: #495057;
+      --secondary-700: #343a40;
+      --secondary-800: #212529;
+      --secondary-900: #000000;
+
+      --success: #10b981;
+      --warning: #f59e0b;
+      --error: #ef4444;
+      --info: #3b82f6;
+
+      /* Typography */
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+      
+      /* Spacing */
+      --space-1: 0.25rem;
+      --space-2: 0.5rem;
+      --space-3: 0.75rem;
+      --space-4: 1rem;
+      --space-5: 1.25rem;
+      --space-6: 1.5rem;
+      --space-8: 2rem;
+      --space-10: 2.5rem;
+      --space-12: 3rem;
+      --space-16: 4rem;
+      --space-20: 5rem;
+
+      /* Shadows */
+      --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+      --shadow-base: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+      --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+      --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+      --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+
+      /* Border Radius */
+      --radius-sm: 0.375rem;
+      --radius-base: 0.5rem;
+      --radius-md: 0.75rem;
+      --radius-lg: 1rem;
+      --radius-xl: 1.5rem;
+      --radius-full: 9999px;
+
+      /* Transitions */
+      --transition-fast: 150ms ease;
+      --transition-base: 250ms ease;
+      --transition-slow: 350ms ease;
+    }
+
+    /* =========================
+       RESET & BASE STYLES
+       ========================= */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--font-sans);
+      line-height: 1.7;
+      color: var(--secondary-800);
+      background: linear-gradient(135deg, var(--primary-100) 0%, var(--primary-300) 50%, var(--primary-500) 100%);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* =========================
+       LAYOUT COMPONENTS
+       ========================= */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: var(--space-6);
+    }
+
+    /* HEADER */
+    .header {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(20px);
+      border-radius: var(--radius-xl);
+      padding: var(--space-8);
+      text-align: center;
+      margin-bottom: var(--space-8);
+      box-shadow: var(--shadow-lg);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, var(--primary-500), transparent);
+      animation: shine 3s infinite;
+    }
+
+    @keyframes shine {
+      0% { left: -100%; }
+      100% { left: 100%; }
+    }
+
+    .header h1 {
+      font-size: clamp(2rem, 5vw, 2.5rem);
+      font-weight: 700;
+      color: var(--secondary-800);
+      margin-bottom: var(--space-3);
+      background: linear-gradient(135deg, var(--secondary-800), var(--primary-600));
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      line-height: 1.2;
+    }
+
+    .header .subtitle {
+      font-size: 1.125rem;
+      color: var(--secondary-600);
+      font-weight: 400;
+      margin-bottom: var(--space-6);
+    }
+
+    /* NAVIGATION */
+    .navigation {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: var(--space-3);
+      margin-bottom: var(--space-5);
+    }
+
+    .nav-link {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      padding: var(--space-3) var(--space-5);
+      background: rgba(255, 255, 255, 0.8);
+      color: var(--secondary-700);
+      text-decoration: none;
+      border-radius: var(--radius-base);
+      font-weight: 500;
+      font-size: 0.875rem;
+      transition: all var(--transition-fast);
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .nav-link:hover {
+      background: var(--primary-50);
+      color: var(--primary-700);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+      border-color: var(--primary-200);
+    }
+
+    .nav-link.active {
+      background: linear-gradient(135deg, var(--primary-500), var(--primary-600));
+      color: white;
+      box-shadow: var(--shadow-base);
+      border-color: var(--primary-600);
+    }
+
+    .nav-link.active:hover {
+      background: linear-gradient(135deg, var(--primary-600), var(--primary-700));
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    /* SECTIONS */
+    .section {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(20px);
+      border-radius: var(--radius-xl);
+      padding: var(--space-10);
+      margin-bottom: var(--space-8);
+      box-shadow: var(--shadow-lg);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-left: 4px solid var(--primary-500);
+      position: relative;
+      transition: all var(--transition-base);
+    }
+
+    .section:hover {
+      box-shadow: var(--shadow-xl);
+      transform: translateY(-2px);
+    }
+
+    .section h2 {
+      font-size: 1.875rem;
+      font-weight: 700;
+      color: var(--secondary-800);
+      margin-bottom: var(--space-6);
+      display: flex;
+      align-items: center;
+      gap: var(--space-4);
+      position: relative;
+    }
+
+    .section h2::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 0;
+      width: 60px;
+      height: 3px;
+      background: linear-gradient(90deg, var(--primary-500), var(--primary-300));
+      border-radius: var(--radius-full);
+    }
+
+    .section h3 {
+      font-size: 1.375rem;
+      font-weight: 600;
+      color: var(--secondary-800);
+      margin: var(--space-8) 0 var(--space-4) 0;
+      border-left: 3px solid var(--primary-400);
+      padding-left: var(--space-4);
+      background: linear-gradient(90deg, var(--primary-50), transparent);
+      padding-top: var(--space-2);
+      padding-bottom: var(--space-2);
+      border-radius: 0 var(--radius-base) var(--radius-base) 0;
+    }
+
+    .section h4 {
+      font-size: 1.125rem;
+      font-weight: 600;
+      color: var(--secondary-800);
+      margin: var(--space-6) 0 var(--space-3) 0;
+    }
+
+    .section p {
+      margin-bottom: var(--space-4);
+      line-height: 1.7;
+      font-size: 1rem;
+      color: var(--secondary-700);
+    }
+
+    .section ul {
+      margin: var(--space-4) 0 var(--space-4) var(--space-8);
+      color: var(--secondary-700);
+    }
+
+    .section li {
+      margin-bottom: var(--space-2);
+      line-height: 1.6;
+    }
+
+    /* CODE BLOCKS */
+    .code-block {
+      background: var(--secondary-800);
+      color: #f8fafc;
+      padding: var(--space-6);
+      border-radius: var(--radius-lg);
+      margin: var(--space-6) 0;
+      overflow-x: auto;
+      position: relative;
+      border: 1px solid var(--secondary-700);
+      box-shadow: var(--shadow-md);
+      transition: all var(--transition-base);
+    }
+
+    .code-block:hover {
+      box-shadow: var(--shadow-lg);
+      transform: translateY(-1px);
+    }
+
+    .code-block::before {
+      content: 'JavaScript';
+      position: absolute;
+      top: var(--space-3);
+      right: var(--space-4);
+      background: linear-gradient(135deg, var(--primary-500), var(--primary-600));
+      color: white;
+      padding: var(--space-1) var(--space-3);
+      border-radius: var(--radius-base);
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .code-block::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: linear-gradient(90deg, var(--primary-500), var(--primary-300));
+      border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+    }
+
+    .code-block pre {
+      margin: 0;
+      white-space: pre-wrap;
+      font-family: var(--font-mono);
+      font-size: 0.875rem;
+      line-height: 1.6;
+    }
+
+    .code-block code {
+      font-family: var(--font-mono);
+      color: #f8fafc;
+    }
+
+    /* INFO BOXES */
+    .info-box {
+      padding: var(--space-6);
+      border-radius: var(--radius-lg);
+      margin: var(--space-6) 0;
+      border: 1px solid;
+      position: relative;
+      backdrop-filter: blur(10px);
+      box-shadow: var(--shadow-base);
+      transition: all var(--transition-base);
+    }
+
+    .info-box:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .info-box::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+      border-radius: var(--radius-lg) 0 0 var(--radius-lg);
+    }
+
+    .info-box.tip {
+      background: rgba(16, 185, 129, 0.1);
+      border-color: rgba(16, 185, 129, 0.3);
+      color: var(--secondary-800);
+    }
+
+    .info-box.tip::before {
+      background: var(--success);
+    }
+
+    .info-box.warning {
+      background: rgba(239, 68, 68, 0.1);
+      border-color: rgba(239, 68, 68, 0.3);
+      color: var(--secondary-800);
+    }
+
+    .info-box.warning::before {
+      background: var(--error);
+    }
+
+    .info-box.example {
+      background: rgba(59, 130, 246, 0.1);
+      border-color: rgba(59, 130, 246, 0.3);
+      color: var(--secondary-800);
+    }
+
+    .info-box.example::before {
+      background: var(--info);
+    }
+
+    .info-box.note {
+      background: rgba(245, 158, 11, 0.1);
+      border-color: rgba(245, 158, 11, 0.3);
+      color: var(--secondary-800);
+    }
+
+    .info-box.note::before {
+      background: var(--warning);
+    }
+
+    .info-box strong {
+      color: var(--secondary-800);
+      font-weight: 600;
+    }
+
+    /* TABLES */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: white;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-md);
+      margin: var(--space-6) 0;
+      border: 1px solid var(--secondary-200);
+    }
+
+    th, td {
+      padding: var(--space-4) var(--space-5);
+      text-align: left;
+      border-bottom: 1px solid var(--secondary-100);
+    }
+
+    th {
+      background: linear-gradient(135deg, var(--primary-500), var(--primary-600));
+      color: white;
+      font-weight: 600;
+      font-size: 0.875rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    tr:hover {
+      background: var(--primary-50);
+    }
+
+    /* DEMO CONTAINERS */
+    .demo-container {
+      background: rgba(248, 250, 252, 0.8);
+      backdrop-filter: blur(10px);
+      border-radius: var(--radius-lg);
+      padding: var(--space-6);
+      margin: var(--space-6) 0;
+      border: 1px solid var(--secondary-200);
+      box-shadow: var(--shadow-base);
+      transition: all var(--transition-base);
+    }
+
+    .demo-container:hover {
+      box-shadow: var(--shadow-md);
+      transform: translateY(-1px);
+    }
+
+    .demo-title {
+      font-size: 1.125rem;
+      font-weight: 600;
+      color: var(--secondary-800);
+      margin-bottom: var(--space-4);
+      text-align: center;
+      padding-bottom: var(--space-3);
+      border-bottom: 2px solid var(--primary-200);
+    }
+
+    .demo-button {
+      background: linear-gradient(135deg, var(--primary-500), var(--primary-600));
+      color: white;
+      border: none;
+      padding: var(--space-3) var(--space-6);
+      border-radius: var(--radius-base);
+      cursor: pointer;
+      font-size: 0.875rem;
+      font-weight: 500;
+      margin: var(--space-2);
+      transition: all var(--transition-fast);
+      box-shadow: var(--shadow-sm);
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+    }
+
+    .demo-button:hover {
+      background: linear-gradient(135deg, var(--primary-600), var(--primary-700));
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .demo-button:active {
+      transform: translateY(0);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .demo-output {
+      background: white;
+      padding: var(--space-4);
+      border-radius: var(--radius-base);
+      margin-top: var(--space-4);
+      border: 1px solid var(--secondary-200);
+      min-height: 60px;
+      font-family: var(--font-mono);
+      font-size: 0.875rem;
+      line-height: 1.6;
+      box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+      color: var(--secondary-700);
+    }
+
+    /* FORM ELEMENTS */
+    .form-group {
+      margin-bottom: var(--space-4);
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: var(--space-2);
+      font-weight: 600;
+      color: var(--secondary-800);
+      font-size: 0.875rem;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: var(--space-3);
+      border: 1px solid var(--secondary-300);
+      border-radius: var(--radius-base);
+      font-size: 1rem;
+      font-family: var(--font-sans);
+      transition: all var(--transition-fast);
+      background: white;
+    }
+
+         .form-group input:focus,
+     .form-group select:focus,
+     .form-group textarea:focus {
+       outline: none;
+       border-color: var(--primary-500);
+       box-shadow: 0 0 0 3px rgba(243, 156, 18, 0.1);
+     }
+
+    .demo-output {
+      background: white;
+      padding: 15px;
+      border-radius: 5px;
+      margin-top: 10px;
+      border: 1px solid #bdc3c7;
+      min-height: 50px;
+      font-family: 'Courier New', monospace;
+    }
+
+    .practice-form {
+      background: #f8f9fa;
+      padding: 20px;
+      border-radius: 10px;
+      margin: 20px 0;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: 600;
+      color: #2c3e50;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #bdc3c7;
+      border-radius: 5px;
+      font-size: 1rem;
+    }
+
+    /* PROGRESS BAR */
+    .progress-container {
+      background: rgba(255, 255, 255, 0.6);
+      border-radius: var(--radius-lg);
+      padding: var(--space-4);
+      margin-bottom: var(--space-5);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .progress-bar {
+      background: linear-gradient(90deg, var(--primary-500), var(--primary-300));
+      height: 8px;
+      border-radius: var(--radius-full);
+      width: 50%;
+      transition: width 1s ease;
+      box-shadow: 0 2px 4px rgba(243, 156, 18, 0.3);
+      position: relative;
+    }
+
+    .progress-bar::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+      border-radius: var(--radius-full);
+      animation: progressShine 2s infinite;
+    }
+
+    @keyframes progressShine {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(100%); }
+    }
+
+    .progress-text {
+      text-align: center;
+      margin-top: var(--space-2);
+      font-size: 0.875rem;
+      color: var(--secondary-700);
+      font-weight: 600;
+    }
+
+    /* RESPONSIVE DESIGN */
+    @media (max-width: 1024px) {
+      .container {
+        padding: var(--space-4);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        padding: var(--space-3);
+      }
+
+      .header {
+        padding: var(--space-6);
+      }
+
+      .section {
+        padding: var(--space-6);
+      }
+
+      .navigation {
+        flex-direction: column;
+        align-items: center;
+        gap: var(--space-2);
+      }
+
+      .nav-link {
+        width: 100%;
+        max-width: 280px;
+        justify-content: center;
+      }
+
+      .demo-container {
+        padding: var(--space-4);
+      }
+
+      .code-block {
+        padding: var(--space-4);
+      }
+
+      .section h2 {
+        font-size: 1.5rem;
+      }
+
+      .section h3 {
+        font-size: 1.25rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .header h1 {
+        font-size: 1.75rem;
+      }
+
+      .section {
+        padding: var(--space-4);
+      }
+
+      .info-box {
+        padding: var(--space-4);
+      }
+
+      .demo-button {
+        width: 100%;
+        justify-content: center;
+        margin: var(--space-1) 0;
+      }
+    }
+
+    /* ANIMATIONS */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes slideInLeft {
+      from {
+        opacity: 0;
+        transform: translateX(-30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    .section {
+      animation: fadeInUp 0.6s ease-out;
+    }
+
+    .info-box {
+      animation: slideInLeft 0.4s ease-out;
+    }
+
+    /* SCROLL ANIMATIONS */
+    @media (prefers-reduced-motion: no-preference) {
+      .section {
+        opacity: 0;
+        animation: none;
+      }
+      
+      .section.animate-in {
+        animation: fadeInUp 0.6s ease-out forwards;
+      }
+    }
+
+    /* ENHANCED OUTPUT STYLES */
+    .output-header {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      font-weight: 600;
+      color: var(--primary-700);
+      margin-bottom: var(--space-4);
+      padding-bottom: var(--space-2);
+      border-bottom: 2px solid var(--primary-200);
+      font-size: 1.125rem;
+    }
+
+    .output-content {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-3);
+      margin: var(--space-4) 0;
+    }
+
+    .type-item {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      padding: var(--space-3);
+      background: var(--secondary-50);
+      border-radius: var(--radius-base);
+      border-left: 3px solid var(--primary-500);
+    }
+
+    .type-badge {
+      padding: var(--space-1) var(--space-3);
+      border-radius: var(--radius-full);
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      font-family: var(--font-mono);
+    }
+
+    .type-badge.number { background: #e3f2fd; color: #1976d2; }
+    .type-badge.string { background: #e8f5e8; color: #388e3c; }
+    .type-badge.boolean { background: #fff3e0; color: #f57c00; }
+    .type-badge.object { background: #f3e5f5; color: #7b1fa2; }
+    .type-badge.undefined { background: #fafafa; color: #616161; }
+    .type-badge.null { background: #ffebee; color: #d32f2f; }
+
+    .output-footer {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      margin-top: var(--space-4);
+      padding-top: var(--space-3);
+      border-top: 1px solid var(--secondary-200);
+      font-style: italic;
+      color: var(--secondary-600);
+      font-size: 0.875rem;
+    }
+
+    .loading {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-2);
+      color: var(--primary-600);
+      font-weight: 500;
+    }
+
+    .loading::after {
+      content: '';
+      width: 16px;
+      height: 16px;
+      border: 2px solid var(--primary-200);
+      border-top: 2px solid var(--primary-600);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* FEEDBACK MODAL */
+    .feedback-modal {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: white;
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-xl);
+      border: 1px solid var(--secondary-200);
+      z-index: 1000;
+      opacity: 0;
+      transform: translateX(100%);
+      transition: all var(--transition-base);
+    }
+
+    .feedback-modal.show {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .feedback-content {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      padding: var(--space-4) var(--space-6);
+      color: var(--secondary-800);
+      font-weight: 500;
+    }
+
+    .feedback-modal.success .feedback-content i {
+      color: var(--success);
+    }
+
+    .feedback-modal.error .feedback-content i {
+      color: var(--error);
+    }
+
+    .feedback-modal.info .feedback-content i {
+      color: var(--info);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <h1>🔧 Tipos e Estruturas</h1>
+      <p class="subtitle">Tipos de Dados, Condicionais e Loops</p>
+      
+      <div class="progress-container">
+        <div class="progress-bar"></div>
+        <div class="progress-text">Parte 2 de 4 - Tipos e Estruturas</div>
+      </div>
+
+      <nav class="navigation">
+        <a href="index.html" class="nav-link">
+          <i class="fas fa-home"></i> Início
+        </a>
+        <a href="01-fundamentos-javascript.html" class="nav-link">
+          <i class="fas fa-star"></i> Fundamentos
+        </a>
+        <a href="#" class="nav-link active">
+          <i class="fas fa-cogs"></i> Tipos & Estruturas
+        </a>
+        <a href="03-funcoes-eventos.html" class="nav-link">
+          <i class="fas fa-bolt"></i> Funções & Eventos
+        </a>
+        <a href="04-ambiente-pratica.html" class="nav-link">
+          <i class="fas fa-tools"></i> Ambiente & Prática
+        </a>
+      </nav>
+    </header>
+
+    <!-- SEÇÃO 4: TIPOS DE DADOS -->
+    <section class="section">
+      <h2>📊 4. Tipos de Dados em JavaScript</h2>
+      
+      <div class="info-box tip">
+        <strong>🎯 Objetivo:</strong> Entender os fundamentos sobre os tipos de dados em JavaScript, abrangendo valores literais, variáveis, constantes e os diferentes operadores.
+      </div>
+
+      <h3>4.1 Valores Literais</h3>
+      <p>Literais são dados fixos atribuídos diretamente às variáveis, como números, textos, booleanos, arrays e objetos.</p>
+
+      <div class="code-block">
+        <pre>42                // número literal
+"texto"           // string literal
+true, false       // booleanos literais
+[1, 2, 3]         // array literal
+{ nome: "Ana" }   // objeto literal</pre>
+      </div>
+
+      <div class="demo-container">
+        <div class="demo-title">
+          <i class="fas fa-flask"></i> Demonstração: Tipos de Literais
+        </div>
+        <button class="demo-button" onclick="demonstrarLiterais()">
+          <i class="fas fa-play"></i> Mostrar Tipos de Literais
+        </button>
+        <div class="demo-output" id="output1">Clique para ver os diferentes tipos de literais...</div>
+      </div>
+
+      <h3>4.2 Variáveis</h3>
+      <p>Variáveis armazenam valores que podem mudar durante a execução do programa.</p>
+
+      <div class="code-block">
+        <pre>let idade = 30;
+var nome = "Lucas";</pre>
+      </div>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Palavra-chave</th>
+            <th>Escopo</th>
+            <th>Reatribuível</th>
+            <th>Hoisting</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>var</code></td>
+            <td>função</td>
+            <td>sim</td>
+            <td>sim</td>
+          </tr>
+          <tr>
+            <td><code>let</code></td>
+            <td>bloco</td>
+            <td>sim</td>
+            <td>não</td>
+          </tr>
+          <tr>
+            <td><code>const</code></td>
+            <td>bloco</td>
+            <td>não</td>
+            <td>não</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="info-box warning">
+        <strong>⚠️ Recomendação:</strong> Evite <code>var</code> em novos projetos — prefira <code>let</code> ou <code>const</code> pela previsibilidade de escopo.
+      </div>
+
+      <h3>4.3 Constantes</h3>
+      <p>Constantes são valores imutáveis, definidos com <code>const</code>. Devem ser <strong>inicializadas no momento da declaração</strong>.</p>
+
+      <div class="code-block">
+        <pre>const pi = 3.14159;</pre>
+      </div>
+
+      <div class="demo-container">
+        <div class="demo-title">
+          <i class="fas fa-lock"></i> Teste: Diferenças entre let, const e var
+        </div>
+        <button class="demo-button" onclick="testarVariaveis()">
+          <i class="fas fa-test-tube"></i> Testar Variáveis
+        </button>
+        <div class="demo-output" id="output2">Vamos ver as diferenças entre os tipos de declaração...</div>
+      </div>
+
+      <h3>4.4 Operadores</h3>
+
+      <h4>4.4.1 Operadores Aritméticos</h4>
+      <div class="code-block">
+        <pre>+  // adição
+-  // subtração
+*  // multiplicação
+/  // divisão
+%  // módulo (resto da divisão)
+** // exponenciação</pre>
+      </div>
+
+      <h4>4.4.2 Operadores de Atribuição</h4>
+      <div class="code-block">
+        <pre>=   // atribuição simples
++=  // adição e atribuição
+-=  // subtração e atribuição
+*=  // multiplicação e atribuição
+/=  // divisão e atribuição</pre>
+      </div>
+
+      <h4>4.4.3 Operadores de Comparação</h4>
+      <div class="code-block">
+        <pre>==   // igualdade (valor)
+===  // igualdade estrita (valor e tipo)
+!=   // diferente (valor)
+!==  // diferente estrito (valor e tipo)
+>    // maior que
+>=   // maior ou igual
+<    // menor que
+<=   // menor ou igual</pre>
+      </div>
+
+      <div class="info-box warning">
+        <strong>⚠️ Importante:</strong> Prefira <code>===</code> e <code>!==</code> para evitar coerções implícitas de tipo.
+      </div>
+
+      <div class="demo-container">
+        <div style="text-align: center; font-weight: bold; margin-bottom: 15px;">⚖️ Demonstração: Comparações</div>
+        <button class="demo-button" onclick="demonstrarComparacoes()">Testar Comparações</button>
+        <div class="demo-output" id="output3">Vamos ver a diferença entre == e ===...</div>
+      </div>
+
+      <h4>4.4.4 Operadores Lógicos</h4>
+      <div class="code-block">
+        <pre>&&  // e lógico (AND)
+||  // ou lógico (OR)
+!   // negação (NOT)</pre>
+      </div>
+
+      <h4>4.4.5 Operador Ternário</h4>
+      <p>O operador ternário é uma forma concisa de escrever uma estrutura <code>if...else</code>:</p>
+
+      <div class="code-block">
+        <pre>condicao ? valorSeVerdadeiro : valorSeFalso;</pre>
+      </div>
+
+      <div class="demo-container">
+        <div style="text-align: center; font-weight: bold; margin-bottom: 15px;">🎛️ Calculadora de Operadores</div>
+        <div class="practice-form">
+          <div class="form-group">
+            <label>Número 1:</label>
+            <input type="number" id="num1" value="10">
+          </div>
+          <div class="form-group">
+            <label>Operador:</label>
+            <select id="operador">
+              <option value="+">+ (Adição)</option>
+              <option value="-">- (Subtração)</option>
+              <option value="*">* (Multiplicação)</option>
+              <option value="/">" (Divisão)</option>
+              <option value="%">% (Módulo)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Número 2:</label>
+            <input type="number" id="num2" value="5">
+          </div>
+          <button class="demo-button" onclick="calcular()">🧮 Calcular</button>
+          <div class="demo-output" id="output4">Resultado aparecerá aqui...</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SEÇÃO 5: ESTRUTURAS CONDICIONAIS -->
+    <section class="section">
+      <h2>🤔 5. Estruturas Condicionais em JavaScript</h2>
+      
+      <div class="info-box tip">
+        <strong>🎯 Objetivo:</strong> Compreender como controlar o fluxo de execução de um programa em JavaScript por meio de decisões lógicas com <code>if</code>, <code>else</code>, <code>else if</code> e <code>switch</code>.
+      </div>
+
+      <h3>5.1 if</h3>
+      <p>A estrutura <code>if</code> permite executar um bloco de código se uma condição for verdadeira.</p>
+
+      <div class="code-block">
+        <pre>let idade = 18;
+if (idade >= 18) {
+  console.log("Você é maior de idade.");
+}</pre>
+      </div>
+
+      <h3>5.2 if...else</h3>
+      <p>Permite executar um bloco caso a condição seja verdadeira e outro bloco caso seja falsa.</p>
+
+      <div class="code-block">
+        <pre>let idade = 16;
+if (idade >= 18) {
+  console.log("Maior de idade");
+} else {
+  console.log("Menor de idade");
+}</pre>
+      </div>
+
+      <h3>5.3 else if</h3>
+      <p>Permite verificar múltiplas condições em sequência.</p>
+
+      <div class="code-block">
+        <pre>let nota = 7;
+if (nota >= 9) {
+  console.log("Excelente");
+} else if (nota >= 6) {
+  console.log("Aprovado");
+} else {
+  console.log("Reprovado");
+}</pre>
+      </div>
+
+      <div class="demo-container">
+        <div style="text-align: center; font-weight: bold; margin-bottom: 15px;">🎓 Verificador de Notas</div>
+        <div class="practice-form">
+          <div class="form-group">
+            <label>Digite sua nota (0-10):</label>
+            <input type="number" id="nota" min="0" max="10" step="0.1" placeholder="Ex: 8.5">
+          </div>
+          <button class="demo-button" onclick="verificarNota()">📊 Verificar Status</button>
+          <div class="demo-output" id="output5">Digite uma nota e clique para verificar...</div>
+        </div>
+      </div>
+
+      <h3>5.4 switch</h3>
+      <p>O <code>switch</code> avalia uma <strong>expressão</strong> e executa o bloco de código correspondente ao <code>case</code> correspondente.</p>
+
+      <div class="code-block">
+        <pre>let fruta = "banana";
+switch (fruta) {
+  case "maçã":
+    console.log("Você escolheu maçã");
+    break;
+  case "banana":
+    console.log("Você escolheu banana");
+    break;
+  default:
+    console.log("Fruta não reconhecida");
+}</pre>
+      </div>
+
+      <div class="info-box tip">
+        <strong>💡 Importante:</strong> Sempre inclua o <code>break</code> após cada <code>case</code>, ou o JavaScript continuará executando os próximos blocos!
+      </div>
+
+      <div class="demo-container">
+        <div style="text-align: center; font-weight: bold; margin-bottom: 15px;">🍎 Seletor de Frutas</div>
+        <div class="practice-form">
+          <div class="form-group">
+            <label>Escolha uma fruta:</label>
+            <select id="frutaEscolhida">
+              <option value="">Selecione...</option>
+              <option value="maçã">🍎 Maçã</option>
+              <option value="banana">🍌 Banana</option>
+              <option value="laranja">🍊 Laranja</option>
+              <option value="uva">🍇 Uva</option>
+              <option value="abacaxi">🍍 Abacaxi</option>
+            </select>
+          </div>
+          <button class="demo-button" onclick="escolherFruta()">🍃 Escolher Fruta</button>
+          <div class="demo-output" id="output6">Escolha uma fruta para ver a informação...</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SEÇÃO 6: ESTRUTURAS DE REPETIÇÃO -->
+    <section class="section">
+      <h2>🔄 6. Estruturas de Repetição em JavaScript</h2>
+      
+      <div class="info-box tip">
+        <strong>🎯 Objetivo:</strong> Aprender a utilizar laços de repetição para executar trechos de código várias vezes, com diferentes estruturas como <code>for</code>, <code>while</code>, <code>do...while</code>, além das instruções <code>break</code> e <code>continue</code>.
+      </div>
+
+      <h3>6.1 for</h3>
+      <p>Usado quando se sabe exatamente <strong>quantas vezes</strong> o loop deve executar.</p>
+
+      <div class="code-block">
+        <pre>for (let i = 0; i < 5; i++) {
+  console.log("Repetição número " + i);
+}</pre>
+      </div>
+
+      <h3>6.2 while</h3>
+      <p>Executa o bloco de código <strong>enquanto</strong> a condição for verdadeira.</p>
+
+      <div class="code-block">
+        <pre>let i = 0;
+while (i < 5) {
+  console.log(i);
+  i++;
+}</pre>
+      </div>
+
+      <h3>6.3 do...while</h3>
+      <p>Executa <strong>ao menos uma vez</strong>, pois a condição é verificada <strong>após</strong> a execução.</p>
+
+      <div class="code-block">
+        <pre>let i = 0;
+do {
+  console.log(i);
+  i++;
+} while (i < 5);</pre>
+      </div>
+
+      <div class="demo-container">
+        <div style="text-align: center; font-weight: bold; margin-bottom: 15px;">🔢 Gerador de Sequências</div>
+        <div class="practice-form">
+          <div class="form-group">
+            <label>Tipo de loop:</label>
+            <select id="tipoLoop">
+              <option value="for">for</option>
+              <option value="while">while</option>
+              <option value="do-while">do...while</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Número de repetições:</label>
+            <input type="number" id="repeticoes" value="5" min="1" max="20">
+          </div>
+          <button class="demo-button" onclick="demonstrarLoop()">🔄 Executar Loop</button>
+          <div class="demo-output" id="output7">Configure e execute o loop...</div>
+        </div>
+      </div>
+
+      <h3>6.4 for...in e for...of</h3>
+      <p><strong>for...in</strong> itera sobre as <strong>chaves</strong> (índices ou nomes) de um objeto ou array:</p>
+
+      <div class="code-block">
+        <pre>let pessoa = { nome: "Ana", idade: 25 };
+for (let chave in pessoa) {
+  console.log(chave + ": " + pessoa[chave]);
+}</pre>
+      </div>
+
+      <p><strong>for...of</strong> itera sobre os <strong>valores</strong> de estruturas iteráveis (arrays, strings, etc):</p>
+
+      <div class="code-block">
+        <pre>let frutas = ["maçã", "banana", "uva"];
+for (let fruta of frutas) {
+  console.log(fruta);
+}</pre>
+      </div>
+
+      <h3>6.5 break e continue</h3>
+      <p><strong>break</strong> interrompe a execução do laço atual:</p>
+
+      <div class="code-block">
+        <pre>for (let i = 0; i < 10; i++) {
+  if (i === 5) break;
+  console.log(i);
+}</pre>
+      </div>
+
+      <p><strong>continue</strong> pula a iteração atual e segue para a próxima:</p>
+
+      <div class="code-block">
+        <pre>for (let i = 0; i < 5; i++) {
+  if (i === 2) continue;
+  console.log(i);
+}</pre>
+      </div>
+
+      <div class="demo-container">
+        <div style="text-align: center; font-weight: bold; margin-bottom: 15px;">🎯 Demonstração: Break e Continue</div>
+        <button class="demo-button" onclick="demonstrarBreakContinue()">🛑 Testar Break/Continue</button>
+        <div class="demo-output" id="output8">Veja como break e continue funcionam...</div>
+      </div>
+
+      <div class="info-box example">
+        <h3>✅ Resumo da Parte 2</h3>
+        <ul style="margin-left: 20px;">
+          <li>Variáveis (<code>let</code>, <code>var</code>) armazenam valores mutáveis; <code>const</code> define valores imutáveis</li>
+          <li>Operadores realizam cálculos, comparações e atribuições de forma clara e poderosa</li>
+          <li>Use <code>if</code> para condições simples, <code>switch</code> para múltiplas possibilidades fixas</li>
+          <li><code>for</code> para repetições com contagem conhecida, <code>while</code> para condições dinâmicas</li>
+          <li><code>break</code> interrompe loops, <code>continue</code> pula uma iteração</li>
+        </ul>
+      </div>
+
+      <div class="practice-form">
+        <h3>🎯 Perguntas de Revisão</h3>
+        <div class="form-group">
+          <label>1. Qual a diferença entre <code>let</code>, <code>var</code> e <code>const</code>?</label>
+          <textarea rows="3" placeholder="Digite sua resposta..."></textarea>
+        </div>
+        <div class="form-group">
+          <label>2. Por que é melhor usar <code>===</code> ao invés de <code>==</code>?</label>
+          <textarea rows="3" placeholder="Digite sua resposta..."></textarea>
+        </div>
+        <div class="form-group">
+          <label>3. Quando usar <code>switch</code> ao invés de múltiplos <code>if</code>?</label>
+          <textarea rows="3" placeholder="Digite sua resposta..."></textarea>
+        </div>
+        <button class="demo-button" onclick="verificarRespostas()">🔍 Verificar Respostas</button>
+      </div>
+
+      <div class="info-box note">
+        <h3>🚀 Próximos Passos</h3>
+        <p>Agora que você domina tipos de dados e estruturas de controle, está pronto para explorar <strong>funções, eventos e manipulação do DOM</strong>!</p>
+        <p style="text-align: center; margin-top: 20px;">
+          <a href="03-funcoes-eventos.html" class="demo-button" style="text-decoration: none; display: inline-block;">
+            ⚡ Continuar para Funções & Eventos →
+          </a>
+        </p>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    // =========================
+    // INTERSECTION OBSERVER
+    // =========================
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('animate-in');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const sections = document.querySelectorAll('.section');
+      sections.forEach(section => {
+        observer.observe(section);
+      });
+
+      // Atalhos de teclado
+      document.addEventListener('keydown', (e) => {
+        if (e.ctrlKey && e.key === 'j') {
+          e.preventDefault();
+          window.scrollBy(0, 300);
+        }
+        if (e.ctrlKey && e.key === 'k') {
+          e.preventDefault();
+          window.scrollBy(0, -300);
+        }
+      });
+    });
+
+    // =========================
+    // COPY TO CLIPBOARD
+    // =========================
+    function copyToClipboard(text) {
+      navigator.clipboard.writeText(text).then(() => {
+        showFeedback('Código copiado!', 'success');
+      }).catch(() => {
+        showFeedback('Erro ao copiar', 'error');
+      });
+    }
+
+    // =========================
+    // MODAL FEEDBACK
+    // =========================
+    function showFeedback(message, type = 'info') {
+      const modal = document.createElement('div');
+      modal.className = `feedback-modal ${type}`;
+      modal.innerHTML = `
+        <div class="feedback-content">
+          <i class="fas ${type === 'success' ? 'fa-check-circle' : type === 'error' ? 'fa-exclamation-circle' : 'fa-info-circle'}"></i>
+          <span>${message}</span>
+        </div>
+      `;
+      
+      document.body.appendChild(modal);
+      
+      setTimeout(() => modal.classList.add('show'), 10);
+      setTimeout(() => {
+        modal.classList.remove('show');
+        setTimeout(() => document.body.removeChild(modal), 300);
+      }, 2000);
+    }
+
+    // =========================
+    // DEMO FUNCTIONS
+    // =========================
+    function demonstrarLiterais() {
+      const output = document.getElementById('output1');
+      const numero = 42;
+      const texto = "JavaScript";
+      const booleano = true;
+      const array = [1, 2, 3];
+      const objeto = { nome: "Ana", idade: 25 };
+      
+      // Animação de loading
+      output.innerHTML = '<div class="loading">Analisando tipos...</div>';
+      
+      setTimeout(() => {
+        output.innerHTML = `
+          <div class="output-header">
+            <i class="fas fa-code"></i> Tipos de Literais em JavaScript
+          </div>
+          <div class="output-content">
+            <div class="type-item">
+              <strong>Número:</strong> <code>${numero}</code> 
+              <span class="type-badge number">tipo: ${typeof numero}</span>
+            </div>
+            <div class="type-item">
+              <strong>String:</strong> <code>"${texto}"</code> 
+              <span class="type-badge string">tipo: ${typeof texto}</span>
+            </div>
+            <div class="type-item">
+              <strong>Boolean:</strong> <code>${booleano}</code> 
+              <span class="type-badge boolean">tipo: ${typeof booleano}</span>
+            </div>
+            <div class="type-item">
+              <strong>Array:</strong> <code>[${array}]</code> 
+              <span class="type-badge object">tipo: ${typeof array}</span>
+            </div>
+            <div class="type-item">
+              <strong>Objeto:</strong> <code>${JSON.stringify(objeto)}</code> 
+              <span class="type-badge object">tipo: ${typeof objeto}</span>
+            </div>
+          </div>
+          <div class="output-footer">
+            <i class="fas fa-lightbulb"></i> 
+            Explore como JavaScript identifica diferentes tipos de dados!
+          </div>
+        `;
+      }, 800);
+    }
+
+    function testarVariaveis() {
+      const output = document.getElementById('output2');
+      
+      output.innerHTML = '<div class="loading">Testando variáveis...</div>';
+      
+      setTimeout(() => {
+        // Simulando comportamentos
+        let varLet = "Posso ser reatribuída";
+        const varConst = "Não posso ser reatribuída";
+        
+        varLet = "Novo valor";
+        
+        output.innerHTML = `
+          <div class="output-header">
+            <i class="fas fa-vial"></i> Teste de Variáveis em JavaScript
+          </div>
+          <div class="output-content">
+            <div class="type-item">
+              <strong>let:</strong> <code>"${varLet}"</code>
+              <span class="type-badge string">✅ Reatribuição permitida</span>
+            </div>
+            <div class="type-item">
+              <strong>const:</strong> <code>"${varConst}"</code>
+              <span class="type-badge string">❌ Reatribuição proibida</span>
+            </div>
+          </div>
+          <div class="output-footer">
+            <i class="fas fa-info-circle"></i>
+            Use 'let' para valores que mudam, 'const' para valores fixos!
+          </div>
+        `;
+      }, 600);
+    }
+
+    function demonstrarComparacoes() {
+      const output = document.getElementById('output3');
+      
+      output.innerHTML = `
+        <strong>⚖️ Comparações em JavaScript:</strong><br>
+        5 == "5": ${5 == "5"} (compara apenas valor)<br>
+        5 === "5": ${5 === "5"} (compara valor e tipo)<br>
+        true == 1: ${true == 1} (coerção de tipo)<br>
+        true === 1: ${true === 1} (sem coerção)<br>
+        <em>Sempre prefira === para comparações mais seguras!</em>
+      `;
+    }
+
+    function calcular() {
+      const num1 = parseFloat(document.getElementById('num1').value);
+      const num2 = parseFloat(document.getElementById('num2').value);
+      const operador = document.getElementById('operador').value;
+      const output = document.getElementById('output4');
+      
+      let resultado;
+      
+      switch(operador) {
+        case '+':
+          resultado = num1 + num2;
+          break;
+        case '-':
+          resultado = num1 - num2;
+          break;
+        case '*':
+          resultado = num1 * num2;
+          break;
+        case '/':
+          resultado = num2 !== 0 ? num1 / num2 : 'Erro: Divisão por zero';
+          break;
+        case '%':
+          resultado = num1 % num2;
+          break;
+        default:
+          resultado = 'Operador inválido';
+      }
+      
+      output.innerHTML = `
+        <strong>🧮 Resultado:</strong><br>
+        ${num1} ${operador} ${num2} = <strong>${resultado}</strong>
+      `;
+    }
+
+    function verificarNota() {
+      const nota = parseFloat(document.getElementById('nota').value);
+      const output = document.getElementById('output5');
+      
+      if (isNaN(nota) || nota < 0 || nota > 10) {
+        output.innerHTML = '<span style="color: #e74c3c;">❌ Digite uma nota válida entre 0 e 10</span>';
+        return;
+      }
+      
+      let status, emoji, cor;
+      
+      if (nota >= 9) {
+        status = "Excelente";
+        emoji = "🌟";
+        cor = "#27ae60";
+      } else if (nota >= 7) {
+        status = "Bom";
+        emoji = "😊";
+        cor = "#f39c12";
+      } else if (nota >= 5) {
+        status = "Regular";
+        emoji = "😐";
+        cor = "#e67e22";
+      } else {
+        status = "Insuficiente";
+        emoji = "😞";
+        cor = "#e74c3c";
+      }
+      
+      output.innerHTML = `
+        <strong style="color: ${cor};">${emoji} Status: ${status}</strong><br>
+        Nota: ${nota}/10<br>
+        <em>Este resultado foi gerado usando estruturas condicionais!</em>
+      `;
+    }
+
+    function escolherFruta() {
+      const fruta = document.getElementById('frutaEscolhida').value;
+      const output = document.getElementById('output6');
+      
+      if (!fruta) {
+        output.innerHTML = '<span style="color: #e74c3c;">❌ Selecione uma fruta primeiro</span>';
+        return;
+      }
+      
+      let info;
+      
+      switch(fruta) {
+        case "maçã":
+          info = "Rica em fibras e vitamina C. Ótima para a saúde!";
+          break;
+        case "banana":
+          info = "Fonte de potássio e energia rápida. Perfeita pré-treino!";
+          break;
+        case "laranja":
+          info = "Cheia de vitamina C. Fortalece o sistema imunológico!";
+          break;
+        case "uva":
+          info = "Contém antioxidantes. Boa para o coração!";
+          break;
+        case "abacaxi":
+          info = "Rico em bromelina. Ajuda na digestão!";
+          break;
+        default:
+          info = "Fruta não reconhecida no sistema.";
+      }
+      
+      output.innerHTML = `
+        <strong>🍃 Informação sobre ${fruta}:</strong><br>
+        ${info}<br>
+        <em>Este exemplo demonstra o uso do switch statement!</em>
+      `;
+    }
+
+    function demonstrarLoop() {
+      const tipo = document.getElementById('tipoLoop').value;
+      const repeticoes = parseInt(document.getElementById('repeticoes').value);
+      const output = document.getElementById('output7');
+      
+      let resultado = `<strong>🔄 Executando ${tipo}:</strong><br>`;
+      
+      switch(tipo) {
+        case 'for':
+          for (let i = 1; i <= repeticoes; i++) {
+            resultado += `${i}° iteração (for)<br>`;
+          }
+          break;
+        case 'while':
+          let i = 1;
+          while (i <= repeticoes) {
+            resultado += `${i}° iteração (while)<br>`;
+            i++;
+          }
+          break;
+        case 'do-while':
+          let j = 1;
+          do {
+            resultado += `${j}° iteração (do-while)<br>`;
+            j++;
+          } while (j <= repeticoes);
+          break;
+      }
+      
+      resultado += `<em>Executou ${repeticoes} vezes com ${tipo}!</em>`;
+      output.innerHTML = resultado;
+    }
+
+    function demonstrarBreakContinue() {
+      const output = document.getElementById('output8');
+      
+      let resultadoBreak = "Com break: ";
+      for (let i = 1; i <= 10; i++) {
+        if (i === 6) break;
+        resultadoBreak += i + " ";
+      }
+      
+      let resultadoContinue = "Com continue: ";
+      for (let i = 1; i <= 10; i++) {
+        if (i % 2 === 0) continue; // pula números pares
+        resultadoContinue += i + " ";
+      }
+      
+      output.innerHTML = `
+        <strong>🛑 Demonstração Break/Continue:</strong><br>
+        ${resultadoBreak} (parou no 5)<br>
+        ${resultadoContinue} (só ímpares)<br>
+        <em>Break para e Continue pula!</em>
+      `;
+    }
+
+    function verificarRespostas() {
+      alert('🎓 Excelente! Você está dominando os conceitos fundamentais. Continue praticando com os exemplos!');
+    }
+  </script>
+</body>
+</html> 

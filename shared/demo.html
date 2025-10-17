@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demo - Sistema de Design Unificado</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- Sistema de Design Unificado -->
+    <link rel="stylesheet" href="design-system.css">
+    <link rel="stylesheet" href="navigation.css">
+    
+    <!-- Tema específico da demonstração -->
+    <style>
+        :root {
+            --lesson-theme-primary: #3498db;
+            --lesson-theme-light: #ebf3fd;
+            --lesson-theme-dark: #2980b9;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, var(--lesson-theme-primary), var(--lesson-theme-dark));
+        }
+        
+        .demo-section {
+            margin: var(--spacing-8) 0;
+        }
+        
+        .demo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--spacing-6);
+        }
+    </style>
+</head>
+<body data-lesson="demo" data-topic="sistema-design">
+    <!-- Header Principal -->
+    <header class="header">
+        <div class="container">
+            <h1>🎨 Sistema de Design Unificado</h1>
+            <p class="subtitle">Demonstração dos componentes e funcionalidades</p>
+        </div>
+    </header>
+
+    <!-- Conteúdo Principal -->
+    <main class="container">
+        <!-- Cards de Demonstração -->
+        <section class="demo-section">
+            <h2>📦 Sistema de Cards</h2>
+            <div class="demo-grid">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon">🚀</div>
+                        <h3 class="card-title">Card Exemplo</h3>
+                    </div>
+                    <p class="card-description">
+                        Este é um exemplo de card usando o novo sistema de design. 
+                        Observe a consistência visual e as animações suaves.
+                    </p>
+                    <a href="#" class="btn btn-primary">Explorar</a>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon">⚡</div>
+                        <h3 class="card-title">Interatividade</h3>
+                    </div>
+                    <p class="card-description">
+                        Cards respondem ao hover com animações suaves e feedback visual imediato.
+                    </p>
+                    <button class="btn btn-secondary">Testar</button>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon">📱</div>
+                        <h3 class="card-title">Responsivo</h3>
+                    </div>
+                    <p class="card-description">
+                        Design totalmente responsivo que se adapta a diferentes tamanhos de tela.
+                    </p>
+                    <button class="btn btn-success">Redimensionar</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Botões -->
+        <section class="demo-section">
+            <h2>🔘 Sistema de Botões</h2>
+            <div class="flex-center gap-4">
+                <button class="btn btn-primary">Primário</button>
+                <button class="btn btn-secondary">Secundário</button>
+                <button class="btn btn-success">Sucesso</button>
+                <button class="btn btn-warning">Atenção</button>
+            </div>
+            <div class="flex-center gap-4 mt-4">
+                <button class="btn btn-primary btn-sm">Pequeno</button>
+                <button class="btn btn-primary">Normal</button>
+                <button class="btn btn-primary btn-lg">Grande</button>
+            </div>
+        </section>
+
+        <!-- Barras de Progresso -->
+        <section class="demo-section">
+            <h2>📊 Progresso</h2>
+            <div class="progress">
+                <div class="progress-bar" style="width: 75%"></div>
+            </div>
+            <p class="text-center mt-2">75% Concluído</p>
+        </section>
+
+        <!-- Alertas -->
+        <section class="demo-section">
+            <h2>📢 Sistema de Alertas</h2>
+            
+            <div class="alert alert-info">
+                <span>💡</span>
+                <div>
+                    <strong>Informação:</strong> Este é um alerta informativo usando o sistema de design unificado.
+                </div>
+            </div>
+
+            <div class="alert alert-success">
+                <span>✅</span>
+                <div>
+                    <strong>Sucesso:</strong> Operação realizada com sucesso! O sistema está funcionando perfeitamente.
+                </div>
+            </div>
+
+            <div class="alert alert-warning">
+                <span>⚠️</span>
+                <div>
+                    <strong>Atenção:</strong> Este é um aviso importante que você deve considerar.
+                </div>
+            </div>
+
+            <div class="alert alert-error">
+                <span>❌</span>
+                <div>
+                    <strong>Erro:</strong> Algo deu errado. Verifique os dados e tente novamente.
+                </div>
+            </div>
+        </section>
+
+        <!-- Código -->
+        <section class="demo-section">
+            <h2>💻 Blocos de Código</h2>
+            
+            <div class="code-block" data-lang="javascript">
+// Exemplo de JavaScript
+function saudacao(nome) {
+    return `Olá, ${nome}! Bem-vindo ao curso.`;
+}
+
+console.log(saudacao('Estudante'));
+            </div>
+
+            <p>Código inline: <code class="code-inline">console.log()</code> é uma função útil.</p>
+        </section>
+
+        <!-- Formulário -->
+        <section class="demo-section">
+            <h2>📝 Formulários</h2>
+            <div class="demo-grid">
+                <div>
+                    <div class="form-group">
+                        <label class="form-label">Nome:</label>
+                        <input type="text" class="form-input" placeholder="Digite seu nome">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Curso:</label>
+                        <select class="form-select">
+                            <option>HTML</option>
+                            <option>CSS</option>
+                            <option>JavaScript</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Comentário:</label>
+                        <textarea class="form-textarea" rows="4" placeholder="Deixe seu comentário"></textarea>
+                    </div>
+
+                    <button class="btn btn-primary">Enviar</button>
+                </div>
+
+                <div class="card">
+                    <h3>📋 Teste Interativo</h3>
+                    <p>Use os campos ao lado para testar o sistema de formulários.</p>
+                    <div class="alert alert-info mt-4">
+                        <span>💡</span>
+                        <div>Todos os campos possuem feedback visual e são totalmente acessíveis.</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Utilitários -->
+        <section class="demo-section">
+            <h2>🎛️ Classes Utilitárias</h2>
+            <div class="demo-grid">
+                <div class="card text-center">
+                    <h4>Centralizado</h4>
+                    <p>Usando <code class="code-inline">.text-center</code></p>
+                </div>
+
+                <div class="card">
+                    <div class="flex-between">
+                        <span>Esquerda</span>
+                        <span>Direita</span>
+                    </div>
+                    <p class="mt-2">Usando <code class="code-inline">.flex-between</code></p>
+                </div>
+
+                <div class="card">
+                    <div class="flex-center gap-2">
+                        <span>🎯</span>
+                        <span>Centralizado</span>
+                        <span>🎯</span>
+                    </div>
+                    <p class="mt-2">Usando <code class="code-inline">.flex-center .gap-2</code></p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Scripts -->
+    <script src="navigation.js"></script>
+    
+    <script>
+        // Demonstração de interatividade
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animar progresso
+            setTimeout(() => {
+                const progressBar = document.querySelector('.progress-bar');
+                if (progressBar) {
+                    let width = 0;
+                    const interval = setInterval(() => {
+                        if (width >= 75) {
+                            clearInterval(interval);
+                        } else {
+                            width += 1;
+                            progressBar.style.width = width + '%';
+                        }
+                    }, 30);
+                }
+            }, 1000);
+
+            // Botão de teste responsivo
+            document.querySelector('.btn:contains("Redimensionar")')?.addEventListener('click', function() {
+                alert('Teste redimensionando a janela do navegador para ver a responsividade!');
+            });
+        });
+    </script>
+</body>
+</html> 

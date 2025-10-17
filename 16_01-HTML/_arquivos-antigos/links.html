@@ -1,0 +1,116 @@
+<!-- ============================================================= -->
+<!-- = LINKS EM HTML                                             = -->
+<!-- = Navegação entre páginas internas e externas               = -->
+<!-- = Segurança com noopener e noreferrer, ataques tabnabbing   = -->
+<!-- ============================================================= -->
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8"> <!-- Codificação UTF-8 -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Responsivo -->
+  <title>Links</title>
+</head>
+<body>
+
+<h1>🔗 Links em HTML</h1>
+<hr>
+
+<!-- ============================================================= -->
+<!-- = LINKS INTERNOS (MESMA ABA)                                = -->
+<!-- = Abertura padrão dentro do próprio site                    = -->
+<!-- ============================================================= -->
+
+<h2>📄 Links Internos (mesma aba)</h2>
+<p>Esses links navegam dentro do mesmo site e abrem na <strong>mesma aba</strong>.</p>
+
+<a href="listas.html">📝 Listas</a><br>
+<a href="imagens.html">🖼️ Imagens</a><br>
+<a href="links.html">🔗 Links</a><br>
+<a href="table.html">📊 Tabelas</a><br>
+<a href="tabela2.html">📊 Tabelas 2</a><br>
+<a href="form.html">📝 Formulários</a><br>
+
+<br><hr>
+
+<!-- ============================================================= -->
+<!-- = LINKS INTERNOS (NOVA ABA)                                 = -->
+<!-- = Usa target="_blank" para abrir nova aba                   = -->
+<!-- ============================================================= -->
+
+<h2>🪟 Links Internos (nova aba)</h2>
+<p>Usamos <code>target="_blank"</code> para abrir o link em uma <strong>nova aba</strong>.</p>
+
+<a href="listas.html" target="_blank">📝 Listas</a><br>
+<a href="imagens.html" target="_blank">🖼️ Imagens</a><br>
+<a href="links.html" target="_blank">🔗 Links</a><br>
+<a href="table.html" target="_blank">📊 Tabelas</a><br>
+<a href="tabela2.html" target="_blank">📊 Tabelas 2</a><br>
+<a href="form.html" target="_blank">📝 Formulários</a><br>
+
+<br>
+
+<!-- ℹ️ Alerta de segurança ao usar target="_blank" sem proteção -->
+<strong>ℹ️ Atenção:</strong> Usar apenas <code>target="_blank"</code> pode permitir <em>ataques de tabnabbing</em>, onde a nova aba tenta controlar a aba original.
+
+<br><hr>
+
+<!-- ============================================================= -->
+<!-- = LINKS COM SEGURANÇA                                       = -->
+<!-- = rel="noopener" → bloqueia acesso à aba original           = -->
+<!-- = rel="noreferrer" → remove o Referer da requisição HTTP    = -->
+<!-- ============================================================= -->
+
+<h2>🛡️ Links com Segurança</h2>
+<p>Incluímos atributos extras para proteção:</p>
+
+<code>rel="noopener"</code> → evita que a nova aba tenha acesso à aba original via <code>window.opener</code><br>
+<code>rel="noreferrer"</code> → esconde o link de origem (útil para privacidade, mas <strong>evite se quiser rastrear o tráfego</strong>)<br><br>
+
+<a href="listas.html" target="_blank" rel="noopener noreferrer">📝 Listas</a><br>
+<a href="imagens.html" target="_blank" rel="noopener noreferrer">🖼️ Imagens</a><br>
+<a href="links.html" target="_blank" rel="noopener noreferrer">🔗 Links</a><br>
+<a href="table.html" target="_blank" rel="noopener noreferrer">📊 Tabelas</a><br>
+<a href="tabela2.html" target="_blank" rel="noopener noreferrer">📊 Tabelas 2</a><br>
+<a href="form.html" target="_blank" rel="noopener noreferrer">📝 Formulários</a><br>
+
+<br>
+<strong>✅ Melhor prática:</strong> Sempre combine <code>target="_blank"</code> com <code>rel="noopener noreferrer"</code>.
+
+<br><hr>
+
+<!-- ============================================================= -->
+<!-- = LINKS EXTERNOS                                            = -->
+<!-- = Sempre abrir em nova aba + segurança com rel="noopener"   = -->
+<!-- ============================================================= -->
+
+<h2>🌍 Links Externos</h2>
+<p>Links para sites fora do seu domínio devem <strong>sempre abrir em nova aba</strong> e com segurança:</p>
+
+<a href="https://www.google.com" target="_blank" rel="noopener noreferrer">🔎 Google</a><br>
+
+<br><hr>
+
+<!-- ============================================================== -->
+<!-- =  DICA BÔNUS: window.opener e ataques de tabnabbing         = -->
+<!-- = Evite que a nova aba controle a anterior com rel="noopener"= -->
+<!-- ============================================================== -->
+
+<h3>🧠 Dica bônus: <code>window.opener</code> e ataques de tabnabbing</h3>
+
+<p>
+Quando usamos <code>target="_blank"</code>, a nova aba ganha acesso ao objeto <code>window.opener</code>, que representa a aba original.
+Isso pode permitir que um site malicioso redirecione a aba original para um site falso (ex: tela de login falsa). Esse ataque é conhecido como <strong>tabnabbing</strong>.
+</p>
+
+<strong>🧨 Exemplo de ataque:</strong><br>
+<code>window.opener.location = 'https://site-falso.com';</code>
+
+<br><br>
+
+<p><strong>💡 Solução:</strong> Use <code>rel="noopener"</code> para impedir esse tipo de ataque.</p>
+
+<br><br><br>
+
+</body>
+</html>

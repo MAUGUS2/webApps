@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📝 HTML - Textos e Listas</title>
+<!-- Demonstrando formatação de texto e estruturas de lista -->
+    <style>
+        * { 
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #2E3A46;
+            color: #fff;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .navegacao {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .navegacao a {
+            color: #4A90E2;
+            text-decoration: none;
+            margin: 0 15px;
+        }
+
+        .navegacao a:hover {
+            color: #7ED321;
+        }
+
+        /* ============================================================= */
+        /* = HIERARQUIA DE TÍTULOS                                    = */
+        /* ============================================================= */
+        /* HTML possui 6 níveis de títulos (h1 a h6):
+           
+           H1: Título principal da página (apenas um por página!)
+           H2: Seções principais
+           H3: Subseções 
+           H4: Sub-subseções
+           H5-H6: Detalhes mais específicos
+           
+           Importante: sempre manter hierarquia lógica para SEO!
+        */
+
+        .demo-titulos {
+            background-color: #3D4146;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #4A90E2;
+            margin: 20px 0;
+        }
+
+        .titulo-demo h1 { font-size: 28px; color: #7ED321; margin: 10px 0; }
+        .titulo-demo h2 { font-size: 24px; color: #4A90E2; margin: 10px 0; }
+        .titulo-demo h3 { font-size: 20px; color: #F5A623; margin: 10px 0; }
+        .titulo-demo h4 { font-size: 18px; color: #FF6B6B; margin: 10px 0; }
+        .titulo-demo h5 { font-size: 16px; color: #9B59B6; margin: 10px 0; }
+        .titulo-demo h6 { font-size: 14px; color: #E67E22; margin: 10px 0; }
+
+        /* ============================================================= */
+        /* = PARÁGRAFOS E FORMATAÇÃO                                  = */
+        /* ============================================================= */
+        /* Elementos para formatação de texto:
+           
+           P: Parágrafo (bloco)
+           BR: Quebra de linha
+           STRONG: Texto importante (negrito semântico)
+           EM: Ênfase (itálico semântico)
+           MARK: Destacar texto (marca-texto)
+           DEL: Texto removido (riscado)
+           INS: Texto inserido (sublinhado)
+        */
+
+        .demo-formatacao {
+            background-color: #3D4146;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #7ED321;
+            margin: 20px 0;
+        }
+
+        .exemplo-visual {
+            background-color: #fff;
+            color: #333;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+
+        /* ============================================================= */
+        /* = LISTAS - ORDENADAS E NÃO ORDENADAS                       = */
+        /* ============================================================= */
+        /* Tipos de listas em HTML:
+           
+           UL: Lista não-ordenada (bullets)
+           OL: Lista ordenada (números)
+           LI: Item da lista
+           DL: Lista de definições
+           DT: Termo da definição
+           DD: Descrição do termo
+        */
+
+        .demo-listas {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .lista-exemplo {
+            background-color: #3D4146;
+            padding: 20px;
+            border-radius: 8px;
+            border: 2px solid #F5A623;
+        }
+
+        .lista-exemplo h4 {
+            color: #F5A623;
+            margin-bottom: 15px;
+        }
+
+        /* ============================================================= */
+        /* = TÍTULOS E ORGANIZAÇÃO                                    = */
+        /* ============================================================= */
+        h1, h2 {
+            text-align: center;
+            margin: 30px 0 20px 0;
+        }
+
+        h1 {
+            color: #7ED321;
+            font-size: 28px;
+        }
+
+        h2 {
+            color: #4A90E2;
+            font-size: 20px;
+            border-bottom: 2px solid #4A90E2;
+            padding-bottom: 10px;
+        }
+
+        .secao {
+            margin: 40px 0;
+        }
+
+        .codigo-exemplo {
+            background-color: #3D4146;
+            border-left: 4px solid #7ED321;
+            padding: 15px;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+            border-radius: 5px;
+            white-space: pre-wrap;
+            line-height: 1.8;
+        }
+
+        .destaque {
+            background-color: #F5A623;
+            color: #2E3A46;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+            font-weight: bold;
+        }
+
+        .dica {
+            background-color: rgba(126, 211, 33, 0.2);
+            border: 1px solid #7ED321;
+            color: #7ED321;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="navegacao">
+    <a href="index.html">🏠 Início</a>
+    <a href="03-estrutura-html.html">⬅️ Anterior</a>
+    <a href="05-links.html">➡️ Próximo</a>
+</div>
+
+<h1>📝 Textos e Listas - Formatação de Conteúdo</h1>
+
+<div class="secao">
+    <h2>📋 Hierarquia de Títulos (H1 a H6)</h2>
+    
+    <div class="demo-titulos">
+        <h3 style="color: #7ED321; margin-bottom: 20px;">Demonstração Visual:</h3>
+        
+        <div class="titulo-demo">
+            <h1>H1 - Título Principal (apenas um por página!)</h1>
+            <h2>H2 - Seção Principal</h2>
+            <h3>H3 - Subseção</h3>
+            <h4>H4 - Sub-subseção</h4>
+            <h5>H5 - Detalhamento</h5>
+            <h6>H6 - Menor nível</h6>
+        </div>
+    </div>
+
+    <div class="codigo-exemplo">
+&lt;h1&gt;Título Principal da Página&lt;/h1&gt;
+&lt;h2&gt;Seção: Introdução&lt;/h2&gt;
+&lt;h3&gt;Subseção: História&lt;/h3&gt;
+&lt;h4&gt;Detalhamento específico&lt;/h4&gt;
+&lt;h5&gt;Observação importante&lt;/h5&gt;
+&lt;h6&gt;Nota de rodapé&lt;/h6&gt;
+    </div>
+
+    <div class="destaque">
+        <strong>🎯 Regra de Ouro:</strong> Use apenas UM h1 por página! Ele deve representar o assunto principal. Use h2 para seções, h3 para subseções, e assim por diante.
+    </div>
+</div>
+
+<div class="secao">
+    <h2>📖 Parágrafos e Formatação de Texto</h2>
+    
+    <div class="demo-formatacao">
+        <h3 style="color: #7ED321; margin-bottom: 20px;">Exemplo Visual:</h3>
+        
+        <div class="exemplo-visual">
+            <p>Este é um <strong>parágrafo normal</strong> com texto <em>em itálico</em> e <mark>texto destacado</mark>.</p>
+            <p>Este texto tem uma<br>quebra de linha no meio.</p>
+            <p>Texto <del>removido</del> e texto <ins>inserido</ins> na revisão.</p>
+        </div>
+    </div>
+
+    <div class="codigo-exemplo">
+&lt;p&gt;Este é um parágrafo normal.&lt;/p&gt;
+
+&lt;p&gt;Texto com &lt;strong&gt;importância forte&lt;/strong&gt; (negrito semântico).&lt;/p&gt;
+
+&lt;p&gt;Texto com &lt;em&gt;ênfase&lt;/em&gt; (itálico semântico).&lt;/p&gt;
+
+&lt;p&gt;Texto &lt;mark&gt;destacado&lt;/mark&gt; como marca-texto.&lt;/p&gt;
+
+&lt;p&gt;Quebra de linha&lt;br&gt;no meio do parágrafo.&lt;/p&gt;
+
+&lt;p&gt;Texto &lt;del&gt;removido&lt;/del&gt; e &lt;ins&gt;inserido&lt;/ins&gt;.&lt;/p&gt;
+    </div>
+
+    <div class="dica">
+        <strong>💡 Dica:</strong> Use &lt;strong&gt; e &lt;em&gt; ao invés de &lt;b&gt; e &lt;i&gt;. Eles têm significado semântico e são melhores para acessibilidade!
+    </div>
+</div>
+
+<div class="secao">
+    <h2>📌 Listas - Organizando Informações</h2>
+    
+    <div class="demo-listas">
+        <div class="lista-exemplo">
+            <h4>📋 Lista Não-Ordenada (UL)</h4>
+            <ul>
+                <li>Item com bullet</li>
+                <li>Outro item</li>
+                <li>Terceiro item
+                    <ul>
+                        <li>Sub-item aninhado</li>
+                        <li>Outro sub-item</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+        <div class="lista-exemplo">
+            <h4>🔢 Lista Ordenada (OL)</h4>
+            <ol>
+                <li>Primeiro passo</li>
+                <li>Segundo passo</li>
+                <li>Terceiro passo
+                    <ol>
+                        <li>Sub-passo A</li>
+                        <li>Sub-passo B</li>
+                    </ol>
+                </li>
+            </ol>
+        </div>
+
+        <div class="lista-exemplo">
+            <h4>📖 Lista de Definições (DL)</h4>
+            <dl>
+                <dt><strong>HTML</strong></dt>
+                <dd>HyperText Markup Language</dd>
+                
+                <dt><strong>CSS</strong></dt>
+                <dd>Cascading Style Sheets</dd>
+                
+                <dt><strong>JS</strong></dt>
+                <dd>JavaScript</dd>
+            </dl>
+        </div>
+
+        <div class="lista-exemplo">
+            <h4>🎨 Lista Customizada</h4>
+            <ol type="A">
+                <li>Item A</li>
+                <li>Item B</li>
+                <li>Item C</li>
+            </ol>
+            
+            <ol type="I">
+                <li>Item I</li>
+                <li>Item II</li>
+                <li>Item III</li>
+            </ol>
+        </div>
+    </div>
+</div>
+
+<div class="secao">
+    <h2>🔧 Código Completo dos Exemplos</h2>
+    
+    <div class="codigo-exemplo">
+/* Lista não-ordenada básica */
+&lt;ul&gt;
+    &lt;li&gt;Item 1&lt;/li&gt;
+    &lt;li&gt;Item 2&lt;/li&gt;
+    &lt;li&gt;Item 3&lt;/li&gt;
+&lt;/ul&gt;
+
+/* Lista ordenada básica */
+&lt;ol&gt;
+    &lt;li&gt;Primeiro&lt;/li&gt;
+    &lt;li&gt;Segundo&lt;/li&gt;
+    &lt;li&gt;Terceiro&lt;/li&gt;
+&lt;/ol&gt;
+
+/* Lista aninhada */
+&lt;ul&gt;
+    &lt;li&gt;Item principal
+        &lt;ul&gt;
+            &lt;li&gt;Sub-item 1&lt;/li&gt;
+            &lt;li&gt;Sub-item 2&lt;/li&gt;
+        &lt;/ul&gt;
+    &lt;/li&gt;
+&lt;/ul&gt;
+
+/* Lista de definições */
+&lt;dl&gt;
+    &lt;dt&gt;Termo&lt;/dt&gt;
+    &lt;dd&gt;Definição do termo&lt;/dd&gt;
+&lt;/dl&gt;
+
+/* Lista ordenada customizada */
+&lt;ol type="A"&gt;        ← A, B, C...
+&lt;ol type="I"&gt;        ← I, II, III...
+&lt;ol type="i"&gt;        ← i, ii, iii...
+&lt;ol start="5"&gt;       ← Começa no número 5
+    </div>
+
+    <div class="destaque">
+        <strong>🚀 Uso Prático:</strong> Use UL para itens sem ordem específica (ingredientes). Use OL para passos sequenciais (receita). Use DL para glossários e definições!
+    </div>
+</div>
+
+<div class="secao">
+    <h2>✨ Exemplo Prático Completo</h2>
+    
+    <div class="codigo-exemplo">
+&lt;!DOCTYPE html&gt;
+&lt;html lang="pt-BR"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title&gt;Receita de Bolo&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;Receita de Bolo de Chocolate&lt;/h1&gt;
+    
+    &lt;h2&gt;Ingredientes&lt;/h2&gt;
+    &lt;ul&gt;
+        &lt;li&gt;&lt;strong&gt;2 xícaras&lt;/strong&gt; de farinha de trigo&lt;/li&gt;
+        &lt;li&gt;&lt;strong&gt;1 xícara&lt;/strong&gt; de açúcar&lt;/li&gt;
+        &lt;li&gt;&lt;strong&gt;3 ovos&lt;/strong&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;em&gt;Chocolate em pó&lt;/em&gt; a gosto&lt;/li&gt;
+    &lt;/ul&gt;
+    
+    &lt;h2&gt;Modo de Preparo&lt;/h2&gt;
+    &lt;ol&gt;
+        &lt;li&gt;Preaqueça o forno a 180°C&lt;/li&gt;
+        &lt;li&gt;Misture os ingredientes secos&lt;/li&gt;
+        &lt;li&gt;Adicione os ovos e misture bem&lt;/li&gt;
+        &lt;li&gt;Asse por &lt;mark&gt;40 minutos&lt;/mark&gt;&lt;/li&gt;
+    &lt;/ol&gt;
+    
+    &lt;p&gt;&lt;strong&gt;Dica:&lt;/strong&gt; Use uma &lt;em&gt;forma untada&lt;/em&gt; para&lt;br&gt;
+    facilitar a desenformação.&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+    </div>
+</div>
+
+<br><br>
+<div class="navegacao">
+    <a href="index.html">🏠 Início</a>
+    <a href="03-estrutura-html.html">⬅️ Anterior</a>
+    <a href="05-links.html">➡️ Próximo</a>
+</div>
+
+<hr style="border-color: #4A90E2; margin: 20px 0;">
+<p style="text-align: center; color: #4A90E2;">Dev by <strong>Maugus</strong> em HTML puro 📙</p>
+
+</body>
+</html> 

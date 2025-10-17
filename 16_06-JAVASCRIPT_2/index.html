@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Parte 2 - Estruturas de Dados e DOM</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            /* Ultra Dark Minimalist Theme */
+            --ultra-bg: #0a0a0a;
+            --ultra-bg-alt: #111111;
+            --ultra-card: #1a1a1a;
+            --ultra-border: #222222;
+            --ultra-hover: #252525;
+            --ultra-text: #e6e6e6;
+            --ultra-text-muted: #999999;
+            --ultra-text-dim: #666666;
+            
+            /* Accent colors - mais sutis */
+            --accent-primary: #8b7cf8;
+            --accent-secondary: #64748b;
+            --accent-success: #22c55e;
+            --accent-warning: #f59e0b;
+            --accent-info: #3b82f6;
+            --accent-danger: #ef4444;
+            
+            /* Typography */
+            --font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-mono: 'Fira Code', 'Courier New', monospace;
+            
+            /* Spacing */
+            --spacing-1: 0.25rem;
+            --spacing-2: 0.5rem;
+            --spacing-3: 0.75rem;
+            --spacing-4: 1rem;
+            --spacing-5: 1.25rem;
+            --spacing-6: 1.5rem;
+            --spacing-8: 2rem;
+            
+            /* Border radius */
+            --border-radius-sm: 0.25rem;
+            --border-radius-md: 0.375rem;
+            --border-radius-lg: 0.5rem;
+            
+            /* Font sizes */
+            --font-size-xs: 0.75rem;
+            --font-size-sm: 0.875rem;
+            --font-size-base: 1rem;
+            --font-size-lg: 1.125rem;
+            --font-size-xl: 1.25rem;
+            --font-size-2xl: 1.5rem;
+            --font-size-3xl: 1.875rem;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-family);
+            background: var(--ultra-bg);
+            color: var(--ultra-text);
+            line-height: 1.6;
+            font-weight: 400;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--spacing-4);
+        }
+
+        /* Header minimalista */
+        .header {
+            background: var(--ultra-bg-alt);
+            color: var(--ultra-text);
+            text-align: center;
+            padding: var(--spacing-6) 0;
+            margin-bottom: var(--spacing-6);
+            border-bottom: 1px solid var(--ultra-border);
+        }
+
+        .header h1 {
+            font-size: var(--font-size-3xl);
+            font-weight: 300;
+            margin-bottom: var(--spacing-2);
+            letter-spacing: -0.025em;
+        }
+
+        .header p {
+            color: var(--ultra-text-muted);
+            font-size: var(--font-size-lg);
+            font-weight: 300;
+        }
+
+        /* Intro section */
+        .intro-section {
+            background: var(--ultra-card);
+            border: 1px solid var(--ultra-border);
+            border-radius: var(--border-radius-md);
+            padding: var(--spacing-6);
+            margin-bottom: var(--spacing-6);
+        }
+
+        .intro-section h2 {
+            color: var(--ultra-text);
+            font-size: var(--font-size-2xl);
+            font-weight: 400;
+            margin-bottom: var(--spacing-4);
+        }
+
+        .intro-section p {
+            color: var(--ultra-text-muted);
+            margin-bottom: var(--spacing-3);
+            font-weight: 300;
+        }
+
+        /* Grid de tópicos */
+        .topics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: var(--spacing-5);
+            margin-bottom: var(--spacing-8);
+        }
+
+        .topic-card {
+            background: var(--ultra-card);
+            border: 1px solid var(--ultra-border);
+            border-radius: var(--border-radius-md);
+            padding: var(--spacing-6);
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.2s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .topic-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--accent-primary);
+        }
+
+        .topic-card:hover {
+            transform: translateY(-2px);
+            background: var(--ultra-hover);
+        }
+
+        .topic-number {
+            display: inline-block;
+            width: 36px;
+            height: 36px;
+            background: var(--accent-primary);
+            color: var(--ultra-bg);
+            border-radius: var(--border-radius-lg);
+            font-size: var(--font-size-lg);
+            font-weight: 500;
+            text-align: center;
+            line-height: 36px;
+            margin-bottom: var(--spacing-4);
+        }
+
+        .topic-card h3 {
+            font-size: var(--font-size-xl);
+            margin-bottom: var(--spacing-3);
+            color: var(--ultra-text);
+            font-weight: 400;
+        }
+
+        .topic-card p {
+            color: var(--ultra-text-muted);
+            margin-bottom: var(--spacing-3);
+            font-weight: 300;
+        }
+
+        .topic-content {
+            font-size: var(--font-size-sm);
+            color: var(--ultra-text-dim);
+            font-weight: 300;
+        }
+
+        /* Progress bar */
+        .progress-bar {
+            background: var(--ultra-border);
+            border-radius: var(--border-radius-lg);
+            overflow: hidden;
+            margin: var(--spacing-4) 0;
+            height: 6px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--accent-primary);
+            transition: width 0.5s ease;
+        }
+
+        /* Navigation */
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--ultra-card);
+            border: 1px solid var(--ultra-border);
+            padding: var(--spacing-4);
+            border-radius: var(--border-radius-md);
+            margin-top: var(--spacing-6);
+        }
+
+        .nav-button {
+            padding: var(--spacing-3) var(--spacing-5);
+            background: var(--accent-primary);
+            color: var(--ultra-bg);
+            text-decoration: none;
+            border-radius: var(--border-radius-md);
+            font-weight: 400;
+            transition: all 0.2s ease;
+            border: none;
+            cursor: pointer;
+            font-size: var(--font-size-base);
+        }
+
+        .nav-button:hover {
+            background: #7c6ce8;
+        }
+
+        .nav-button:disabled {
+            background: var(--ultra-text-dim);
+            cursor: not-allowed;
+        }
+
+        .progress-info {
+            text-align: center;
+            color: var(--ultra-text-muted);
+            font-weight: 300;
+            font-size: var(--font-size-sm);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 var(--spacing-3);
+            }
+            
+            .topics-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .header h1 {
+                font-size: var(--font-size-2xl);
+            }
+            
+            .navigation {
+                flex-direction: column;
+                gap: var(--spacing-3);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <h1>📚 JavaScript Parte 2</h1>
+            <p>Estruturas de Dados Avançadas e Manipulação do DOM</p>
+        </header>
+
+        <!-- Intro Section -->
+        <section class="intro-section">
+            <h2>🎯 Objetivos do Curso</h2>
+            <p>
+                Aprofunde seus conhecimentos em JavaScript explorando estruturas de dados avançadas, 
+                manipulação do DOM e eventos. Este curso cobrirá objetos complexos, arrays, funções 
+                avançadas e técnicas de interação com o navegador.
+            </p>
+            <p>
+                <strong>Pré-requisitos:</strong> Conhecimento básico de JavaScript (variáveis, funções básicas, estruturas condicionais)
+            </p>
+        </section>
+
+        <div class="topics-grid">
+            <a href="01-tipos-dados.html" class="topic-card">
+                <div class="topic-number">1</div>
+                <h3>Tipos de Dados</h3>
+                <p>Objetos, Arrays e suas manipulações</p>
+                <div class="topic-content">
+                    • Criação e manipulação de objetos<br>
+                    • Declaração e métodos de arrays<br>
+                    • Propriedade length e iteração
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 0%"></div>
+                </div>
+            </a>
+
+            <a href="02-funcoes.html" class="topic-card">
+                <div class="topic-number">2</div>
+                <h3>Funções</h3>
+                <p>Declarações, Expressões e Arrow Functions</p>
+                <div class="topic-content">
+                    • Diferentes tipos de declarações<br>
+                    • Parâmetros, argumentos e retorno<br>
+                    • Escopo e callbacks
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 0%"></div>
+                </div>
+            </a>
+
+            <a href="03-bom.html" class="topic-card">
+                <div class="topic-number">3</div>
+                <h3>BOM - Browser Object Model</h3>
+                <p>Interação com o navegador</p>
+                <div class="topic-content">
+                    • Objeto window e suas propriedades<br>
+                    • Location, navigator e history<br>
+                    • Métodos de alerta e temporização
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 0%"></div>
+                </div>
+            </a>
+
+            <a href="04-dom.html" class="topic-card">
+                <div class="topic-number">4</div>
+                <h3>DOM - Document Object Model</h3>
+                <p>Manipulação de elementos HTML</p>
+                <div class="topic-content">
+                    • Seleção de elementos<br>
+                    • Modificação de conteúdo e estilos<br>
+                    • Criação e remoção de elementos
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 0%"></div>
+                </div>
+            </a>
+
+            <a href="05-eventos.html" class="topic-card">
+                <div class="topic-number">5</div>
+                <h3>Eventos</h3>
+                <p>Interatividade e propagação</p>
+                <div class="topic-content">
+                    • Tipos de eventos e listeners<br>
+                    • Propagação e preventDefault<br>
+                    • Eventos de teclado e mouse
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 0%"></div>
+                </div>
+            </a>
+        </div>
+
+        <nav class="navigation">
+            <a href="../16_05-JAVASCRIPT_1/index.html" class="nav-button">← JavaScript Parte 1</a>
+            <div class="progress-info">
+                <div>Progresso Geral: <span id="overall-progress">0%</span></div>
+                <div class="progress-bar" style="width: 200px; margin: 10px auto;">
+                    <div class="progress-fill" id="overall-progress-bar" style="width: 0%"></div>
+                </div>
+            </div>
+            <button class="nav-button" disabled>Próxima Aula →</button>
+        </nav>
+    </div>
+
+    <script>
+        // Função para calcular progresso geral
+        function updateOverallProgress() {
+            const cards = document.querySelectorAll('.topic-card');
+            let completedTopics = 0;
+            
+            cards.forEach(card => {
+                const progressBar = card.querySelector('.progress-fill');
+                const progress = parseInt(progressBar.style.width);
+                if (progress >= 80) {
+                    completedTopics++;
+                }
+            });
+            
+            const overallProgress = Math.round((completedTopics / cards.length) * 100);
+            document.getElementById('overall-progress').textContent = overallProgress + '%';
+            document.getElementById('overall-progress-bar').style.width = overallProgress + '%';
+        }
+
+        // Função para carregar progresso do localStorage
+        function loadProgress() {
+            const topics = ['tipos-dados', 'funcoes', 'bom', 'dom', 'eventos'];
+            
+            topics.forEach((topic, index) => {
+                const progress = localStorage.getItem(`js2-${topic}-progress`) || '0';
+                const progressBar = document.querySelectorAll('.progress-fill')[index + 1]; // +1 porque o primeiro é o overall
+                if (progressBar) {
+                    progressBar.style.width = progress + '%';
+                }
+            });
+            
+            updateOverallProgress();
+        }
+
+        // Animação de entrada
+        function animateCards() {
+            const cards = document.querySelectorAll('.topic-card');
+            cards.forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(30px)';
+                
+                setTimeout(() => {
+                    card.style.transition = 'all 0.6s ease';
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, index * 150);
+            });
+        }
+
+        // Event listeners
+        document.addEventListener('DOMContentLoaded', () => {
+            loadProgress();
+            animateCards();
+        });
+
+        // Atualizar progresso a cada 5 segundos
+        setInterval(updateOverallProgress, 5000);
+    </script>
+</body>
+</html> 

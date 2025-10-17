@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📊 HTML - Tabelas Estruturadas</title>
+<!-- Demonstrando criação e estruturação de tabelas -->
+    <style>
+        * { 
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #2E3A46;
+            color: #fff;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .navegacao {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .navegacao a {
+            color: #4A90E2;
+            text-decoration: none;
+            margin: 0 15px;
+        }
+
+        .navegacao a:hover {
+            color: #7ED321;
+        }
+
+        /* ============================================================= */
+        /* = ANATOMIA DE UMA TABELA                                   = */
+        /* ============================================================= */
+        /* Estrutura básica de uma tabela HTML:
+           
+           <table>                    - Container principal
+               <caption>Título</caption>    - Título da tabela (opcional)
+               <thead>                - Cabeçalho da tabela
+                   <tr>              - Linha da tabela
+                       <th>Header</th> - Célula de cabeçalho
+                   </tr>
+               </thead>
+               <tbody>                - Corpo da tabela
+                   <tr>              - Linha de dados
+                       <td>Data</td>  - Célula de dados
+                   </tr>
+               </tbody>
+               <tfoot>                - Rodapé da tabela (opcional)
+                   <tr>
+                       <td>Footer</td>
+                   </tr>
+               </tfoot>
+           </table>
+        */
+
+        .anatomia-tabela {
+            background-color: #3D4146;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #F5A623;
+            margin: 20px 0;
+        }
+
+        .estrutura-visual {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .parte-tabela {
+            background-color: #2E3A46;
+            padding: 15px;
+            border-radius: 8px;
+            border: 2px solid;
+            text-align: center;
+        }
+
+        .parte-table { border-color: #4A90E2; }
+        .parte-thead { border-color: #7ED321; }
+        .parte-tbody { border-color: #F5A623; }
+        .parte-tfoot { border-color: #FF6B6B; }
+
+        /* ============================================================= */
+        /* = ESTILOS PARA TABELAS DE EXEMPLO                          = */
+        /* ============================================================= */
+        /* Estilos padrão para tornar as tabelas mais legíveis */
+
+        .exemplo-tabela {
+            background-color: #3D4146;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            overflow-x: auto;
+        }
+
+        .tabela-basica {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: #fff;
+            color: #333;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .tabela-basica caption {
+            background-color: #4A90E2;
+            color: white;
+            padding: 15px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .tabela-basica th {
+            background-color: #7ED321;
+            color: #2E3A46;
+            padding: 12px;
+            text-align: left;
+            font-weight: bold;
+        }
+
+        .tabela-basica td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .tabela-basica tbody tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+
+        .tabela-basica tbody tr:hover {
+            background-color: #e3f2fd;
+        }
+
+        .tabela-basica tfoot {
+            background-color: #6c757d;
+            color: white;
+        }
+
+        .tabela-basica tfoot td {
+            border-bottom: none;
+            font-weight: bold;
+        }
+
+        /* ============================================================= */
+        /* = COLSPAN E ROWSPAN                                        = */
+        /* ============================================================= */
+        /* Permitir que células ocupem múltiplas colunas ou linhas */
+
+        .tabela-span {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: #fff;
+            color: #333;
+            border-radius: 8px;
+            overflow: hidden;
+            margin: 15px 0;
+        }
+
+        .tabela-span th,
+        .tabela-span td {
+            border: 2px solid #4A90E2;
+            padding: 12px;
+            text-align: center;
+        }
+
+        .tabela-span th {
+            background-color: #7ED321;
+            color: #2E3A46;
+            font-weight: bold;
+        }
+
+        .colspan-demo { background-color: #FFE5B4 !important; }
+        .rowspan-demo { background-color: #B4E5FF !important; }
+
+        /* ============================================================= */
+        /* = TABELAS RESPONSIVAS                                      = */
+        /* ============================================================= */
+        /* Técnicas para tornar tabelas utilizáveis em mobile */
+
+        .container-responsivo {
+            overflow-x: auto;
+            background-color: #3D4146;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .tabela-responsiva {
+            min-width: 600px;
+            width: 100%;
+            border-collapse: collapse;
+            background-color: #fff;
+            color: #333;
+        }
+
+        .tabela-responsiva th,
+        .tabela-responsiva td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+
+        .tabela-responsiva th {
+            background-color: #7ED321;
+            color: #2E3A46;
+            white-space: nowrap;
+        }
+
+        /* ============================================================= */
+        /* = TÍTULOS E ORGANIZAÇÃO                                    = */
+        /* ============================================================= */
+        h1, h2 {
+            text-align: center;
+            margin: 30px 0 20px 0;
+        }
+
+        h1 {
+            color: #7ED321;
+            font-size: 28px;
+        }
+
+        h2 {
+            color: #4A90E2;
+            font-size: 20px;
+            border-bottom: 2px solid #4A90E2;
+            padding-bottom: 10px;
+        }
+
+        .secao {
+            margin: 40px 0;
+        }
+
+        .codigo-exemplo {
+            background-color: #3D4146;
+            border-left: 4px solid #7ED321;
+            padding: 15px;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+            border-radius: 5px;
+            white-space: pre-wrap;
+            line-height: 1.8;
+        }
+
+        .destaque {
+            background-color: #F5A623;
+            color: #2E3A46;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+            font-weight: bold;
+        }
+
+        .importante {
+            background-color: rgba(255, 107, 107, 0.2);
+            border: 1px solid #FF6B6B;
+            color: #FF6B6B;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+
+        .dica {
+            background-color: rgba(126, 211, 33, 0.2);
+            border: 1px solid #7ED321;
+            color: #7ED321;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+
+        .aviso {
+            background-color: rgba(245, 166, 35, 0.2);
+            border: 1px solid #F5A623;
+            color: #F5A623;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+
+        /* Demonstração visual de acessibilidade */
+        .demo-acessibilidade {
+            background-color: #3D4146;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .acessibilidade-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .acessibilidade-item {
+            background-color: #2E3A46;
+            padding: 15px;
+            border-radius: 8px;
+            border: 2px solid #7ED321;
+        }
+
+        .acessibilidade-item h4 {
+            color: #7ED321;
+            margin-bottom: 10px;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="navegacao">
+    <a href="index.html">🏠 Início</a>
+    <a href="06-imagens.html">⬅️ Anterior</a>
+    <a href="08-formularios.html">➡️ Próximo</a>
+</div>
+
+<h1>📊 Tabelas Estruturadas</h1>
+
+<div class="secao">
+    <h2>🏗️ Anatomia de uma Tabela</h2>
+    
+    <div class="anatomia-tabela">
+        <h3 style="color: #F5A623; margin-bottom: 15px;">Estrutura Hierárquica</h3>
+        <div class="estrutura-visual">
+            <div class="parte-tabela parte-table">
+                <strong>&lt;table&gt;</strong><br>
+                Container principal
+            </div>
+            <div class="parte-tabela parte-thead">
+                <strong>&lt;thead&gt;</strong><br>
+                Cabeçalho
+            </div>
+            <div class="parte-tabela parte-tbody">
+                <strong>&lt;tbody&gt;</strong><br>
+                Corpo/Dados
+            </div>
+            <div class="parte-tabela parte-tfoot">
+                <strong>&lt;tfoot&gt;</strong><br>
+                Rodapé (opcional)
+            </div>
+        </div>
+    </div>
+
+    <div class="codigo-exemplo">
+&lt;table&gt;
+    &lt;caption&gt;Vendas por Trimestre 2024&lt;/caption&gt;
+    
+    &lt;thead&gt;
+        &lt;tr&gt;
+            &lt;th&gt;Produto&lt;/th&gt;
+            &lt;th&gt;Q1&lt;/th&gt;
+            &lt;th&gt;Q2&lt;/th&gt;
+            &lt;th&gt;Q3&lt;/th&gt;
+            &lt;th&gt;Total&lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/thead&gt;
+    
+    &lt;tbody&gt;
+        &lt;tr&gt;
+            &lt;td&gt;Produto A&lt;/td&gt;
+            &lt;td&gt;150&lt;/td&gt;
+            &lt;td&gt;200&lt;/td&gt;
+            &lt;td&gt;180&lt;/td&gt;
+            &lt;td&gt;530&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;Produto B&lt;/td&gt;
+            &lt;td&gt;120&lt;/td&gt;
+            &lt;td&gt;160&lt;/td&gt;
+            &lt;td&gt;140&lt;/td&gt;
+            &lt;td&gt;420&lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/tbody&gt;
+    
+    &lt;tfoot&gt;
+        &lt;tr&gt;
+            &lt;td&gt;&lt;strong&gt;Total Geral&lt;/strong&gt;&lt;/td&gt;
+            &lt;td&gt;&lt;strong&gt;270&lt;/strong&gt;&lt;/td&gt;
+            &lt;td&gt;&lt;strong&gt;360&lt;/strong&gt;&lt;/td&gt;
+            &lt;td&gt;&lt;strong&gt;320&lt;/strong&gt;&lt;/td&gt;
+            &lt;td&gt;&lt;strong&gt;950&lt;/strong&gt;&lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/tfoot&gt;
+&lt;/table&gt;
+    </div>
+</div>
+
+<div class="secao">
+    <h2>📋 Tabela Básica Completa</h2>
+    
+    <div class="exemplo-tabela">
+        <table class="tabela-basica">
+            <caption>📊 Relatório de Vendas - Q4 2024</caption>
+            <thead>
+                <tr>
+                    <th>Produto</th>
+                    <th>Categoria</th>
+                    <th>Vendas (un)</th>
+                    <th>Receita (R$)</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Smartphone Pro</td>
+                    <td>Eletrônicos</td>
+                    <td>1,250</td>
+                    <td>R$ 3.750.000</td>
+                    <td>✅ Meta atingida</td>
+                </tr>
+                <tr>
+                    <td>Notebook Ultra</td>
+                    <td>Informática</td>
+                    <td>850</td>
+                    <td>R$ 4.250.000</td>
+                    <td>✅ Meta atingida</td>
+                </tr>
+                <tr>
+                    <td>Tablet Plus</td>
+                    <td>Eletrônicos</td>
+                    <td>640</td>
+                    <td>R$ 1.920.000</td>
+                    <td>⚠️ Abaixo da meta</td>
+                </tr>
+                <tr>
+                    <td>Smart Watch</td>
+                    <td>Wearables</td>
+                    <td>2,100</td>
+                    <td>R$ 1.680.000</td>
+                    <td>🚀 Acima da meta</td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="2"><strong>TOTAL GERAL</strong></td>
+                    <td><strong>4,840</strong></td>
+                    <td><strong>R$ 11.600.000</strong></td>
+                    <td><strong>Meta: 95%</strong></td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+
+    <div class="destaque">
+        <strong>🎯 Elementos importantes:</strong> Caption para título, thead/tbody/tfoot para estrutura semântica, th para cabeçalhos e td para dados.
+    </div>
+</div>
+
+<div class="secao">
+    <h2>🔗 Colspan e Rowspan</h2>
+    
+    <div class="exemplo-tabela">
+        <h3 style="color: #7ED321; margin-bottom: 15px;">Demonstração de Colspan (múltiplas colunas)</h3>
+        <table class="tabela-span">
+            <thead>
+                <tr>
+                    <th>Período</th>
+                    <th colspan="3" class="colspan-demo">Vendas por Região</th>
+                    <th>Total</th>
+                </tr>
+                <tr>
+                    <th></th>
+                    <th>Norte</th>
+                    <th>Centro</th>
+                    <th>Sul</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Janeiro</td>
+                    <td>120</td>
+                    <td>150</td>
+                    <td>180</td>
+                    <td>450</td>
+                </tr>
+                <tr>
+                    <td>Fevereiro</td>
+                    <td>140</td>
+                    <td>160</td>
+                    <td>200</td>
+                    <td>500</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3 style="color: #7ED321; margin: 30px 0 15px;">Demonstração de Rowspan (múltiplas linhas)</h3>
+        <table class="tabela-span">
+            <thead>
+                <tr>
+                    <th>Categoria</th>
+                    <th>Produto</th>
+                    <th>Preço</th>
+                    <th>Estoque</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td rowspan="2" class="rowspan-demo">Eletrônicos</td>
+                    <td>Smartphone</td>
+                    <td>R$ 1.200</td>
+                    <td>50</td>
+                </tr>
+                <tr>
+                    <td>Tablet</td>
+                    <td>R$ 800</td>
+                    <td>30</td>
+                </tr>
+                <tr>
+                    <td rowspan="2" class="rowspan-demo">Livros</td>
+                    <td>Ficção</td>
+                    <td>R$ 35</td>
+                    <td>200</td>
+                </tr>
+                <tr>
+                    <td>Técnico</td>
+                    <td>R$ 120</td>
+                    <td>85</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="codigo-exemplo">
+&lt;!-- COLSPAN - Célula ocupa múltiplas colunas --&gt;
+&lt;tr&gt;
+    &lt;th&gt;Período&lt;/th&gt;
+    &lt;th colspan="3"&gt;Vendas por Região&lt;/th&gt;  &lt;!-- Ocupa 3 colunas --&gt;
+    &lt;th&gt;Total&lt;/th&gt;
+&lt;/tr&gt;
+
+&lt;!-- ROWSPAN - Célula ocupa múltiplas linhas --&gt;
+&lt;tr&gt;
+    &lt;td rowspan="2"&gt;Eletrônicos&lt;/td&gt;  &lt;!-- Ocupa 2 linhas --&gt;
+    &lt;td&gt;Smartphone&lt;/td&gt;
+    &lt;td&gt;R$ 1.200&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+    &lt;!-- Primeira célula é "pulada" devido ao rowspan --&gt;
+    &lt;td&gt;Tablet&lt;/td&gt;
+    &lt;td&gt;R$ 800&lt;/td&gt;
+&lt;/tr&gt;
+    </div>
+</div>
+
+<div class="secao">
+    <h2>♿ Acessibilidade em Tabelas</h2>
+    
+    <div class="demo-acessibilidade">
+        <div class="acessibilidade-grid">
+            <div class="acessibilidade-item">
+                <h4>scope="col"</h4>
+                <p>Define que o cabeçalho se aplica à coluna inteira</p>
+                <div class="codigo-exemplo">
+&lt;th scope="col"&gt;Nome&lt;/th&gt;
+                </div>
+            </div>
+
+            <div class="acessibilidade-item">
+                <h4>scope="row"</h4>
+                <p>Define que o cabeçalho se aplica à linha inteira</p>
+                <div class="codigo-exemplo">
+&lt;th scope="row"&gt;Janeiro&lt;/th&gt;
+                </div>
+            </div>
+
+            <div class="acessibilidade-item">
+                <h4>headers="id"</h4>
+                <p>Associa células aos seus cabeçalhos complexos</p>
+                <div class="codigo-exemplo">
+&lt;th id="q1"&gt;Q1&lt;/th&gt;
+&lt;td headers="q1"&gt;150&lt;/td&gt;
+                </div>
+            </div>
+
+            <div class="acessibilidade-item">
+                <h4>&lt;caption&gt;</h4>
+                <p>Título descritivo da tabela para leitores de tela</p>
+                <div class="codigo-exemplo">
+&lt;caption&gt;
+  Vendas por trimestre
+&lt;/caption&gt;
+                </div>
+            </div>
+        </div>
+
+        <table class="tabela-basica" style="margin-top: 20px;">
+            <caption>📊 Exemplo de Tabela Acessível - Vendas 2024</caption>
+            <thead>
+                <tr>
+                    <th scope="col">Mês</th>
+                    <th scope="col">Região Norte</th>
+                    <th scope="col">Região Sul</th>
+                    <th scope="col">Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">Janeiro</th>
+                    <td>R$ 45.000</td>
+                    <td>R$ 52.000</td>
+                    <td>R$ 97.000</td>
+                </tr>
+                <tr>
+                    <th scope="row">Fevereiro</th>
+                    <td>R$ 48.000</td>
+                    <td>R$ 56.000</td>
+                    <td>R$ 104.000</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="importante">
+        <strong>⚠️ Regras de acessibilidade:</strong><br>
+        ✅ Use sempre &lt;caption&gt; para descrever a tabela<br>
+        ✅ Use scope="col" em cabeçalhos de coluna<br>
+        ✅ Use scope="row" em cabeçalhos de linha<br>
+        ✅ Para tabelas complexas, use headers e id
+    </div>
+</div>
+
+<div class="secao">
+    <h2>📱 Tabelas Responsivas</h2>
+    
+    <div class="container-responsivo">
+        <h3 style="color: #7ED321; margin-bottom: 15px;">Tabela com Scroll Horizontal</h3>
+        <table class="tabela-responsiva">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nome do Produto</th>
+                    <th>Categoria</th>
+                    <th>Preço Unitário</th>
+                    <th>Estoque</th>
+                    <th>Fornecedor</th>
+                    <th>Data Cadastro</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>001</td>
+                    <td>Smartphone Galaxy Pro</td>
+                    <td>Eletrônicos</td>
+                    <td>R$ 2.999,00</td>
+                    <td>25 unidades</td>
+                    <td>TechCorp LTDA</td>
+                    <td>15/01/2024</td>
+                    <td>✅ Ativo</td>
+                </tr>
+                <tr>
+                    <td>002</td>
+                    <td>Notebook UltraBook</td>
+                    <td>Informática</td>
+                    <td>R$ 4.599,00</td>
+                    <td>12 unidades</td>
+                    <td>ComputerMax SA</td>
+                    <td>20/01/2024</td>
+                    <td>⚠️ Estoque baixo</td>
+                </tr>
+                <tr>
+                    <td>003</td>
+                    <td>Fone Bluetooth Premium</td>
+                    <td>Áudio</td>
+                    <td>R$ 599,00</td>
+                    <td>45 unidades</td>
+                    <td>SoundTech Inc</td>
+                    <td>25/01/2024</td>
+                    <td>✅ Ativo</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="codigo-exemplo">
+&lt;!-- Container com scroll horizontal --&gt;
+&lt;div class="container-responsivo"&gt;
+    &lt;table class="tabela-responsiva"&gt;
+        &lt;!-- Conteúdo da tabela --&gt;
+    &lt;/table&gt;
+&lt;/div&gt;
+
+&lt;style&gt;
+.container-responsivo {
+    overflow-x: auto;  /* Permite scroll horizontal */
+    width: 100%;
+}
+
+.tabela-responsiva {
+    min-width: 600px;  /* Largura mínima */
+    width: 100%;
+}
+
+/* Em telas pequenas */
+@media (max-width: 768px) {
+    .tabela-responsiva th,
+    .tabela-responsiva td {
+        padding: 8px 4px;
+        font-size: 14px;
+    }
+}
+&lt;/style&gt;
+    </div>
+
+    <div class="aviso">
+        <strong>⚠️ Limitações em mobile:</strong> Tabelas são naturalmente difíceis para telas pequenas. Para dados complexos, considere usar cards ou listas em mobile.
+    </div>
+</div>
+
+<div class="secao">
+    <h2>🎯 Casos de Uso Adequados</h2>
+    
+    <div class="acessibilidade-grid">
+        <div class="acessibilidade-item">
+            <h4>✅ USE para:</h4>
+            <ul style="margin: 10px 0; color: #7ED321;">
+                <li>Dados tabulares reais</li>
+                <li>Comparações numéricas</li>
+                <li>Relatórios financeiros</li>
+                <li>Horários e cronogramas</li>
+                <li>Listas de preços</li>
+                <li>Resultados de pesquisas</li>
+            </ul>
+        </div>
+
+        <div class="acessibilidade-item">
+            <h4>❌ NÃO USE para:</h4>
+            <ul style="margin: 10px 0; color: #FF6B6B;">
+                <li>Layout de página</li>
+                <li>Alinhamento visual</li>
+                <li>Grids de imagens</li>
+                <li>Menus de navegação</li>
+                <li>Formulários</li>
+                <li>Cards de produtos</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="dica">
+        <strong>💡 Regra de ouro:</strong> Se os dados fazem sentido em uma planilha Excel, provavelmente fazem sentido em uma tabela HTML. Caso contrário, use divs com CSS Grid ou Flexbox.
+    </div>
+</div>
+
+<div class="secao">
+    <h2>✨ Exemplo Prático Completo</h2>
+    
+    <div class="codigo-exemplo">
+&lt;!DOCTYPE html&gt;
+&lt;html lang="pt-BR"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title&gt;Relatório de Vendas&lt;/title&gt;
+    &lt;style&gt;
+        .relatorio {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .tabela-relatorio {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .tabela-relatorio caption {
+            font-size: 24px;
+            font-weight: bold;
+            padding: 20px;
+            background: #2c3e50;
+            color: white;
+        }
+        
+        .tabela-relatorio th {
+            background: #3498db;
+            color: white;
+            padding: 15px;
+            text-align: left;
+        }
+        
+        .tabela-relatorio td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .tabela-relatorio tbody tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+        
+        .tabela-relatorio tbody tr:hover {
+            background: #e3f2fd;
+        }
+        
+        .tabela-relatorio tfoot {
+            background: #2c3e50;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .status-ativo { color: #27ae60; }
+        .status-alerta { color: #f39c12; }
+        .status-inativo { color: #e74c3c; }
+        
+        @media (max-width: 768px) {
+            .container-tabela {
+                overflow-x: auto;
+            }
+            .tabela-relatorio {
+                min-width: 600px;
+            }
+        }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div class="relatorio"&gt;
+        &lt;div class="container-tabela"&gt;
+            &lt;table class="tabela-relatorio"&gt;
+                &lt;caption&gt;
+                    📈 Relatório de Performance - Vendas Q4/2024
+                &lt;/caption&gt;
+                
+                &lt;thead&gt;
+                    &lt;tr&gt;
+                        &lt;th scope="col"&gt;Vendedor&lt;/th&gt;
+                        &lt;th scope="col"&gt;Região&lt;/th&gt;
+                        &lt;th scope="col"&gt;Meta&lt;/th&gt;
+                        &lt;th scope="col"&gt;Realizado&lt;/th&gt;
+                        &lt;th scope="col"&gt;% Meta&lt;/th&gt;
+                        &lt;th scope="col"&gt;Status&lt;/th&gt;
+                    &lt;/tr&gt;
+                &lt;/thead&gt;
+                
+                &lt;tbody&gt;
+                    &lt;tr&gt;
+                        &lt;th scope="row"&gt;João Silva&lt;/th&gt;
+                        &lt;td&gt;Sul&lt;/td&gt;
+                        &lt;td&gt;R$ 150.000&lt;/td&gt;
+                        &lt;td&gt;R$ 180.000&lt;/td&gt;
+                        &lt;td&gt;120%&lt;/td&gt;
+                        &lt;td class="status-ativo"&gt;✅ Superou&lt;/td&gt;
+                    &lt;/tr&gt;
+                    &lt;tr&gt;
+                        &lt;th scope="row"&gt;Maria Santos&lt;/th&gt;
+                        &lt;td&gt;Norte&lt;/td&gt;
+                        &lt;td&gt;R$ 120.000&lt;/td&gt;
+                        &lt;td&gt;R$ 115.000&lt;/td&gt;
+                        &lt;td&gt;96%&lt;/td&gt;
+                        &lt;td class="status-alerta"&gt;⚠️ Próximo&lt;/td&gt;
+                    &lt;/tr&gt;
+                &lt;/tbody&gt;
+                
+                &lt;tfoot&gt;
+                    &lt;tr&gt;
+                        &lt;td colspan="2"&gt;TOTAL GERAL&lt;/td&gt;
+                        &lt;td&gt;R$ 270.000&lt;/td&gt;
+                        &lt;td&gt;R$ 295.000&lt;/td&gt;
+                        &lt;td&gt;109%&lt;/td&gt;
+                        &lt;td&gt;Meta Atingida&lt;/td&gt;
+                    &lt;/tr&gt;
+                &lt;/tfoot&gt;
+            &lt;/table&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+    </div>
+</div>
+
+<br><br>
+<div class="navegacao">
+    <a href="index.html">🏠 Início</a>
+    <a href="06-imagens.html">⬅️ Anterior</a>
+    <a href="08-formularios.html">➡️ Próximo</a>
+</div>
+
+<hr style="border-color: #4A90E2; margin: 20px 0;">
+<p style="text-align: center; color: #4A90E2;">Dev by <strong>Maugus</strong> em HTML puro 📙</p>
+
+</body>
+</html> 

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- O head é a parte do html que contém informações sobre o site, inclusive a tag <style> do css ou o <link> do css externo. -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> CSS Externo </title>
+<!-- ============================================================= -->
+<!-- = Link CSS                                                  = -->
+<!-- = Linka o arquivo css externo ao html.                      = -->
+<!-- ============================================================= -->
+<!-- Poderiamos usar o css dentro do html, mas é mais recomendado usar um arquivo separado como este.
+Deixando o html mais limpo e organizado.
+Para isso, criamos um arquivo com a extensão .css e linkamos no head do html. -->
+<link rel="stylesheet" href="style.css">
+<!-- Onde: 
+    - 'rel' é o tipo de arquivo que para css usamos 'stylesheet' 
+    - 'href' é o caminho do arquivo css. -->
+
+</head>
+
+<!-- O body é a parte do html que contém o conteúdo do site, os elementos que serão exibidos para o usuário e que serão estilizados pelo css. -->
+<body>
+    <!-- == ELEMENTOS ================================================ -->
+    <h2>Seletores</h2>
+
+    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Id minima ipsa beatae obcaecati at dignissimos, maxime quia eligendi pariatur porro repellat dolor neque laboriosam, mollitia harum cupiditate nisi alias corporis nihil maiores unde distinctio consequuntur voluptate? Quam, architecto! Voluptatum, doloribus.
+    </p>
+
+    <!-- == IDS ====================================================== -->
+    <p id="p">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Id minima ipsa beatae obcaecati at dignissimos, maxime quia eligendi pariatur porro repellat dolor neque laboriosam, mollitia harum cupiditate nisi alias corporis nihil maiores unde distinctio consequuntur voluptate? Quam, architecto! Voluptatum, doloribus.
+    </p>
+
+    <!-- == CLASS ==================================================== -->
+    <p class="p">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Id minima ipsa beatae obcaecati at dignissimos, maxime quia eligendi pariatur porro repellat dolor neque laboriosam, mollitia harum cupiditate nisi alias corporis nihil maiores unde distinctio consequuntur voluptate? Quam, architecto! Voluptatum, doloribus.
+    </p>
+
+    <p class="p">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Id minima ipsa beatae obcaecati at dignissimos, maxime quia eligendi pariatur porro repellat dolor neque laboriosam, mollitia harum cupiditate nisi alias corporis nihil maiores unde distinctio consequuntur voluptate? Quam, architecto! Voluptatum, doloribus.
+    </p>
+</body>
+</html>

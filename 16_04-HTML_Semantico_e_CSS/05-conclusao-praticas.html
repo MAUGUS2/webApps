@@ -1,0 +1,1502 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎯 Conclusão e Boas Práticas - Aula 4</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            line-height: 1.8;
+            color: #333;
+            background: linear-gradient(135deg, #607D8B 0%, #455a64 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+        }
+
+        h1 {
+            text-align: center;
+            color: #455a64;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            animation: titleGlow 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes titleGlow {
+            from { text-shadow: 2px 2px 4px rgba(0,0,0,0.1); }
+            to { text-shadow: 2px 2px 15px rgba(69, 90, 100, 0.3); }
+        }
+
+        h2 {
+            color: #607D8B;
+            margin: 30px 0 20px 0;
+            font-size: 1.8em;
+            border-left: 5px solid #607D8B;
+            padding-left: 15px;
+        }
+
+        h3 {
+            color: #455a64;
+            margin: 25px 0 15px 0;
+            font-size: 1.4em;
+        }
+
+        p {
+            margin-bottom: 15px;
+            text-align: justify;
+            font-size: 1.1em;
+        }
+
+        ul, ol {
+            margin: 15px 0;
+            padding-left: 30px;
+        }
+
+        li {
+            margin-bottom: 8px;
+            font-size: 1.05em;
+        }
+
+        strong {
+            color: #37474f;
+        }
+
+        code {
+            background: #f5f5f5;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            color: #d32f2f;
+            font-weight: bold;
+        }
+
+        .alert {
+            padding: 20px;
+            margin: 25px 0;
+            border-radius: 10px;
+            border-left: 5px solid;
+            line-height: 1.7;
+            font-size: 1.05em;
+        }
+
+        .alert br {
+            margin-bottom: 8px;
+        }
+
+        .alert strong {
+            display: block;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        .alert-info {
+            background: #eceff1;
+            border-color: #607D8B;
+            color: #263238;
+        }
+
+        .alert-tip {
+            background: #e8f5e8;
+            border-color: #4caf50;
+            color: #1b5e20;
+        }
+
+        .alert-example {
+            background: #e3f2fd;
+            border-color: #1976d2;
+            color: #0d47a1;
+        }
+
+        .conclusion-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+
+        .conclusion-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .conclusion-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+        }
+
+        .conclusion-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #607D8B, #455a64);
+        }
+
+        .impact-icon {
+            font-size: 3em;
+            text-align: center;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .impact-title {
+            color: #607D8B;
+            font-size: 1.3em;
+            font-weight: bold;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .impact-description {
+            color: #666;
+            line-height: 1.5;
+            text-align: center;
+        }
+
+        .practices-showcase {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin: 30px 0;
+        }
+
+        .practice-section {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .practice-section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+        }
+
+        .practice-title {
+            color: #607D8B;
+            font-size: 1.4em;
+            font-weight: bold;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .practice-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .practice-list li {
+            padding: 10px 0;
+            border-bottom: 1px solid #eceff1;
+            transition: all 0.3s ease;
+        }
+
+        .practice-list li:hover {
+            background: #f5f5f5;
+            padding-left: 10px;
+            border-radius: 5px;
+        }
+
+        .practice-list li::before {
+            content: "✅ ";
+            color: #4caf50;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .final-message {
+            background: linear-gradient(135deg, #eceff1, #cfd8dc);
+            border: 2px solid #607D8B;
+            border-radius: 20px;
+            padding: 30px;
+            margin: 30px 0;
+            text-align: center;
+            position: relative;
+        }
+
+        .final-message::before {
+            content: "🌟";
+            font-size: 3em;
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: white;
+            padding: 10px;
+            border-radius: 50%;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .final-message h3 {
+            color: #607D8B;
+            font-size: 2em;
+            margin: 20px 0 15px 0;
+        }
+
+        .final-message p {
+            font-size: 1.1em;
+            color: #455a64;
+            line-height: 1.6;
+        }
+
+        .comparison-examples {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 15px;
+        }
+
+        .code-example {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            line-height: 1.5;
+            white-space: pre;
+        }
+
+        .code-example.bad {
+            border-left: 4px solid #f44336;
+            background: #ffebee;
+            color: #c62828;
+        }
+
+        .code-example.good {
+            border-left: 4px solid #4caf50;
+            background: #e8f5e8;
+            color: #2e7d32;
+        }
+
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 40px;
+            padding: 20px 0;
+            border-top: 2px solid #e0e0e0;
+        }
+
+        .nav-button {
+            background: #607D8B;
+            color: white;
+            text-decoration: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(96, 125, 139, 0.3);
+        }
+
+        .nav-button:hover {
+            background: #455a64;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(96, 125, 139, 0.4);
+        }
+
+        .nav-button.home {
+            background: #4caf50;
+            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+        }
+
+        .nav-button.home:hover {
+            background: #45a049;
+            box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
+        }
+
+        /* Elementos Interativos de Conclusão - Tema Cinza */
+        .achievement-hub {
+            background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+            border: 3px dashed #6c757d;
+            border-radius: 20px;
+            padding: 25px;
+            margin: 25px 0;
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .achievement-hub::before {
+            content: "🏆 CENTRO DE CONQUISTAS";
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #6c757d;
+            color: white;
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-size: 0.8em;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(108, 117, 125, 0.3);
+        }
+
+        .knowledge-tracker {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 25px 0;
+        }
+
+        .skill-card {
+            background: white;
+            border: 2px solid #dee2e6;
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .skill-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+        }
+
+        .skill-card.completed {
+            border-color: #28a745;
+            background: linear-gradient(135deg, #e8f5e9, #d4edda);
+        }
+
+        .skill-card.in-progress {
+            border-color: #ffc107;
+            background: linear-gradient(135deg, #fff3cd, #ffeaa7);
+        }
+
+        .skill-icon {
+            font-size: 3em;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .skill-title {
+            color: #495057;
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .skill-progress {
+            background: #e9ecef;
+            height: 8px;
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 15px 0;
+        }
+
+        .skill-progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #28a745, #20c997);
+            border-radius: 4px;
+            transition: width 0.5s ease;
+        }
+
+        .practice-generator {
+            background: linear-gradient(135deg, #e8f8f5, #d1f2eb);
+            border: 2px solid #28a745;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 25px 0;
+            text-align: center;
+        }
+
+        .challenge-card {
+            background: white;
+            border: 1px solid #dee2e6;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 15px 0;
+            text-align: left;
+            transition: all 0.3s ease;
+        }
+
+        .challenge-card:hover {
+            border-color: #28a745;
+            transform: translateY(-2px);
+        }
+
+        .challenge-difficulty {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 0.8em;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .difficulty-easy {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .difficulty-medium {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .difficulty-hard {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .interactive-checklist {
+            background: linear-gradient(135deg, #fff8e1, #fff3c4);
+            border: 2px solid #ffc107;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 25px 0;
+        }
+
+        .checklist-item {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            margin: 8px 0;
+            border-radius: 8px;
+            background: white;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .checklist-item:hover {
+            background: #f8f9fa;
+        }
+
+        .checklist-item.completed {
+            background: #e8f5e9;
+            color: #155724;
+        }
+
+        .checklist-checkbox {
+            width: 20px;
+            height: 20px;
+            border: 2px solid #6c757d;
+            border-radius: 4px;
+            margin-right: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .checklist-item.completed .checklist-checkbox {
+            background: #28a745;
+            border-color: #28a745;
+            color: white;
+        }
+
+        .final-quiz {
+            background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+            border: 2px solid #2196F3;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 25px 0;
+            position: relative;
+        }
+
+        .final-quiz::before {
+            content: "🎯 QUIZ FINAL";
+            position: absolute;
+            top: -15px;
+            left: 20px;
+            background: #2196F3;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            font-weight: bold;
+        }
+
+        .quiz-question {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 15px 0;
+            border-left: 5px solid #2196F3;
+        }
+
+        .quiz-option {
+            display: block;
+            width: 100%;
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            padding: 12px 15px;
+            margin: 8px 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: left;
+        }
+
+        .quiz-option:hover {
+            background: #e9ecef;
+            border-color: #adb5bd;
+        }
+
+        .quiz-option.selected {
+            background: #cce5ff;
+            border-color: #2196F3;
+        }
+
+        .quiz-option.correct {
+            background: #d4edda;
+            border-color: #28a745;
+            color: #155724;
+        }
+
+        .quiz-option.incorrect {
+            background: #f8d7da;
+            border-color: #dc3545;
+            color: #721c24;
+        }
+
+        .certificate-generator {
+            background: linear-gradient(135deg, #fdf2e9, #fad5a5);
+            border: 2px solid #e67e22;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 25px 0;
+            text-align: center;
+            position: relative;
+        }
+
+        .certificate-generator::before {
+            content: "🎓 CERTIFICADO";
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #e67e22;
+            color: white;
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-size: 0.8em;
+            font-weight: bold;
+        }
+
+        .certificate-preview {
+            background: white;
+            border: 5px solid #e67e22;
+            border-radius: 10px;
+            padding: 30px;
+            margin: 20px 0;
+            min-height: 200px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .action-button {
+            background: linear-gradient(135deg, #6c757d, #5a6268);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(108, 117, 125, 0.3);
+            margin: 5px;
+        }
+
+        .action-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(108, 117, 125, 0.4);
+        }
+
+        .action-button.primary {
+            background: linear-gradient(135deg, #007bff, #0056b3);
+        }
+
+        .action-button.success {
+            background: linear-gradient(135deg, #28a745, #1e7e34);
+        }
+
+        .action-button.warning {
+            background: linear-gradient(135deg, #ffc107, #e0a800);
+        }
+
+        .progress-summary {
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            border: 2px solid #6c757d;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 25px 0;
+            text-align: center;
+        }
+
+        .summary-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .stat-item {
+            background: white;
+            border-radius: 10px;
+            padding: 15px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .stat-number {
+            font-size: 2em;
+            font-weight: bold;
+            color: #6c757d;
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 0.9em;
+            color: #868e96;
+            margin-top: 5px;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+
+            .conclusion-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .practices-showcase {
+                grid-template-columns: 1fr;
+            }
+
+            .comparison-examples {
+                grid-template-columns: 1fr;
+            }
+
+            .navigation {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            h1 {
+                font-size: 2em;
+            }
+
+            h2 {
+                font-size: 1.5em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎯 Conclusão e Boas Práticas</h1>
+        </header>
+
+        <main>
+            <div class="alert alert-info">
+                <strong>🎓 Fechamento do Estudo:</strong> Ao longo deste material, vimos como o HTML semântico e o CSS se complementam na criação de páginas acessíveis, bem estruturadas e fáceis de manter. A aplicação correta de cada elemento proporciona uma web mais inclusiva, performática e sustentável a longo prazo.
+            </div>
+
+            <section>
+                <h2>🌐 Impacto Real</h2>
+                
+                <div class="conclusion-grid">
+                    <div class="conclusion-card">
+                        <span class="impact-icon">📖</span>
+                        <h3 class="impact-title">Páginas Compreensíveis</h3>
+                        <p class="impact-description">Leitores de tela e tecnologias assistivas conseguem interpretar e navegar pelo conteúdo de forma eficiente.</p>
+                    </div>
+
+                    <div class="conclusion-card">
+                        <span class="impact-icon">🔍</span>
+                        <h3 class="impact-title">SEO Melhorado</h3>
+                        <p class="impact-description">Estrutura semântica clara permite que motores de busca indexem e classifiquem o conteúdo adequadamente.</p>
+                    </div>
+
+                    <div class="conclusion-card">
+                        <span class="impact-icon">🛠️</span>
+                        <h3 class="impact-title">Manutenção Facilitada</h3>
+                        <p class="impact-description">Código organizado e bem estruturado reduz tempo de desenvolvimento e facilita atualizações futuras.</p>
+                    </div>
+                </div>
+
+                <div class="alert alert-tip">
+                    <strong>💡 Lembre-se:</strong> A adoção de boas práticas desde o início de um projeto reduz retrabalho e garante maior durabilidade do código.
+                </div>
+            </section>
+
+            <div class="achievement-hub">
+                <h3>🏆 Centro de Conquistas da Aula 4</h3>
+                <p>Acompanhe seu progresso nos conceitos de HTML Semântico e CSS:</p>
+                
+                <div class="knowledge-tracker">
+                    <div class="skill-card" onclick="toggleSkill(this)" data-skill="html-semantic">
+                        <span class="skill-icon">🏗️</span>
+                        <div class="skill-title">HTML Semântico</div>
+                        <div class="skill-progress">
+                            <div class="skill-progress-bar" style="width: 0%"></div>
+                        </div>
+                        <p>Elementos estruturais com significado</p>
+                    </div>
+                    
+                    <div class="skill-card" onclick="toggleSkill(this)" data-skill="semantic-tags">
+                        <span class="skill-icon">🏷️</span>
+                        <div class="skill-title">Tags Semânticas</div>
+                        <div class="skill-progress">
+                            <div class="skill-progress-bar" style="width: 0%"></div>
+                        </div>
+                        <p>header, nav, main, article, section...</p>
+                    </div>
+                    
+                    <div class="skill-card" onclick="toggleSkill(this)" data-skill="accessibility">
+                        <span class="skill-icon">♿</span>
+                        <div class="skill-title">Acessibilidade</div>
+                        <div class="skill-progress">
+                            <div class="skill-progress-bar" style="width: 0%"></div>
+                        </div>
+                        <p>ARIA, tabindex, leitores de tela</p>
+                    </div>
+                    
+                    <div class="skill-card" onclick="toggleSkill(this)" data-skill="css-integration">
+                        <span class="skill-icon">🎨</span>
+                        <div class="skill-title">CSS + HTML</div>
+                        <div class="skill-progress">
+                            <div class="skill-progress-bar" style="width: 0%"></div>
+                        </div>
+                        <p>Integração e separação de responsabilidades</p>
+                    </div>
+                </div>
+                
+                <div class="progress-summary">
+                    <h4>📊 Resumo do Progresso</h4>
+                    <div class="summary-stats">
+                        <div class="stat-item">
+                            <span class="stat-number" id="completed-skills">0</span>
+                            <div class="stat-label">Habilidades Dominadas</div>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number" id="progress-percentage">0%</span>
+                            <div class="stat-label">Progresso Total</div>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number" id="quiz-score">0</span>
+                            <div class="stat-label">Pontuação Quiz</div>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number" id="challenges-completed">0</span>
+                            <div class="stat-label">Desafios Concluídos</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="interactive-checklist">
+                <h3>✅ Checklist de Boas Práticas</h3>
+                <p>Marque as práticas que você já domina ou planeja aplicar:</p>
+                
+                <div class="checklist-item" onclick="toggleChecklistItem(this)">
+                    <div class="checklist-checkbox"></div>
+                    <div>Usar sempre elementos semânticos apropriados (header, nav, main, etc.)</div>
+                </div>
+                
+                <div class="checklist-item" onclick="toggleChecklistItem(this)">
+                    <div class="checklist-checkbox"></div>
+                    <div>Separar HTML (estrutura), CSS (estilo) e JavaScript (comportamento)</div>
+                </div>
+                
+                <div class="checklist-item" onclick="toggleChecklistItem(this)">
+                    <div class="checklist-checkbox"></div>
+                    <div>Implementar acessibilidade com ARIA, tabindex e labels apropriados</div>
+                </div>
+                
+                <div class="checklist-item" onclick="toggleChecklistItem(this)">
+                    <div class="checklist-checkbox"></div>
+                    <div>Usar classes CSS descritivas e evitar IDs para estilização</div>
+                </div>
+                
+                <div class="checklist-item" onclick="toggleChecklistItem(this)">
+                    <div class="checklist-checkbox"></div>
+                    <div>Testar páginas com leitores de tela e ferramentas de acessibilidade</div>
+                </div>
+                
+                <div class="checklist-item" onclick="toggleChecklistItem(this)">
+                    <div class="checklist-checkbox"></div>
+                    <div>Validar HTML e CSS para garantir conformidade com padrões</div>
+                </div>
+                
+                <div class="checklist-item" onclick="toggleChecklistItem(this)">
+                    <div class="checklist-checkbox"></div>
+                    <div>Manter código limpo, comentado e bem organizado</div>
+                </div>
+                
+                <div class="checklist-item" onclick="toggleChecklistItem(this)">
+                    <div class="checklist-checkbox"></div>
+                    <div>Considerar performance e SEO na estruturação do código</div>
+                </div>
+            </div>
+
+            <div class="practice-generator">
+                <h3>🎯 Gerador de Desafios Práticos</h3>
+                <p>Pratique seus conhecimentos com desafios personalizados:</p>
+                
+                <div style="margin: 20px 0;">
+                    <button class="action-button success" onclick="generateChallenge('easy')">
+                        📝 Desafio Fácil
+                    </button>
+                    <button class="action-button warning" onclick="generateChallenge('medium')">
+                        ⚡ Desafio Médio
+                    </button>
+                    <button class="action-button primary" onclick="generateChallenge('hard')">
+                        🔥 Desafio Difícil
+                    </button>
+                </div>
+                
+                <div id="current-challenge" style="display: none;">
+                    <div class="challenge-card">
+                        <div class="challenge-difficulty" id="challenge-difficulty"></div>
+                        <h4 id="challenge-title"></h4>
+                        <p id="challenge-description"></p>
+                        <div id="challenge-requirements"></div>
+                        <div style="margin-top: 15px;">
+                            <button class="action-button success" onclick="completeChallenge()">
+                                ✅ Marcar como Concluído
+                            </button>
+                            <button class="action-button" onclick="generateChallenge()">
+                                🔄 Novo Desafio
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="final-quiz">
+                <h3>🎯 Quiz Final de Consolidação</h3>
+                <p>Teste seus conhecimentos com 5 perguntas sobre HTML Semântico e CSS:</p>
+                
+                <div id="quiz-container">
+                    <div class="quiz-question" id="question-1">
+                        <h4>1. Qual é o principal benefício do HTML semântico?</h4>
+                        <button class="quiz-option" onclick="selectQuizAnswer(1, 'a', false)">
+                            A) Páginas carregam mais rápido
+                        </button>
+                        <button class="quiz-option" onclick="selectQuizAnswer(1, 'b', true)">
+                            B) Melhora acessibilidade e compreensão do código
+                        </button>
+                        <button class="quiz-option" onclick="selectQuizAnswer(1, 'c', false)">
+                            C) Reduz o tamanho dos arquivos CSS
+                        </button>
+                    </div>
+                    
+                    <div class="quiz-question" id="question-2" style="display: none;">
+                        <h4>2. Qual elemento deve conter o conteúdo principal de uma página?</h4>
+                        <button class="quiz-option" onclick="selectQuizAnswer(2, 'a', false)">
+                            A) &lt;div class="main"&gt;
+                        </button>
+                        <button class="quiz-option" onclick="selectQuizAnswer(2, 'b', true)">
+                            B) &lt;main&gt;
+                        </button>
+                        <button class="quiz-option" onclick="selectQuizAnswer(2, 'c', false)">
+                            C) &lt;section id="principal"&gt;
+                        </button>
+                    </div>
+                    
+                    <div class="quiz-question" id="question-3" style="display: none;">
+                        <h4>3. Qual atributo ARIA é usado para rotular elementos sem texto visível?</h4>
+                        <button class="quiz-option" onclick="selectQuizAnswer(3, 'a', true)">
+                            A) aria-label
+                        </button>
+                        <button class="quiz-option" onclick="selectQuizAnswer(3, 'b', false)">
+                            B) aria-hidden
+                        </button>
+                        <button class="quiz-option" onclick="selectQuizAnswer(3, 'c', false)">
+                            C) aria-role
+                        </button>
+                    </div>
+                    
+                    <div class="quiz-question" id="question-4" style="display: none;">
+                        <h4>4. Qual é a melhor prática para separação de responsabilidades?</h4>
+                        <button class="quiz-option" onclick="selectQuizAnswer(4, 'a', false)">
+                            A) Misturar CSS no HTML para facilitar manutenção
+                        </button>
+                        <button class="quiz-option" onclick="selectQuizAnswer(4, 'b', true)">
+                            B) HTML para estrutura, CSS para estilo, JS para comportamento
+                        </button>
+                        <button class="quiz-option" onclick="selectQuizAnswer(4, 'c', false)">
+                            C) Usar apenas JavaScript para controlar tudo
+                        </button>
+                    </div>
+                    
+                    <div class="quiz-question" id="question-5" style="display: none;">
+                        <h4>5. Para que serve o atributo tabindex="-1"?</h4>
+                        <button class="quiz-option" onclick="selectQuizAnswer(5, 'a', false)">
+                            A) Torna o elemento o primeiro no foco
+                        </button>
+                        <button class="quiz-option" onclick="selectQuizAnswer(5, 'b', true)">
+                            B) Remove o elemento da navegação por teclado
+                        </button>
+                        <button class="quiz-option" onclick="selectQuizAnswer(5, 'c', false)">
+                            C) Define prioridade máxima de foco
+                        </button>
+                    </div>
+                </div>
+                
+                <div style="text-align: center; margin: 20px 0;">
+                    <div id="quiz-progress">Pergunta <span id="current-question">1</span> de 5</div>
+                    <div id="quiz-result" style="display: none; margin: 15px 0; font-size: 1.2em; font-weight: bold;"></div>
+                    <button class="action-button primary" onclick="restartQuiz()">
+                        🔄 Reiniciar Quiz
+                    </button>
+                </div>
+            </div>
+
+            <div class="certificate-generator">
+                <h3>🎓 Gerador de Certificado</h3>
+                <p>Complete todas as atividades para gerar seu certificado de conclusão:</p>
+                
+                <div style="margin: 20px 0;">
+                    <label style="display: block; margin: 10px 0; font-weight: bold;">
+                        Seu Nome:
+                        <input type="text" id="student-name" placeholder="Digite seu nome completo" 
+                               style="width: 100%; padding: 10px; margin-top: 5px; border: 1px solid #ddd; border-radius: 5px;">
+                    </label>
+                </div>
+                
+                <div class="certificate-preview" id="certificate-preview">
+                    <h2 style="color: #e67e22; margin-bottom: 20px;">🎓 CERTIFICADO DE CONCLUSÃO</h2>
+                    <p style="font-size: 1.1em; margin: 15px 0;">Certificamos que</p>
+                    <h3 style="color: #2c3e50; margin: 15px 0; font-size: 1.8em;" id="cert-name">[Seu Nome]</h3>
+                    <p style="margin: 15px 0;">concluiu com sucesso a</p>
+                    <h4 style="color: #e67e22; margin: 15px 0;">Aula 4: HTML Semântico e CSS</h4>
+                    <p style="font-size: 0.9em; color: #666; margin-top: 20px;" id="cert-date"></p>
+                </div>
+                
+                <div style="text-align: center; margin: 20px 0;">
+                    <button class="action-button success" onclick="generateCertificate()">
+                        📜 Gerar Certificado
+                    </button>
+                    <button class="action-button primary" onclick="downloadCertificate()">
+                        💾 Baixar Certificado
+                    </button>
+                </div>
+                
+                <div id="certificate-requirements" style="margin: 20px 0; padding: 15px; background: white; border-radius: 8px;">
+                    <h4>📋 Requisitos para Certificado:</h4>
+                    <ul style="text-align: left; margin: 10px 0;">
+                        <li id="req-skills">✅ Marcar habilidades como dominadas</li>
+                        <li id="req-checklist">⏳ Completar checklist de boas práticas</li>
+                        <li id="req-quiz">⏳ Obter pelo menos 80% no quiz final</li>
+                        <li id="req-challenges">⏳ Completar pelo menos 2 desafios práticos</li>
+                    </ul>
+                </div>
+            </div>
+
+            <section>
+                <h2>📋 Considerações sobre Boas Práticas</h2>
+                
+                <div class="practices-showcase">
+                    <div class="practice-section">
+                        <h3 class="practice-title">
+                            🔧 Separação de Responsabilidades
+                        </h3>
+                        <p><strong>HTML = Estrutura | CSS = Estilo | JS = Comportamento</strong></p>
+                        <p>Cada linguagem tem seu papel. Misturar responsabilidades gera código confuso, difícil de manter e menos acessível.</p>
+                        
+                        <ul class="practice-list">
+                            <li>Evite CSS inline (ex: style="color: red")</li>
+                            <li>Não use JavaScript para inserir HTML estrutural</li>
+                            <li>Use arquivos separados sempre que possível</li>
+                            <li>Mantenha a semântica independente do estilo</li>
+                        </ul>
+                    </div>
+
+                    <div class="practice-section">
+                        <h3 class="practice-title">
+                            🧹 Manutenção e Legibilidade
+                        </h3>
+                        <p><strong>Código legível é código sustentável.</strong></p>
+                        
+                        <ul class="practice-list">
+                            <li>Use indentação consistente</li>
+                            <li>Adicione comentários úteis que explicam o "porquê"</li>
+                            <li>Escolha nomes significativos para classes e IDs</li>
+                            <li>Reutilize estilos com classes modulares</li>
+                            <li>Mantenha estrutura semântica clara</li>
+                            <li>Evite repetição desnecessária de código</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="alert alert-example">
+                    <h3>💡 Exemplo de Boas vs Más Práticas</h3>
+                    <div class="comparison-examples">
+                        <div class="example-bad">
+                            <strong>❌ Exemplo ruim:</strong>
+                            <div class="code-example bad">
+&lt;div class="c1"&gt;Clique aqui&lt;/div&gt;
+                            </div>
+                        </div>
+                        <div class="example-good">
+                            <strong>✅ Exemplo bom:</strong>
+                            <div class="code-example good">
+&lt;button class="btn-primario"&gt;Enviar mensagem&lt;/button&gt;
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h2>📝 Resumo Final</h2>
+                <div class="alert alert-info">
+                    Utilizar HTML semântico e CSS bem organizado não é apenas uma questão de estilo — é <strong>compromisso com a qualidade da web</strong>. Desenvolver com clareza, acessibilidade e boas práticas garante uma base sólida para qualquer projeto.
+                </div>
+            </section>
+
+            <section>
+                <h2>🤔 Perguntas de Revisão Final</h2>
+                <div class="alert alert-tip">
+                    <strong>Questões para consolidar o aprendizado:</strong>
+                    
+                    <ul>
+                        <li>Qual a diferença entre estrutura, estilo e comportamento?</li>
+                        <li>Quais os problemas de misturar HTML, CSS e JS sem separação?</li>
+                        <li>Cite 3 boas práticas de legibilidade de código.</li>
+                        <li>Por que a separação de responsabilidades melhora a manutenção?</li>
+                        <li>Como HTML semântico impacta SEO e acessibilidade?</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section>
+                <h2>🚀 Ações Práticas</h2>
+                <div class="alert alert-example">
+                    <strong>Consolidação do aprendizado:</strong>
+                    
+                    <ul>
+                        <li>Revisar seus arquivos: HTML, CSS e JS estão separados?</li>
+                        <li>Padronizar indentação e nomes de classes</li>
+                        <li>Refatorar um projeto antigo com base em semântica e clareza</li>
+                        <li>Testar acessibilidade com ferramentas como Wave ou leitores de tela</li>
+                        <li>Compartilhar código com colegas para revisão colaborativa</li>
+                    </ul>
+                </div>
+            </section>
+
+            <div class="final-message">
+                <h3>Parabéns! 🎉</h3>
+                <p>Você concluiu a Aula 4 sobre HTML Semântico e CSS. Agora você possui o conhecimento necessário para criar páginas web acessíveis, bem estruturadas e profissionais. Continue praticando e aplicando esses conceitos em seus projetos!</p>
+            </div>
+        </main>
+
+        <nav class="navigation">
+            <a href="04-css-html-semantico.html" class="nav-button">← CSS e HTML</a>
+            <a href="index.html" class="nav-button home">🏠 Voltar ao Início</a>
+        </nav>
+    </div>
+
+    <script>
+        // Estado global das atividades
+        let gameState = {
+            completedSkills: 0,
+            completedChecklist: 0,
+            completedChallenges: 0,
+            quizScore: 0,
+            currentQuizQuestion: 1,
+            skills: {
+                'html-semantic': false,
+                'semantic-tags': false,
+                'accessibility': false,
+                'css-integration': false
+            }
+        };
+
+        // Sistema de habilidades
+        function toggleSkill(skillCard) {
+            const skill = skillCard.dataset.skill;
+            const progressBar = skillCard.querySelector('.skill-progress-bar');
+            const isCompleted = gameState.skills[skill];
+            
+            if (!isCompleted) {
+                // Completa a habilidade
+                gameState.skills[skill] = true;
+                skillCard.classList.add('completed');
+                
+                // Animação de progresso
+                let width = 0;
+                const interval = setInterval(() => {
+                    width += 2;
+                    progressBar.style.width = width + '%';
+                    if (width >= 100) {
+                        clearInterval(interval);
+                        gameState.completedSkills++;
+                        updateStats();
+                        checkCertificateRequirements();
+                    }
+                }, 20);
+                
+                // Feedback visual
+                skillCard.style.transform = 'scale(1.05)';
+                setTimeout(() => {
+                    skillCard.style.transform = '';
+                }, 300);
+                
+            } else {
+                // Remove a habilidade
+                gameState.skills[skill] = false;
+                skillCard.classList.remove('completed');
+                progressBar.style.width = '0%';
+                gameState.completedSkills--;
+                updateStats();
+                checkCertificateRequirements();
+            }
+        }
+
+        // Sistema de checklist
+        function toggleChecklistItem(item) {
+            const checkbox = item.querySelector('.checklist-checkbox');
+            const isCompleted = item.classList.contains('completed');
+            
+            if (!isCompleted) {
+                item.classList.add('completed');
+                checkbox.innerHTML = '✓';
+                gameState.completedChecklist++;
+            } else {
+                item.classList.remove('completed');
+                checkbox.innerHTML = '';
+                gameState.completedChecklist--;
+            }
+            
+            updateStats();
+            checkCertificateRequirements();
+        }
+
+        // Gerador de desafios
+        const challenges = {
+            easy: [
+                {
+                    title: "Estrutura Básica Semântica",
+                    description: "Crie uma página HTML usando apenas elementos semânticos para estruturar um blog pessoal.",
+                    requirements: "• Use header, nav, main, article, aside e footer<br>• Inclua pelo menos 2 artigos<br>• Adicione uma sidebar com informações do autor"
+                },
+                {
+                    title: "Navegação Acessível",
+                    description: "Desenvolva uma barra de navegação que seja totalmente acessível por teclado.",
+                    requirements: "• Use elemento nav<br>• Implemente navegação por Tab<br>• Adicione aria-labels apropriados"
+                },
+                {
+                    title: "Formulário Semântico",
+                    description: "Crie um formulário de contato usando elementos semânticos e boas práticas de acessibilidade.",
+                    requirements: "• Use fieldset e legend<br>• Labels associados corretamente<br>• Mensagens de erro acessíveis"
+                }
+            ],
+            medium: [
+                {
+                    title: "Layout Responsivo Semântico",
+                    description: "Desenvolva um layout de revista online que adapte sua estrutura semântica para diferentes telas.",
+                    requirements: "• CSS Grid para layout principal<br>• Elementos semânticos para todas as seções<br>• Breakpoints para mobile e tablet"
+                },
+                {
+                    title: "Sistema de Comentários",
+                    description: "Implemente uma seção de comentários usando HTML semântico e ARIA.",
+                    requirements: "• Estrutura aninhada com article<br>• Indicadores de thread com ARIA<br>• Formulário de resposta acessível"
+                },
+                {
+                    title: "Dashboard Acessível",
+                    description: "Crie um dashboard administrativo seguindo todas as diretrizes de acessibilidade.",
+                    requirements: "• Navegação por landmarks<br>• Tabelas acessíveis<br>• Skip links funcionais"
+                }
+            ],
+            hard: [
+                {
+                    title: "Single Page Application Semântica",
+                    description: "Desenvolva uma SPA que mantenha semântica correta durante navegação dinâmica.",
+                    requirements: "• Gerenciamento de foco dinâmico<br>• Anúncios de mudança de rota<br>• Breadcrumbs acessíveis"
+                },
+                {
+                    title: "CMS Completo",
+                    description: "Construa um sistema de gerenciamento de conteúdo com foco total em acessibilidade.",
+                    requirements: "• Editor WYSIWYG acessível<br>• Sistema de permissões semântico<br>• Relatórios de acessibilidade"
+                },
+                {
+                    title: "E-commerce Inclusivo",
+                    description: "Implemente uma loja virtual que seja 100% acessível para todos os usuários.",
+                    requirements: "• Filtros acessíveis<br>• Carrinho com screen reader<br>• Checkout completamente semântico"
+                }
+            ]
+        };
+
+        function generateChallenge(difficulty) {
+            if (!difficulty) {
+                difficulty = ['easy', 'medium', 'hard'][Math.floor(Math.random() * 3)];
+            }
+            
+            const challengeList = challenges[difficulty];
+            const challenge = challengeList[Math.floor(Math.random() * challengeList.length)];
+            
+            document.getElementById('challenge-difficulty').textContent = 
+                difficulty === 'easy' ? 'Fácil' : 
+                difficulty === 'medium' ? 'Médio' : 'Difícil';
+            document.getElementById('challenge-difficulty').className = `challenge-difficulty difficulty-${difficulty}`;
+            
+            document.getElementById('challenge-title').textContent = challenge.title;
+            document.getElementById('challenge-description').textContent = challenge.description;
+            document.getElementById('challenge-requirements').innerHTML = `
+                <h5>📋 Requisitos:</h5>
+                ${challenge.requirements}
+            `;
+            
+            document.getElementById('current-challenge').style.display = 'block';
+        }
+
+        function completeChallenge() {
+            gameState.completedChallenges++;
+            updateStats();
+            checkCertificateRequirements();
+            
+            // Feedback de conclusão
+            const challengeCard = document.querySelector('.challenge-card');
+            challengeCard.style.background = 'linear-gradient(135deg, #d4edda, #c3e6cb)';
+            challengeCard.style.borderColor = '#28a745';
+            
+            setTimeout(() => {
+                document.getElementById('current-challenge').style.display = 'none';
+                challengeCard.style.background = '';
+                challengeCard.style.borderColor = '';
+            }, 2000);
+        }
+
+        // Sistema de Quiz
+        function selectQuizAnswer(questionNum, option, isCorrect) {
+            const question = document.getElementById(`question-${questionNum}`);
+            const options = question.querySelectorAll('.quiz-option');
+            
+            // Desabilita todas as opções
+            options.forEach(opt => {
+                opt.disabled = true;
+                if (opt.onclick.toString().includes(`'${option}'`)) {
+                    opt.classList.add(isCorrect ? 'correct' : 'incorrect');
+                    opt.classList.add('selected');
+                }
+            });
+            
+            // Atualiza pontuação
+            if (isCorrect) {
+                gameState.quizScore += 20; // 20 pontos por resposta correta
+            }
+            
+            // Avança para próxima pergunta
+            setTimeout(() => {
+                if (questionNum < 5) {
+                    question.style.display = 'none';
+                    document.getElementById(`question-${questionNum + 1}`).style.display = 'block';
+                    gameState.currentQuizQuestion = questionNum + 1;
+                    document.getElementById('current-question').textContent = questionNum + 1;
+                } else {
+                    // Quiz completo
+                    showQuizResult();
+                }
+            }, 1500);
+        }
+
+        function showQuizResult() {
+            const resultDiv = document.getElementById('quiz-result');
+            const percentage = gameState.quizScore;
+            
+            let resultText = '';
+            let resultColor = '';
+            
+            if (percentage >= 80) {
+                resultText = `🎉 Excelente! ${percentage}% - Você domina HTML Semântico e CSS!`;
+                resultColor = '#28a745';
+            } else if (percentage >= 60) {
+                resultText = `👍 Bom trabalho! ${percentage}% - Continue praticando!`;
+                resultColor = '#ffc107';
+            } else {
+                resultText = `📚 ${percentage}% - Revise os conceitos e tente novamente!`;
+                resultColor = '#dc3545';
+            }
+            
+            resultDiv.textContent = resultText;
+            resultDiv.style.color = resultColor;
+            resultDiv.style.display = 'block';
+            
+            document.getElementById('quiz-progress').style.display = 'none';
+            
+            updateStats();
+            checkCertificateRequirements();
+        }
+
+        function restartQuiz() {
+            gameState.quizScore = 0;
+            gameState.currentQuizQuestion = 1;
+            
+            // Reset todas as questões
+            for (let i = 1; i <= 5; i++) {
+                const question = document.getElementById(`question-${i}`);
+                question.style.display = i === 1 ? 'block' : 'none';
+                
+                const options = question.querySelectorAll('.quiz-option');
+                options.forEach(opt => {
+                    opt.disabled = false;
+                    opt.className = 'quiz-option';
+                });
+            }
+            
+            document.getElementById('current-question').textContent = '1';
+            document.getElementById('quiz-result').style.display = 'none';
+            document.getElementById('quiz-progress').style.display = 'block';
+            
+            updateStats();
+        }
+
+        // Sistema de certificado
+        function generateCertificate() {
+            const studentName = document.getElementById('student-name').value.trim();
+            
+            if (!studentName) {
+                alert('Por favor, digite seu nome para gerar o certificado.');
+                return;
+            }
+            
+            // Atualiza o certificado
+            document.getElementById('cert-name').textContent = studentName;
+            document.getElementById('cert-date').textContent = 
+                `Concluído em ${new Date().toLocaleDateString('pt-BR')}`;
+            
+            // Feedback visual
+            const preview = document.getElementById('certificate-preview');
+            preview.style.transform = 'scale(1.05)';
+            preview.style.boxShadow = '0 15px 40px rgba(230, 126, 34, 0.3)';
+            
+            setTimeout(() => {
+                preview.style.transform = '';
+                preview.style.boxShadow = '';
+            }, 1000);
+        }
+
+        function downloadCertificate() {
+            const studentName = document.getElementById('student-name').value.trim();
+            
+            if (!studentName) {
+                alert('Gere o certificado primeiro preenchendo seu nome.');
+                return;
+            }
+            
+            // Simula download (em uma aplicação real, geraria PDF)
+            const certificateData = {
+                nome: studentName,
+                curso: 'Aula 4: HTML Semântico e CSS',
+                data: new Date().toLocaleDateString('pt-BR'),
+                habilidades: gameState.completedSkills,
+                checklist: gameState.completedChecklist,
+                quiz: gameState.quizScore,
+                desafios: gameState.completedChallenges
+            };
+            
+            const dataStr = JSON.stringify(certificateData, null, 2);
+            const dataBlob = new Blob([dataStr], {type: 'application/json'});
+            
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(dataBlob);
+            link.download = `certificado-${studentName.replace(/\s+/g, '-')}.json`;
+            link.click();
+            
+            alert('Certificado baixado! Em uma aplicação real, seria gerado um PDF profissional.');
+        }
+
+        function checkCertificateRequirements() {
+            const requirements = {
+                skills: gameState.completedSkills >= 3,
+                checklist: gameState.completedChecklist >= 6,
+                quiz: gameState.quizScore >= 80,
+                challenges: gameState.completedChallenges >= 2
+            };
+            
+            // Atualiza indicadores visuais
+            document.getElementById('req-skills').innerHTML = 
+                requirements.skills ? '✅ Marcar habilidades como dominadas' : '⏳ Marcar habilidades como dominadas';
+            
+            document.getElementById('req-checklist').innerHTML = 
+                requirements.checklist ? '✅ Completar checklist de boas práticas' : '⏳ Completar checklist de boas práticas';
+            
+            document.getElementById('req-quiz').innerHTML = 
+                requirements.quiz ? '✅ Obter pelo menos 80% no quiz final' : '⏳ Obter pelo menos 80% no quiz final';
+            
+            document.getElementById('req-challenges').innerHTML = 
+                requirements.challenges ? '✅ Completar pelo menos 2 desafios práticos' : '⏳ Completar pelo menos 2 desafios práticos';
+            
+            // Habilita/desabilita botões do certificado
+            const allComplete = Object.values(requirements).every(req => req);
+            const generateBtn = document.querySelector('[onclick="generateCertificate()"]');
+            const downloadBtn = document.querySelector('[onclick="downloadCertificate()"]');
+            
+            if (allComplete) {
+                generateBtn.style.opacity = '1';
+                downloadBtn.style.opacity = '1';
+                generateBtn.disabled = false;
+                downloadBtn.disabled = false;
+            } else {
+                generateBtn.style.opacity = '0.5';
+                downloadBtn.style.opacity = '0.5';
+                generateBtn.disabled = true;
+                downloadBtn.disabled = true;
+            }
+        }
+
+        function updateStats() {
+            document.getElementById('completed-skills').textContent = gameState.completedSkills;
+            document.getElementById('progress-percentage').textContent = 
+                Math.round((gameState.completedSkills / 4) * 100) + '%';
+            document.getElementById('quiz-score').textContent = gameState.quizScore + '%';
+            document.getElementById('challenges-completed').textContent = gameState.completedChallenges;
+        }
+
+        // Auto-atualização do nome no certificado
+        document.getElementById('student-name').addEventListener('input', function() {
+            const name = this.value.trim() || '[Seu Nome]';
+            document.getElementById('cert-name').textContent = name;
+        });
+
+        // Inicialização
+        document.addEventListener('DOMContentLoaded', function() {
+            updateStats();
+            checkCertificateRequirements();
+            
+            // Define data atual no certificado
+            document.getElementById('cert-date').textContent = 
+                `Data de conclusão: ${new Date().toLocaleDateString('pt-BR')}`;
+        });
+    </script>
+</body>
+</html> 

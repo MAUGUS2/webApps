@@ -1,0 +1,963 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🎨 Outras Formatações CSS - Aula 3</title>
+  <style>
+    /* =====================================
+       🎨 CONFIGURAÇÃO GLOBAL E BASE
+       ===================================== */
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box; /* Facilita cálculos de layout */
+    }
+
+    body {
+      font-family: 'Georgia', serif;
+      line-height: 1.6;
+      color: #333;
+      /* Gradiente de fundo para ambiente visual agradável */
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    /* =====================================
+       📦 CONTAINER PRINCIPAL
+       ===================================== */
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      /* Efeito glassmorphism moderno */
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      padding: 40px;
+      box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+    }
+
+    /* =====================================
+       🎯 HIERARQUIA DE TÍTULOS
+       ===================================== */
+    
+    h1 {
+      text-align: center;
+      color: #764ba2;
+      margin-bottom: 30px;
+      font-size: 2.5em;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      color: #667eea;
+      margin: 30px 0 20px 0;
+      font-size: 1.8em;
+      border-left: 5px solid #667eea;
+      padding-left: 15px;
+    }
+
+    h3 {
+      color: #764ba2;
+      margin: 25px 0 15px 0;
+      font-size: 1.4em;
+    }
+
+    /* =====================================
+       💡 SISTEMA DE ALERTAS E DESTAQUE
+       ===================================== */
+    
+    .alert {
+      padding: 15px;
+      margin: 20px 0;
+      border-radius: 10px;
+      border-left: 5px solid;
+    }
+
+    .alert-info {
+      background: #e1f5fe;
+      border-color: #0288d1;
+      color: #01579b;
+    }
+
+    .alert-tip {
+      background: #f3e5f5;
+      border-color: #8e24aa;
+      color: #4a148c;
+    }
+
+    .alert-example {
+      background: #e8f5e8;
+      border-color: #4caf50;
+      color: #1b5e20;
+    }
+
+    .alert-warning {
+      background: #fff8e1;
+      border-color: #ffa000;
+      color: #e65100;
+    }
+
+    /* =====================================
+       🎯 SEÇÃO DE DEMONSTRAÇÃO PRÁTICA
+       ===================================== */
+    
+    .demo-section {
+      background: #f8f9fa;
+      border: 2px dashed #667eea;
+      border-radius: 15px;
+      padding: 25px;
+      margin: 25px 0;
+      position: relative;
+    }
+
+    .demo-section::before {
+      content: "🎯 DEMONSTRAÇÃO PRÁTICA";
+      position: absolute;
+      top: -12px;
+      left: 20px;
+      background: #667eea;
+      color: white;
+      padding: 5px 15px;
+      border-radius: 20px;
+      font-size: 0.8em;
+      font-weight: bold;
+    }
+
+    /* =====================================
+       📏 BOX MODEL - DEMONSTRAÇÃO VISUAL
+       ===================================== */
+    
+    .box-model-demo {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+      margin: 20px 0;
+    }
+
+    .box-example {
+      background: #e3f2fd;
+      border: 5px solid #1976d2;
+      margin: 20px;
+      padding: 20px;
+      text-align: center;
+      position: relative;
+      border-radius: 10px;
+    }
+
+    .box-example::before {
+      content: "BORDER";
+      position: absolute;
+      top: -8px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #1976d2;
+      color: white;
+      padding: 2px 8px;
+      font-size: 0.7em;
+      border-radius: 3px;
+    }
+
+    .box-content {
+      background: #bbdefb;
+      padding: 15px;
+      border-radius: 5px;
+      position: relative;
+    }
+
+    .box-content::before {
+      content: "CONTENT";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-weight: bold;
+      font-size: 0.8em;
+      color: #0d47a1;
+    }
+
+    /* Visualização das camadas do box model */
+    .box-layers {
+      background: #ffcdd2; /* Margin (simulado) */
+      padding: 15px;
+      border: 10px solid #f44336; /* Border */
+      margin: 20px;
+    }
+
+    .box-layers .padding-layer {
+      background: #c8e6c9; /* Padding */
+      padding: 15px;
+    }
+
+    .box-layers .content-layer {
+      background: #fff3e0; /* Content */
+      padding: 20px;
+      text-align: center;
+      border-radius: 5px;
+    }
+
+    /* =====================================
+       🎨 VARIÁVEIS CSS - SISTEMA DE DESIGN
+       ===================================== */
+    
+    :root {
+      /* 🎨 Cores principais do sistema */
+      --primary-color: #667eea;
+      --secondary-color: #764ba2;
+      --success-color: #4caf50;
+      --warning-color: #ffa000;
+      --danger-color: #f44336;
+      
+      /* 📏 Espaçamentos padronizados */
+      --spacing-small: 8px;
+      --spacing-medium: 16px;
+      --spacing-large: 24px;
+      --spacing-xl: 32px;
+      
+      /* 🔤 Tipografia */
+      --font-size-small: 0.8rem;
+      --font-size-normal: 1rem;
+      --font-size-large: 1.2rem;
+      --font-size-xl: 1.5rem;
+      
+      /* 🎭 Efeitos */
+      --border-radius: 8px;
+      --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      --transition: all 0.3s ease;
+    }
+
+    /* Exemplo de uso das variáveis */
+    .css-variables-demo {
+      background: var(--primary-color);
+      color: white;
+      padding: var(--spacing-large);
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+      margin: var(--spacing-medium) 0;
+    }
+
+    .css-variables-demo:hover {
+      background: var(--secondary-color);
+      transform: translateY(-2px);
+    }
+
+    /* Grid de exemplos de variáveis */
+    .variables-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: var(--spacing-medium);
+      margin: var(--spacing-large) 0;
+    }
+
+    .variable-card {
+      background: white;
+      padding: var(--spacing-medium);
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow);
+      border-left: 4px solid var(--primary-color);
+    }
+
+    .variable-card.success {
+      border-color: var(--success-color);
+    }
+
+    .variable-card.warning {
+      border-color: var(--warning-color);
+    }
+
+    .variable-card.danger {
+      border-color: var(--danger-color);
+    }
+
+    /* =====================================
+       🖼️ FORMATAÇÃO DE IMAGENS
+       ===================================== */
+    
+    .image-examples {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+      margin: 30px 0;
+    }
+
+    .image-container {
+      text-align: center;
+      padding: 20px;
+      background: white;
+      border-radius: 15px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    /* Diferentes estilos de imagem */
+    .img-circular {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%; /* Círculo perfeito */
+      object-fit: cover; /* Mantém proporção */
+      border: 5px solid var(--primary-color);
+      transition: var(--transition);
+    }
+
+    .img-circular:hover {
+      transform: scale(1.1) rotate(5deg);
+      border-color: var(--secondary-color);
+    }
+
+    .img-rounded {
+      width: 200px;
+      height: 120px;
+      border-radius: 15px;
+      object-fit: cover;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+      transition: var(--transition);
+    }
+
+    .img-rounded:hover {
+      box-shadow: 0 12px 30px rgba(0,0,0,0.3);
+      transform: translateY(-5px);
+    }
+
+    .img-polaroid {
+      width: 180px;
+      padding: 15px 15px 50px 15px;
+      background: white;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      transform: rotate(-2deg);
+      transition: var(--transition);
+    }
+
+    .img-polaroid:hover {
+      transform: rotate(0deg) scale(1.05);
+    }
+
+    .img-polaroid img {
+      width: 100%;
+      height: 120px;
+      object-fit: cover;
+    }
+
+    /* Filtros CSS para imagens */
+    .img-filter-demo {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 15px;
+      margin: 20px 0;
+    }
+
+    .filter-example {
+      text-align: center;
+    }
+
+    .filter-example img {
+      width: 120px;
+      height: 80px;
+      object-fit: cover;
+      border-radius: 8px;
+      transition: var(--transition);
+    }
+
+    .filter-grayscale img { filter: grayscale(100%); }
+    .filter-sepia img { filter: sepia(100%); }
+    .filter-blur img { filter: blur(2px); }
+    .filter-brightness img { filter: brightness(150%); }
+    .filter-contrast img { filter: contrast(150%); }
+    .filter-saturate img { filter: saturate(200%); }
+
+    .filter-example:hover img {
+      filter: none;
+      transform: scale(1.1);
+    }
+
+    /* =====================================
+       📐 DIMENSIONAMENTO E LAYOUT
+        ===================================== */
+    
+    .sizing-demo {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      margin: 20px 0;
+    }
+
+    .size-example {
+      background: linear-gradient(45deg, #e3f2fd, #f3e5f5);
+      border: 2px solid var(--primary-color);
+      border-radius: var(--border-radius);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      color: #333;
+      position: relative;
+    }
+
+    /* Diferentes unidades de medida */
+    .size-px { width: 200px; height: 100px; }
+    .size-em { width: 12em; height: 6em; font-size: 1rem; }
+    .size-rem { width: 12rem; height: 6rem; }
+    .size-percent { width: 100%; height: 100px; }
+    .size-vh { width: 100%; height: 15vh; }
+    .size-vw { width: 30vw; height: 100px; }
+
+    /* Responsive com min/max */
+    .size-responsive {
+      width: 100%;
+      height: 80px;
+      min-width: 200px;
+      max-width: 400px;
+      margin: 0 auto;
+    }
+
+    /* =====================================
+       🎪 EFEITOS VISUAIS AVANÇADOS
+        ===================================== */
+    
+    .effects-showcase {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 20px;
+      margin: 30px 0;
+    }
+
+    .effect-card {
+      background: white;
+      padding: 20px;
+      border-radius: 15px;
+      text-align: center;
+      cursor: pointer;
+      transition: var(--transition);
+      height: 150px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Gradiente animado */
+    .effect-gradient {
+      background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4);
+      background-size: 400% 400%;
+      animation: gradientShift 3s ease infinite;
+    }
+
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* Efeito glassmorphism */
+    .effect-glass {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    /* Sombra neon */
+    .effect-neon {
+      background: #0a0a0a;
+      color: #00ffff;
+      text-shadow: 0 0 10px #00ffff;
+      box-shadow: 0 0 20px #00ffff;
+    }
+
+    .effect-neon:hover {
+      text-shadow: 0 0 20px #00ffff;
+      box-shadow: 0 0 40px #00ffff;
+    }
+
+    /* Efeito 3D */
+    .effect-3d {
+      background: linear-gradient(45deg, #667eea, #764ba2);
+      transform: perspective(1000px) rotateX(10deg);
+    }
+
+    .effect-3d:hover {
+      transform: perspective(1000px) rotateX(0deg) rotateY(5deg);
+    }
+
+    /* =====================================
+       💻 CÓDIGO E EXPLICAÇÕES
+        ===================================== */
+    
+    .code-explanation {
+      background: #f8f9fa;
+      border-left: 4px solid #667eea;
+      padding: 15px;
+      margin: 15px 0;
+      font-family: 'Courier New', monospace;
+      border-radius: 5px;
+    }
+
+    .code-block {
+      background: #2d3748;
+      color: #e2e8f0;
+      padding: 20px;
+      border-radius: 10px;
+      overflow-x: auto;
+      overflow-y: auto;
+      margin: 15px 0;
+      font-family: 'Courier New', monospace;
+      font-size: 0.85em;
+      line-height: 1.5;
+      max-height: 400px;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+    }
+
+    .property-demo {
+      background: #fff;
+      border: 2px solid #e0e0e0;
+      border-radius: 10px;
+      padding: 20px;
+      margin: 15px 0;
+    }
+
+    /* =====================================
+       🧭 NAVEGAÇÃO ENTRE PÁGINAS
+        ===================================== */
+    
+    .navigation {
+      text-align: center;
+      margin: 30px 0;
+      padding: 20px;
+      background: rgba(102, 126, 234, 0.1);
+      border-radius: 15px;
+    }
+
+    .navigation a {
+      display: inline-block;
+      margin: 0 10px;
+      padding: 12px 24px;
+      background: #667eea;
+      color: white;
+      text-decoration: none;
+      border-radius: 25px;
+      transition: all 0.3s ease;
+      font-weight: bold;
+    }
+
+    .navigation a:hover {
+      background: #764ba2;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(118, 75, 162, 0.3);
+    }
+
+    /* =====================================
+       📱 RESPONSIVIDADE
+        ===================================== */
+    
+    @media (max-width: 768px) {
+      .container {
+        padding: 20px;
+        margin: 10px;
+      }
+      
+      h1 {
+        font-size: 2em;
+      }
+      
+      .box-model-demo {
+        grid-template-columns: 1fr;
+      }
+      
+      .image-examples {
+        grid-template-columns: 1fr;
+      }
+      
+      .effects-showcase {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      }
+    }
+
+    /* =====================================
+       🎨 ELEMENTOS INTERATIVOS ESPECIAIS
+        ===================================== */
+    
+    .interactive-demo {
+      background: #f0f8ff;
+      border: 2px solid #4169e1;
+      border-radius: 15px;
+      padding: 20px;
+      margin: 20px 0;
+      text-align: center;
+    }
+
+    .color-picker {
+      display: inline-block;
+      margin: 5px;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: var(--transition);
+      border: 3px solid white;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    }
+
+    .color-picker:hover {
+      transform: scale(1.2);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+    }
+
+    .color-1 { background: var(--primary-color); }
+    .color-2 { background: var(--secondary-color); }
+    .color-3 { background: var(--success-color); }
+    .color-4 { background: var(--warning-color); }
+    .color-5 { background: var(--danger-color); }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🎨 Outras Formatações CSS</h1>
+    
+    <div class="alert alert-info">
+      <strong>📚 Objetivo da Aula:</strong> Explorar técnicas avançadas de CSS incluindo box model, variáveis CSS, formatação de imagens, dimensionamento e efeitos visuais modernos. Cada conceito será demonstrado com exemplos práticos e interativos.
+    </div>
+
+    <h2>📦 1. Box Model - O Coração do CSS</h2>
+    <p>O box model é fundamental para entender como os elementos são dimensionados e posicionados. Cada elemento é composto por: <strong>content</strong>, <strong>padding</strong>, <strong>border</strong> e <strong>margin</strong>.</p>
+
+    <div class="demo-section">
+      <h3>🔍 Visualização do Box Model:</h3>
+      
+      <div class="box-model-demo">
+        <div class="box-example">
+          <div class="box-content">
+            <strong>📏 box-sizing: content-box</strong><br>
+            Largura = content apenas
+          </div>
+        </div>
+        
+        <div class="box-example" style="box-sizing: border-box;">
+          <div class="box-content">
+            <strong>📦 box-sizing: border-box</strong><br>
+            Largura = content + padding + border
+          </div>
+        </div>
+      </div>
+
+      <div class="box-layers">
+        <strong>Margin (15px)</strong>
+        <div class="padding-layer">
+          <strong>Padding (15px)</strong>
+          <div class="content-layer">
+            <strong>Content</strong><br>
+            O conteúdo real do elemento
+          </div>
+        </div>
+      </div>
+
+      <div class="code-explanation">
+        <strong>🎯 Diferença Crucial:</strong><br>
+        • <code>content-box</code> - Padding e border são ADICIONADOS à largura<br>
+        • <code>border-box</code> - Padding e border são INCLUÍDOS na largura<br>
+        • <strong>Dica:</strong> Use sempre <code>box-sizing: border-box</code> para facilitar cálculos!
+      </div>
+    </div>
+
+    <h2>🎨 2. Variáveis CSS - Sistema de Design Consistente</h2>
+    <p>As variáveis CSS (custom properties) permitem criar sistemas de design reutilizáveis e fáceis de manter.</p>
+
+    <div class="demo-section">
+      <h3>🚀 Exemplo Prático de Variáveis:</h3>
+      
+      <div class="code-block">
+/* 🎨 Definindo variáveis no :root */
+:root {
+  --primary-color: #667eea;
+  --spacing-medium: 16px;
+  --border-radius: 8px;
+  --transition: all 0.3s ease;
+}
+
+/* ✨ Usando as variáveis */
+.meu-botao {
+  background: var(--primary-color);
+  padding: var(--spacing-medium);
+  border-radius: var(--border-radius);
+  transition: var(--transition);
+}</div>
+
+      <div class="css-variables-demo">
+        🎯 Clique e veja a transição suave usando variáveis CSS!
+      </div>
+
+      <div class="variables-grid">
+        <div class="variable-card">
+          <strong>🎨 Cores</strong><br>
+          <small>--primary-color<br>--secondary-color</small>
+        </div>
+        <div class="variable-card success">
+          <strong>📏 Espaçamentos</strong><br>
+          <small>--spacing-small<br>--spacing-large</small>
+        </div>
+        <div class="variable-card warning">
+          <strong>🔤 Tipografia</strong><br>
+          <small>--font-size-large<br>--font-size-xl</small>
+        </div>
+        <div class="variable-card danger">
+          <strong>🎭 Efeitos</strong><br>
+          <small>--shadow<br>--transition</small>
+        </div>
+      </div>
+
+      <div class="code-explanation">
+        <strong>💡 Vantagens das Variáveis CSS:</strong><br>
+        • <strong>Consistência:</strong> Cores e espaçamentos padronizados<br>
+        • <strong>Manutenção:</strong> Altere em um lugar, mude em todo o site<br>
+        • <strong>Temas:</strong> Fácil implementação de modo escuro/claro<br>
+        • <strong>Performance:</strong> Não requer JavaScript para mudanças
+      </div>
+    </div>
+
+    <h2>🖼️ 3. Formatação Avançada de Imagens</h2>
+    <p>CSS oferece ferramentas poderosas para estilizar imagens de forma criativa e responsiva.</p>
+
+    <div class="demo-section">
+      <h3>🎨 Galeria de Estilos de Imagem:</h3>
+      
+      <div class="image-examples">
+        <div class="image-container">
+          <div class="img-circular" style="background: linear-gradient(45deg, #667eea, #764ba2); display: flex; align-items: center; justify-content: center; color: white; font-weight: bold;">
+            🎯 CIRCULAR
+          </div>
+          <p><strong>Imagem Circular</strong><br><code>border-radius: 50%</code></p>
+        </div>
+
+        <div class="image-container">
+          <div class="img-rounded" style="background: linear-gradient(45deg, #4ecdc4, #44a08d); display: flex; align-items: center; justify-content: center; color: white; font-weight: bold;">
+            📱 MODERNA
+          </div>
+          <p><strong>Bordas Arredondadas</strong><br><code>border-radius: 15px</code></p>
+        </div>
+
+        <div class="image-container">
+          <div class="img-polaroid">
+            <div style="width: 100%; height: 120px; background: linear-gradient(45deg, #ff6b6b, #feca57); display: flex; align-items: center; justify-content: center; color: white; font-weight: bold;">
+              📸 POLAROID
+            </div>
+          </div>
+          <p><strong>Efeito Polaroid</strong><br><code>transform: rotate(-2deg)</code></p>
+        </div>
+      </div>
+
+      <h3>🎭 Filtros CSS Interativos:</h3>
+      <p><em>Passe o mouse sobre as imagens para remover o filtro!</em></p>
+      
+      <div class="img-filter-demo">
+        <div class="filter-example filter-grayscale">
+          <div style="width: 120px; height: 80px; background: linear-gradient(45deg, #667eea, #764ba2); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; filter: grayscale(100%); transition: all 0.3s ease;">🎨</div>
+          <p>Grayscale</p>
+        </div>
+        <div class="filter-example filter-sepia">
+          <div style="width: 120px; height: 80px; background: linear-gradient(45deg, #4ecdc4, #44a08d); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; filter: sepia(100%); transition: all 0.3s ease;">🌅</div>
+          <p>Sepia</p>
+        </div>
+        <div class="filter-example filter-blur">
+          <div style="width: 120px; height: 80px; background: linear-gradient(45deg, #ff6b6b, #feca57); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; filter: blur(2px); transition: all 0.3s ease;">📷</div>
+          <p>Blur</p>
+        </div>
+        <div class="filter-example filter-brightness">
+          <div style="width: 120px; height: 80px; background: linear-gradient(45deg, #a8edea, #fed6e3); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #333; font-weight: bold; filter: brightness(150%); transition: all 0.3s ease;">☀️</div>
+          <p>Brightness</p>
+        </div>
+        <div class="filter-example filter-contrast">
+          <div style="width: 120px; height: 80px; background: linear-gradient(45deg, #667eea, #764ba2); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; filter: contrast(150%); transition: all 0.3s ease;">🔆</div>
+          <p>Contrast</p>
+        </div>
+        <div class="filter-example filter-saturate">
+          <div style="width: 120px; height: 80px; background: linear-gradient(45deg, #ff6b6b, #4ecdc4); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; filter: saturate(200%); transition: all 0.3s ease;">🌈</div>
+          <p>Saturate</p>
+        </div>
+      </div>
+
+      <div class="code-explanation">
+        <strong>🎨 Filtros CSS Disponíveis:</strong><br>
+        • <code>filter: grayscale(100%)</code> - Remove todas as cores<br>
+        • <code>filter: sepia(100%)</code> - Efeito sépia vintage<br>
+        • <code>filter: blur(5px)</code> - Desfoque controlado<br>
+        • <code>filter: brightness(150%)</code> - Ajusta brilho<br>
+        • <code>filter: contrast(200%)</code> - Intensifica contraste<br>
+        • <code>filter: saturate(200%)</code> - Aumenta saturação
+      </div>
+    </div>
+
+    <h2>📐 4. Dimensionamento e Unidades de Medida</h2>
+    <p>Compreender as diferentes unidades de medida é crucial para layouts responsivos e consistentes.</p>
+
+    <div class="demo-section">
+      <h3>📏 Comparação Visual de Unidades:</h3>
+      
+      <div class="sizing-demo">
+        <div class="size-example size-px">
+          <strong>200px × 100px</strong><br>
+          <small>Pixels absolutos</small>
+        </div>
+        <div class="size-example size-em">
+          <strong>12em × 6em</strong><br>
+          <small>Relativo ao elemento pai</small>
+        </div>
+        <div class="size-example size-rem">
+          <strong>12rem × 6rem</strong><br>
+          <small>Relativo ao root (html)</small>
+        </div>
+        <div class="size-example size-percent">
+          <strong>100% × 100px</strong><br>
+          <small>Porcentagem do pai</small>
+        </div>
+      </div>
+
+      <div class="property-demo">
+        <h4>🎯 Dimensionamento Responsivo:</h4>
+        <div class="size-example size-responsive">
+          <strong>width: 100%</strong><br>
+          <strong>min-width: 200px</strong><br>
+          <strong>max-width: 400px</strong><br>
+          <small>Redimensione a janela para testar!</small>
+        </div>
+      </div>
+
+      <div class="code-explanation">
+        <strong>📊 Quando Usar Cada Unidade:</strong><br>
+        • <code>px</code> - Bordas, sombras, elementos fixos<br>
+        • <code>em</code> - Padding, margin relativos ao elemento<br>
+        • <code>rem</code> - Font-size, espaçamentos consistentes<br>
+        • <code>%</code> - Larguras responsivas, layouts fluidos<br>
+        • <code>vh/vw</code> - Altura/largura da viewport<br>
+        • <code>min/max</code> - Controles de dimensão responsiva
+      </div>
+    </div>
+
+    <h2>✨ 5. Efeitos Visuais Modernos</h2>
+    <p>CSS moderno oferece ferramentas para criar efeitos visuais impressionantes sem JavaScript.</p>
+
+    <div class="demo-section">
+      <h3>🎭 Galeria de Efeitos Interativos:</h3>
+      <p><em>Passe o mouse sobre os cards para ver os efeitos!</em></p>
+      
+      <div class="effects-showcase">
+        <div class="effect-card effect-gradient">
+          <strong>🌈 Gradiente Animado</strong>
+        </div>
+        
+        <div class="effect-card effect-glass">
+          <strong>🔮 Glassmorphism</strong>
+        </div>
+        
+        <div class="effect-card effect-neon">
+          <strong>💡 Neon Glow</strong>
+        </div>
+        
+        <div class="effect-card effect-3d">
+          <strong>🎯 Efeito 3D</strong>
+        </div>
+      </div>
+
+      <div class="code-explanation">
+        <strong>🎨 Técnicas dos Efeitos:</strong><br>
+        • <strong>Gradiente Animado:</strong> <code>background-size + animation</code><br>
+        • <strong>Glassmorphism:</strong> <code>backdrop-filter: blur()</code><br>
+        • <strong>Neon:</strong> <code>text-shadow + box-shadow</code><br>
+        • <strong>3D:</strong> <code>perspective + transform</code>
+      </div>
+    </div>
+
+    <h2>🎮 6. Demonstração Interativa</h2>
+    <div class="demo-section">
+      <h3>🎨 Teste de Cores do Sistema:</h3>
+      <div class="interactive-demo">
+        <p>Clique nas cores para aplicar ao fundo desta seção:</p>
+        <div class="color-picker color-1" onclick="changeBackground('var(--primary-color)')" title="Cor Primária"></div>
+        <div class="color-picker color-2" onclick="changeBackground('var(--secondary-color)')" title="Cor Secundária"></div>
+        <div class="color-picker color-3" onclick="changeBackground('var(--success-color)')" title="Cor de Sucesso"></div>
+        <div class="color-picker color-4" onclick="changeBackground('var(--warning-color)')" title="Cor de Aviso"></div>
+        <div class="color-picker color-5" onclick="changeBackground('var(--danger-color)')" title="Cor de Perigo"></div>
+        
+        <div style="margin-top: 20px;">
+          <strong>🎯 Demonstra o poder das variáveis CSS!</strong><br>
+          <small>Uma mudança global instantânea</small>
+        </div>
+      </div>
+    </div>
+
+    <div class="alert alert-tip">
+      <strong>🚀 Dicas de Performance:</strong>
+      <ul>
+        <li><strong>Use transform</strong> em vez de mudar position para animações</li>
+        <li><strong>Prefira will-change</strong> para elementos que serão animados</li>
+        <li><strong>Otimize imagens</strong> com formatos modernos (WebP, AVIF)</li>
+        <li><strong>Use contain</strong> para isolar mudanças de layout</li>
+      </ul>
+    </div>
+
+    <div class="alert alert-example">
+      <strong>🎯 Aplicações Práticas:</strong>
+      <ul>
+        <li><strong>Design System:</strong> Use variáveis para consistência</li>
+        <li><strong>Tema Escuro:</strong> Troque variáveis com CSS ou JS</li>
+        <li><strong>Responsividade:</strong> Combine unidades relativas</li>
+        <li><strong>Micro-interações:</strong> Efeitos sutis melhoram UX</li>
+      </ul>
+    </div>
+
+    <div class="navigation">
+      <a href="03-barra-navegacao.html">⬅️ Anterior: Navegação</a>
+      <a href="index.html">🏠 Início</a>
+      <a href="05-movimentos-css.html">➡️ Próximo: Movimentos CSS</a>
+    </div>
+  </div>
+
+  <script>
+    // Função para mudança interativa de cores
+    function changeBackground(color) {
+      const demo = document.querySelector('.interactive-demo');
+      demo.style.background = color;
+      demo.style.color = 'white';
+      
+      // Feedback visual
+      demo.style.transform = 'scale(1.02)';
+      setTimeout(() => {
+        demo.style.transform = 'scale(1)';
+      }, 200);
+    }
+
+    // Adiciona interatividade aos filtros
+    document.addEventListener('DOMContentLoaded', function() {
+      const filterExamples = document.querySelectorAll('.filter-example');
+      
+      filterExamples.forEach(example => {
+        const div = example.querySelector('div');
+        
+        example.addEventListener('mouseenter', function() {
+          div.style.filter = 'none';
+          div.style.transform = 'scale(1.1)';
+        });
+        
+        example.addEventListener('mouseleave', function() {
+          // Restaura o filtro original
+          if (example.classList.contains('filter-grayscale')) {
+            div.style.filter = 'grayscale(100%)';
+          } else if (example.classList.contains('filter-sepia')) {
+            div.style.filter = 'sepia(100%)';
+          } else if (example.classList.contains('filter-blur')) {
+            div.style.filter = 'blur(2px)';
+          } else if (example.classList.contains('filter-brightness')) {
+            div.style.filter = 'brightness(150%)';
+          } else if (example.classList.contains('filter-contrast')) {
+            div.style.filter = 'contrast(150%)';
+          } else if (example.classList.contains('filter-saturate')) {
+            div.style.filter = 'saturate(200%)';
+          }
+          div.style.transform = 'scale(1)';
+        });
+      });
+    });
+  </script>
+</body>
+</html> 

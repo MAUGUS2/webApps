@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🏗️ HTML Semântico - Aula 4</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            line-height: 1.8;
+            color: #333;
+            background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+        }
+
+        h1 {
+            text-align: center;
+            color: #45a049;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            animation: titleGlow 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes titleGlow {
+            from { text-shadow: 2px 2px 4px rgba(0,0,0,0.1); }
+            to { text-shadow: 2px 2px 15px rgba(69, 160, 73, 0.3); }
+        }
+
+        h2 {
+            color: #4CAF50;
+            margin: 30px 0 20px 0;
+            font-size: 1.8em;
+            border-left: 5px solid #4CAF50;
+            padding-left: 15px;
+        }
+
+        h3 {
+            color: #45a049;
+            margin: 25px 0 15px 0;
+            font-size: 1.4em;
+        }
+
+        p {
+            margin-bottom: 15px;
+            text-align: justify;
+            font-size: 1.1em;
+        }
+
+        ul, ol {
+            margin: 15px 0;
+            padding-left: 30px;
+        }
+
+        li {
+            margin-bottom: 8px;
+            font-size: 1.05em;
+        }
+
+        strong {
+            color: #2e7d32;
+        }
+
+        code {
+            background: #f5f5f5;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            color: #d32f2f;
+            font-weight: bold;
+        }
+
+        .alert {
+            padding: 20px;
+            margin: 25px 0;
+            border-radius: 10px;
+            border-left: 5px solid;
+            line-height: 1.7;
+            font-size: 1.05em;
+        }
+
+        .alert br {
+            margin-bottom: 8px;
+        }
+
+        .alert strong {
+            display: block;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        .alert-info {
+            background: #e8f5e9;
+            border-color: #4CAF50;
+            color: #1b5e20;
+        }
+
+        .alert-tip {
+            background: #f3e5f5;
+            border-color: #8e24aa;
+            color: #4a148c;
+        }
+
+        .alert-example {
+            background: #e3f2fd;
+            border-color: #1976d2;
+            color: #0d47a1;
+        }
+
+        .comparison-showcase {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin: 30px 0;
+        }
+
+        .comparison-card {
+            border-radius: 15px;
+            padding: 25px;
+            position: relative;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .comparison-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 35px rgba(0,0,0,0.15);
+        }
+
+        .non-semantic {
+            background: linear-gradient(135deg, #ffebee, #ffcdd2);
+            border: 3px solid #f44336;
+        }
+
+        .non-semantic::before {
+            content: "❌ NÃO SEMÂNTICO";
+            position: absolute;
+            top: -15px;
+            left: 20px;
+            background: #f44336;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(244, 67, 54, 0.3);
+        }
+
+        .semantic {
+            background: linear-gradient(135deg, #e8f5e9, #c8e6c9);
+            border: 3px solid #4CAF50;
+        }
+
+        .semantic::before {
+            content: "✅ SEMÂNTICO";
+            position: absolute;
+            top: -15px;
+            left: 20px;
+            background: #4CAF50;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+        }
+
+        .code-block {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 25px;
+            border-radius: 12px;
+            overflow-x: auto;
+            margin: 20px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            line-height: 1.7;
+            border: 2px solid #4a5568;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+        }
+
+        .code-block::before {
+            content: "📝 Código";
+            display: block;
+            color: #a0aec0;
+            font-size: 0.8em;
+            margin-bottom: 10px;
+            border-bottom: 1px solid #4a5568;
+            padding-bottom: 8px;
+        }
+
+        /* Elementos Interativos e Visuais */
+        .concept-card {
+            background: linear-gradient(135deg, #ffffff, #f8f9fa);
+            border: 2px solid #e0e0e0;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 15px 0;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .concept-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(76, 175, 80, 0.1), transparent);
+            transition: left 0.6s;
+        }
+
+        .concept-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            border-color: #4CAF50;
+            box-shadow: 0 15px 40px rgba(76, 175, 80, 0.2);
+        }
+
+        .concept-card:hover::before {
+            left: 100%;
+        }
+
+        .visual-diagram {
+            background: linear-gradient(135deg, #e8f5e9, #c8e6c9);
+            border: 3px dashed #4CAF50;
+            border-radius: 20px;
+            padding: 30px;
+            margin: 25px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .visual-diagram::before {
+            content: "🎯 DIAGRAMA VISUAL";
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #4CAF50;
+            color: white;
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-size: 0.8em;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+        }
+
+        .interactive-toggle {
+            background: #f8f9fa;
+            border: 2px solid #4CAF50;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .interactive-toggle:hover {
+            background: #e8f5e9;
+            box-shadow: 0 8px 25px rgba(76, 175, 80, 0.15);
+        }
+
+        .toggle-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-in-out;
+            margin-top: 0;
+        }
+
+        .toggle-content.active {
+            max-height: 1000px;
+            margin-top: 15px;
+        }
+
+        .progress-indicator {
+            background: #e0e0e0;
+            height: 6px;
+            border-radius: 3px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            background: linear-gradient(90deg, #4CAF50, #45a049);
+            height: 100%;
+            width: 0%;
+            border-radius: 3px;
+            transition: width 2s ease-in-out;
+            animation: progressAnimation 3s ease-in-out infinite;
+        }
+
+        @keyframes progressAnimation {
+            0% { width: 0%; }
+            50% { width: 80%; }
+            100% { width: 100%; }
+        }
+
+        .floating-tip {
+            position: absolute;
+            background: #4CAF50;
+            color: white;
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-size: 0.8em;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.3s ease;
+            pointer-events: none;
+            z-index: 1000;
+        }
+
+        .floating-tip::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border: 5px solid transparent;
+            border-top-color: #4CAF50;
+        }
+
+        .hoverable:hover .floating-tip {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .semantic-visualizer {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 25px 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #f3e5f5, #e1bee7);
+            border-radius: 15px;
+            border: 2px solid #9C27B0;
+        }
+
+        .before-after {
+            text-align: center;
+            padding: 15px;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .before {
+            background: linear-gradient(135deg, #ffebee, #ffcdd2);
+            border-left: 5px solid #f44336;
+        }
+
+        .after {
+            background: linear-gradient(135deg, #e8f5e9, #c8e6c9);
+            border-left: 5px solid #4CAF50;
+        }
+
+        .before:hover, .after:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+
+        .quiz-container {
+            background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+            border: 2px solid #2196F3;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 25px 0;
+            position: relative;
+        }
+
+        .quiz-container::before {
+            content: "🎮 QUIZ INTERATIVO";
+            position: absolute;
+            top: -15px;
+            left: 20px;
+            background: #2196F3;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            font-weight: bold;
+        }
+
+        .quiz-option {
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 10px 15px;
+            margin: 8px 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .quiz-option:hover {
+            border-color: #2196F3;
+            background: #e3f2fd;
+        }
+
+        .quiz-option.correct {
+            border-color: #4CAF50;
+            background: #e8f5e9;
+        }
+
+        .quiz-option.incorrect {
+            border-color: #f44336;
+            background: #ffebee;
+        }
+
+        .tags-showcase {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .tag-card {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .tag-card:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+        }
+
+        .tag-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #4CAF50, #45a049);
+        }
+
+        .tag-name {
+            color: #4CAF50;
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-bottom: 10px;
+            font-family: 'Courier New', monospace;
+        }
+
+        .tag-description {
+            color: #666;
+            font-size: 0.9em;
+            line-height: 1.4;
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+
+        .benefit-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            text-align: center;
+        }
+
+        .benefit-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+        }
+
+        .benefit-icon {
+            font-size: 3em;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .benefit-title {
+            color: #4CAF50;
+            font-size: 1.3em;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .benefit-description {
+            color: #666;
+            line-height: 1.5;
+        }
+
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 40px;
+            padding: 20px 0;
+            border-top: 2px solid #e0e0e0;
+        }
+
+        .nav-button {
+            background: #4CAF50;
+            color: white;
+            text-decoration: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+        }
+
+        .nav-button:hover {
+            background: #45a049;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+
+            .comparison-showcase {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .tags-showcase {
+                grid-template-columns: 1fr;
+            }
+
+            .benefits-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .navigation {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            h1 {
+                font-size: 2em;
+            }
+
+            h2 {
+                font-size: 1.5em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🏗️ HTML Semântico</h1>
+        </header>
+
+        <main>
+            <div class="alert alert-info">
+                <strong>💡 Visão Geral:</strong> O HTML Semântico é uma abordagem de marcação que utiliza tags com significado próprio, facilitando a compreensão do conteúdo por navegadores, motores de busca, leitores de tela e desenvolvedores humanos. Ele promove acessibilidade, organização e boas práticas de estruturação.
+            </div>
+
+            <section>
+                <h2>🧠 Conceito de HTML Semântico</h2>
+                
+                <div class="visual-diagram">
+                    <h3>🎯 O que é HTML Semântico?</h3>
+                    <p>Elementos HTML cujo <strong>nome descreve claramente</strong> seu conteúdo e função dentro da página.</p>
+                    
+                    <div class="progress-indicator">
+                        <div class="progress-bar"></div>
+                    </div>
+                    
+                    <p><em>Pense nisso como dar "significado" ao seu código!</em></p>
+                </div>
+
+                <div class="semantic-visualizer">
+                    <div class="before-after before hoverable">
+                        <h4>❌ NÃO Semântico</h4>
+                        <div class="code-block">
+&lt;div&gt;Menu&lt;/div&gt;
+&lt;div&gt;Conteúdo&lt;/div&gt;
+&lt;div&gt;Rodapé&lt;/div&gt;
+                        </div>
+                        <p><strong>Problema:</strong> Não indica função!</p>
+                        <div class="floating-tip">Difícil para máquinas entenderem!</div>
+                    </div>
+
+                    <div class="before-after after hoverable">
+                        <h4>✅ Semântico</h4>
+                        <div class="code-block">
+&lt;nav&gt;Menu&lt;/nav&gt;
+&lt;main&gt;Conteúdo&lt;/main&gt;
+&lt;footer&gt;Rodapé&lt;/footer&gt;
+                        </div>
+                        <p><strong>Vantagem:</strong> Função clara!</p>
+                        <div class="floating-tip">Leitores de tela compreendem!</div>
+                    </div>
+                </div>
+
+                <div class="interactive-toggle" onclick="toggleContent('benefits')">
+                    <h3>✨ Clique para ver os Benefícios do HTML Semântico</h3>
+                    <div id="benefits" class="toggle-content">
+                        <div class="benefits-grid">
+                            <div class="concept-card">
+                                <h4>🎯 Clareza Estrutural</h4>
+                                <p>Código organizado e fácil de entender</p>
+                            </div>
+                            <div class="concept-card">
+                                <h4>♿ Acessibilidade</h4>
+                                <p>Tecnologias assistivas funcionam melhor</p>
+                            </div>
+                            <div class="concept-card">
+                                <h4>🔍 SEO Otimizado</h4>
+                                <p>Motores de busca entendem melhor o conteúdo</p>
+                            </div>
+                            <div class="concept-card">
+                                <h4>🛠️ Manutenção Fácil</h4>
+                                <p>Desenvolvedores encontram elementos rapidamente</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h2>⚖️ Comparação: Semântico vs Não-Semântico</h2>
+                
+                <div class="comparison-showcase">
+                    <div class="comparison-card non-semantic">
+                        <h3>HTML não semântico</h3>
+                        <div class="code-block">
+&lt;div id="topo"&gt;&lt;/div&gt;
+&lt;div id="navegacao"&gt;&lt;/div&gt;
+&lt;div id="conteudo"&gt;&lt;/div&gt;
+&lt;div id="rodape"&gt;&lt;/div&gt;
+                        </div>
+                        <p><strong>Problemas:</strong> Não indica função, dificulta leitura por máquinas, sem significado semântico.</p>
+                    </div>
+
+                    <div class="comparison-card semantic">
+                        <h3>HTML semântico</h3>
+                        <div class="code-block">
+&lt;header&gt;&lt;/header&gt;
+&lt;nav&gt;&lt;/nav&gt;
+&lt;main&gt;&lt;/main&gt;
+&lt;footer&gt;&lt;/footer&gt;
+                        </div>
+                        <p><strong>Vantagens:</strong> Indica função clara, facilita SEO, melhora acessibilidade, código mais limpo.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h2>🎯 Benefícios da Utilização de HTML Semântico</h2>
+                
+                <div class="benefits-grid">
+                    <div class="benefit-card">
+                        <span class="benefit-icon">🧠</span>
+                        <h3 class="benefit-title">SEO e Rastreamento</h3>
+                        <p class="benefit-description">Elementos semânticos ajudam os motores de busca a entender a hierarquia e o conteúdo da página.</p>
+                    </div>
+
+                    <div class="benefit-card">
+                        <span class="benefit-icon">♿</span>
+                        <h3 class="benefit-title">Acessibilidade</h3>
+                        <p class="benefit-description">Melhora a experiência de usuários com leitores de tela, pois as tags semânticas indicam funções e estruturas claramente.</p>
+                    </div>
+
+                    <div class="benefit-card">
+                        <span class="benefit-icon">🧱</span>
+                        <h3 class="benefit-title">Estruturação e Manutenção</h3>
+                        <p class="benefit-description">Facilita a leitura e manutenção do código por outros desenvolvedores.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h2>🏷️ Exemplos de Tags Semânticas</h2>
+                
+                <div class="tags-showcase">
+                    <div class="tag-card">
+                        <div class="tag-name">&lt;header&gt;</div>
+                        <div class="tag-description">Cabeçalho do site ou seção</div>
+                    </div>
+
+                    <div class="tag-card">
+                        <div class="tag-name">&lt;nav&gt;</div>
+                        <div class="tag-description">Menu de navegação</div>
+                    </div>
+
+                    <div class="tag-card">
+                        <div class="tag-name">&lt;main&gt;</div>
+                        <div class="tag-description">Conteúdo principal</div>
+                    </div>
+
+                    <div class="tag-card">
+                        <div class="tag-name">&lt;footer&gt;</div>
+                        <div class="tag-description">Rodapé</div>
+                    </div>
+
+                    <div class="tag-card">
+                        <div class="tag-name">&lt;article&gt;</div>
+                        <div class="tag-description">Conteúdo independente (ex: post de blog)</div>
+                    </div>
+
+                    <div class="tag-card">
+                        <div class="tag-name">&lt;section&gt;</div>
+                        <div class="tag-description">Agrupa conteúdo relacionado</div>
+                    </div>
+
+                    <div class="tag-card">
+                        <div class="tag-name">&lt;aside&gt;</div>
+                        <div class="tag-description">Conteúdo lateral ou complementar</div>
+                    </div>
+
+                    <div class="tag-card">
+                        <div class="tag-name">&lt;figure&gt;</div>
+                        <div class="tag-description">Imagens e legendas</div>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h2>🎯 Exemplo Prático Interativo</h2>
+                
+                <div class="quiz-container">
+                    <h3>Teste seu Conhecimento!</h3>
+                    <p><strong>Pergunta:</strong> Qual tag é mais semântica para um menu de navegação?</p>
+                    
+                    <div class="quiz-option" onclick="selectQuizOption(this, false)">
+                        A) &lt;div class="menu"&gt;
+                    </div>
+                    <div class="quiz-option" onclick="selectQuizOption(this, true)">
+                        B) &lt;nav&gt;
+                    </div>
+                    <div class="quiz-option" onclick="selectQuizOption(this, false)">
+                        C) &lt;ul class="navigation"&gt;
+                    </div>
+                    <div class="quiz-option" onclick="selectQuizOption(this, false)">
+                        D) &lt;section id="menu"&gt;
+                    </div>
+                    
+                    <div id="quiz-feedback" style="margin-top: 15px; padding: 10px; border-radius: 8px; display: none;"></div>
+                </div>
+
+                <div class="interactive-toggle" onclick="toggleContent('practical-example')">
+                    <h3>📋 Ver Exemplo Prático Detalhado</h3>
+                    <div id="practical-example" class="toggle-content">
+                        <div class="alert alert-example">
+                            <h4>Estrutura de um artigo semântico</h4>
+                            <div class="semantic-visualizer">
+                                <div class="before-after before">
+                                    <h5>❌ Estrutura Confusa</h5>
+                                    <div class="code-block">
+&lt;div class="post"&gt;
+    &lt;div class="title"&gt;Título&lt;/div&gt;
+    &lt;div class="date"&gt;Data&lt;/div&gt;
+    &lt;div class="text"&gt;Conteúdo&lt;/div&gt;
+    &lt;div class="author"&gt;Autor&lt;/div&gt;
+&lt;/div&gt;
+                                    </div>
+                                </div>
+
+                                <div class="before-after after">
+                                    <h5>✅ Estrutura Semântica</h5>
+                                    <div class="code-block">
+&lt;article&gt;
+    &lt;header&gt;
+        &lt;h2&gt;Entendendo o HTML Semântico&lt;/h2&gt;
+        &lt;p&gt;Publicado em 07/06/2025&lt;/p&gt;
+    &lt;/header&gt;
+    
+    &lt;section&gt;
+        &lt;p&gt;O HTML Semântico melhora...&lt;/p&gt;
+    &lt;/section&gt;
+    
+    &lt;footer&gt;
+        &lt;p&gt;Autor: Maugus ✌️&lt;/p&gt;
+    &lt;/footer&gt;
+&lt;/article&gt;
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="alert alert-tip">
+                                <strong>🎯 Por que é melhor:</strong>
+                                <ul>
+                                    <li><code>&lt;article&gt;</code> indica conteúdo independente</li>
+                                    <li><code>&lt;header&gt;</code> agrupa informações de cabeçalho</li>
+                                    <li><code>&lt;section&gt;</code> organiza o conteúdo principal</li>
+                                    <li><code>&lt;footer&gt;</code> contém informações de rodapé</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h2>📝 Resumo</h2>
+                <div class="alert alert-example">
+                    O HTML Semântico é essencial para criar páginas mais acessíveis, organizadas e amigáveis para SEO. Utilizar as tags apropriadas reduz a ambiguidade e melhora a manutenção do código.
+                </div>
+            </section>
+
+            <section>
+                <h2>🚀 Próximos Passos</h2>
+                <div class="alert alert-tip">
+                    <strong>Atividades sugeridas:</strong>
+                    
+                    <ul>
+                        <li>Criar um mini-projeto com layout semântico completo</li>
+                        <li>Explorar ferramentas como o Wave (Web Accessibility Evaluation Tool)</li>
+                        <li>Refatorar um HTML antigo substituindo <code>&lt;div&gt;</code> por elementos semânticos apropriados</li>
+                    </ul>
+                </div>
+            </section>
+        </main>
+
+        <nav class="navigation">
+            <a href="index.html" class="nav-button">← Voltar ao Índice</a>
+            <a href="02-tags-semanticas.html" class="nav-button">Próximo: Tags Semânticas →</a>
+        </nav>
+    </div>
+
+    <script>
+        // Função para toggle de conteúdo
+        function toggleContent(id) {
+            const content = document.getElementById(id);
+            content.classList.toggle('active');
+        }
+
+        // Função para quiz interativo
+        function selectQuizOption(element, isCorrect) {
+            // Remove classes de todas as opções
+            const options = document.querySelectorAll('.quiz-option');
+            options.forEach(option => {
+                option.classList.remove('correct', 'incorrect');
+            });
+
+            // Adiciona classe apropriada
+            if (isCorrect) {
+                element.classList.add('correct');
+                showQuizFeedback('✅ Correto! A tag &lt;nav&gt; é específica para navegação e é semântica por natureza.', 'correct');
+            } else {
+                element.classList.add('incorrect');
+                showQuizFeedback('❌ Incorreto. A tag &lt;nav&gt; é a mais semântica para menus de navegação.', 'incorrect');
+            }
+        }
+
+        // Função para mostrar feedback do quiz
+        function showQuizFeedback(message, type) {
+            const feedback = document.getElementById('quiz-feedback');
+            feedback.innerHTML = message;
+            feedback.style.display = 'block';
+            feedback.style.background = type === 'correct' ? '#e8f5e9' : '#ffebee';
+            feedback.style.color = type === 'correct' ? '#2e7d32' : '#c62828';
+            feedback.style.border = `2px solid ${type === 'correct' ? '#4CAF50' : '#f44336'}`;
+        }
+
+        // Animação da barra de progresso
+        document.addEventListener('DOMContentLoaded', function() {
+            const progressBars = document.querySelectorAll('.progress-bar');
+            progressBars.forEach(bar => {
+                setTimeout(() => {
+                    bar.style.width = '100%';
+                }, 500);
+            });
+        });
+
+        // Efeito de digitação para títulos
+        function typeWriter(element, text, speed = 50) {
+            let i = 0;
+            element.innerHTML = '';
+            
+            function type() {
+                if (i < text.length) {
+                    element.innerHTML += text.charAt(i);
+                    i++;
+                    setTimeout(type, speed);
+                }
+            }
+            type();
+        }
+
+        // Aplica efeito de digitação em alguns elementos
+        document.addEventListener('DOMContentLoaded', function() {
+            const mainTitle = document.querySelector('h1');
+            if (mainTitle) {
+                const originalText = mainTitle.textContent;
+                typeWriter(mainTitle, originalText, 100);
+            }
+        });
+    </script>
+</body>
+</html> 

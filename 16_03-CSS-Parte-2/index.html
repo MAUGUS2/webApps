@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🚀 Aula 3 - CSS Avançado</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Courier New', monospace;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: #fff;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 40px;
+      padding: 30px 0;
+    }
+
+    .header h1 {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+      color: #fff;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    }
+
+    .header .subtitle {
+      font-size: 1.2rem;
+      color: #e2e8f0;
+      margin-bottom: 20px;
+    }
+
+    .topics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 25px;
+      margin-bottom: 40px;
+    }
+
+    .topic-card {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 15px;
+      padding: 25px;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .topic-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+      border-color: rgba(255, 255, 255, 0.3);
+    }
+
+    .topic-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #e2e8f0, #a0aec0);
+      border-radius: 15px 15px 0 0;
+    }
+
+    .topic-header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+
+    .topic-icon {
+      font-size: 2rem;
+      margin-right: 15px;
+      width: 50px;
+      text-align: center;
+    }
+
+    .topic-title {
+      font-size: 1.3rem;
+      font-weight: bold;
+      color: #fff;
+    }
+
+    .topic-description {
+      color: #e2e8f0;
+      line-height: 1.5;
+      margin-bottom: 15px;
+    }
+
+    .topic-link {
+      display: inline-block;
+      background: rgba(226, 232, 240, 0.2);
+      color: #e2e8f0;
+      text-decoration: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-weight: bold;
+      transition: all 0.3s ease;
+      border: 2px solid transparent;
+    }
+
+    .topic-link:hover {
+      background: rgba(226, 232, 240, 0.3);
+      border-color: rgba(226, 232, 240, 0.5);
+      transform: translateX(5px);
+    }
+
+    .footer {
+      text-align: center;
+      margin-top: 40px;
+      padding: 30px 0;
+      border-top: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .footer-links {
+      margin: 20px 0;
+    }
+
+    .footer-links a {
+      color: #e2e8f0;
+      text-decoration: none;
+      margin: 0 15px;
+      transition: color 0.3s ease;
+    }
+
+    .footer-links a:hover {
+      color: #a0aec0;
+    }
+
+    .info-box {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 15px;
+      padding: 25px;
+      text-align: center;
+      margin: 30px 0;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .info-box h2 {
+      font-size: 1.8rem;
+      margin-bottom: 10px;
+      color: #e2e8f0;
+    }
+
+    .info-box p {
+      font-size: 1.1rem;
+      opacity: 0.9;
+      color: #a0aec0;
+    }
+
+    @media (max-width: 768px) {
+      .header h1 {
+        font-size: 2rem;
+      }
+
+      .topics-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+
+      .topic-card {
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <h1>🚀 Aula 3 - CSS Avançado</h1>
+      <p class="subtitle">DOM, Pseudoclasses, Navegação, Formatações e Movimentos</p>
+    </header>
+
+    <!-- Informações sobre o curso -->
+    <div class="info-box">
+      <h2>⚡ CSS Dinâmico e Interativo</h2>
+      <p>5 temas essenciais para dominar técnicas avançadas de CSS e criar interfaces modernas e responsivas</p>
+    </div>
+
+    <main class="topics-grid">
+      <!-- Tema 1: Árvore do Documento (DOM) -->
+      <article class="topic-card">
+        <div class="topic-header">
+          <div class="topic-icon">🌳</div>
+          <h2 class="topic-title">Árvore do Documento (DOM)</h2>
+        </div>
+        <p class="topic-description">
+          Elemento pai-filho, ancestral-descendente, elementos irmãos e seletores por parentesco. 
+          Compreenda a estrutura hierárquica dos documentos.
+        </p>
+        <a href="01-dom-arvore.html" class="topic-link">
+          Explorar DOM →
+        </a>
+      </article>
+
+      <!-- Tema 2: Pseudoclasses e Pseudoelementos -->
+      <article class="topic-card">
+        <div class="topic-header">
+          <div class="topic-icon">🎭</div>
+          <h2 class="topic-title">Pseudoclasses e Pseudoelementos</h2>
+        </div>
+        <p class="topic-description">
+          Estados dinâmicos como :hover, :active, :checked e elementos especiais como ::before, ::after. 
+          Crie interações sem JavaScript.
+        </p>
+        <a href="02-pseudoclasses-pseudoelementos.html" class="topic-link">
+          Dominar Estados →
+        </a>
+      </article>
+
+      <!-- Tema 3: Barra de Navegação -->
+      <article class="topic-card">
+        <div class="topic-header">
+          <div class="topic-icon">🧭</div>
+          <h2 class="topic-title">Barra de Navegação</h2>
+        </div>
+        <p class="topic-description">
+          Navegação vertical e horizontal com flexbox. 
+          Crie menus responsivos e acessíveis para qualquer dispositivo.
+        </p>
+        <a href="03-barra-navegacao.html" class="topic-link">
+          Criar Navegação →
+        </a>
+      </article>
+
+      <!-- Tema 4: Outras Formatações -->
+      <article class="topic-card">
+        <div class="topic-header">
+          <div class="topic-icon">🎨</div>
+          <h2 class="topic-title">Outras Formatações</h2>
+        </div>
+        <p class="topic-description">
+          Box model, variáveis CSS e formatação de imagens. 
+          Técnicas essenciais para layouts profissionais e consistentes.
+        </p>
+        <a href="04-outras-formatacoes.html" class="topic-link">
+          Aperfeiçoar Design →
+        </a>
+      </article>
+
+      <!-- Tema 5: Movimentos em CSS -->
+      <article class="topic-card">
+        <div class="topic-header">
+          <div class="topic-icon">⚡</div>
+          <h2 class="topic-title">Movimentos em CSS</h2>
+        </div>
+        <p class="topic-description">
+          Transformações 2D e transições CSS. 
+          Adicione dinamismo e interatividade com animações fluidas e profissionais.
+        </p>
+        <a href="05-movimentos-css.html" class="topic-link">
+          Animar Elementos →
+        </a>
+      </article>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-links">
+        <a href="../16_01-HTML/index.html">← Aula 1: HTML</a>
+        <a href="../16_02-CSS/index.html">← Aula 2: CSS Básico</a>
+        <a href="#">🏠 Início</a>
+      </div>
+      <p>
+        🎯 <strong>Aula 3</strong> • CSS Avançado para Desenvolvedores Web<br>
+        Domine técnicas modernas de CSS e crie interfaces impressionantes
+      </p>
+    </footer>
+  </div>
+</body>
+</html> 

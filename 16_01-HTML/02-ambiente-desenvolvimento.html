@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>⚙️ HTML - Ambiente de Desenvolvimento</title>
+<!-- Demonstrando setup e ferramentas para desenvolvimento web -->
+    <style>
+        * { 
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #2E3A46;
+            color: #fff;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .navegacao {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .navegacao a {
+            color: #4A90E2;
+            text-decoration: none;
+            margin: 0 15px;
+        }
+
+        .navegacao a:hover {
+            color: #7ED321;
+        }
+
+        /* ============================================================= */
+        /* = EDITORES DE TEXTO                                        = */
+        /* ============================================================= */
+        /* Para desenvolver em HTML precisamos de editores de texto.
+           Cada editor tem características diferentes:
+           
+           - NOTEPAD: Simples, básico, sem recursos
+           - NOTEPAD++: Syntax highlighting, plugins, grátis
+           - SUBLIME TEXT: Rápido, snippets, Command Palette
+           - VS CODE: IntelliSense, debugger, extensões, grátis
+           
+           A escolha depende da complexidade do projeto e preferência.
+        */
+
+        .editores-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .editor {
+            background-color: #3D4146;
+            padding: 20px;
+            border-radius: 8px;
+            border: 2px solid #7ED321;
+            transition: transform 0.3s ease;
+        }
+
+        .editor:hover {
+            transform: translateY(-5px);
+        }
+
+        .editor h3 {
+            color: #7ED321;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        .icon {
+            font-size: 24px;
+            margin-right: 10px;
+        }
+
+        .pros {
+            background-color: rgba(126, 211, 33, 0.2);
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+
+        .contras {
+            background-color: rgba(245, 166, 35, 0.2);
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+
+        /* ============================================================= */
+        /* = CONFIGURAÇÃO DO AMBIENTE                                 = */
+        /* ============================================================= */
+        /* Steps para configurar um ambiente de desenvolvimento:
+           
+           1. Escolher e instalar o editor
+           2. Configurar extensões/plugins necessários
+           3. Criar estrutura de pastas organizada
+           4. Configurar Live Server para reload automático
+           5. Instalar ferramentas de debugging (F12)
+        */
+
+        .checklist {
+            background-color: #3D4146;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #4A90E2;
+        }
+
+        .step {
+            background-color: #4A90E2;
+            color: #fff;
+            padding: 12px 20px;
+            margin: 10px 0;
+            border-radius: 25px;
+            display: flex;
+            align-items: center;
+        }
+
+        .step-number {
+            background-color: #7ED321;
+            color: #2E3A46;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 15px;
+        }
+
+        /* ============================================================= */
+        /* = EXEMPLO PRÁTICO                                          = */
+        /* ============================================================= */
+        .demo-estrutura {
+            background-color: #3D4146;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            white-space: pre-wrap;
+            line-height: 1.8;
+        }
+
+        .pasta {
+            color: #F5A623;
+            font-weight: bold;
+        }
+
+        .arquivo {
+            color: #7ED321;
+        }
+
+        .comentario {
+            color: #888;
+            font-style: italic;
+        }
+
+        /* ============================================================= */
+        /* = TÍTULOS E ORGANIZAÇÃO                                    = */
+        /* ============================================================= */
+        h1, h2 {
+            text-align: center;
+            margin: 30px 0 20px 0;
+        }
+
+        h1 {
+            color: #7ED321;
+            font-size: 28px;
+        }
+
+        h2 {
+            color: #4A90E2;
+            font-size: 20px;
+            border-bottom: 2px solid #4A90E2;
+            padding-bottom: 10px;
+        }
+
+        .secao {
+            margin: 40px 0;
+        }
+
+        .codigo-exemplo {
+            background-color: #3D4146;
+            border-left: 4px solid #7ED321;
+            padding: 15px;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+            border-radius: 5px;
+            white-space: pre-wrap;
+            line-height: 1.8;
+        }
+
+        .destaque {
+            background-color: #F5A623;
+            color: #2E3A46;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+            font-weight: bold;
+        }
+
+        .dica {
+            background-color: rgba(126, 211, 33, 0.2);
+            border: 1px solid #7ED321;
+            color: #7ED321;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="navegacao">
+    <a href="index.html">🏠 Início</a>
+    <a href="01-conceitos-iniciais.html">⬅️ Anterior</a>
+    <a href="03-estrutura-html.html">➡️ Próximo</a>
+</div>
+
+<h1>⚙️ Ambiente de Desenvolvimento</h1>
+
+<div class="secao">
+    <h2>📝 Editores de Texto</h2>
+    
+    <div class="editores-grid">
+        <div class="editor">
+            <h3><span class="icon">📄</span>Bloco de Notas (Notepad)</h3>
+            <p><strong>Descrição:</strong> Editor padrão do Windows, ultra leve e simples.</p>
+            
+            <div class="pros">
+                <strong>✅ Vantagens:</strong>
+                <ul>
+                    <li>Extremamente rápido</li>
+                    <li>Já vem instalado no Windows</li>
+                    <li>Sem distrações</li>
+                </ul>
+            </div>
+            
+            <div class="contras">
+                <strong>⚠️ Limitações:</strong>
+                <ul>
+                    <li>Sem syntax highlighting</li>
+                    <li>Sem autocompletar</li>
+                    <li>Difícil para projetos grandes</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="editor">
+            <h3><span class="icon">📝</span>Notepad++</h3>
+            <p><strong>Descrição:</strong> Versão melhorada do Notepad com recursos para programação.</p>
+            
+            <div class="pros">
+                <strong>✅ Vantagens:</strong>
+                <ul>
+                    <li>Syntax highlighting para HTML/CSS</li>
+                    <li>Sistema de abas</li>
+                    <li>Plugins (Emmet, Explorer)</li>
+                    <li>Gratuito</li>
+                </ul>
+            </div>
+            
+            <div class="contras">
+                <strong>⚠️ Limitações:</strong>
+                <ul>
+                    <li>Apenas para Windows</li>
+                    <li>Interface antiga</li>
+                    <li>Sem IntelliSense avançado</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="editor">
+            <h3><span class="icon">⚡</span>Sublime Text</h3>
+            <p><strong>Descrição:</strong> Editor ultrarrápido com recursos avançados de produtividade.</p>
+            
+            <div class="pros">
+                <strong>✅ Vantagens:</strong>
+                <ul>
+                    <li>Performance excepcional</li>
+                    <li>Command Palette (Ctrl+Shift+P)</li>
+                    <li>Múltiplos cursores</li>
+                    <li>Goto Anything (Ctrl+P)</li>
+                </ul>
+            </div>
+            
+            <div class="contras">
+                <strong>⚠️ Limitações:</strong>
+                <ul>
+                    <li>Pago (trial ilimitado)</li>
+                    <li>Configuração manual</li>
+                    <li>Sem debugger integrado</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="editor">
+            <h3><span class="icon">💻</span>Visual Studio Code</h3>
+            <p><strong>Descrição:</strong> Editor da Microsoft, gratuito e extensível.</p>
+            
+            <div class="pros">
+                <strong>✅ Vantagens:</strong>
+                <ul>
+                    <li>IntelliSense inteligente</li>
+                    <li>Debugger integrado</li>
+                    <li>Terminal embutido</li>
+                    <li>Vasto ecossistema de extensões</li>
+                </ul>
+            </div>
+            
+            <div class="contras">
+                <strong>⚠️ Limitações:</strong>
+                <ul>
+                    <li>Consome mais memória</li>
+                    <li>Inicialização mais lenta</li>
+                    <li>Pode ser complexo para iniciantes</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="destaque">
+        <strong>🎯 Recomendação:</strong> Para iniciantes, comece com VS Code. Para velocidade máxima, use Sublime Text. Para simplicidade absoluta, Notepad++ é uma boa opção.
+    </div>
+</div>
+
+<div class="secao">
+    <h2>🛠️ Como Começar - Configuração Passo a Passo</h2>
+    
+    <div class="checklist">
+        <h3 style="color: #7ED321; margin-bottom: 20px;">Checklist de Configuração</h3>
+        
+        <div class="step">
+            <div class="step-number">1</div>
+            <div>
+                <strong>Instalar o Editor</strong><br>
+                Baixe o VS Code em code.visualstudio.com
+            </div>
+        </div>
+
+        <div class="step">
+            <div class="step-number">2</div>
+            <div>
+                <strong>Criar Pasta do Projeto</strong><br>
+                Ex: C:\MeusProjetos\PrimeiroSite\
+            </div>
+        </div>
+
+        <div class="step">
+            <div class="step-number">3</div>
+            <div>
+                <strong>Abrir Pasta no Editor</strong><br>
+                File → Open Folder → Selecionar pasta
+            </div>
+        </div>
+
+        <div class="step">
+            <div class="step-number">4</div>
+            <div>
+                <strong>Instalar Extensões Essenciais</strong><br>
+                Live Server, Prettier, Auto Rename Tag
+            </div>
+        </div>
+
+        <div class="step">
+            <div class="step-number">5</div>
+            <div>
+                <strong>Criar Arquivo index.html</strong><br>
+                Digite "!" + Tab para template HTML5
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="secao">
+    <h2>📁 Estrutura de Projeto Recomendada</h2>
+    
+    <div class="demo-estrutura">
+<span class="pasta">📁 MeuProjeto/</span>
+├── <span class="arquivo">index.html</span>     <span class="comentario">← Página principal</span>
+├── <span class="arquivo">sobre.html</span>     <span class="comentario">← Página sobre</span>
+├── <span class="arquivo">contato.html</span>   <span class="comentario">← Página de contato</span>
+├── <span class="pasta">📁 css/</span>
+│   └── <span class="arquivo">style.css</span>  <span class="comentario">← Folhas de estilo</span>
+├── <span class="pasta">📁 js/</span>
+│   └── <span class="arquivo">script.js</span>  <span class="comentario">← Scripts JavaScript</span>
+├── <span class="pasta">📁 images/</span>
+│   ├── <span class="arquivo">logo.png</span>   <span class="comentario">← Imagens do site</span>
+│   └── <span class="arquivo">banner.jpg</span>
+└── <span class="arquivo">README.md</span>      <span class="comentario">← Documentação</span>
+    </div>
+
+    <div class="dica">
+        <strong>💡 Dica:</strong> Mantenha nomes de arquivos sempre em minúsculas, sem espaços ou acentos. Use hífen (-) ou underscore (_) para separar palavras.
+    </div>
+</div>
+
+<div class="secao">
+    <h2>🚀 Template HTML5 Básico</h2>
+    
+    <div class="codigo-exemplo">
+&lt;!DOCTYPE html&gt;
+&lt;html lang="pt-BR"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;Meu Primeiro Site&lt;/title&gt;
+    &lt;link rel="stylesheet" href="css/style.css"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;header&gt;
+        &lt;h1&gt;Bem-vindo ao Meu Site&lt;/h1&gt;
+    &lt;/header&gt;
+    
+    &lt;main&gt;
+        &lt;p&gt;Este é meu primeiro site em HTML!&lt;/p&gt;
+    &lt;/main&gt;
+    
+    &lt;footer&gt;
+        &lt;p&gt;&copy; 2024 - Meu Site&lt;/p&gt;
+    &lt;/footer&gt;
+    
+    &lt;script src="js/script.js"&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+    </div>
+
+    <div class="dica">
+        <strong>💡 Atalho do VS Code:</strong> Digite "!" e pressione Tab para gerar automaticamente o template HTML5 completo!
+    </div>
+</div>
+
+<div class="secao">
+    <h2>🔄 Live Server - Recarga Automática</h2>
+    
+    <div class="codigo-exemplo">
+/* Configuração do Live Server no VS Code */
+
+1. Instalar extensão "Live Server"
+2. Clicar com botão direito no index.html
+3. Selecionar "Open with Live Server"
+4. Página abre automaticamente no navegador
+5. Qualquer alteração recarrega a página automaticamente!
+    </div>
+
+    <div class="destaque">
+        <strong>🎯 Produtividade:</strong> Com Live Server você vê as mudanças instantaneamente, sem precisar pressionar F5 toda hora!
+    </div>
+</div>
+
+<br><br>
+<div class="navegacao">
+    <a href="index.html">🏠 Início</a>
+    <a href="01-conceitos-iniciais.html">⬅️ Anterior</a>
+    <a href="03-estrutura-html.html">➡️ Próximo</a>
+</div>
+
+<hr style="border-color: #4A90E2; margin: 20px 0;">
+<p style="text-align: center; color: #4A90E2;">Dev by <strong>Maugus</strong> em HTML puro 📙</p>
+
+</body>
+</html> 

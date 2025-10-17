@@ -1,0 +1,926 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Funções Avançadas - JavaScript Parte 2</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            /* Ultra Dark Minimalist Theme */
+            --ultra-bg: #0a0a0a;
+            --ultra-bg-alt: #111111;
+            --ultra-card: #1a1a1a;
+            --ultra-border: #222222;
+            --ultra-hover: #252525;
+            --ultra-text: #e6e6e6;
+            --ultra-text-muted: #999999;
+            --ultra-text-dim: #666666;
+            
+            /* Accent colors - mais sutis */
+            --accent-primary: #8b7cf8;
+            --accent-secondary: #64748b;
+            --accent-success: #22c55e;
+            --accent-warning: #f59e0b;
+            --accent-info: #3b82f6;
+            --accent-danger: #ef4444;
+            
+            /* Typography */
+            --font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-mono: 'Fira Code', 'Courier New', monospace;
+            
+            /* Spacing */
+            --spacing-1: 0.25rem;
+            --spacing-2: 0.5rem;
+            --spacing-3: 0.75rem;
+            --spacing-4: 1rem;
+            --spacing-5: 1.25rem;
+            --spacing-6: 1.5rem;
+            --spacing-8: 2rem;
+            
+            /* Border radius */
+            --border-radius-sm: 0.25rem;
+            --border-radius-md: 0.375rem;
+            --border-radius-lg: 0.5rem;
+            
+            /* Font sizes */
+            --font-size-xs: 0.75rem;
+            --font-size-sm: 0.875rem;
+            --font-size-base: 1rem;
+            --font-size-lg: 1.125rem;
+            --font-size-xl: 1.25rem;
+            --font-size-2xl: 1.5rem;
+            --font-size-3xl: 1.875rem;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-family);
+            background: var(--ultra-bg);
+            color: var(--ultra-text);
+            line-height: 1.6;
+            font-weight: 400;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--spacing-4);
+        }
+
+        /* Header minimalista */
+        .header {
+            background: var(--ultra-bg-alt);
+            color: var(--ultra-text);
+            text-align: center;
+            padding: var(--spacing-6) 0;
+            margin-bottom: var(--spacing-6);
+            border-bottom: 1px solid var(--ultra-border);
+        }
+
+        .header h1 {
+            font-size: var(--font-size-3xl);
+            font-weight: 300;
+            margin-bottom: var(--spacing-2);
+            letter-spacing: -0.025em;
+        }
+
+        .header .subtitle {
+            color: var(--ultra-text-muted);
+            font-size: var(--font-size-lg);
+            font-weight: 300;
+        }
+
+        /* Progress section */
+        .progress-section {
+            background: var(--ultra-card);
+            border: 1px solid var(--ultra-border);
+            border-radius: var(--border-radius-md);
+            padding: var(--spacing-4);
+            margin-bottom: var(--spacing-6);
+            text-align: center;
+        }
+
+        .progress-bar {
+            background: var(--ultra-border);
+            border-radius: var(--border-radius-lg);
+            height: 8px;
+            margin: var(--spacing-3) 0;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--accent-primary);
+            border-radius: var(--border-radius-lg);
+            transition: width 0.5s ease;
+        }
+
+        /* Content sections */
+        .content-section {
+            background: var(--ultra-card);
+            border: 1px solid var(--ultra-border);
+            border-radius: var(--border-radius-md);
+            padding: var(--spacing-6);
+            margin-bottom: var(--spacing-6);
+        }
+
+        .content-section h2 {
+            color: var(--ultra-text);
+            font-size: var(--font-size-2xl);
+            font-weight: 400;
+            margin-bottom: var(--spacing-4);
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-2);
+        }
+
+        .content-section h3 {
+            color: var(--accent-primary);
+            font-size: var(--font-size-xl);
+            font-weight: 400;
+            margin: var(--spacing-5) 0 var(--spacing-3) 0;
+        }
+
+        .content-section h4 {
+            color: var(--ultra-text);
+            font-size: var(--font-size-lg);
+            font-weight: 400;
+            margin: var(--spacing-4) 0 var(--spacing-2) 0;
+        }
+
+        .content-section p {
+            color: var(--ultra-text-muted);
+            margin-bottom: var(--spacing-3);
+            font-weight: 300;
+        }
+
+        .content-section ul, .content-section ol {
+            color: var(--ultra-text-muted);
+            margin-left: var(--spacing-5);
+            margin-bottom: var(--spacing-3);
+        }
+
+        .content-section li {
+            margin-bottom: var(--spacing-1);
+            font-weight: 300;
+        }
+
+        /* Info boxes */
+        .info-box {
+            padding: var(--spacing-4);
+            border-radius: var(--border-radius-md);
+            margin: var(--spacing-4) 0;
+            border-left: 3px solid;
+            background: var(--ultra-bg-alt);
+        }
+
+        .info-box.tip {
+            border-color: var(--accent-info);
+        }
+
+        .info-box.warning {
+            border-color: var(--accent-warning);
+        }
+
+        .info-box.example {
+            border-color: var(--accent-primary);
+        }
+
+        .info-box.info {
+            border-color: var(--accent-success);
+        }
+
+        .info-box.danger {
+            border-color: var(--accent-danger);
+        }
+
+        .info-box strong {
+            color: var(--ultra-text);
+        }
+
+        /* Code blocks */
+        .code-block {
+            background: var(--ultra-bg);
+            color: var(--ultra-text);
+            padding: var(--spacing-4);
+            border-radius: var(--border-radius-md);
+            margin: var(--spacing-4) 0;
+            overflow-x: auto;
+            font-family: var(--font-mono);
+            font-size: var(--font-size-sm);
+            border: 1px solid var(--ultra-border);
+            position: relative;
+        }
+
+        .code-block::before {
+            content: 'JavaScript';
+            position: absolute;
+            top: var(--spacing-2);
+            right: var(--spacing-3);
+            background: var(--accent-primary);
+            color: var(--ultra-bg);
+            padding: var(--spacing-1) var(--spacing-2);
+            border-radius: var(--border-radius-sm);
+            font-size: var(--font-size-xs);
+            font-weight: 500;
+        }
+
+        /* Demo containers */
+        .demo-container {
+            background: var(--ultra-bg-alt);
+            border: 1px solid var(--ultra-border);
+            border-radius: var(--border-radius-md);
+            padding: var(--spacing-4);
+            margin: var(--spacing-4) 0;
+        }
+
+        .demo-title {
+            color: var(--ultra-text);
+            font-weight: 400;
+            margin-bottom: var(--spacing-3);
+            font-size: var(--font-size-lg);
+        }
+
+        /* Form elements */
+        .input-group {
+            margin: var(--spacing-3) 0;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: var(--spacing-2);
+            font-weight: 400;
+            color: var(--ultra-text);
+            font-size: var(--font-size-sm);
+        }
+
+        .input-group input, 
+        .input-group select, 
+        .input-group textarea {
+            width: 100%;
+            padding: var(--spacing-3);
+            background: var(--ultra-card);
+            border: 1px solid var(--ultra-border);
+            border-radius: var(--border-radius-md);
+            color: var(--ultra-text);
+            font-size: var(--font-size-base);
+            font-family: var(--font-family);
+            transition: border-color 0.2s ease;
+        }
+
+        .input-group input:focus, 
+        .input-group select:focus, 
+        .input-group textarea:focus {
+            outline: none;
+            border-color: var(--accent-primary);
+        }
+
+        /* Buttons */
+        .btn {
+            padding: var(--spacing-3) var(--spacing-5);
+            border: none;
+            border-radius: var(--border-radius-md);
+            font-size: var(--font-size-base);
+            font-weight: 400;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .btn-primary {
+            background: var(--accent-primary);
+            color: var(--ultra-bg);
+        }
+
+        .btn-primary:hover {
+            background: #7c6ce8;
+        }
+
+        .btn-secondary {
+            background: var(--ultra-card);
+            color: var(--ultra-text);
+            border: 1px solid var(--ultra-border);
+        }
+
+        .btn-secondary:hover {
+            background: var(--ultra-hover);
+        }
+
+        /* Navigation */
+        .navigation {
+            background: var(--ultra-card);
+            border: 1px solid var(--ultra-border);
+            border-radius: var(--border-radius-md);
+            padding: var(--spacing-5);
+            margin: var(--spacing-6) 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: var(--spacing-4);
+            flex-wrap: wrap;
+        }
+
+        .nav-button {
+            padding: var(--spacing-3) var(--spacing-5);
+            border: none;
+            border-radius: var(--border-radius-md);
+            font-size: var(--font-size-base);
+            font-weight: 400;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .nav-button.primary {
+            background: var(--accent-primary);
+            color: var(--ultra-bg);
+        }
+
+        .nav-button.primary:hover {
+            background: #7c6ce8;
+        }
+
+        .nav-button.secondary {
+            background: var(--ultra-hover);
+            color: var(--ultra-text);
+            border: 1px solid var(--ultra-border);
+        }
+
+        .nav-button.secondary:hover {
+            background: var(--ultra-border);
+        }
+
+        /* Output displays */
+        .output {
+            background: var(--ultra-bg);
+            border: 1px solid var(--ultra-border);
+            border-radius: var(--border-radius-md);
+            padding: var(--spacing-3);
+            margin-top: var(--spacing-3);
+            font-family: var(--font-mono);
+            font-size: var(--font-size-sm);
+            color: var(--ultra-text-muted);
+            min-height: 40px;
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: var(--spacing-4) 0;
+            background: var(--ultra-bg-alt);
+            border-radius: var(--border-radius-md);
+            overflow: hidden;
+        }
+
+        th, td {
+            padding: var(--spacing-3);
+            text-align: left;
+            border-bottom: 1px solid var(--ultra-border);
+        }
+
+        th {
+            background: var(--ultra-card);
+            color: var(--ultra-text);
+            font-weight: 400;
+        }
+
+        td {
+            color: var(--ultra-text-muted);
+            font-weight: 300;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 var(--spacing-3);
+            }
+            
+            .header h1 {
+                font-size: var(--font-size-2xl);
+            }
+            
+            .content-section {
+                padding: var(--spacing-4);
+            }
+            
+            .navigation {
+                flex-direction: column;
+                gap: var(--spacing-3);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>⚡ Funções Avançadas</h1>
+            <p class="subtitle">Arrow Functions, Callbacks, Closures e Escopo</p>
+        </header>
+
+        <!-- Progress Section -->
+        <section class="progress-section">
+            <h3>Progresso do Tópico</h3>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progress-fill"></div>
+            </div>
+            <p>Completar os exercícios para avançar no curso</p>
+        </section>
+
+        <main class="content-section">
+            <h2>⚙️ 2. Funções</h2>
+            
+            <div class="info-box info">
+                <strong>Visão Geral:</strong> Funções em JavaScript são blocos de código reutilizáveis que podem ser chamados com diferentes entradas (parâmetros) para produzir saídas (retornos). São fundamentais na programação moderna e aparecem em várias formas: declaradas, expressas, anônimas, arrow, etc.
+            </div>
+
+            <h3>2.1 Declaração de função</h3>
+
+            <div class="code-block">
+function saudacao() {
+  console.log("Olá, mundo!");
+}
+
+saudacao();
+            </div>
+
+            <div class="info-box tip">
+                <strong>Curiosidade:</strong> Funções declaradas são "elevadas" no código (hoisting), ou seja, podem ser chamadas antes da definição.
+            </div>
+
+            <h3>2.2 Expressão de função</h3>
+
+            <div class="code-block">
+const soma = function(a, b) {
+  return a + b;
+};
+
+console.log(soma(2, 3)); // 5
+            </div>
+
+            <div class="info-box info">
+                Expressões <strong>não</strong> são içadas como declarações. Devem ser definidas antes de usadas.
+            </div>
+
+            <h3>2.3 Função anônima</h3>
+
+            <div class="info-box example">
+                <strong>Exemplo embutido em um setTimeout:</strong>
+                <div class="code-block">
+setTimeout(function() {
+  console.log("Executado após 1 segundo");
+}, 1000);
+                </div>
+            </div>
+
+            <h3>2.4 Arrow function</h3>
+
+            <div class="code-block">
+const dobrar = (n) => n * 2;
+console.log(dobrar(5)); // 10
+            </div>
+
+            <div class="info-box tip">
+                Arrow functions <strong>não possuem seu próprio <code>this</code></strong>, <code>arguments</code>, <code>super</code> ou <code>new.target</code>.
+            </div>
+
+            <div class="demo-container">
+                <div class="demo-title">🧪 Demonstração: Tipos de Funções</div>
+                
+                <div class="input-group">
+                    <label for="func-a">Primeiro número:</label>
+                    <input type="number" id="func-a" placeholder="Digite um número">
+                </div>
+                
+                <div class="input-group">
+                    <label for="func-b">Segundo número:</label>
+                    <input type="number" id="func-b" placeholder="Digite outro número">
+                </div>
+
+                <button class="btn" onclick="testDeclaration()">Função Declarada</button>
+                <button class="btn" onclick="testExpression()">Expressão de Função</button>
+                <button class="btn" onclick="testArrow()">Arrow Function</button>
+                <button class="btn" onclick="testAnonymous()">Função Anônima</button>
+
+                <div class="result-box" id="function-result">// Resultados aparecerão aqui</div>
+            </div>
+
+            <h3>2.5 Parâmetros e argumentos</h3>
+
+            <div class="code-block">
+function exibirMensagem(nome, idade) {
+  console.log(`Olá ${nome}, você tem ${idade} anos.`);
+}
+
+exibirMensagem("Maugus", 30);
+            </div>
+
+            <h3>2.6 Return</h3>
+
+            <div class="code-block">
+function multiplicar(x, y) {
+  return x * y;
+}
+
+let resultado = multiplicar(4, 5);
+console.log(resultado); // 20
+            </div>
+
+            <div class="info-box warning">
+                Após o <code>return</code>, nada mais é executado dentro da função.
+            </div>
+
+            <h3>2.7 Escopo</h3>
+
+            <div class="code-block">
+let cor = "azul";
+
+function mudarCor() {
+  let cor = "vermelho";
+  console.log("Dentro: ", cor); // vermelho
+}
+
+mudarCor();
+console.log("Fora: ", cor); // azul
+            </div>
+
+            <div class="info-box info">
+                Variáveis declaradas dentro de uma função têm <strong>escopo local</strong> e não interferem nas externas.
+            </div>
+
+            <div class="demo-container">
+                <div class="demo-title">🧪 Demonstração: Escopo de Variáveis</div>
+                
+                <div class="input-group">
+                    <label for="scope-input">Digite um valor para a variável global:</label>
+                    <input type="text" id="scope-input" placeholder="Ex: JavaScript">
+                </div>
+
+                <button class="btn" onclick="testGlobalScope()">Definir Global</button>
+                <button class="btn" onclick="testLocalScope()">Testar Escopo Local</button>
+                <button class="btn" onclick="showBothScopes()">Mostrar Ambos</button>
+
+                <div class="result-box" id="scope-result">// Teste de escopo aparecerá aqui</div>
+            </div>
+
+            <h3>2.8 Funções como objetos de primeira classe</h3>
+
+            <div class="info-box info">
+                Em JavaScript:
+                <ul style="margin-top: 10px;">
+                    <li>Funções podem ser atribuídas a variáveis</li>
+                    <li>Podem ser passadas como argumentos</li>
+                    <li>Podem ser retornadas por outras funções</li>
+                </ul>
+            </div>
+
+            <div class="code-block">
+function aplicarOperacao(a, b, operacao) {
+  return operacao(a, b);
+}
+
+function somar(x, y) {
+  return x + y;
+}
+
+console.log(aplicarOperacao(3, 4, somar)); // 7
+            </div>
+
+            <h3>2.9 Funções de callback (.extra)</h3>
+
+            <div class="code-block">
+function processarUsuario(nome, callback) {
+  console.log("Processando usuário " + nome);
+  callback();
+}
+
+processarUsuario("Ana", function() {
+  console.log("Função de callback executada!");
+});
+            </div>
+
+            <div class="info-box info">
+                Callbacks são muito usadas em <strong>eventos, temporizadores, e programação assíncrona</strong>.
+            </div>
+
+            <div class="demo-container">
+                <div class="demo-title">🧪 Demonstração: Callbacks e Primeira Classe</div>
+                
+                <div class="input-group">
+                    <label for="callback-name">Nome do usuário:</label>
+                    <input type="text" id="callback-name" placeholder="Digite um nome">
+                </div>
+
+                <button class="btn" onclick="testCallback()">Testar Callback</button>
+                <button class="btn" onclick="testFirstClass()">Função de Primeira Classe</button>
+
+                <div class="result-box" id="callback-result">// Resultados dos callbacks aparecerão aqui</div>
+            </div>
+
+            <h3>2.10 Funções recursivas (.extra)</h3>
+
+            <div class="code-block">
+function contagemRegressiva(n) {
+  if (n <= 0) {
+    console.log("Boom!");
+    return;
+  }
+  console.log(n);
+  contagemRegressiva(n - 1);
+}
+
+contagemRegressiva(5);
+            </div>
+
+            <div class="info-box warning">
+                Toda recursão deve ter uma <strong>condição de parada</strong>, ou causará um loop infinito.
+            </div>
+
+            <div class="demo-container">
+                <div class="demo-title">🧪 Demonstração: Função Recursiva</div>
+                
+                <div class="input-group">
+                    <label for="recursive-input">Número para contagem regressiva:</label>
+                    <input type="number" id="recursive-input" placeholder="Digite um número (1-10)" max="10">
+                </div>
+
+                <button class="btn" onclick="startCountdown()">Iniciar Contagem</button>
+                <button class="btn" onclick="calculateFactorial()">Calcular Fatorial</button>
+
+                <div class="result-box" id="recursive-result">// Resultados da recursão aparecerão aqui</div>
+            </div>
+
+            <h3>🧠 Resumo</h3>
+
+            <table class="table-comparison">
+                <thead>
+                    <tr>
+                        <th>Tipo</th>
+                        <th>Característica</th>
+                        <th>Exemplo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Declarada</strong></td>
+                        <td>Hoisting disponível</td>
+                        <td><code>function nome() {}</code></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Expressão</strong></td>
+                        <td>Sem hoisting</td>
+                        <td><code>const nome = function() {}</code></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Arrow</strong></td>
+                        <td>Sem próprio <code>this</code></td>
+                        <td><code>const nome = () => {}</code></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Callback</strong></td>
+                        <td>Passada como argumento</td>
+                        <td><code>setTimeout(callback, 1000)</code></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Recursiva</strong></td>
+                        <td>Chama a si mesma</td>
+                        <td><code>function fact(n) { return n * fact(n-1) }</code></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="quiz-section">
+                <h3>📋 Perguntas de Revisão</h3>
+                
+                <div class="quiz-question">
+                    <h4>1. O que é hoisting e como afeta declarações de função?</h4>
+                    <p>Hoisting permite que funções declaradas sejam chamadas antes de serem definidas no código.</p>
+                </div>
+
+                <div class="quiz-question">
+                    <h4>2. Qual a diferença entre função declarada e expressão de função?</h4>
+                    <p>Funções declaradas têm hoisting, expressões não. Expressões devem ser definidas antes do uso.</p>
+                </div>
+
+                <div class="quiz-question">
+                    <h4>3. Quando usar arrow function?</h4>
+                    <p>Para funções simples ou quando não precisamos do próprio contexto <code>this</code>.</p>
+                </div>
+
+                <div class="quiz-question">
+                    <h4>4. O que torna uma função de primeira classe?</h4>
+                    <p>Pode ser atribuída a variáveis, passada como argumento e retornada por outras funções.</p>
+                </div>
+
+                <div class="quiz-question">
+                    <h4>5. Como funciona uma função recursiva?</h4>
+                    <p>Chama a si mesma até atingir uma condição de parada para evitar loop infinito.</p>
+                </div>
+
+                <button class="btn" onclick="completeQuiz()">✅ Marcar Como Concluído</button>
+            </div>
+        </main>
+
+        <nav class="navigation">
+            <a href="01-tipos-dados.html" class="nav-button secondary">← Anterior: Tipos de Dados</a>
+            <a href="index.html" class="nav-button primary">📚 Voltar ao Índice</a>
+            <a href="03-bom.html" class="nav-button secondary">Próximo: BOM →</a>
+        </nav>
+    </div>
+
+    <script>
+        // Variáveis globais para demonstrações
+        let globalVar = "Valor Global";
+
+        // Declaração de função (com hoisting)
+        function somarDeclarada(a, b) {
+            return a + b;
+        }
+
+        // Expressão de função
+        const somarExpressao = function(a, b) {
+            return a + b;
+        };
+
+        // Arrow function
+        const somarArrow = (a, b) => a + b;
+
+        // Funções para demonstrações
+        function testDeclaration() {
+            const a = parseFloat(document.getElementById('func-a').value) || 0;
+            const b = parseFloat(document.getElementById('func-b').value) || 0;
+            
+            const resultado = somarDeclarada(a, b);
+            document.getElementById('function-result').textContent = 
+                `Função Declarada: ${a} + ${b} = ${resultado}`;
+            updateProgress(20);
+        }
+
+        function testExpression() {
+            const a = parseFloat(document.getElementById('func-a').value) || 0;
+            const b = parseFloat(document.getElementById('func-b').value) || 0;
+            
+            const resultado = somarExpressao(a, b);
+            document.getElementById('function-result').textContent = 
+                `Expressão de Função: ${a} + ${b} = ${resultado}`;
+            updateProgress(40);
+        }
+
+        function testArrow() {
+            const a = parseFloat(document.getElementById('func-a').value) || 0;
+            const b = parseFloat(document.getElementById('func-b').value) || 0;
+            
+            const resultado = somarArrow(a, b);
+            document.getElementById('function-result').textContent = 
+                `Arrow Function: ${a} + ${b} = ${resultado}`;
+            updateProgress(60);
+        }
+
+        function testAnonymous() {
+            const a = parseFloat(document.getElementById('func-a').value) || 0;
+            const b = parseFloat(document.getElementById('func-b').value) || 0;
+            
+            setTimeout(function() {
+                const resultado = a + b;
+                document.getElementById('function-result').textContent = 
+                    `Função Anônima (após 1s): ${a} + ${b} = ${resultado}`;
+            }, 1000);
+            
+            document.getElementById('function-result').textContent = 
+                'Executando função anônima em 1 segundo...';
+        }
+
+        // Funções para demonstração de escopo
+        function testGlobalScope() {
+            const input = document.getElementById('scope-input').value;
+            if (input) {
+                globalVar = input;
+                document.getElementById('scope-result').textContent = 
+                    `Variável global definida: "${globalVar}"`;
+                updateProgress(75);
+            }
+        }
+
+        function testLocalScope() {
+            function exemploEscopo() {
+                let localVar = "Valor Local";
+                return `Dentro da função: globalVar = "${globalVar}", localVar = "${localVar}"`;
+            }
+            
+            document.getElementById('scope-result').textContent = exemploEscopo();
+        }
+
+        function showBothScopes() {
+            function exemploCompleto() {
+                let globalVar = "Sobrescrita Local";
+                return `Local: "${globalVar}" | Global original ainda existe fora da função`;
+            }
+            
+            const resultado = exemploCompleto();
+            document.getElementById('scope-result').textContent = 
+                `${resultado}\nFora da função: globalVar = "${globalVar}"`;
+        }
+
+        // Funções para callback
+        function testCallback() {
+            const name = document.getElementById('callback-name').value || "Usuário";
+            
+            function processarUsuario(nome, callback) {
+                const mensagem = `Processando usuário: ${nome}`;
+                callback(mensagem);
+            }
+            
+            processarUsuario(name, function(msg) {
+                document.getElementById('callback-result').textContent = 
+                    `${msg}\nCallback executado com sucesso!`;
+            });
+            updateProgress(85);
+        }
+
+        function testFirstClass() {
+            const operacoes = {
+                somar: (a, b) => a + b,
+                multiplicar: (a, b) => a * b,
+                dividir: (a, b) => a / b
+            };
+            
+            function aplicarOperacao(x, y, op) {
+                return op(x, y);
+            }
+            
+            const resultado1 = aplicarOperacao(10, 5, operacoes.somar);
+            const resultado2 = aplicarOperacao(10, 5, operacoes.multiplicar);
+            
+            document.getElementById('callback-result').textContent = 
+                `Primeira classe:\n10 + 5 = ${resultado1}\n10 × 5 = ${resultado2}`;
+        }
+
+        // Funções recursivas
+        function startCountdown() {
+            const num = parseInt(document.getElementById('recursive-input').value) || 5;
+            if (num > 10) {
+                alert('Por favor, digite um número entre 1 e 10');
+                return;
+            }
+            
+            function contagem(n) {
+                if (n <= 0) {
+                    return "Boom! 💥";
+                }
+                return n + " → " + contagem(n - 1);
+            }
+            
+            document.getElementById('recursive-result').textContent = 
+                `Contagem regressiva: ${contagem(num)}`;
+            updateProgress(95);
+        }
+
+        function calculateFactorial() {
+            const num = parseInt(document.getElementById('recursive-input').value) || 5;
+            if (num > 10) {
+                alert('Por favor, digite um número entre 1 e 10');
+                return;
+            }
+            
+            function fatorial(n) {
+                if (n <= 1) return 1;
+                return n * fatorial(n - 1);
+            }
+            
+            document.getElementById('recursive-result').textContent = 
+                `Fatorial de ${num}: ${num}! = ${fatorial(num)}`;
+        }
+
+        // Sistema de progresso
+        let currentProgress = 0;
+
+        function updateProgress(newProgress) {
+            if (newProgress > currentProgress) {
+                currentProgress = newProgress;
+                document.getElementById('progress-fill').style.width = currentProgress + '%';
+            }
+        }
+
+        function completeQuiz() {
+            updateProgress(100);
+            alert('🎉 Parabéns! Você concluiu a seção de Funções!');
+        }
+    </script>
+</body>
+</html> 

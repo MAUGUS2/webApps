@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>📚 Aula 1 - HTML Fundamental</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Courier New', monospace;
+      background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+      color: #fff;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 40px;
+      padding: 30px 0;
+    }
+
+    .header h1 {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+      color: #fff;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    }
+
+    .header .subtitle {
+      font-size: 1.2rem;
+      color: #d1ecf1;
+      margin-bottom: 20px;
+    }
+
+    .topics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 25px;
+      margin-bottom: 40px;
+    }
+
+    .topic-card {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 15px;
+      padding: 25px;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .topic-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+      border-color: rgba(255, 255, 255, 0.3);
+    }
+
+    .topic-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #ff6b35, #f7931e);
+      border-radius: 15px 15px 0 0;
+    }
+
+    .topic-header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+
+    .topic-icon {
+      font-size: 2rem;
+      margin-right: 15px;
+      width: 50px;
+      text-align: center;
+    }
+
+    .topic-title {
+      font-size: 1.3rem;
+      font-weight: bold;
+      color: #fff;
+    }
+
+    .topic-description {
+      color: #d1ecf1;
+      line-height: 1.5;
+      margin-bottom: 15px;
+    }
+
+    .topic-link {
+      display: inline-block;
+      background: rgba(255, 255, 255, 0.2);
+      color: #fff;
+      text-decoration: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-weight: bold;
+      transition: all 0.3s ease;
+      border: 2px solid transparent;
+    }
+
+    .topic-link:hover {
+      background: rgba(255, 255, 255, 0.3);
+      border-color: rgba(255, 255, 255, 0.5);
+      transform: translateX(5px);
+    }
+
+    .footer {
+      text-align: center;
+      margin-top: 40px;
+      padding: 30px 0;
+      border-top: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .footer-links {
+      margin: 20px 0;
+    }
+
+    .footer-links a {
+      color: #d1ecf1;
+      text-decoration: none;
+      margin: 0 15px;
+      transition: color 0.3s ease;
+    }
+
+    .footer-links a:hover {
+      color: #fff;
+    }
+
+    .info-box {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 15px;
+      padding: 25px;
+      text-align: center;
+      margin: 30px 0;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .info-box h2 {
+      font-size: 1.8rem;
+      margin-bottom: 10px;
+      color: #fff;
+    }
+
+    .info-box p {
+      font-size: 1.1rem;
+      opacity: 0.9;
+      color: #d1ecf1;
+    }
+
+    @media (max-width: 768px) {
+      .header h1 {
+        font-size: 2rem;
+      }
+
+      .topics-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+
+      .topic-card {
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <h1>📚 Aula 1 - HTML Fundamental</h1>
+      <p class="subtitle">Aprenda HTML de forma estruturada e didática</p>
+    </header>
+
+    <!-- Informações sobre o curso -->
+    <div class="info-box">
+      <h2>📖 Material Didático Completo</h2>
+      <p>9 tópicos fundamentais para dominar HTML desde o básico até conceitos avançados de acessibilidade</p>
+    </div>
+
+    <main class="topics-grid">
+      <!-- Tópico 1: Conceitos Iniciais -->
+      <article class="topic-card">
+        <div class="topic-header">
+          <div class="topic-icon">🌐</div>
+          <h2 class="topic-title">Conceitos Iniciais</h2>
+        </div>
+        <p class="topic-description">
+          História da web, cliente-servidor, protocolos HTTP/HTTPS, 
+          DNS, e como funciona uma requisição web completa.
+        </p>
+        <a href="01-conceitos-iniciais.html" class="topic-link">
+          Explorar Conceitos →
+        </a>
+      </article>
+
+      <!-- Tópico 2: Ambiente de Desenvolvimento -->
+      <article class="topic-card">
+        <div class="topic-header">
+          <div class="topic-icon">⚙️</div>
+          <h2 class="topic-title">Ambiente de Desenvolvimento</h2>
+        </div>
+        <p class="topic-description">
+          Editores de código, extensões úteis, estrutura de projeto,
+          ferramentas de desenvolvimento e configuração inicial.
+        </p>
+        <a href="02-ambiente-desenvolvimento.html" class="topic-link">
+          Configurar Ambiente →
+        </a>
+      </article>
+
+      <!-- Tópico 3: Estrutura HTML -->
+      <article class="topic-card">
+        <div class="topic-header">
+          <div class="topic-icon">🏗️</div>
+          <h2 class="topic-title">Estrutura HTML</h2>
+        </div>
+        <p class="topic-description">
+          DOCTYPE, anatomia das tags, estrutura mínima, 
+          elementos semânticos e organização hierárquica.
+        </p>
+        <a href="03-estrutura-html.html" class="topic-link">
+          Aprender Estrutura →
+        </a>
+      </article>
+
+      <!-- Tópico 4: Textos e Listas -->
+      <article class="topic-card">
+        <div class="topic-header">
+          <div class="topic-icon">📝</div>
+          <h2 class="topic-title">Textos e Listas</h2>
+        </div>
+        <p class="topic-description">
+          Hierarquia de títulos, parágrafos, formatação de texto,
+          listas ordenadas, não-ordenadas e de definição.
+        </p>
+        <a href="04-textos-listas.html" class="topic-link">
+          Trabalhar com Textos →
+        </a>
+      </article>
+
+      <!-- Tópico 5: Links e Navegação -->
+      <article class="topic-card">
+        <div class="topic-header">
+          <div class="topic-icon">🔗</div>
+          <h2 class="topic-title">Links e Navegação</h2>
+        </div>
+        <p class="topic-description">
+          Links internos, externos, âncoras, navegação por seções,
+          atributos de segurança e melhores práticas.
+        </p>
+        <a href="05-links.html" class="topic-link">
+          Dominar Links →
+        </a>
+      </article>
+
+      <!-- Tópico 6: Imagens -->
+      <article class="topic-card">
+        <div class="topic-header">
+          <div class="topic-icon">🖼️</div>
+          <h2 class="topic-title">Trabalhando com Imagens</h2>
+        </div>
+        <p class="topic-description">
+          Inserção de imagens, alt text, responsividade,
+          figure/figcaption, formatos e otimização.
+        </p>
+        <a href="06-imagens.html" class="topic-link">
+          Gerenciar Imagens →
+        </a>
+      </article>
+
+      <!-- Tópico 7: Tabelas -->
+      <article class="topic-card">
+        <div class="topic-header">
+          <div class="topic-icon">📊</div>
+          <h2 class="topic-title">Tabelas Estruturadas</h2>
+        </div>
+        <p class="topic-description">
+          Estrutura de tabelas, thead/tbody/tfoot, colspan/rowspan,
+          acessibilidade e responsividade em tabelas.
+        </p>
+        <a href="07-tabelas.html" class="topic-link">
+          Criar Tabelas →
+        </a>
+      </article>
+
+      <!-- Tópico 8: Formulários -->
+      <article class="topic-card">
+        <div class="topic-header">
+          <div class="topic-icon">📝</div>
+          <h2 class="topic-title">Formulários Interativos</h2>
+        </div>
+        <p class="topic-description">
+          Campos de entrada, validação HTML5, fieldset/legend,
+          acessibilidade em formulários e tipos de input.
+        </p>
+        <a href="08-formularios.html" class="topic-link">
+          Construir Formulários →
+        </a>
+      </article>
+
+      <!-- Tópico 9: Acessibilidade -->
+      <article class="topic-card">
+        <div class="topic-header">
+          <div class="topic-icon">♿</div>
+          <h2 class="topic-title">Acessibilidade e Inclusão</h2>
+        </div>
+        <p class="topic-description">
+          WCAG, ARIA, navegação por teclado, leitores de tela,
+          contraste de cores e desenvolvimento inclusivo.
+        </p>
+        <a href="09-acessibilidade.html" class="topic-link">
+          Aplicar Acessibilidade →
+        </a>
+      </article>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-links">
+        <a href="../16_02-CSS/index.html">🎨 Próxima Aula: CSS</a>
+        <a href="_arquivos-antigos/README.md">📁 Arquivos Antigos</a>
+        <a href="../">🏠 Voltar ao Curso</a>
+      </div>
+      
+      <p style="margin: 20px 0; color: #d1ecf1; font-size: 0.9rem;">
+        📚 <strong>Material Didático:</strong> 9 Tópicos Fundamentais de HTML
+      </p>
+      
+      <p style="color: #d1ecf1; font-size: 0.9rem;">
+        Dev by <strong style="color: #fff;">Maugus</strong> | 
+        Estrutura didática e responsiva em HTML puro 📚
+      </p>
+    </footer>
+  </div>
+
+  <script>
+    // Efeito de hover suave nos cards
+    document.querySelectorAll('.topic-card').forEach(card => {
+      card.addEventListener('mouseenter', function() {
+        this.style.transform = 'translateY(-8px)';
+      });
+      
+      card.addEventListener('mouseleave', function() {
+        this.style.transform = 'translateY(0px)';
+      });
+    });
+  </script>
+</body>
+</html>

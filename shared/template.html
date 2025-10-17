@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>[TITLE] - Aplicações Web e Móveis</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- Sistema de Design Unificado -->
+    <link rel="stylesheet" href="../shared/design-system.css">
+    <link rel="stylesheet" href="../shared/navigation.css">
+    
+    <!-- Tema específico da aula -->
+    <style>
+        :root {
+            --lesson-theme-primary: [THEME_PRIMARY];
+            --lesson-theme-light: [THEME_LIGHT];
+            --lesson-theme-dark: [THEME_DARK];
+        }
+        
+        /* Aplicar tema da aula */
+        .header {
+            background: linear-gradient(135deg, var(--lesson-theme-primary), var(--lesson-theme-dark));
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--lesson-theme-primary), var(--lesson-theme-dark));
+        }
+        
+        .card-icon {
+            background: linear-gradient(135deg, var(--lesson-theme-primary), var(--lesson-theme-dark));
+        }
+        
+        .progress-bar {
+            background: linear-gradient(90deg, var(--lesson-theme-primary), var(--lesson-theme-light));
+        }
+        
+        .alert-info {
+            background: var(--lesson-theme-light);
+            border-color: var(--lesson-theme-primary);
+            color: var(--lesson-theme-dark);
+        }
+    </style>
+</head>
+<body data-lesson="[LESSON_ID]" data-topic="[TOPIC_ID]">
+    <!-- Header Principal -->
+    <header class="header">
+        <div class="container">
+            <h1>[LESSON_ICON] [LESSON_TITLE]</h1>
+            <p class="subtitle">[LESSON_SUBTITLE]</p>
+        </div>
+    </header>
+
+    <!-- Conteúdo Principal -->
+    <main class="container">
+        <!-- O conteúdo específico da aula será inserido aqui -->
+        [CONTENT]
+    </main>
+
+    <!-- Scripts -->
+    <script src="../shared/navigation.js"></script>
+    
+    <!-- Scripts específicos da página -->
+    <script>
+        // Marcar progresso quando a página carregar
+        document.addEventListener('DOMContentLoaded', function() {
+            const lessonId = document.body.getAttribute('data-lesson');
+            const topicId = document.body.getAttribute('data-topic');
+            
+            if (lessonId && topicId && window.Storage) {
+                // Marcar como visualizado após 5 segundos
+                setTimeout(() => {
+                    window.Storage.setProgress(lessonId, topicId, true);
+                }, 5000);
+            }
+        });
+    </script>
+</body>
+</html> 

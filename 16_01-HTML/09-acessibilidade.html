@@ -1,0 +1,1056 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>♿ HTML - Acessibilidade e Inclusão</title>
+<!-- Demonstrando criação de páginas acessíveis para todos -->
+    <style>
+        * { 
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #2E3A46;
+            color: #fff;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .navegacao {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .navegacao a {
+            color: #4A90E2;
+            text-decoration: none;
+            margin: 0 15px;
+        }
+
+        .navegacao a:hover {
+            color: #7ED321;
+        }
+
+        /* ============================================================= */
+        /* = PRINCÍPIOS DE ACESSIBILIDADE                             = */
+        /* ============================================================= */
+        /* Os 4 princípios fundamentais da acessibilidade web (WCAG):
+           
+           1. PERCEPTÍVEL: Informação deve ser apresentada de forma que
+              usuários possam percebê-la (visuais, auditivos, táteis)
+              
+           2. OPERÁVEL: Interface deve ser operável (teclado, mouse, voz)
+           
+           3. COMPREENSÍVEL: Informação e UI devem ser compreensíveis
+           
+           4. ROBUSTO: Conteúdo deve ser interpretado por tecnologias
+              assistivas (leitores de tela, ampliadores)
+        */
+
+        .principios {
+            background-color: #3D4146;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #F5A623;
+            margin: 20px 0;
+        }
+
+        .principios-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .principio {
+            background-color: #2E3A46;
+            padding: 15px;
+            border-radius: 8px;
+            border: 2px solid;
+            text-align: center;
+        }
+
+        .perceptivel { border-color: #4A90E2; }
+        .operavel { border-color: #7ED321; }
+        .compreensivel { border-color: #F5A623; }
+        .robusto { border-color: #FF6B6B; }
+
+        /* ============================================================= */
+        /* = ELEMENTOS SEMÂNTICOS                                     = */
+        /* ============================================================= */
+        /* HTML semântico facilita navegação por leitores de tela */
+
+        .semantica-demo {
+            background-color: #3D4146;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .elemento-semantico {
+            background-color: #2E3A46;
+            padding: 15px;
+            border-radius: 8px;
+            border: 2px solid #7ED321;
+            margin: 10px 0;
+        }
+
+        .elemento-semantico h4 {
+            color: #7ED321;
+            margin-bottom: 10px;
+        }
+
+        /* ============================================================= */
+        /* = ARIA (Accessible Rich Internet Applications)            = */
+        /* ============================================================= */
+        /* Atributos ARIA melhoram acessibilidade de elementos dinâmicos */
+
+        .aria-exemplos {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .aria-exemplo {
+            background-color: #3D4146;
+            padding: 20px;
+            border-radius: 8px;
+            border: 2px solid #F5A623;
+        }
+
+        .aria-exemplo h4 {
+            color: #F5A623;
+            margin-bottom: 15px;
+        }
+
+        /* ============================================================= */
+        /* = NAVEGAÇÃO POR TECLADO                                    = */
+        /* ============================================================= */
+        /* Elementos devem ser navegáveis por teclado */
+
+        .navegacao-teclado {
+            background-color: #3D4146;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .elemento-focavel {
+            display: inline-block;
+            padding: 10px 15px;
+            margin: 5px;
+            background-color: #4A90E2;
+            color: white;
+            border: 2px solid transparent;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .elemento-focavel:focus {
+            outline: 3px solid #7ED321;
+            outline-offset: 2px;
+            border-color: #7ED321;
+            background-color: #7ED321;
+            color: #2E3A46;
+        }
+
+        .elemento-focavel:hover {
+            background-color: #357ABD;
+        }
+
+        /* ============================================================= */
+        /* = CONTRASTE E CORES                                        = */
+        /* ============================================================= */
+        /* Cores devem ter contraste adequado (mínimo 4.5:1) */
+
+        .contraste-exemplos {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .contraste-item {
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .contraste-bom {
+            background-color: #000;
+            color: #fff;
+            border: 2px solid #7ED321;
+        }
+
+        .contraste-ruim {
+            background-color: #888;
+            color: #aaa;
+            border: 2px solid #FF6B6B;
+        }
+
+        .contraste-medio {
+            background-color: #333;
+            color: #fff;
+            border: 2px solid #F5A623;
+        }
+
+        /* ============================================================= */
+        /* = FORMULÁRIOS ACESSÍVEIS                                   = */
+        /* ============================================================= */
+        /* Demonstração de formulário totalmente acessível */
+
+        .form-acessivel {
+            background-color: #fff;
+            color: #333;
+            padding: 30px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .form-acessivel fieldset {
+            border: 2px solid #7ED321;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .form-acessivel legend {
+            background-color: #7ED321;
+            color: #2E3A46;
+            padding: 8px 15px;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+
+        .form-acessivel .campo {
+            margin: 20px 0;
+        }
+
+        .form-acessivel label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #4A90E2;
+        }
+
+        .form-acessivel input,
+        .form-acessivel textarea,
+        .form-acessivel select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .form-acessivel input:focus,
+        .form-acessivel textarea:focus,
+        .form-acessivel select:focus {
+            outline: 3px solid #4A90E2;
+            outline-offset: 2px;
+            border-color: #4A90E2;
+        }
+
+        .form-acessivel .ajuda {
+            font-size: 14px;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        .form-acessivel .erro {
+            color: #d32f2f;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+
+        .form-acessivel .sucesso {
+            color: #388e3c;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+
+        /* ============================================================= */
+        /* = TÍTULOS E ORGANIZAÇÃO                                    = */
+        /* ============================================================= */
+        h1, h2 {
+            text-align: center;
+            margin: 30px 0 20px 0;
+        }
+
+        h1 {
+            color: #7ED321;
+            font-size: 28px;
+        }
+
+        h2 {
+            color: #4A90E2;
+            font-size: 20px;
+            border-bottom: 2px solid #4A90E2;
+            padding-bottom: 10px;
+        }
+
+        .secao {
+            margin: 40px 0;
+        }
+
+        .codigo-exemplo {
+            background-color: #3D4146;
+            border-left: 4px solid #7ED321;
+            padding: 15px;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+            border-radius: 5px;
+            white-space: pre-wrap;
+            line-height: 1.8;
+        }
+
+        .destaque {
+            background-color: #F5A623;
+            color: #2E3A46;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+            font-weight: bold;
+        }
+
+        .importante {
+            background-color: rgba(255, 107, 107, 0.2);
+            border: 1px solid #FF6B6B;
+            color: #FF6B6B;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+
+        .dica {
+            background-color: rgba(126, 211, 33, 0.2);
+            border: 1px solid #7ED321;
+            color: #7ED321;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+
+        .sucesso {
+            background-color: rgba(126, 211, 33, 0.2);
+            border: 1px solid #7ED321;
+            color: #7ED321;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+
+        /* Skip link para navegação rápida */
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 6px;
+            background: #000;
+            color: #fff;
+            padding: 8px;
+            z-index: 1000;
+            text-decoration: none;
+            border-radius: 0 0 8px 8px;
+        }
+
+        .skip-link:focus {
+            top: 0;
+        }
+
+    </style>
+</head>
+<body>
+
+<!-- Skip link para usuários de teclado -->
+<a href="#conteudo-principal" class="skip-link">Pular para o conteúdo principal</a>
+
+<div class="navegacao">
+    <a href="index.html">🏠 Início</a>
+    <a href="08-formularios.html">⬅️ Anterior</a>
+    <span style="color: #666;">🏁 Último Tópico</span>
+</div>
+
+<main id="conteudo-principal">
+<h1>♿ Acessibilidade e Inclusão</h1>
+
+<div class="secao">
+    <h2>🎯 Princípios Fundamentais</h2>
+    
+    <div class="principios">
+        <h3 style="color: #F5A623; margin-bottom: 15px;">WCAG 2.1 - 4 Pilares da Acessibilidade</h3>
+        <div class="principios-grid">
+            <div class="principio perceptivel">
+                <strong>1. PERCEPTÍVEL</strong><br>
+                <small>👁️ Informação e elementos da UI devem ser apresentados de forma que usuários possam percebê-los</small>
+            </div>
+            <div class="principio operavel">
+                <strong>2. OPERÁVEL</strong><br>
+                <small>⌨️ Componentes da UI e navegação devem ser operáveis por todos</small>
+            </div>
+            <div class="principio compreensivel">
+                <strong>3. COMPREENSÍVEL</strong><br>
+                <small>🧠 Informação e operação da UI devem ser compreensíveis</small>
+            </div>
+            <div class="principio robusto">
+                <strong>4. ROBUSTO</strong><br>
+                <small>🔧 Conteúdo deve ser robusto o suficiente para diferentes tecnologias</small>
+            </div>
+        </div>
+    </div>
+
+    <div class="codigo-exemplo">
+&lt;!-- Estrutura semântica básica --&gt;
+&lt;!DOCTYPE html&gt;
+&lt;html lang="pt-BR"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;Título Descritivo da Página&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;header role="banner"&gt;
+        &lt;nav role="navigation" aria-label="Menu principal"&gt;
+            &lt;!-- navegação --&gt;
+        &lt;/nav&gt;
+    &lt;/header&gt;
+    
+    &lt;main role="main"&gt;
+        &lt;!-- conteúdo principal --&gt;
+    &lt;/main&gt;
+    
+    &lt;aside role="complementary"&gt;
+        &lt;!-- conteúdo relacionado --&gt;
+    &lt;/aside&gt;
+    
+    &lt;footer role="contentinfo"&gt;
+        &lt;!-- informações da página --&gt;
+    &lt;/footer&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+    </div>
+</div>
+
+<div class="secao">
+    <h2>🏗️ HTML Semântico</h2>
+    
+    <div class="semantica-demo">
+        <div class="elemento-semantico">
+            <h4>&lt;header&gt; - Cabeçalho</h4>
+            <p>Contém informações introdutórias ou elementos de navegação</p>
+            <div class="codigo-exemplo">
+&lt;header&gt;
+    &lt;h1&gt;Nome do Site&lt;/h1&gt;
+    &lt;nav&gt;...&lt;/nav&gt;
+&lt;/header&gt;
+            </div>
+        </div>
+
+        <div class="elemento-semantico">
+            <h4>&lt;nav&gt; - Navegação</h4>
+            <p>Seção de links de navegação principais</p>
+            <div class="codigo-exemplo">
+&lt;nav aria-label="Menu principal"&gt;
+    &lt;ul&gt;
+        &lt;li&gt;&lt;a href="#home"&gt;Início&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href="#sobre"&gt;Sobre&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+&lt;/nav&gt;
+            </div>
+        </div>
+
+        <div class="elemento-semantico">
+            <h4>&lt;main&gt; - Conteúdo Principal</h4>
+            <p>Conteúdo principal único da página (apenas um por página)</p>
+            <div class="codigo-exemplo">
+&lt;main&gt;
+    &lt;article&gt;
+        &lt;h1&gt;Artigo Principal&lt;/h1&gt;
+        &lt;!-- conteúdo --&gt;
+    &lt;/article&gt;
+&lt;/main&gt;
+            </div>
+        </div>
+
+        <div class="elemento-semantico">
+            <h4>&lt;section&gt; vs &lt;article&gt; vs &lt;aside&gt;</h4>
+            <p>Diferentes tipos de agrupamento de conteúdo</p>
+            <div class="codigo-exemplo">
+&lt;section&gt;&lt;!-- Seção temática --&gt;
+    &lt;h2&gt;Capítulo 1&lt;/h2&gt;
+    &lt;p&gt;Conteúdo da seção...&lt;/p&gt;
+&lt;/section&gt;
+
+&lt;article&gt;&lt;!-- Conteúdo independente --&gt;
+    &lt;h2&gt;Post do Blog&lt;/h2&gt;
+    &lt;p&gt;Artigo completo...&lt;/p&gt;
+&lt;/article&gt;
+
+&lt;aside&gt;&lt;!-- Conteúdo relacionado --&gt;
+    &lt;h3&gt;Leia também&lt;/h3&gt;
+    &lt;!-- links relacionados --&gt;
+&lt;/aside&gt;
+            </div>
+        </div>
+    </div>
+
+    <div class="destaque">
+        <strong>🎯 Benefícios do HTML semântico:</strong> Leitores de tela navegam facilmente, SEO melhorado, código mais limpo e manutenível.
+    </div>
+</div>
+
+<div class="secao">
+    <h2>🎭 Atributos ARIA</h2>
+    
+    <div class="aria-exemplos">
+        <div class="aria-exemplo">
+            <h4>aria-label</h4>
+            <p>Fornece nome acessível para elemento</p>
+            <div class="codigo-exemplo">
+&lt;button aria-label="Fechar janela"&gt;
+    &lt;span aria-hidden="true"&gt;×&lt;/span&gt;
+&lt;/button&gt;
+
+&lt;input type="search" 
+       aria-label="Buscar produtos"&gt;
+            </div>
+        </div>
+
+        <div class="aria-exemplo">
+            <h4>aria-describedby</h4>
+            <p>Referencia descrição adicional</p>
+            <div class="codigo-exemplo">
+&lt;input type="password" 
+       aria-describedby="senha-ajuda"&gt;
+&lt;div id="senha-ajuda"&gt;
+    Mínimo 8 caracteres
+&lt;/div&gt;
+            </div>
+        </div>
+
+        <div class="aria-exemplo">
+            <h4>aria-expanded</h4>
+            <p>Indica se elemento está expandido</p>
+            <div class="codigo-exemplo">
+&lt;button aria-expanded="false" 
+        aria-controls="menu"&gt;
+    Menu
+&lt;/button&gt;
+&lt;ul id="menu" hidden&gt;
+    &lt;li&gt;Item 1&lt;/li&gt;
+&lt;/ul&gt;
+            </div>
+        </div>
+
+        <div class="aria-exemplo">
+            <h4>aria-live</h4>
+            <p>Anuncia mudanças dinâmicas</p>
+            <div class="codigo-exemplo">
+&lt;div aria-live="polite" 
+     id="status"&gt;&lt;/div&gt;
+
+&lt;div aria-live="assertive" 
+     id="erro"&gt;&lt;/div&gt;
+
+&lt;!-- polite: anuncia quando conveniente
+     assertive: anuncia imediatamente --&gt;
+            </div>
+        </div>
+
+        <div class="aria-exemplo">
+            <h4>role</h4>
+            <p>Define função do elemento</p>
+            <div class="codigo-exemplo">
+&lt;div role="button" 
+     tabindex="0"&gt;
+    Botão customizado
+&lt;/div&gt;
+
+&lt;div role="alert"&gt;
+    Erro: preencha o campo
+&lt;/div&gt;
+            </div>
+        </div>
+
+        <div class="aria-exemplo">
+            <h4>aria-hidden</h4>
+            <p>Esconde elemento de leitores de tela</p>
+            <div class="codigo-exemplo">
+&lt;span aria-hidden="true"&gt;🎉&lt;/span&gt;
+Parabéns!
+
+&lt;img src="decorativo.jpg" 
+     alt="" 
+     aria-hidden="true"&gt;
+            </div>
+        </div>
+    </div>
+
+    <div class="importante">
+        <strong>⚠️ Primeira regra do ARIA:</strong> Não use ARIA se existe elemento HTML nativo que faz a mesma coisa. Use &lt;button&gt; em vez de &lt;div role="button"&gt;.
+    </div>
+</div>
+
+<div class="secao">
+    <h2>⌨️ Navegação por Teclado</h2>
+    
+    <div class="navegacao-teclado">
+        <h3 style="color: #7ED321; margin-bottom: 15px;">Teste a navegação por teclado:</h3>
+        <p style="margin-bottom: 15px;">Use Tab, Shift+Tab, Enter, Espaço e setas para navegar:</p>
+        
+        <div style="margin: 20px 0;">
+            <a href="#" class="elemento-focavel">Link 1</a>
+            <button class="elemento-focavel">Botão 2</button>
+            <a href="#" class="elemento-focavel">Link 3</a>
+            <button class="elemento-focavel">Botão 4</button>
+        </div>
+    </div>
+
+    <div class="codigo-exemplo">
+&lt;!-- Elementos naturalmente focáveis --&gt;
+&lt;a href="#"&gt;Link&lt;/a&gt;
+&lt;button&gt;Botão&lt;/button&gt;
+&lt;input type="text"&gt;
+&lt;textarea&gt;&lt;/textarea&gt;
+&lt;select&gt;&lt;/select&gt;
+
+&lt;!-- Tornando elemento focável --&gt;
+&lt;div tabindex="0" role="button"&gt;
+    Div focável
+&lt;/div&gt;
+
+&lt;!-- Removendo do tab order --&gt;
+&lt;button tabindex="-1"&gt;
+    Não focável por tab
+&lt;/button&gt;
+
+&lt;!-- CSS para indicação visual de foco --&gt;
+&lt;style&gt;
+.elemento:focus {
+    outline: 3px solid #0066cc;
+    outline-offset: 2px;
+}
+
+/* Nunca remova outline sem alternativa! */
+.botao:focus {
+    outline: none; /* ❌ RUIM */
+    box-shadow: 0 0 0 3px #0066cc; /* ✅ BOM */
+}
+&lt;/style&gt;
+    </div>
+
+    <div class="dica">
+        <strong>💡 Teclas importantes:</strong><br>
+        • <strong>Tab:</strong> próximo elemento<br>
+        • <strong>Shift+Tab:</strong> elemento anterior<br>
+        • <strong>Enter:</strong> ativar link/botão<br>
+        • <strong>Espaço:</strong> ativar botão<br>
+        • <strong>Setas:</strong> navegação em grupos (radio, menu)<br>
+        • <strong>Esc:</strong> fechar modal/menu
+    </div>
+</div>
+
+<div class="secao">
+    <h2>🎨 Contraste e Cores</h2>
+    
+    <div class="contraste-exemplos">
+        <div class="contraste-item contraste-bom">
+            ✅ Contraste Bom<br>
+            <small>Preto no branco<br>Razão: 21:1</small>
+        </div>
+        
+        <div class="contraste-item contraste-medio">
+            ⚠️ Contraste Médio<br>
+            <small>Cinza escuro no branco<br>Razão: 6.5:1</small>
+        </div>
+        
+        <div class="contraste-item contraste-ruim">
+            ❌ Contraste Ruim<br>
+            <small>Cinza claro no cinza<br>Razão: 1.8:1</small>
+        </div>
+    </div>
+
+    <div class="codigo-exemplo">
+&lt;!-- ✅ Boas práticas de cor --&gt;
+
+&lt;!-- Use além da cor para transmitir informação --&gt;
+&lt;span class="erro"&gt;❌ Campo obrigatório&lt;/span&gt;
+&lt;span class="sucesso"&gt;✅ Salvo com sucesso&lt;/span&gt;
+
+&lt;!-- Contraste mínimo (WCAG AA) --&gt;
+&lt;!-- Texto normal: 4.5:1 --&gt;
+&lt;!-- Texto grande (18pt+): 3:1 --&gt;
+&lt;!-- Elementos gráficos: 3:1 --&gt;
+
+&lt;style&gt;
+/* ✅ Contraste adequado */
+.texto-normal {
+    color: #333; /* em fundo #fff - 12.6:1 */
+}
+
+.texto-grande {
+    color: #666; /* em fundo #fff - 5.7:1 */
+    font-size: 18pt;
+}
+
+/* ❌ Contraste insuficiente */
+.texto-ruim {
+    color: #ccc; /* em fundo #fff - 1.6:1 */
+}
+&lt;/style&gt;
+    </div>
+
+    <div class="importante">
+        <strong>⚠️ Ferramentas para testar contraste:</strong><br>
+        • WebAIM Contrast Checker<br>
+        • Colour Contrast Analyser<br>
+        • DevTools do Chrome (Lighthouse)<br>
+        • Stark (plugin Figma/Sketch)
+    </div>
+</div>
+
+<div class="secao">
+    <h2>📝 Formulário Acessível Completo</h2>
+    
+    <div class="form-acessivel">
+        <form action="#" method="POST" novalidate>
+            <fieldset>
+                <legend>Cadastro de Usuário</legend>
+                
+                <div class="campo">
+                    <label for="nome-completo">
+                        Nome Completo *
+                    </label>
+                    <input type="text" 
+                           id="nome-completo" 
+                           name="nome" 
+                           required 
+                           aria-describedby="nome-ajuda"
+                           autocomplete="name">
+                    <div id="nome-ajuda" class="ajuda">
+                        Digite seu nome completo como aparece no documento
+                    </div>
+                </div>
+                
+                <div class="campo">
+                    <label for="email-usuario">
+                        E-mail *
+                    </label>
+                    <input type="email" 
+                           id="email-usuario" 
+                           name="email" 
+                           required 
+                           aria-describedby="email-erro"
+                           autocomplete="email">
+                    <div id="email-erro" class="erro" role="alert" style="display: none;">
+                        Formato de e-mail inválido
+                    </div>
+                </div>
+                
+                <div class="campo">
+                    <label for="senha-usuario">
+                        Senha *
+                    </label>
+                    <input type="password" 
+                           id="senha-usuario" 
+                           name="senha" 
+                           required 
+                           minlength="8"
+                           aria-describedby="senha-requisitos"
+                           autocomplete="new-password">
+                    <div id="senha-requisitos" class="ajuda">
+                        Mínimo 8 caracteres, incluindo números e letras
+                    </div>
+                </div>
+                
+                <fieldset>
+                    <legend>Notificações</legend>
+                    
+                    <div style="margin: 10px 0;">
+                        <input type="radio" 
+                               id="notif-todas" 
+                               name="notificacoes" 
+                               value="todas" 
+                               checked>
+                        <label for="notif-todas">Receber todas as notificações</label>
+                    </div>
+                    
+                    <div style="margin: 10px 0;">
+                        <input type="radio" 
+                               id="notif-importantes" 
+                               name="notificacoes" 
+                               value="importantes">
+                        <label for="notif-importantes">Apenas notificações importantes</label>
+                    </div>
+                    
+                    <div style="margin: 10px 0;">
+                        <input type="radio" 
+                               id="notif-nenhuma" 
+                               name="notificacoes" 
+                               value="nenhuma">
+                        <label for="notif-nenhuma">Não receber notificações</label>
+                    </div>
+                </fieldset>
+                
+                <div class="campo">
+                    <input type="checkbox" 
+                           id="termos" 
+                           name="aceita_termos" 
+                           required 
+                           aria-describedby="termos-erro">
+                    <label for="termos">
+                        Aceito os <a href="#termos-uso">termos de uso</a> *
+                    </label>
+                    <div id="termos-erro" class="erro" role="alert" style="display: none;">
+                        Você deve aceitar os termos para continuar
+                    </div>
+                </div>
+                
+                <div style="margin-top: 20px;">
+                    <button type="submit">Criar Conta</button>
+                    <button type="reset">Limpar Formulário</button>
+                </div>
+            </fieldset>
+        </form>
+        
+        <!-- Status das ações -->
+        <div aria-live="polite" aria-atomic="true" id="status-formulario" style="margin-top: 15px;">
+            <!-- Mensagens de sucesso/erro aparecerão aqui -->
+        </div>
+    </div>
+
+    <div class="sucesso">
+        <strong>✅ Este formulário implementa:</strong><br>
+        • Labels associados (for + id)<br>
+        • Fieldsets para agrupamento<br>
+        • Descrições com aria-describedby<br>
+        • Mensagens de erro com role="alert"<br>
+        • Status dinâmico com aria-live<br>
+        • Autocomplete para facilitar preenchimento
+    </div>
+</div>
+
+<div class="secao">
+    <h2>🧪 Testando Acessibilidade</h2>
+    
+    <div class="aria-exemplos">
+        <div class="aria-exemplo">
+            <h4>🤖 Testes Automatizados</h4>
+            <ul style="margin: 10px 0; color: #F5A623;">
+                <li>Lighthouse (Chrome DevTools)</li>
+                <li>axe DevTools</li>
+                <li>WAVE (Web Accessibility Evaluation Tool)</li>
+                <li>Pa11y (linha de comando)</li>
+            </ul>
+        </div>
+
+        <div class="aria-exemplo">
+            <h4>👥 Testes Manuais</h4>
+            <ul style="margin: 10px 0; color: #F5A623;">
+                <li>Navegação apenas por teclado</li>
+                <li>Leitores de tela (NVDA, JAWS, VoiceOver)</li>
+                <li>Zoom até 200%</li>
+                <li>Verificação de contraste</li>
+            </ul>
+        </div>
+
+        <div class="aria-exemplo">
+            <h4>📱 Testes Mobile</h4>
+            <ul style="margin: 10px 0; color: #F5A623;">
+                <li>TalkBack (Android)</li>
+                <li>VoiceOver (iOS)</li>
+                <li>Switch Control</li>
+                <li>Voice Control</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="codigo-exemplo">
+&lt;!-- Checklist básico de acessibilidade --&gt;
+
+✅ HTML semântico (header, nav, main, footer)
+✅ Hierarquia de títulos (h1 → h2 → h3)
+✅ Alt text em imagens informativas
+✅ Labels em campos de formulário
+✅ Contraste mínimo 4.5:1
+✅ Navegação por teclado funcional
+✅ Focus visível em elementos interativos
+✅ Linguagem definida (lang="pt-BR")
+✅ Títulos de página descritivos
+✅ Links com texto compreensível
+✅ Erro e sucesso claramente indicados
+✅ Conteúdo estruturado logicamente
+    </div>
+</div>
+
+<div class="secao">
+    <h2>✨ Exemplo Prático Completo</h2>
+    
+    <div class="codigo-exemplo">
+&lt;!DOCTYPE html&gt;
+&lt;html lang="pt-BR"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;Blog Acessível - Dicas de Tecnologia&lt;/title&gt;
+    &lt;style&gt;
+        /* Reset básico */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        /* Skip link */
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 6px;
+            background: #000;
+            color: #fff;
+            padding: 8px;
+            z-index: 1000;
+            text-decoration: none;
+        }
+        .skip-link:focus {
+            top: 0;
+        }
+        
+        /* Focus visível */
+        a:focus,
+        button:focus,
+        input:focus,
+        textarea:focus {
+            outline: 3px solid #005fcc;
+            outline-offset: 2px;
+        }
+        
+        /* Cores com contraste adequado */
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333; /* 12.6:1 contraste */
+            background: #fff;
+        }
+        
+        .erro {
+            color: #d32f2f; /* 7.2:1 contraste */
+        }
+        
+        .sucesso {
+            color: #2e7d32; /* 7.4:1 contraste */
+        }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;!-- Skip link para usuários de teclado --&gt;
+    &lt;a href="#main" class="skip-link"&gt;
+        Pular para o conteúdo principal
+    &lt;/a&gt;
+    
+    &lt;header role="banner"&gt;
+        &lt;h1&gt;Blog Acessível&lt;/h1&gt;
+        &lt;nav role="navigation" aria-label="Navegação principal"&gt;
+            &lt;ul&gt;
+                &lt;li&gt;&lt;a href="#home"&gt;Início&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href="#artigos"&gt;Artigos&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href="#sobre"&gt;Sobre&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href="#contato"&gt;Contato&lt;/a&gt;&lt;/li&gt;
+            &lt;/ul&gt;
+        &lt;/nav&gt;
+    &lt;/header&gt;
+    
+    &lt;main id="main" role="main"&gt;
+        &lt;article&gt;
+            &lt;header&gt;
+                &lt;h2&gt;Como tornar seu site acessível&lt;/h2&gt;
+                &lt;p&gt;
+                    &lt;time datetime="2024-01-15"&gt;15 de janeiro de 2024&lt;/time&gt;
+                    por &lt;span&gt;João Silva&lt;/span&gt;
+                &lt;/p&gt;
+            &lt;/header&gt;
+            
+            &lt;section&gt;
+                &lt;h3&gt;Introdução&lt;/h3&gt;
+                &lt;p&gt;Acessibilidade web é essencial...&lt;/p&gt;
+                
+                &lt;figure&gt;
+                    &lt;img src="acessibilidade.jpg" 
+                         alt="Pessoa usando leitor de tela para navegar em um site"&gt;
+                    &lt;figcaption&gt;
+                        Tecnologias assistivas ajudam milhões de pessoas
+                    &lt;/figcaption&gt;
+                &lt;/figure&gt;
+            &lt;/section&gt;
+            
+            &lt;section&gt;
+                &lt;h3&gt;Dicas práticas&lt;/h3&gt;
+                &lt;ol&gt;
+                    &lt;li&gt;Use HTML semântico&lt;/li&gt;
+                    &lt;li&gt;Teste com leitores de tela&lt;/li&gt;
+                    &lt;li&gt;Verifique contraste de cores&lt;/li&gt;
+                &lt;/ol&gt;
+            &lt;/section&gt;
+        &lt;/article&gt;
+        
+        &lt;section aria-label="Comentários"&gt;
+            &lt;h2&gt;Comentários (3)&lt;/h2&gt;
+            
+            &lt;form method="POST"&gt;
+                &lt;fieldset&gt;
+                    &lt;legend&gt;Deixe seu comentário&lt;/legend&gt;
+                    
+                    &lt;label for="nome"&gt;Nome *&lt;/label&gt;
+                    &lt;input type="text" id="nome" name="nome" required&gt;
+                    
+                    &lt;label for="comentario"&gt;Comentário *&lt;/label&gt;
+                    &lt;textarea id="comentario" name="comentario" 
+                              rows="4" required&gt;&lt;/textarea&gt;
+                    
+                    &lt;button type="submit"&gt;Enviar Comentário&lt;/button&gt;
+                &lt;/fieldset&gt;
+            &lt;/form&gt;
+        &lt;/section&gt;
+    &lt;/main&gt;
+    
+    &lt;aside role="complementary"&gt;
+        &lt;h2&gt;Artigos relacionados&lt;/h2&gt;
+        &lt;ul&gt;
+            &lt;li&gt;&lt;a href="#"&gt;WCAG 2.1 explicado&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href="#"&gt;Testes com NVDA&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+    &lt;/aside&gt;
+    
+    &lt;footer role="contentinfo"&gt;
+        &lt;p&gt;&amp;copy; 2024 Blog Acessível. Todos os direitos reservados.&lt;/p&gt;
+        &lt;nav aria-label="Links do rodapé"&gt;
+            &lt;a href="#"&gt;Política de Privacidade&lt;/a&gt;
+            &lt;a href="#"&gt;Termos de Uso&lt;/a&gt;
+        &lt;/nav&gt;
+    &lt;/footer&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+    </div>
+</div>
+
+</main>
+
+<br><br>
+<div class="navegacao">
+    <a href="index.html">🏠 Início</a>
+    <a href="08-formularios.html">⬅️ Anterior</a>
+    <span style="color: #7ED321; font-weight: bold;">🏁 Aula Completa!</span>
+</div>
+
+<hr style="border-color: #4A90E2; margin: 20px 0;">
+<p style="text-align: center; color: #4A90E2;">Dev by <strong>Maugus</strong> em HTML puro 📙</p>
+
+</body>
+</html> 
