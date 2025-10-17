@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 💬 Discussions (Perguntas e Dúvidas)
+    url: https://github.com/MAUGUS2/webApps/discussions
+    about: Faça perguntas, compartilhe ideias e interaja com a comunidade
+  - name: 📧 Email de Contato
+    url: mailto:maugus.lco@gmail.com
+    about: Entre em contato direto com o mantenedor do projeto
+  - name: 📚 Documentação
+    url: https://github.com/MAUGUS2/webApps/blob/main/README.md
+    about: Leia a documentação completa do projeto

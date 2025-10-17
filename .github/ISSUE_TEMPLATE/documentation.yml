@@ -1,0 +1,106 @@
+name: 📝 Documentation
+description: Reportar problemas ou sugerir melhorias na documentação
+title: "[DOCS]: "
+labels: ["documentation", "needs-triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Obrigado por ajudar a melhorar nossa documentação!
+
+  - type: dropdown
+    id: type
+    attributes:
+      label: Tipo de Problema
+      description: Qual é o problema com a documentação?
+      options:
+        - 📝 Erro/Typo
+        - ❓ Falta de clareza
+        - 🔍 Informação faltando
+        - 🔄 Informação desatualizada
+        - 🎨 Formatação/Apresentação
+        - 🌍 Tradução
+        - 📊 Necessita diagrama/imagem
+        - Outro
+    validations:
+      required: true
+
+  - type: dropdown
+    id: location
+    attributes:
+      label: Localização
+      description: Onde está o problema?
+      options:
+        - README.md
+        - CONTRIBUTING.md
+        - ARCHITECTURE.md
+        - CODE_OF_CONDUCT.md
+        - DEPLOY.md
+        - Aula 1 - HTML
+        - Aula 2 - CSS
+        - Aula 3 - CSS Avançado
+        - Aula 4 - HTML Semântico
+        - Aula 5 - JavaScript Parte 1
+        - Aula 6 - JavaScript Parte 2
+        - Múltiplos arquivos
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Descrição do Problema
+      description: Descreva claramente o problema com a documentação
+      placeholder: Explique o que está errado ou confuso...
+    validations:
+      required: true
+
+  - type: input
+    id: link
+    attributes:
+      label: Link para o Arquivo
+      description: Se possível, forneça um link direto para o arquivo no GitHub
+      placeholder: https://github.com/MAUGUS2/webApps/blob/main/...
+
+  - type: textarea
+    id: current
+    attributes:
+      label: Conteúdo Atual
+      description: Se aplicável, copie o texto atual que precisa ser corrigido
+      placeholder: Cole aqui o conteúdo problemático...
+      render: markdown
+
+  - type: textarea
+    id: suggestion
+    attributes:
+      label: Sugestão de Melhoria
+      description: Como você sugere que a documentação seja melhorada?
+      placeholder: Sua sugestão de como melhorar ou corrigir...
+      render: markdown
+    validations:
+      required: true
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: Contexto Adicional
+      description: Qualquer outra informação relevante
+      placeholder: Screenshots, links, etc...
+
+  - type: checkboxes
+    id: contribution
+    attributes:
+      label: Contribuição
+      description: Você gostaria de contribuir?
+      options:
+        - label: Posso criar um PR com a correção/melhoria
+        - label: Preciso de ajuda para implementar a melhoria
+
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Compromisso
+      description: Ao enviar este issue, você concorda em:
+      options:
+        - label: Seguir o [Código de Conduta](../CODE_OF_CONDUCT.md)
+          required: true

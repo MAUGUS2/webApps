@@ -1,0 +1,138 @@
+name: ✨ Feature Request
+description: Sugerir uma nova funcionalidade ou melhoria
+title: "[FEATURE]: "
+labels: ["enhancement", "needs-triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Obrigado por sugerir uma melhoria! Suas ideias nos ajudam a construir um curso melhor.
+
+  - type: checkboxes
+    id: pre-check
+    attributes:
+      label: Verificações Prévias
+      description: Antes de continuar, por favor verifique:
+      options:
+        - label: Pesquisei nas [issues existentes](https://github.com/MAUGUS2/webApps/issues) e não encontrei sugestões similares
+          required: true
+        - label: Li a [documentação](../README.md) e [guia de contribuição](../CONTRIBUTING.md)
+          required: true
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: Esta sugestão está relacionada a um problema?
+      description: Uma descrição clara e concisa do problema
+      placeholder: ex. Fico frustrado quando [...] ou Seria útil se [...]
+    validations:
+      required: true
+
+  - type: textarea
+    id: solution
+    attributes:
+      label: Solução Proposta
+      description: Descreva a solução ou funcionalidade que você gostaria de ver implementada
+      placeholder: Descreva sua ideia em detalhes...
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternativas Consideradas
+      description: Descreva outras soluções ou funcionalidades que você considerou
+      placeholder: Outras abordagens possíveis...
+
+  - type: dropdown
+    id: category
+    attributes:
+      label: Categoria da Melhoria
+      description: Qual área esta sugestão afeta?
+      options:
+        - 📚 Conteúdo Educacional
+        - 🎨 Design/UI/UX
+        - 🚀 Funcionalidade Nova
+        - ⚡ Performance
+        - ♿ Acessibilidade
+        - 📱 Responsividade
+        - 🧪 Exercícios/Prática
+        - 📝 Documentação
+        - 🌍 Internacionalização
+        - 🔧 Infraestrutura/Deploy
+        - Outro
+    validations:
+      required: true
+
+  - type: dropdown
+    id: lesson
+    attributes:
+      label: Aula Relacionada
+      description: Esta sugestão é para uma aula específica?
+      options:
+        - Índice Geral
+        - Aula 1 - HTML
+        - Aula 2 - CSS
+        - Aula 3 - CSS Avançado
+        - Aula 4 - HTML Semântico
+        - Aula 5 - JavaScript Parte 1
+        - Aula 6 - JavaScript Parte 2
+        - Todas as aulas
+        - Projeto como um todo
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Prioridade (na sua opinião)
+      description: Quão importante você considera esta melhoria?
+      options:
+        - 🔴 Alta - Impacta significativamente a experiência
+        - 🟡 Média - Seria uma melhoria útil
+        - 🟢 Baixa - Nice to have
+    validations:
+      required: true
+
+  - type: textarea
+    id: mockups
+    attributes:
+      label: Mockups / Screenshots / Exemplos
+      description: Se aplicável, adicione imagens, links ou exemplos de referência
+      placeholder: Cole ou arraste imagens aqui, ou adicione links...
+
+  - type: textarea
+    id: benefits
+    attributes:
+      label: Benefícios
+      description: Como esta melhoria beneficiaria os usuários do curso?
+      placeholder: |
+        - Melhora a experiência de aprendizado porque...
+        - Facilita a navegação ao...
+        - Aumenta o engajamento através de...
+
+  - type: checkboxes
+    id: contribution
+    attributes:
+      label: Contribuição
+      description: Você gostaria de contribuir com a implementação?
+      options:
+        - label: Estou disposto(a) a trabalhar nesta funcionalidade
+        - label: Posso ajudar com testes/feedback
+        - label: Posso ajudar com documentação
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: Contexto Adicional
+      description: Qualquer outra informação relevante sobre a sugestão
+      placeholder: Informações adicionais, links úteis, etc...
+
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Compromisso
+      description: Ao enviar este issue, você concorda em:
+      options:
+        - label: Seguir o [Código de Conduta](../CODE_OF_CONDUCT.md)
+          required: true
+        - label: Aceitar que a sugestão pode ou não ser implementada
+          required: true

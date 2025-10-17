@@ -1,0 +1,136 @@
+name: 🐛 Bug Report
+description: Reportar um bug ou comportamento inesperado
+title: "[BUG]: "
+labels: ["bug", "needs-triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Obrigado por reportar um bug! Isso nos ajuda a melhorar o projeto.
+
+  - type: checkboxes
+    id: pre-check
+    attributes:
+      label: Verificações Prévias
+      description: Antes de continuar, por favor verifique:
+      options:
+        - label: Pesquisei nas [issues existentes](https://github.com/MAUGUS2/webApps/issues) e não encontrei duplicatas
+          required: true
+        - label: Estou usando a versão mais recente do projeto
+          required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Descrição do Bug
+      description: Uma descrição clara e concisa do bug
+      placeholder: Explique o que aconteceu...
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Passos para Reproduzir
+      description: Como reproduzir o comportamento?
+      placeholder: |
+        1. Vá para '...'
+        2. Clique em '...'
+        3. Role até '...'
+        4. Veja o erro
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Comportamento Esperado
+      description: O que você esperava que acontecesse?
+      placeholder: Descreva o comportamento correto esperado...
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: Comportamento Atual
+      description: O que realmente aconteceu?
+      placeholder: Descreva o que ocorreu...
+    validations:
+      required: true
+
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: Screenshots
+      description: Se aplicável, adicione screenshots para ajudar a explicar o problema
+      placeholder: Cole ou arraste imagens aqui...
+
+  - type: dropdown
+    id: browser
+    attributes:
+      label: Navegador
+      description: Em qual navegador o bug ocorre?
+      options:
+        - Chrome/Edge
+        - Firefox
+        - Safari
+        - Opera
+        - Outro (especifique no contexto adicional)
+    validations:
+      required: true
+
+  - type: dropdown
+    id: device
+    attributes:
+      label: Tipo de Dispositivo
+      description: Onde você encontrou o bug?
+      options:
+        - Desktop/Laptop
+        - Tablet
+        - Mobile/Smartphone
+    validations:
+      required: true
+
+  - type: input
+    id: os
+    attributes:
+      label: Sistema Operacional
+      description: Qual sistema operacional você está usando?
+      placeholder: ex. macOS 14.0, Windows 11, Ubuntu 22.04
+    validations:
+      required: true
+
+  - type: dropdown
+    id: lesson
+    attributes:
+      label: Aula Afetada
+      description: Em qual aula o bug ocorre?
+      options:
+        - Índice Geral
+        - Aula 1 - HTML
+        - Aula 2 - CSS
+        - Aula 3 - CSS Avançado
+        - Aula 4 - HTML Semântico
+        - Aula 5 - JavaScript Parte 1
+        - Aula 6 - JavaScript Parte 2
+        - Múltiplas aulas
+        - Não se aplica
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: Contexto Adicional
+      description: Qualquer outra informação relevante sobre o problema
+      placeholder: Detalhes adicionais, links, etc...
+
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Compromisso
+      description: Ao enviar este issue, você concorda em:
+      options:
+        - label: Seguir o [Código de Conduta](../CODE_OF_CONDUCT.md)
+          required: true
+        - label: Fornecer informações precisas e completas
+          required: true
