@@ -153,7 +153,6 @@ start.bat   # Windows
 ├── 📄 CONTRIBUTING.md             # Guia de contribuição
 ├── 📄 ARCHITECTURE.md             # Arquitetura e diagramas
 ├── 📄 CODE_OF_CONDUCT.md          # Código de conduta
-├── 📄 DEPLOY.md                   # Instruções de deploy
 ├── 📄 LICENSE                     # Licença MIT
 ├── 📄 .gitignore                  # Arquivos ignorados
 │

@@ -43,7 +43,6 @@ Este é um **curso educacional estático** construído com:
 ├── 📄 CONTRIBUTING.md            # Guia de contribuição
 ├── 📄 ARCHITECTURE.md            # Este arquivo
 ├── 📄 CODE_OF_CONDUCT.md         # Código de conduta
-├── 📄 DEPLOY.md                  # Instruções de deploy
 ├── 📄 .gitignore                 # Arquivos ignorados pelo git
 │
 ├── 📁 .github/                   # Configurações GitHub
