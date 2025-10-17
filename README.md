@@ -257,7 +257,7 @@ Agradecimento especial a todos que contribuíram e apoiaram este projeto educaci
 
 **[⬆ Voltar ao topo](#-aplicações-web-e-móveis---curso-completo)**
 
-Feito com 💜 e ☕ por desenvolvedores, para desenvolvedores.
+Built by Maugus | Free knowledge, no bullshit 💻
 
 **Compartilhe o conhecimento! 🚀**
 
